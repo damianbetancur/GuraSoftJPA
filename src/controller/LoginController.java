@@ -17,34 +17,31 @@ import view.Login;
  * @author Ariel
  */
 public class LoginController implements ActionListener{
-
     private Login vista;
     private UsuarioJpaController modelo;
 
     public LoginController(Login vista, UsuarioJpaController modelo) {
         this.vista = vista;
         this.modelo = modelo;
-        
     }
-    
-   
-
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        Usuario u = new Usuario();
-        modelo.create(u);
         if (e.getSource()==vista.getIniciarSesion()) {
-                        
-            System.out.println(vista.getUsuario().getText());
-            Bienvenida inicio = new Bienvenida();
-            inicio.setVisible(true);
-            vista.dispose();
+        Usuario u = new Usuario();
+        u.setNombre(vista.getUsuario().getText());
+        u.setClave(vista.getClave().getText());
+            if (modelo.iniciarSesion(u)!=null) {
+                u = modelo.iniciarSesion(u);
+                Bienvenida inicio = new Bienvenida(u.getTipoUsuario().getId().toString());
+                inicio.setVisible(true);
+                vista.dispose();
+                
+                
+            }else{
+                vista.setMensaje("ERROR: usuario o Password incorrecto");
+                vista.limpiar();            
+            }
         }
-        
-
-        
     }
-    
 }

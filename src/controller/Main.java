@@ -5,14 +5,8 @@
  */
 package controller;
 
-import model.Empleado;
-import model.JPAController.EmpleadoJpaController;
 import model.JPAController.UsuarioJpaController;
 import view.*;
-
-
-
-
 
 /**
  *
@@ -20,22 +14,18 @@ import view.*;
  */
 public class Main {
         public static void main(String[] args) {
-
-            
-            //Se Crea Lolgin Vista
+            //Se Crea Login Vista
             Login vista = new Login();
             
-            //Se Crea Modelo controlador JPA            
+            //Se Crea Modelo UsuarioJPAController            
             UsuarioJpaController modelo = new UsuarioJpaController(Conexion.getEmf());
             
-            //Se crea el controlador de Login
+            //Se crea el controlador de LoginController
             LoginController controlador = new LoginController(vista, modelo);
             
             //setea el panel para que sea escuchado por el controlador
             vista.setControlador(controlador);
            
             vista.arranca();
-            
-           
     }
 }

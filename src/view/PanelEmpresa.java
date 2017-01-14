@@ -6,6 +6,7 @@
 package view;
 
 import controller.EmpleadoController;
+import controller.EmpresaController;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -15,14 +16,14 @@ import javax.swing.JTextField;
  *
  * @author Ariel
  */
-public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements InterfacePanel{
+public final class PanelEmpresa extends javax.swing.JPanel  implements InterfacePanel{
 
     /**
      * Creates new form PersonalPanel
      */
     private ValidadorDeCampos validador;
     
-    public PanelRegistroEmpleado() {
+    public PanelEmpresa() {
         initComponents();      
         this.validador = new ValidadorDeCampos();
     }
@@ -38,7 +39,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jPanel1 = new javax.swing.JPanel();
         jlbl_Nombre = new javax.swing.JLabel();
-        jlbl_Apellido = new javax.swing.JLabel();
         jlbl_DNI = new javax.swing.JLabel();
         jlbl_Direccion = new javax.swing.JLabel();
         jlbl_ID = new javax.swing.JLabel();
@@ -46,7 +46,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jtf_Nombre = new javax.swing.JTextField();
         jtf_Direccion = new javax.swing.JTextField();
         jtf_DNI = new javax.swing.JTextField();
-        jtf_Apellido = new javax.swing.JTextField();
         jbtn_Aceptar = new javax.swing.JButton();
         jbtn_Cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -55,13 +54,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         msj_Nombre = new javax.swing.JLabel();
         msj_Apellido = new javax.swing.JLabel();
         msj_DNI = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jbtn_Nuevo = new javax.swing.JButton();
-        jbtn_Modificar = new javax.swing.JButton();
-        jbtn_Listar = new javax.swing.JButton();
-        jbtn_Eliminar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jbtn_Volver = new javax.swing.JButton();
 
@@ -70,25 +62,21 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         setMinimumSize(new java.awt.Dimension(950, 800));
         setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)), "Empleado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jPanel1.setName("Empleado"); // NOI18N
         jPanel1.setLayout(null);
 
-        jlbl_Nombre.setText("Nombre:");
+        jlbl_Nombre.setText("Razon Social");
         jPanel1.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 80, 100, 15);
+        jlbl_Nombre.setBounds(60, 80, 90, 15);
 
-        jlbl_Apellido.setText("Apellido:");
-        jPanel1.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 120, 90, 15);
-
-        jlbl_DNI.setText("DNI:");
+        jlbl_DNI.setText("CUIT");
         jPanel1.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 15);
+        jlbl_DNI.setBounds(60, 120, 80, 15);
 
         jlbl_Direccion.setText("Dirección:");
         jPanel1.add(jlbl_Direccion);
-        jlbl_Direccion.setBounds(60, 190, 100, 15);
+        jlbl_Direccion.setBounds(60, 160, 100, 15);
 
         jlbl_ID.setText("ID:");
         jPanel1.add(jlbl_ID);
@@ -98,11 +86,9 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanel1.add(jtf_Nombre);
         jtf_Nombre.setBounds(160, 80, 272, 19);
         jPanel1.add(jtf_Direccion);
-        jtf_Direccion.setBounds(160, 190, 272, 19);
+        jtf_Direccion.setBounds(160, 160, 272, 19);
         jPanel1.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 150, 272, 19);
-        jPanel1.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 110, 272, 19);
+        jtf_DNI.setBounds(160, 120, 272, 19);
 
         jbtn_Aceptar.setText("ACEPTAR");
         jPanel1.add(jbtn_Aceptar);
@@ -125,51 +111,10 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         msj_DNI.setBounds(480, 150, 0, 0);
 
         add(jPanel1);
-        jPanel1.setBounds(70, 300, 730, 290);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
-        jPanel2.setMinimumSize(new java.awt.Dimension(730, 290));
-        jPanel2.setLayout(null);
-
-        jbtn_Nuevo.setText("Agregar");
-        jPanel2.add(jbtn_Nuevo);
-        jbtn_Nuevo.setBounds(30, 190, 80, 30);
-
-        jbtn_Modificar.setText("Modificar");
-        jPanel2.add(jbtn_Modificar);
-        jbtn_Modificar.setBounds(120, 190, 90, 30);
-
-        jbtn_Listar.setText("Listar");
-        jPanel2.add(jbtn_Listar);
-        jbtn_Listar.setBounds(220, 190, 80, 30);
-
-        jbtn_Eliminar.setText("Eliminar");
-        jPanel2.add(jbtn_Eliminar);
-        jbtn_Eliminar.setBounds(310, 190, 80, 30);
-
-        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tablaEmpleados);
-        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
-            tablaEmpleados.getColumnModel().getColumn(0).setMinWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setMaxWidth(120);
-        }
-
-        jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 30, 680, 150);
-
-        add(jPanel2);
-        jPanel2.setBounds(70, 50, 730, 230);
+        jPanel1.setBounds(70, 50, 730, 290);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE EMPLEADOS");
+        jLabel4.setText("GESTIÓN DE EMPRESA");
         add(jLabel4);
         jLabel4.setBounds(300, 10, 250, 30);
 
@@ -184,21 +129,13 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Aceptar;
     private javax.swing.JButton jbtn_Cancelar;
-    private javax.swing.JButton jbtn_Eliminar;
-    private javax.swing.JButton jbtn_Listar;
-    private javax.swing.JButton jbtn_Modificar;
-    private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
-    private javax.swing.JLabel jlbl_Apellido;
     private javax.swing.JLabel jlbl_DNI;
     private javax.swing.JLabel jlbl_Direccion;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Nombre;
-    private javax.swing.JTextField jtf_Apellido;
     private javax.swing.JTextField jtf_DNI;
     private javax.swing.JTextField jtf_Direccion;
     private javax.swing.JTextField jtf_ID;
@@ -208,17 +145,11 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel msj_Direccion;
     private javax.swing.JLabel msj_ID;
     private javax.swing.JLabel msj_Nombre;
-    private javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 
     
-    public void setControlador(EmpleadoController c) {
+    public void setControlador(EmpresaController c) {
         
-        //Agrega Botones al Escuchador
-        jbtn_Nuevo.addActionListener(c);
-        jbtn_Listar.addActionListener(c);
-        jbtn_Modificar.addActionListener(c);
-        jbtn_Eliminar.addActionListener(c);
         
         jbtn_Aceptar.addActionListener(c);
         jbtn_Cancelar.addActionListener(c);
@@ -226,27 +157,15 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Volver.addActionListener(c);  
         
         //Agrega JTextField al escuchador
-        jtf_Apellido.addKeyListener(c);
         jtf_Nombre.addKeyListener(c);
         jtf_Direccion.addKeyListener(c);
         jtf_DNI.addKeyListener(c);
-        
-        //Agrego la tabla al escuchador
-        tablaEmpleados.addMouseListener(c);
         
     }
 
     /*
     CAMPOS del PANEL
-    */
-    public javax.swing.JTextField getJtfApellido() {
-        return jtf_Apellido;
-    }
-
-    public void setJtfApellido(javax.swing.JTextField jtfApellido) {
-        this.jtf_Apellido = jtfApellido;
-    }
-
+    */    
     public javax.swing.JTextField getJtfDNI() {
         return jtf_DNI;
     }
@@ -292,27 +211,10 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         return jbtn_Cancelar;
     }
 
-    public javax.swing.JButton getJbtn_Eliminar() {
-        return jbtn_Eliminar;
-    }
-
-    public javax.swing.JButton getJbtn_Listar() {
-        return jbtn_Listar;
-    }
-
-    public javax.swing.JButton getJbtn_Modificar() {
-        return jbtn_Modificar;
-    }
-
-    public javax.swing.JButton getJbtn_Nuevo() {
-        return jbtn_Nuevo;
-    }
 
     public javax.swing.JButton getJbtn_Volver() {
         return jbtn_Volver;
     }
-    
-    
     
     
     @Override
@@ -336,8 +238,5 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         return validador;
     }
 
-    public javax.swing.JTable getTablaEmpleados() {
-        return tablaEmpleados;
-    }
     
 }

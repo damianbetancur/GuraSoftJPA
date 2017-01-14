@@ -6,9 +6,7 @@
 package view;
 
 
-import controller.EmpleadoController;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,7 +14,8 @@ import javax.swing.ImageIcon;
  * @author Ariel
  */
 public class JframePrincipal extends javax.swing.JFrame implements InterfaceView{
-
+    
+    private String tipoUsuario = null;
     public static javax.swing.JPanel getjPanelArbol() {
         return jPanelArbol;
     }
@@ -28,7 +27,8 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
     /**
      * Creates new form PersonaView
      */
-    private static PanelArbol unPanelArbol = null;
+    private static PanelArbolAdministrador unPanelArbolAdministrador = null;
+    private static PanelArbolUsuario unPanelArbolUsuario = null;
     PanelContenedor unPanelContenedor = null;
     public JframePrincipal() {
         try {
@@ -139,17 +139,34 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
 
     @Override
     public void arranca() {
-        unPanelArbol = new PanelArbol();
-        unPanelArbol.setSize(350, 800);
-        unPanelArbol.setLocation(0, 0);
- 
-        unPanelContenedor = new PanelContenedor();
-        unPanelContenedor.setSize(950, 800);
-        unPanelContenedor.setLocation(0, 0);
-       
-       jPanelArbol.removeAll();
-       jPanelArbol.add(unPanelArbol, BorderLayout.NORTH);
-       jPanelArbol.repaint();
+        
+        if (this.tipoUsuario.equals("1")) {
+            unPanelArbolAdministrador = new PanelArbolAdministrador();
+            unPanelArbolAdministrador.setSize(350, 800);
+            unPanelArbolAdministrador.setLocation(0, 0);
+
+            unPanelContenedor = new PanelContenedor();
+            unPanelContenedor.setSize(950, 800);
+            unPanelContenedor.setLocation(0, 0);
+
+           jPanelArbol.removeAll();
+           jPanelArbol.add(unPanelArbolAdministrador, BorderLayout.NORTH);
+           jPanelArbol.repaint();
+        }else{
+            unPanelArbolUsuario = new PanelArbolUsuario();
+            unPanelArbolUsuario.setSize(350, 800);
+            unPanelArbolUsuario.setLocation(0, 0);
+
+            unPanelContenedor = new PanelContenedor();
+            unPanelContenedor.setSize(950, 800);
+            unPanelContenedor.setLocation(0, 0);
+
+           jPanelArbol.removeAll();
+           jPanelArbol.add(unPanelArbolUsuario, BorderLayout.NORTH);
+           jPanelArbol.repaint();
+        
+        }
+        
        
        jPanelContenido.removeAll();
        jPanelContenido.add(unPanelContenedor, BorderLayout.NORTH);
@@ -159,13 +176,22 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
     }
 
     public static void modificarArbol(boolean valor) {
-            unPanelArbol.modificarArbol(valor);
+        if (unPanelArbolAdministrador!=null) {
+            unPanelArbolAdministrador.modificarArbol(valor);
+        }
+        if (unPanelArbolUsuario!=null){
+            unPanelArbolUsuario.modificarArbol(valor);
+        }    
 
     }
 
-    
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
 
-    
-    
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     
 }

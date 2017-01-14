@@ -6,29 +6,34 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
 @Entity
-public class Empleado implements Serializable {
+@Table (name="TIPO_USUARIO")
+public class TipoUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    
-    private String nombre;
-    private String apellido;
-    private String dni;
-    private String direccion;
+    @Column(name="descripcion")
+    private String descripcion;
 
+    @OneToMany(mappedBy="tipoUsuario")
+    private Set<Usuario> movimientos;
+    
     public Long getId() {
         return id;
     }
@@ -47,10 +52,10 @@ public class Empleado implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleado)) {
+        if (!(object instanceof TipoUsuario)) {
             return false;
         }
-        Empleado other = (Empleado) object;
+        TipoUsuario other = (TipoUsuario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -59,39 +64,17 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Persona[ id=" + id + " ]";
+        return "model.TipoUsuario[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+    
+    
     
 }

@@ -45,17 +45,17 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void edit(Empleado persona) throws NonexistentEntityException, Exception {
+    public void edit(Empleado empleado) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            persona = em.merge(persona);
+            empleado = em.merge(empleado);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = persona.getId();
+                Long id = empleado.getId();
                 if (findPersona(id) == null) {
                     throw new NonexistentEntityException("The persona with id " + id + " no longer exists.");
                 }
@@ -133,6 +133,29 @@ public class EmpleadoJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    //Buscar Empleado por DNI
+    public Empleado buscarEmpleadoDNI(Empleado emp){
+        EntityManager em = getEntityManager();
+        Empleado empleado = null;
+        String consulta;
+        try {
+            consulta ="FROM Empleado emp WHERE emp.dni = ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, emp.getDni());
+            
+            
+            List <Empleado> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                empleado = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            em.close();
+        }
+        return empleado;
     }
     
 }

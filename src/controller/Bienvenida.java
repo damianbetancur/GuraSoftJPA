@@ -18,11 +18,13 @@ import view.JframePrincipal;
 public class Bienvenida extends javax.swing.JFrame {
 private int auxiliar = 0;
 private boolean realizado = false;
+private String tipoUsuario = null;
 hilo ejecutar = new hilo();
     /**
      * Creates new form welcome
      */
-    public Bienvenida() {
+    public Bienvenida(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
         initComponents();
         Bienvenida.this.getRootPane().setOpaque(false);        
         Bienvenida.this.getContentPane ().setBackground (new Color (0, 0, 0, 0));
@@ -104,6 +106,7 @@ hilo ejecutar = new hilo();
                     break;
                 case 60:      
                     JframePrincipal main = new JframePrincipal();
+                    main.setTipoUsuario(tipoUsuario);
                     main.arranca();
                     Bienvenida.this.dispose();
                     break;                    

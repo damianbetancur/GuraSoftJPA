@@ -11,12 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
 @Entity
+@Table(name="USUARIO")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,12 +28,16 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="usuario")
-    private String usuario;
+    @Column(name="nombre")
+    private String nombre;
     
     @Column(name="clave")
     private String clave;
 
+    @ManyToOne
+    @JoinColumn(name="id_tipoUsuario")
+    private TipoUsuario tipoUsuario; 
+    
     public Long getId() {
         return id;
     }
@@ -63,12 +71,12 @@ public class Usuario implements Serializable {
         return "model.Usuario[ id=" + id + " ]";
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getClave() {
@@ -77,6 +85,14 @@ public class Usuario implements Serializable {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package model.JPAController;
 
+import controller.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,16 +14,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.JPAController.exceptions.NonexistentEntityException;
-import model.Usuario;
+import model.Empresa;
 
 /**
  *
  * @author Ariel
  */
-public class UsuarioJpaController implements Serializable {
+public class EmpresaJpaController implements Serializable {
 
-    public UsuarioJpaController(EntityManagerFactory emf) {
+    public EmpresaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,12 +31,12 @@ public class UsuarioJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Usuario usuario) {
+    public void create(Empresa empresa) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(usuario);
+            em.persist(empresa);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +45,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void edit(Usuario usuario) throws NonexistentEntityException, Exception {
+    public void edit(Empresa empresa) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            usuario = em.merge(usuario);
+            empresa = em.merge(empresa);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = usuario.getId();
-                if (findUsuario(id) == null) {
-                    throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
+                Long id = empresa.getId();
+                if (findEmpresa(id) == null) {
+                    throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +73,14 @@ public class UsuarioJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario;
+            Empresa empresa;
             try {
-                usuario = em.getReference(Usuario.class, id);
-                usuario.getId();
+                empresa = em.getReference(Empresa.class, id);
+                empresa.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.", enfe);
             }
-            em.remove(usuario);
+            em.remove(empresa);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +89,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public List<Usuario> findUsuarioEntities() {
-        return findUsuarioEntities(true, -1, -1);
+    public List<Empresa> findEmpresaEntities() {
+        return findEmpresaEntities(true, -1, -1);
     }
 
-    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult) {
-        return findUsuarioEntities(false, maxResults, firstResult);
+    public List<Empresa> findEmpresaEntities(int maxResults, int firstResult) {
+        return findEmpresaEntities(false, maxResults, firstResult);
     }
 
-    private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
+    private List<Empresa> findEmpresaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Usuario.class));
+            cq.select(cq.from(Empresa.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +113,20 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findUsuario(Long id) {
+    public Empresa findEmpresa(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Usuario.class, id);
+            return em.find(Empresa.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getUsuarioCount() {
+    public int getEmpresaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Usuario> rt = cq.from(Usuario.class);
+            Root<Empresa> rt = cq.from(Empresa.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -134,27 +134,5 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
-    public Usuario iniciarSesion(Usuario us){
-        EntityManager em = getEntityManager();
-        Usuario usuario = null;
-        String consulta;
-        try {
-            consulta ="FROM Usuario u WHERE u.nombre = ?1 and u.clave = ?2";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, us.getNombre());
-            query.setParameter(2, us.getClave());
-            
-            List <Usuario> lista = query.getResultList();
-            if (!lista.isEmpty()) {
-                usuario = lista.get(0);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally{
-            em.close();
-        }
-        return usuario;
-    }
     
-   
 }

@@ -16,17 +16,15 @@ import javax.persistence.Id;
  * @author Ariel
  */
 @Entity
-public class Empleado implements Serializable {
+public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    
-    private String nombre;
-    private String apellido;
-    private String dni;
+    private String razonSocial;
+    private String cuit;
     private String direccion;
 
     public Long getId() {
@@ -47,10 +45,10 @@ public class Empleado implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleado)) {
+        if (!(object instanceof Empresa)) {
             return false;
         }
-        Empleado other = (Empleado) object;
+        Empresa other = (Empresa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -59,31 +57,23 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Persona[ id=" + id + " ]";
+        return "model.Empresa[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getCuit() {
+        return cuit;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
     }
 
     public String getDireccion() {
