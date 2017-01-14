@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -38,6 +39,9 @@ public class Direccion implements Serializable {
     @Column(name="departamento")
     private String departamento;
     
+    //Localidad a la que pertenece la direccion
+    @ManyToOne
+    private Localidad localidad;
     
     public Long getId() {
         return id;

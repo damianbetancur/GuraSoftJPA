@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,8 +37,12 @@ public class Provincia implements Serializable {
     @Column(name="cantidadLocalidad")
     private int cantidadLocalidad; 
     
-    @OneToMany(mappedBy="provincia")
-    private Set<Zona> movimientos;
+    @ManyToOne
+    private Zona zona;
+    
+    //Localidades contenidas en Provincias
+    @ManyToMany(targetEntity=Localidad.class)
+    private Set localidades;
     
     public Long getId() {
         return id;
