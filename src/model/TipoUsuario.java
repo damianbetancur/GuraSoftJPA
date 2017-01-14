@@ -32,7 +32,7 @@ public class TipoUsuario implements Serializable {
     private String descripcion;
 
     @OneToMany(mappedBy="tipoUsuario")
-    private Set<Usuario> movimientos;
+    private Set<Usuario> usuarios;
     
     public Long getId() {
         return id;
