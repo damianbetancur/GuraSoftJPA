@@ -6,13 +6,11 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,22 +18,20 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="PROVINCIA")
-public class Provincia implements Serializable {
+@Table (name="UNIDAD_COMERCIAL")
+public class UnidadComercial implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="nombre")
-    private String nombre;
+    @Column(name="cantidadSeccion")
+    private int cantidadSeccion;
     
-    @Column(name="cantidadLocalidad")
-    private int cantidadLocalidad; 
+    @Column(name="cantidadDeposito")
+    private int cantidadDeposito;
     
-    @OneToMany(mappedBy="provincia")
-    private Set<Zona> movimientos;
     
     public Long getId() {
         return id;
@@ -55,10 +51,10 @@ public class Provincia implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Provincia)) {
+        if (!(object instanceof UnidadComercial)) {
             return false;
         }
-        Provincia other = (Provincia) object;
+        UnidadComercial other = (UnidadComercial) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,23 +63,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Provincia[ id=" + id + " ]";
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getCantidadLocalidad() {
-        return cantidadLocalidad;
-    }
-
-    public void setCantidadLocalidad(int cantidadLocalidad) {
-        this.cantidadLocalidad = cantidadLocalidad;
+        return "model.UnidadComercial[ id=" + id + " ]";
     }
     
 }
