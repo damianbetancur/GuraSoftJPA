@@ -6,16 +6,19 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
 @Entity
+@Table (name="EMPLEADO")
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,10 +26,16 @@ public class Empleado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    
+    @Column(name="nombre")
     private String nombre;
+    
+    @Column(name="apellido")
     private String apellido;
+    
+    @Column(name="dni")
     private String dni;
+    
+    @Column(name="direccion")
     private String direccion;
 
     public Long getId() {

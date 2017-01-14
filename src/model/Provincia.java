@@ -18,23 +18,20 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="EMPRESA")
-public class Empresa implements Serializable {
+@Table (name="PROVINCIA")
+public class Provincia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="razonSocial")
-    private String razonSocial;
-    
-    @Column(name="cuit")
-    private String cuit;
-    
-    @Column(name="direccion")
-    private String direccion;
 
+    @Column(name="nombre")
+    private String nombre;
+    
+    @Column(name="cantidadLocalidad")
+    private int cantidadLocalidad; 
+    
     public Long getId() {
         return id;
     }
@@ -53,10 +50,10 @@ public class Empresa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empresa)) {
+        if (!(object instanceof Provincia)) {
             return false;
         }
-        Empresa other = (Empresa) object;
+        Provincia other = (Provincia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -65,31 +62,23 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Empresa[ id=" + id + " ]";
+        return "model.Provincia[ id=" + id + " ]";
     }
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getCuit() {
-        return cuit;
+    public int getCantidadLocalidad() {
+        return cantidadLocalidad;
     }
 
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setCantidadLocalidad(int cantidadLocalidad) {
+        this.cantidadLocalidad = cantidadLocalidad;
     }
     
 }

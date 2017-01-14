@@ -18,23 +18,27 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="EMPRESA")
-public class Empresa implements Serializable {
+@Table (name="DIRECCION")
+public class Direccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="razonSocial")
-    private String razonSocial;
+    @Column(name="calle")
+    private String calle;
     
-    @Column(name="cuit")
-    private String cuit;
+    @Column(name="numero")
+    private String numero;
     
-    @Column(name="direccion")
-    private String direccion;
-
+    @Column(name="piso")
+    private String piso;
+    
+    @Column(name="departamento")
+    private String departamento;
+    
+    
     public Long getId() {
         return id;
     }
@@ -53,10 +57,10 @@ public class Empresa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empresa)) {
+        if (!(object instanceof Direccion)) {
             return false;
         }
-        Empresa other = (Empresa) object;
+        Direccion other = (Direccion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -65,31 +69,39 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Empresa[ id=" + id + " ]";
+        return "model.Direccion[ id=" + id + " ]";
     }
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public String getCalle() {
+        return calle;
     }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+    public void setCalle(String calle) {
+        this.calle = calle;
     }
 
-    public String getCuit() {
-        return cuit;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getPiso() {
+        return piso;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setPiso(String piso) {
+        this.piso = piso;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
     
 }
