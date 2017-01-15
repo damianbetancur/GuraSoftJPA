@@ -99,6 +99,14 @@ public class UnidadComercial implements Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
+
+    public Set getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(Set empleados) {
+        this.empleados = empleados;
+    }
     
     
 }

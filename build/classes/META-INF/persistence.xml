@@ -11,6 +11,7 @@
     <class>model.Provincia</class>
     <class>model.Zona</class>
     <class>model.UnidadComercial</class>
+    <class>model.Persona</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
