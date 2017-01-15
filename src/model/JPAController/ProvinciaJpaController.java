@@ -14,15 +14,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Empleado;
+import model.Provincia;
 
 /**
  *
  * @author Ariel
  */
-public class EmpleadoJpaController implements Serializable {
+public class ProvinciaJpaController implements Serializable {
 
-    public EmpleadoJpaController(EntityManagerFactory emf) {
+    public ProvinciaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,12 +31,12 @@ public class EmpleadoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Empleado empleado) {
+    public void create(Provincia provincia) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(empleado);
+            em.persist(provincia);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +45,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void edit(Empleado empleado) throws NonexistentEntityException, Exception {
+    public void edit(Provincia provincia) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            empleado = em.merge(empleado);
+            provincia = em.merge(provincia);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = empleado.getId();
-                if (findEmpleado(id) == null) {
-                    throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.");
+                Long id = provincia.getId();
+                if (findProvincia(id) == null) {
+                    throw new NonexistentEntityException("The provincia with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +73,14 @@ public class EmpleadoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empleado empleado;
+            Provincia provincia;
             try {
-                empleado = em.getReference(Empleado.class, id);
-                empleado.getId();
+                provincia = em.getReference(Provincia.class, id);
+                provincia.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The provincia with id " + id + " no longer exists.", enfe);
             }
-            em.remove(empleado);
+            em.remove(provincia);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +89,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public List<Empleado> findEmpleadoEntities() {
-        return findEmpleadoEntities(true, -1, -1);
+    public List<Provincia> findProvinciaEntities() {
+        return findProvinciaEntities(true, -1, -1);
     }
 
-    public List<Empleado> findEmpleadoEntities(int maxResults, int firstResult) {
-        return findEmpleadoEntities(false, maxResults, firstResult);
+    public List<Provincia> findProvinciaEntities(int maxResults, int firstResult) {
+        return findProvinciaEntities(false, maxResults, firstResult);
     }
 
-    private List<Empleado> findEmpleadoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Provincia> findProvinciaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Empleado.class));
+            cq.select(cq.from(Provincia.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +113,20 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public Empleado findEmpleado(Long id) {
+    public Provincia findProvincia(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Empleado.class, id);
+            return em.find(Provincia.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getEmpleadoCount() {
+    public int getProvinciaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Empleado> rt = cq.from(Empleado.class);
+            Root<Provincia> rt = cq.from(Provincia.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -134,26 +134,24 @@ public class EmpleadoJpaController implements Serializable {
             em.close();
         }
     }
-    //Buscar Empleado por DNI
-    public Empleado buscarEmpleadoDNI(Empleado emp){
+    //Buscar Provincia de una zona
+    public List <Provincia> buscarLocalidadPorNombre(Long id){
         EntityManager em = getEntityManager();
-        Empleado empleado = null;
+        List <Provincia> provincia = null;
         String consulta;
         try {
-            consulta ="FROM Empleado emp WHERE emp.dni = ?1 ";
+            consulta ="FROM Provincia prov WHERE prov.ZONA_ID = ?1 ";
             Query query = em.createQuery(consulta);
-            query.setParameter(1, emp.getDni());
+            query.setParameter(1, id);
             
             
-            List <Empleado> lista = query.getResultList();
-            if (!lista.isEmpty()) {
-                empleado = lista.get(0);
-            }
+            List <Provincia> lista = query.getResultList();
+            provincia =  lista;
         } catch (Exception e) {
             throw e;
         } finally{
             em.close();
         }
-        return empleado;
+        return provincia;
     }
 }

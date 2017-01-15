@@ -7,6 +7,7 @@ package view;
 
 import controller.EmpleadoController;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 
@@ -36,15 +37,23 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jbtn_Nuevo = new javax.swing.JButton();
+        jbtn_Modificar = new javax.swing.JButton();
+        jbtn_Listar = new javax.swing.JButton();
+        jbtn_Eliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaEmpleados = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jbtn_Volver = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jlbl_Nombre = new javax.swing.JLabel();
         jlbl_Apellido = new javax.swing.JLabel();
         jlbl_DNI = new javax.swing.JLabel();
-        jlbl_Direccion = new javax.swing.JLabel();
         jlbl_ID = new javax.swing.JLabel();
         jtf_ID = new javax.swing.JTextField();
         jtf_Nombre = new javax.swing.JTextField();
-        jtf_Direccion = new javax.swing.JTextField();
         jtf_DNI = new javax.swing.JTextField();
         jtf_Apellido = new javax.swing.JTextField();
         jbtn_Aceptar = new javax.swing.JButton();
@@ -55,77 +64,26 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         msj_Nombre = new javax.swing.JLabel();
         msj_Apellido = new javax.swing.JLabel();
         msj_DNI = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jbtn_Nuevo = new javax.swing.JButton();
-        jbtn_Modificar = new javax.swing.JButton();
-        jbtn_Listar = new javax.swing.JButton();
-        jbtn_Eliminar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jbtn_Volver = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jlbl_zona_direccion = new javax.swing.JLabel();
+        jcb_zona_direccion = new javax.swing.JComboBox<>();
+        jlbl_provincia_direccion = new javax.swing.JLabel();
+        jcb_provincia_direccion = new javax.swing.JComboBox<>();
+        jcb_localidad_direccion = new javax.swing.JComboBox<>();
+        jlbl_localidad_direccion = new javax.swing.JLabel();
+        jlbl_calle_direccion = new javax.swing.JLabel();
+        jtf_calle_direccion = new javax.swing.JTextField();
+        jtf_numero_direccion = new javax.swing.JTextField();
+        jlbl_numero_direccion = new javax.swing.JLabel();
+        jtf_piso_direccion = new javax.swing.JTextField();
+        jlbl_piso_direccion = new javax.swing.JLabel();
+        jtf_departamento_direccion = new javax.swing.JTextField();
+        jlbl_departamento_direccion = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
         setMinimumSize(new java.awt.Dimension(950, 800));
         setLayout(null);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)), "Empleado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
-        jPanel1.setName("Empleado"); // NOI18N
-        jPanel1.setLayout(null);
-
-        jlbl_Nombre.setText("Nombre:");
-        jPanel1.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 80, 100, 15);
-
-        jlbl_Apellido.setText("Apellido:");
-        jPanel1.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 120, 90, 15);
-
-        jlbl_DNI.setText("DNI:");
-        jPanel1.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 15);
-
-        jlbl_Direccion.setText("Dirección:");
-        jPanel1.add(jlbl_Direccion);
-        jlbl_Direccion.setBounds(60, 190, 100, 15);
-
-        jlbl_ID.setText("ID:");
-        jPanel1.add(jlbl_ID);
-        jlbl_ID.setBounds(60, 40, 90, 15);
-        jPanel1.add(jtf_ID);
-        jtf_ID.setBounds(160, 40, 272, 19);
-        jPanel1.add(jtf_Nombre);
-        jtf_Nombre.setBounds(160, 80, 272, 19);
-        jPanel1.add(jtf_Direccion);
-        jtf_Direccion.setBounds(160, 190, 272, 19);
-        jPanel1.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 150, 272, 19);
-        jPanel1.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 110, 272, 19);
-
-        jbtn_Aceptar.setText("ACEPTAR");
-        jPanel1.add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(60, 240, 170, 25);
-
-        jbtn_Cancelar.setText("CANCELAR");
-        jPanel1.add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(260, 240, 170, 25);
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(450, 40, 210, 0);
-        jPanel1.add(msj_Direccion);
-        msj_Direccion.setBounds(480, 190, 34, 15);
-        jPanel1.add(msj_ID);
-        msj_ID.setBounds(480, 40, 0, 0);
-        jPanel1.add(msj_Nombre);
-        msj_Nombre.setBounds(480, 80, 0, 0);
-        jPanel1.add(msj_Apellido);
-        msj_Apellido.setBounds(480, 110, 0, 0);
-        jPanel1.add(msj_DNI);
-        msj_DNI.setBounds(480, 150, 0, 0);
-
-        add(jPanel1);
-        jPanel1.setBounds(70, 300, 730, 290);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jPanel2.setMinimumSize(new java.awt.Dimension(730, 290));
@@ -177,7 +135,131 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Volver.setText("VOLVER");
         add(jbtn_Volver);
         jbtn_Volver.setBounds(300, 650, 210, 50);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setName("Empleado"); // NOI18N
+        jPanel1.setLayout(null);
+
+        jlbl_Nombre.setText("Nombre:");
+        jPanel1.add(jlbl_Nombre);
+        jlbl_Nombre.setBounds(60, 80, 100, 15);
+
+        jlbl_Apellido.setText("Apellido:");
+        jPanel1.add(jlbl_Apellido);
+        jlbl_Apellido.setBounds(60, 120, 90, 15);
+
+        jlbl_DNI.setText("DNI:");
+        jPanel1.add(jlbl_DNI);
+        jlbl_DNI.setBounds(60, 160, 80, 15);
+
+        jlbl_ID.setText("ID:");
+        jPanel1.add(jlbl_ID);
+        jlbl_ID.setBounds(60, 40, 90, 15);
+        jPanel1.add(jtf_ID);
+        jtf_ID.setBounds(160, 40, 272, 19);
+        jPanel1.add(jtf_Nombre);
+        jtf_Nombre.setBounds(160, 80, 272, 19);
+        jPanel1.add(jtf_DNI);
+        jtf_DNI.setBounds(160, 150, 272, 19);
+        jPanel1.add(jtf_Apellido);
+        jtf_Apellido.setBounds(160, 110, 272, 19);
+
+        jbtn_Aceptar.setText("ACEPTAR");
+        jPanel1.add(jbtn_Aceptar);
+        jbtn_Aceptar.setBounds(60, 240, 170, 25);
+
+        jbtn_Cancelar.setText("CANCELAR");
+        jPanel1.add(jbtn_Cancelar);
+        jbtn_Cancelar.setBounds(260, 240, 170, 25);
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(450, 40, 210, 0);
+        jPanel1.add(msj_Direccion);
+        msj_Direccion.setBounds(480, 190, 34, 15);
+        jPanel1.add(msj_ID);
+        msj_ID.setBounds(480, 40, 0, 0);
+        jPanel1.add(msj_Nombre);
+        msj_Nombre.setBounds(480, 80, 0, 0);
+        jPanel1.add(msj_Apellido);
+        msj_Apellido.setBounds(480, 110, 0, 0);
+        jPanel1.add(msj_DNI);
+        msj_DNI.setBounds(480, 150, 0, 0);
+
+        jTabbedPane1.addTab("Empleado", jPanel1);
+
+        jPanel3.setLayout(null);
+
+        jlbl_zona_direccion.setText("Zona:");
+        jPanel3.add(jlbl_zona_direccion);
+        jlbl_zona_direccion.setBounds(40, 30, 60, 15);
+
+        jcb_zona_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jcb_zona_direccion);
+        jcb_zona_direccion.setBounds(130, 30, 180, 24);
+
+        jlbl_provincia_direccion.setText("Provincia:");
+        jPanel3.add(jlbl_provincia_direccion);
+        jlbl_provincia_direccion.setBounds(40, 70, 60, 15);
+
+        jcb_provincia_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jcb_provincia_direccion);
+        jcb_provincia_direccion.setBounds(130, 70, 180, 24);
+
+        jcb_localidad_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcb_localidad_direccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb_localidad_direccionActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jcb_localidad_direccion);
+        jcb_localidad_direccion.setBounds(130, 110, 180, 24);
+
+        jlbl_localidad_direccion.setText("Localidad:");
+        jPanel3.add(jlbl_localidad_direccion);
+        jlbl_localidad_direccion.setBounds(40, 110, 60, 15);
+
+        jlbl_calle_direccion.setText("Calle:");
+        jPanel3.add(jlbl_calle_direccion);
+        jlbl_calle_direccion.setBounds(40, 150, 60, 15);
+        jPanel3.add(jtf_calle_direccion);
+        jtf_calle_direccion.setBounds(130, 150, 180, 19);
+
+        jtf_numero_direccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_numero_direccionActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jtf_numero_direccion);
+        jtf_numero_direccion.setBounds(130, 180, 180, 19);
+
+        jlbl_numero_direccion.setText("Número:");
+        jPanel3.add(jlbl_numero_direccion);
+        jlbl_numero_direccion.setBounds(40, 180, 60, 15);
+        jPanel3.add(jtf_piso_direccion);
+        jtf_piso_direccion.setBounds(130, 210, 180, 19);
+
+        jlbl_piso_direccion.setText("Piso:");
+        jPanel3.add(jlbl_piso_direccion);
+        jlbl_piso_direccion.setBounds(40, 210, 60, 15);
+        jPanel3.add(jtf_departamento_direccion);
+        jtf_departamento_direccion.setBounds(130, 240, 180, 19);
+
+        jlbl_departamento_direccion.setText("Departamento:");
+        jPanel3.add(jlbl_departamento_direccion);
+        jlbl_departamento_direccion.setBounds(40, 240, 70, 15);
+
+        jTabbedPane1.addTab("Dirección", jPanel3);
+
+        add(jTabbedPane1);
+        jTabbedPane1.setBounds(70, 310, 730, 310);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtf_numero_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_numero_direccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_numero_direccionActionPerformed
+
+    private void jcb_localidad_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_localidad_direccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcb_localidad_direccionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,7 +267,9 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbtn_Aceptar;
     private javax.swing.JButton jbtn_Cancelar;
     private javax.swing.JButton jbtn_Eliminar;
@@ -193,16 +277,28 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JButton jbtn_Modificar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
+    private javax.swing.JComboBox<String> jcb_localidad_direccion;
+    private javax.swing.JComboBox<String> jcb_provincia_direccion;
+    private javax.swing.JComboBox<String> jcb_zona_direccion;
     private javax.swing.JLabel jlbl_Apellido;
     private javax.swing.JLabel jlbl_DNI;
-    private javax.swing.JLabel jlbl_Direccion;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Nombre;
+    private javax.swing.JLabel jlbl_calle_direccion;
+    private javax.swing.JLabel jlbl_departamento_direccion;
+    private javax.swing.JLabel jlbl_localidad_direccion;
+    private javax.swing.JLabel jlbl_numero_direccion;
+    private javax.swing.JLabel jlbl_piso_direccion;
+    private javax.swing.JLabel jlbl_provincia_direccion;
+    private javax.swing.JLabel jlbl_zona_direccion;
     private javax.swing.JTextField jtf_Apellido;
     private javax.swing.JTextField jtf_DNI;
-    private javax.swing.JTextField jtf_Direccion;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
+    private javax.swing.JTextField jtf_calle_direccion;
+    private javax.swing.JTextField jtf_departamento_direccion;
+    private javax.swing.JTextField jtf_numero_direccion;
+    private javax.swing.JTextField jtf_piso_direccion;
     private javax.swing.JLabel msj_Apellido;
     private javax.swing.JLabel msj_DNI;
     private javax.swing.JLabel msj_Direccion;
@@ -225,11 +321,22 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         jbtn_Volver.addActionListener(c);  
         
-        //Agrega JTextField al escuchador
-        jtf_Apellido.addKeyListener(c);
+        //Agrega JTextField del Panel Datos del Empleado al escuchador
         jtf_Nombre.addKeyListener(c);
-        jtf_Direccion.addKeyListener(c);
+        jtf_Apellido.addKeyListener(c);
         jtf_DNI.addKeyListener(c);
+        
+        //Agrega JTextField del Panel Direccion al escuchador
+        jtf_calle_direccion.addKeyListener(c);
+        jtf_numero_direccion.addKeyListener(c);
+        jtf_piso_direccion.addKeyListener(c);
+        jtf_departamento_direccion.addKeyListener(c);
+        
+        //Agrega JcomboBox del Panel Direccion al escuchador
+        jcb_zona_direccion.addKeyListener(c);
+        jcb_provincia_direccion.addKeyListener(c);
+        jcb_localidad_direccion.addKeyListener(c);
+        
         
         //Agrego la tabla al escuchador
         tablaEmpleados.addMouseListener(c);
@@ -237,7 +344,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     }
 
     /*
-    CAMPOS del PANEL
+    CAMPOS del PANEL Getters y Setters
     */
     public javax.swing.JTextField getJtfApellido() {
         return jtf_Apellido;
@@ -254,15 +361,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     public void setJtfDNI(javax.swing.JTextField jtfDNI) {
         this.jtf_DNI = jtfDNI;
     }
-
-    public javax.swing.JTextField getJtfDireccion() {
-        return jtf_Direccion;
-    }
-
-    public void setJtfDireccion(javax.swing.JTextField jtfDireccion) {
-        this.jtf_Direccion = jtfDireccion;
-    }
-
+   
     public javax.swing.JTextField getJtfID() {
         return jtf_ID;
     }
@@ -279,6 +378,63 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         this.jtf_Nombre = jtfNombre;
     }
 
+    public javax.swing.JComboBox<String> getJcb_localidad_direccion() {
+        return jcb_localidad_direccion;
+    }
+
+    public void setJcb_localidad_direccion(javax.swing.JComboBox<String> jcb_localidad_direccion) {
+        this.jcb_localidad_direccion = jcb_localidad_direccion;
+    }
+
+    public javax.swing.JComboBox<String> getJcb_provincia_direccion() {
+        return jcb_provincia_direccion;
+    }
+
+    public void setJcb_provincia_direccion(javax.swing.JComboBox<String> jcb_provincia_direccion) {
+        this.jcb_provincia_direccion = jcb_provincia_direccion;
+    }
+
+    public javax.swing.JComboBox<String> getJcb_zona_direccion() {
+        return jcb_zona_direccion;
+    }
+
+    public void setJcb_zona_direccion(javax.swing.JComboBox<String> jcb_zona_direccion) {
+        this.jcb_zona_direccion = jcb_zona_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_calle_direccion() {
+        return jtf_calle_direccion;
+    }
+
+    public void setJtf_calle_direccion(javax.swing.JTextField jtf_calle_direccion) {
+        this.jtf_calle_direccion = jtf_calle_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_departamento_direccion() {
+        return jtf_departamento_direccion;
+    }
+
+    public void setJtf_departamento_direccion(javax.swing.JTextField jtf_departamento_direccion) {
+        this.jtf_departamento_direccion = jtf_departamento_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_numero_direccion() {
+        return jtf_numero_direccion;
+    }
+
+    public void setJtf_numero_direccion(javax.swing.JTextField jtf_numero_direccion) {
+        this.jtf_numero_direccion = jtf_numero_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_piso_direccion() {
+        return jtf_piso_direccion;
+    }
+
+    public void setJtf_piso_direccion(javax.swing.JTextField jtf_piso_direccion) {
+        this.jtf_piso_direccion = jtf_piso_direccion;
+    }
+    
+    
     
     /*
     BOTONES del PANEL
@@ -311,8 +467,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     public javax.swing.JButton getJbtn_Volver() {
         return jbtn_Volver;
     }
-    
-    
+      
     
     
     @Override
@@ -339,5 +494,15 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     public javax.swing.JTable getTablaEmpleados() {
         return tablaEmpleados;
     }
-    
+
+    @Override
+    public void habilitarCombobox(boolean h, JComboBox campo) {
+        campo.setEnabled(h);
+    }
+
+    @Override
+    public void limpiarCombobox(JComboBox campo) {
+        campo.removeAllItems();
+    }
+  
 }
