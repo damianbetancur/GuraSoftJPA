@@ -6,11 +6,14 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +35,13 @@ public class UnidadComercial implements Serializable {
     @Column(name="cantidadDeposito")
     private int cantidadDeposito;
     
+    //Empresa a la que pertenece la Unidad Comercial
+    @ManyToOne
+    private Empresa empresa;
+    
+    //Empleados contenidas en Unidad Comercial
+    @ManyToMany(targetEntity=Empleado.class)
+    private Set empleados;
     
     public Long getId() {
         return id;
@@ -65,5 +75,30 @@ public class UnidadComercial implements Serializable {
     public String toString() {
         return "model.UnidadComercial[ id=" + id + " ]";
     }
+
+    public int getCantidadSeccion() {
+        return cantidadSeccion;
+    }
+
+    public void setCantidadSeccion(int cantidadSeccion) {
+        this.cantidadSeccion = cantidadSeccion;
+    }
+
+    public int getCantidadDeposito() {
+        return cantidadDeposito;
+    }
+
+    public void setCantidadDeposito(int cantidadDeposito) {
+        this.cantidadDeposito = cantidadDeposito;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    
     
 }

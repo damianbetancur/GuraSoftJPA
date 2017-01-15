@@ -100,5 +100,14 @@ public class Localidad implements Serializable {
     public void setPrefijoTelefonico(String prefijoTelefonico) {
         this.prefijoTelefonico = prefijoTelefonico;
     }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+    
     
 }

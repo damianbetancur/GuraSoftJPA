@@ -103,4 +103,5 @@ public class Empleado implements Serializable {
         this.direccion = direccion;
     }
     
+    
 }

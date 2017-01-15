@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,8 +33,10 @@ public class Empresa implements Serializable {
     @Column(name="cuit")
     private String cuit;
     
-    @Column(name="direccion")
-    private String direccion;
+    
+    //Direccion a la que pertenece la Empresa
+    @ManyToOne
+    private Direccion direccion;
 
     public Long getId() {
         return id;
@@ -84,12 +87,14 @@ public class Empresa implements Serializable {
         this.cuit = cuit;
     }
 
-    public String getDireccion() {
+    public Direccion getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+   
     
 }

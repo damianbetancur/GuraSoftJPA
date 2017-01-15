@@ -107,5 +107,14 @@ public class Direccion implements Serializable {
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+    
     
 }

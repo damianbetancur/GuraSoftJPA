@@ -90,5 +90,14 @@ public class Zona implements Serializable {
     public void setCantidadProvincia(int cantidadProvincia) {
         this.cantidadProvincia = cantidadProvincia;
     }
+
+    public Set getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(Set provincias) {
+        this.provincias = provincias;
+    }
+    
     
 }
