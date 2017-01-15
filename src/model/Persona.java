@@ -13,13 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Ariel
  */
 @Entity
-//Clase Padre anotacion de creacion de tabla por cada entidad
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Persona implements Serializable{
     
@@ -36,9 +36,9 @@ public abstract class Persona implements Serializable{
     
     @Column(name="dni")
     private String dni;
-    
-    @Column(name="direccion")
-    private String direccion;
+        
+    @ManyToOne
+    private Direccion direccion;
 
     public Long getId() {
         return id;
@@ -97,12 +97,13 @@ public abstract class Persona implements Serializable{
         this.dni = dni;
     }
 
-    public String getDireccion() {
+    public Direccion getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
     
 }

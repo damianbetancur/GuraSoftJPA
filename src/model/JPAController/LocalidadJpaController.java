@@ -14,15 +14,15 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Empleado;
+import model.Localidad;
 
 /**
  *
  * @author Ariel
  */
-public class EmpleadoJpaController implements Serializable {
+public class LocalidadJpaController implements Serializable {
 
-    public EmpleadoJpaController(EntityManagerFactory emf) {
+    public LocalidadJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,12 +31,12 @@ public class EmpleadoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Empleado empleado) {
+    public void create(Localidad localidad) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(empleado);
+            em.persist(localidad);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,19 +45,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void edit(Empleado empleado) throws NonexistentEntityException, Exception {
+    public void edit(Localidad localidad) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            empleado = em.merge(empleado);
+            localidad = em.merge(localidad);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = empleado.getId();
-                if (findEmpleado(id) == null) {
-                    throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.");
+                Long id = localidad.getId();
+                if (findLocalidad(id) == null) {
+                    throw new NonexistentEntityException("The localidad with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +73,14 @@ public class EmpleadoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empleado empleado;
+            Localidad localidad;
             try {
-                empleado = em.getReference(Empleado.class, id);
-                empleado.getId();
+                localidad = em.getReference(Localidad.class, id);
+                localidad.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The localidad with id " + id + " no longer exists.", enfe);
             }
-            em.remove(empleado);
+            em.remove(localidad);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +89,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public List<Empleado> findEmpleadoEntities() {
-        return findEmpleadoEntities(true, -1, -1);
+    public List<Localidad> findLocalidadEntities() {
+        return findLocalidadEntities(true, -1, -1);
     }
 
-    public List<Empleado> findEmpleadoEntities(int maxResults, int firstResult) {
-        return findEmpleadoEntities(false, maxResults, firstResult);
+    public List<Localidad> findLocalidadEntities(int maxResults, int firstResult) {
+        return findLocalidadEntities(false, maxResults, firstResult);
     }
 
-    private List<Empleado> findEmpleadoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Localidad> findLocalidadEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Empleado.class));
+            cq.select(cq.from(Localidad.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,20 +113,20 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public Empleado findEmpleado(Long id) {
+    public Localidad findLocalidad(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Empleado.class, id);
+            return em.find(Localidad.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getEmpleadoCount() {
+    public int getLocalidadCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Empleado> rt = cq.from(Empleado.class);
+            Root<Localidad> rt = cq.from(Localidad.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -134,26 +134,26 @@ public class EmpleadoJpaController implements Serializable {
             em.close();
         }
     }
-    //Buscar Empleado por DNI
-    public Empleado buscarEmpleadoDNI(Empleado emp){
+    //Buscar Localidad por Nombre
+    public Localidad buscarLocalidadPorNombre(String loc){
         EntityManager em = getEntityManager();
-        Empleado empleado = null;
+        Localidad localidad = null;
         String consulta;
         try {
-            consulta ="FROM Empleado emp WHERE emp.dni = ?1 ";
+            consulta ="FROM Localidad loc WHERE loc.nombre = ?1 ";
             Query query = em.createQuery(consulta);
-            query.setParameter(1, emp.getDni());
+            query.setParameter(1, loc);
             
             
-            List <Empleado> lista = query.getResultList();
+            List <Localidad> lista = query.getResultList();
             if (!lista.isEmpty()) {
-                empleado = lista.get(0);
+                localidad = lista.get(0);
             }
         } catch (Exception e) {
             throw e;
         } finally{
             em.close();
         }
-        return empleado;
+        return localidad;
     }
 }
