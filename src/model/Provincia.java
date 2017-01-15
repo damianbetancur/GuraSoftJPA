@@ -12,10 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -92,5 +90,22 @@ public class Provincia implements Serializable {
     public void setCantidadLocalidad(int cantidadLocalidad) {
         this.cantidadLocalidad = cantidadLocalidad;
     }
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
+    }
+
+    public Set getLocalidades() {
+        return localidades;
+    }
+
+    public void setLocalidades(Set localidades) {
+        this.localidades = localidades;
+    }
+    
     
 }

@@ -8,11 +8,9 @@ package view;
 
 import controller.Conexion;
 import controller.EmpleadoController;
-import controller.EmpresaController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
-import model.JPAController.EmpresaJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
 /**
@@ -230,30 +228,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
                 modificarArbol(false);
             }
-            if(captura.equals("[GuraSoft, Administración General, Empresa, Empresa]")){
-                //Se crea el Panel Persona    
-                PanelEmpresa unPanelEmpresa = new PanelEmpresa();            
-                unPanelEmpresa.setSize(950, 800);
-                unPanelEmpresa.setLocation(0,0);
-                unPanelEmpresa.setVisible(true);
-
-                //Se Crea controlador JPA
-                EmpresaJpaController modelo = new EmpresaJpaController(Conexion.getEmf());
-
-                //Se crea el controlador de Persona
-                EmpresaController controlador = new EmpresaController(unPanelEmpresa, modelo);
-
-                //setea el panel para que sea escuchado por el controlador
-                unPanelEmpresa.setControlador(controlador);
-
-
-                jPanelContenido.removeAll();
-                jPanelContenido.add(unPanelEmpresa, BorderLayout.NORTH);
-                jPanelContenido.repaint();
-
-                modificarArbol(false);
             
-            }
             
             
             
