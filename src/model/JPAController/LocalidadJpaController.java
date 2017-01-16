@@ -156,4 +156,5 @@ public class LocalidadJpaController implements Serializable {
         }
         return localidad;
     }
+    
 }

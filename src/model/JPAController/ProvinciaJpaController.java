@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Provincia;
+import model.Zona;
 
 /**
  *
@@ -134,24 +135,7 @@ public class ProvinciaJpaController implements Serializable {
             em.close();
         }
     }
-    //Buscar Provincia de una zona
-    public List <Provincia> buscarLocalidadPorNombre(Long id){
-        EntityManager em = getEntityManager();
-        List <Provincia> provincia = null;
-        String consulta;
-        try {
-            consulta ="FROM Provincia prov WHERE prov.ZONA_ID = ?1 ";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, id);
-            
-            
-            List <Provincia> lista = query.getResultList();
-            provincia =  lista;
-        } catch (Exception e) {
-            throw e;
-        } finally{
-            em.close();
-        }
-        return provincia;
-    }
+    
+    
+   
 }

@@ -310,7 +310,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     
     public void setControlador(EmpleadoController c) {
         
-        //Agrega Botones al Escuchador
+        //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
         jbtn_Nuevo.addActionListener(c);
         jbtn_Listar.addActionListener(c);
         jbtn_Modificar.addActionListener(c);
@@ -321,24 +321,24 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         jbtn_Volver.addActionListener(c);  
         
-        //Agrega JTextField del Panel Datos del Empleado al escuchador
+        //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
         jtf_Nombre.addKeyListener(c);
         jtf_Apellido.addKeyListener(c);
         jtf_DNI.addKeyListener(c);
         
-        //Agrega JTextField del Panel Direccion al escuchador
+        //Agrega JTextField del Panel Direccion al escuchador KeyListener para verificar campos ingresados
         jtf_calle_direccion.addKeyListener(c);
         jtf_numero_direccion.addKeyListener(c);
         jtf_piso_direccion.addKeyListener(c);
         jtf_departamento_direccion.addKeyListener(c);
         
-        //Agrega JcomboBox del Panel Direccion al escuchador
-        jcb_zona_direccion.addKeyListener(c);
-        jcb_provincia_direccion.addKeyListener(c);
-        jcb_localidad_direccion.addKeyListener(c);
+        //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
+        jcb_zona_direccion.addItemListener(c);
+        jcb_provincia_direccion.addItemListener(c);
+        jcb_localidad_direccion.addItemListener(c);
         
         
-        //Agrego la tabla al escuchador
+        //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaEmpleados.addMouseListener(c);
         
     }
