@@ -72,7 +72,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Provincia[ id=" + id + " ]";
+        return getNombre();
     }
 
     public String getNombre() {

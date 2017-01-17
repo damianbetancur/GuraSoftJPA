@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Localidad;
+import model.Provincia;
 
 /**
  *
@@ -155,6 +156,24 @@ public class LocalidadJpaController implements Serializable {
             em.close();
         }
         return localidad;
+    }
+    
+    //Consulta JPQL 
+    @SuppressWarnings("unchecked")
+    public List<Localidad> buscarLocalidadPorProvincia(Provincia p) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            String queryString = "FROM Localidad l WHERE l.provincia = :provinciaParametro";
+            Query query = em.createQuery(queryString);
+            
+            query.setParameter("provinciaParametro",p);            
+            
+            return query.getResultList();
+            
+        } finally {
+            em.close();
+        }
     }
     
 }

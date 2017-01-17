@@ -5,8 +5,10 @@
  */
 package model.JPAController;
 
+import com.mysql.jdbc.StringUtils;
 import controller.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,6 +23,7 @@ import model.Zona;
  *
  * @author Ariel
  */
+
 public class ProvinciaJpaController implements Serializable {
 
     public ProvinciaJpaController(EntityManagerFactory emf) {
@@ -136,6 +139,46 @@ public class ProvinciaJpaController implements Serializable {
         }
     }
     
+    //Buscar Provincia por Nombre
+    public Provincia buscarProvinciaPorNombre(String pBuscada){
+        EntityManager em = getEntityManager();
+        Provincia provincia = null;
+        String consulta;
+        try {
+            consulta ="FROM Provincia pr WHERE pr.nombre = ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, pBuscada);
+            
+            
+            List <Provincia> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                provincia = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            em.close();
+        }
+        return provincia;
+    }
     
-   
+
+    //Consulta JPQL 
+    @SuppressWarnings("unchecked")
+    public List<Provincia> buscarProvinciasPorZona(Zona z) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            String queryString = "FROM Provincia p WHERE p.zona = :zonaParametro";
+            Query query = em.createQuery(queryString);
+            
+            query.setParameter("zonaParametro",z);            
+            
+            return query.getResultList();
+            
+        } finally {
+            em.close();
+        }
+    }
+       
 }
