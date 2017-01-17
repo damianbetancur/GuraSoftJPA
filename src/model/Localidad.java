@@ -74,7 +74,7 @@ public class Localidad implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Localidad[ id=" + id + " ]";
+        return getNombre();
     }
 
     public String getNombre() {

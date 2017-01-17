@@ -134,5 +134,26 @@ public class ZonaJpaController implements Serializable {
             em.close();
         }
     }
-    
+    //Buscar Zona por Nombre
+    public Zona buscarZonaPorNombre(String zBuscada){
+        EntityManager em = getEntityManager();
+        Zona zona = null;
+        String consulta;
+        try {
+            consulta ="FROM Zona zn WHERE zn.nombre = ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, zBuscada);
+            
+            
+            List <Zona> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                zona = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            em.close();
+        }
+        return zona;
+    }
 }

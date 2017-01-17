@@ -72,7 +72,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Zona[ id=" + id + " ]";
+        return getNombre();
     }
 
     public String getNombre() {

@@ -14,8 +14,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -40,7 +43,7 @@ import view.PanelRegistroEmpleado;
  *
  * @author Ariel
  */
-public class EmpleadoController implements ActionListener, KeyListener, MouseListener, ItemListener{
+public class EmpleadoController implements ActionListener, KeyListener, MouseListener, ItemListener {
     
     private PanelRegistroEmpleado vista;
     private EmpleadoJpaController modelo;
@@ -49,11 +52,10 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
     private DireccionJpaController modeloDireccion;
     private ProvinciaJpaController modeloProvincia;
     private LocalidadJpaController modeloLocalidad;
-    
-    private Zona zBuscada = null;
-    private Provincia pBuscada = null;
-    
+        
     boolean bloquearAceptar = true;
+    Zona zBuscada = null;
+    Provincia pBuscada = null;
 
     public EmpleadoController(PanelRegistroEmpleado vista, EmpleadoJpaController modelo) {
         this.vista = vista;
@@ -122,6 +124,9 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         if (e.getSource()==vista.getJbtn_Volver()){
             btn_volver();
         }
+        
+        
+        
     }
 
     @Override
@@ -437,11 +442,10 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         //posiciona en foco de la lista en el ultimo Empleado creado                    
         vista.getTablaEmpleados().changeSelection(sizeTabla(), 1, false, false);
         
-        //llenar JcomboboxZona
-        llenarJComboboxZona();
-        llenarJComboboxProvincia(zBuscada);
-        llenarJComboboxLocalidad(pBuscada);
-        
+        //inicializa el JcomboBox
+        llenarJcomboboxZona();
+        llenarJcomboboxProvincia(zBuscada);
+        llenarJcomboboxLocalidad(pBuscada);
     }
        
     public void setAnchoColumna(){
@@ -632,54 +636,38 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void llenarJComboboxZona(){
-        //Instancia de controladores JPA de Zona            
-        modeloZona= new ZonaJpaController(Conexion.getEmf());
         
-        for (Zona z : modeloZona.findZonaEntities()) {
-            vista.getJcb_zona_direccion().addItem(z.getNombre());
-            if (vista.getJcb_zona_direccion().getSelectedItem().equals(z.getNombre())) {
-                zBuscada = z;
-            }
-        }
+    public void llenarJcomboboxZona(){
+        modeloZona = new ZonaJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloZona.findZonaEntities());
+        vista.getJcb_zona_direccion().setModel(mdl);
+        this.zBuscada = (Zona) vista.getJcb_zona_direccion().getSelectedItem();
     }
-    
-    public void llenarJComboboxProvincia(Zona z){
-        //Instancia de controladores JPA de Provincia        
-        modeloProvincia = new ProvinciaJpaController(Conexion.getEmf());        
-       
-        for (Provincia p : modeloProvincia.findProvinciaEntities()) {
-            if (p.getZona().getId()==z.getId()) {
-                vista.getJcb_provincia_direccion().addItem(p.getNombre());
-                if (vista.getJcb_provincia_direccion().getSelectedItem().equals(p.getNombre())) {
-                pBuscada = p;
-                }
-            }
-            
-        } 
-    }
-    
-    public void llenarJComboboxLocalidad(Provincia p){
-        //Instancia de controladores JPA de Localidad        
-        modeloLocalidad = new LocalidadJpaController(Conexion.getEmf());        
-       
-        for (Localidad l : modeloLocalidad.findLocalidadEntities()) {
-            if (l.getProvincia().getId() == p.getId()) {
-                vista.getJcb_localidad_direccion().addItem(l.getNombre());
-            }
-            
-        } 
-    }
-    
 
+    public void llenarJcomboboxProvincia(Zona z){
+        modeloProvincia = new ProvinciaJpaController(Conexion.getEmf());             
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloProvincia.buscarProvinciasPorZona(z));
+        vista.getJcb_provincia_direccion().setModel(mdl);
+        this.pBuscada = (Provincia) vista.getJcb_provincia_direccion().getSelectedItem();
+    }
+    
+     public void llenarJcomboboxLocalidad(Provincia p){
+        modeloLocalidad = new LocalidadJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloLocalidad.buscarLocalidadPorProvincia(p));
+        vista.getJcb_localidad_direccion().setModel(mdl);
+    }
+    
     @Override
     public void itemStateChanged(ItemEvent e) {
-
-        if (vista.getJcb_zona_direccion().getSelectedItem().toString().equals(modelo))) {
-                System.out.println("hola");
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            this.zBuscada = (Zona) vista.getJcb_zona_direccion().getSelectedItem();
+            if (zBuscada!=null) {
+                llenarJcomboboxProvincia(zBuscada);
+                if (pBuscada!=null) {
+                    llenarJcomboboxLocalidad(pBuscada);
+                }
+            }
         }
     }
-    
     
 }

@@ -56,8 +56,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jtf_Nombre = new javax.swing.JTextField();
         jtf_DNI = new javax.swing.JTextField();
         jtf_Apellido = new javax.swing.JTextField();
-        jbtn_Aceptar = new javax.swing.JButton();
-        jbtn_Cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         msj_Direccion = new javax.swing.JLabel();
         msj_ID = new javax.swing.JLabel();
@@ -79,6 +77,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jlbl_piso_direccion = new javax.swing.JLabel();
         jtf_departamento_direccion = new javax.swing.JTextField();
         jlbl_departamento_direccion = new javax.swing.JLabel();
+        jbtn_Aceptar = new javax.swing.JButton();
+        jbtn_Cancelar = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
@@ -134,7 +134,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
         add(jbtn_Volver);
-        jbtn_Volver.setBounds(300, 650, 210, 50);
+        jbtn_Volver.setBounds(590, 660, 210, 50);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setName("Empleado"); // NOI18N
@@ -163,14 +163,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jtf_DNI.setBounds(160, 150, 272, 19);
         jPanel1.add(jtf_Apellido);
         jtf_Apellido.setBounds(160, 110, 272, 19);
-
-        jbtn_Aceptar.setText("ACEPTAR");
-        jPanel1.add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(60, 240, 170, 25);
-
-        jbtn_Cancelar.setText("CANCELAR");
-        jPanel1.add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(260, 240, 170, 25);
         jPanel1.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
         jPanel1.add(msj_Direccion);
@@ -194,7 +186,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jcb_zona_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jcb_zona_direccion);
-        jcb_zona_direccion.setBounds(130, 30, 180, 24);
+        jcb_zona_direccion.setBounds(150, 30, 180, 24);
 
         jlbl_provincia_direccion.setText("Provincia:");
         jPanel3.add(jlbl_provincia_direccion);
@@ -202,7 +194,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jcb_provincia_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jcb_provincia_direccion);
-        jcb_provincia_direccion.setBounds(130, 70, 180, 24);
+        jcb_provincia_direccion.setBounds(150, 70, 180, 24);
 
         jcb_localidad_direccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcb_localidad_direccion.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +203,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
             }
         });
         jPanel3.add(jcb_localidad_direccion);
-        jcb_localidad_direccion.setBounds(130, 110, 180, 24);
+        jcb_localidad_direccion.setBounds(150, 110, 180, 24);
 
         jlbl_localidad_direccion.setText("Localidad:");
         jPanel3.add(jlbl_localidad_direccion);
@@ -221,7 +213,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanel3.add(jlbl_calle_direccion);
         jlbl_calle_direccion.setBounds(40, 150, 60, 15);
         jPanel3.add(jtf_calle_direccion);
-        jtf_calle_direccion.setBounds(130, 150, 180, 19);
+        jtf_calle_direccion.setBounds(150, 150, 180, 19);
 
         jtf_numero_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,28 +221,36 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
             }
         });
         jPanel3.add(jtf_numero_direccion);
-        jtf_numero_direccion.setBounds(130, 180, 180, 19);
+        jtf_numero_direccion.setBounds(150, 180, 180, 19);
 
         jlbl_numero_direccion.setText("Número:");
         jPanel3.add(jlbl_numero_direccion);
         jlbl_numero_direccion.setBounds(40, 180, 60, 15);
         jPanel3.add(jtf_piso_direccion);
-        jtf_piso_direccion.setBounds(130, 210, 180, 19);
+        jtf_piso_direccion.setBounds(150, 210, 180, 19);
 
         jlbl_piso_direccion.setText("Piso:");
         jPanel3.add(jlbl_piso_direccion);
         jlbl_piso_direccion.setBounds(40, 210, 60, 15);
         jPanel3.add(jtf_departamento_direccion);
-        jtf_departamento_direccion.setBounds(130, 240, 180, 19);
+        jtf_departamento_direccion.setBounds(150, 240, 180, 19);
 
         jlbl_departamento_direccion.setText("Departamento:");
         jPanel3.add(jlbl_departamento_direccion);
-        jlbl_departamento_direccion.setBounds(40, 240, 70, 15);
+        jlbl_departamento_direccion.setBounds(40, 240, 90, 15);
 
         jTabbedPane1.addTab("Dirección", jPanel3);
 
         add(jTabbedPane1);
         jTabbedPane1.setBounds(70, 310, 730, 310);
+
+        jbtn_Aceptar.setText("ACEPTAR");
+        add(jbtn_Aceptar);
+        jbtn_Aceptar.setBounds(70, 660, 170, 25);
+
+        jbtn_Cancelar.setText("CANCELAR");
+        add(jbtn_Cancelar);
+        jbtn_Cancelar.setBounds(270, 660, 170, 25);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtf_numero_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_numero_direccionActionPerformed
@@ -334,8 +334,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addItemListener(c);
-        jcb_provincia_direccion.addItemListener(c);
-        jcb_localidad_direccion.addItemListener(c);
+        jcb_provincia_direccion.addActionListener(c);
+        jcb_localidad_direccion.addActionListener(c);
         
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
