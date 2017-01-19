@@ -72,7 +72,7 @@ public class Direccion implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String toString() {        
         return "model.Direccion[ id=" + id + " ]";
     }
 
