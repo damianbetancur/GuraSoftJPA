@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="PROVINCIA")
+@Table (name="PROVINCIAS")
 public class Provincia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,10 +31,7 @@ public class Provincia implements Serializable {
 
     @Column(name="nombre")
     private String nombre;
-    
-    @Column(name="cantidadLocalidad")
-    private int cantidadLocalidad; 
-    
+        
     @ManyToOne
     private Zona zona;
     
@@ -81,15 +78,7 @@ public class Provincia implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getCantidadLocalidad() {
-        return cantidadLocalidad;
-    }
-
-    public void setCantidadLocalidad(int cantidadLocalidad) {
-        this.cantidadLocalidad = cantidadLocalidad;
-    }
+    }   
 
     public Zona getZona() {
         return zona;

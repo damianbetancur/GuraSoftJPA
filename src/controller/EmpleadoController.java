@@ -57,6 +57,7 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
     Zona zBuscada = null;
     Provincia pBuscada = null;
     Localidad lBuscada = null;
+    int ultimoIndiceSeleccionado = 0;
     List<Empleado> empleados;
 
     public EmpleadoController(PanelRegistroEmpleado vista, EmpleadoJpaController modelo) {
@@ -751,15 +752,8 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
     
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-            this.zBuscada = (Zona) vista.getJcb_zona_direccion().getSelectedItem();
-            if (zBuscada!=null) {
-                llenarJcomboboxProvincia(zBuscada);
-                if (pBuscada!=null) {
-                    llenarJcomboboxLocalidad(pBuscada);
-                }
-            }
-        }
+       
+        
     }
     
 }
