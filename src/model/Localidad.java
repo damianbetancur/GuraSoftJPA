@@ -6,14 +6,12 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +19,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="LOCALIDAD")
+@Table (name="LOCALIDADES")
 public class Localidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,16 +31,11 @@ public class Localidad implements Serializable {
     private String nombre;
     
     @Column(name="codigoPostal")
-    private String codigoPostal;
-    
-    @Column(name="prefijoTelefonico")
-    private String prefijoTelefonico;
+    private String codigoPostal;   
     
     //Provincia a la que pertenece la Localidad
     @ManyToOne
-    private Provincia provincia;
-    
-    
+    private Provincia provincia;    
     
     public Long getId() {
         return id;
@@ -92,15 +85,7 @@ public class Localidad implements Serializable {
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
-
-    public String getPrefijoTelefonico() {
-        return prefijoTelefonico;
-    }
-
-    public void setPrefijoTelefonico(String prefijoTelefonico) {
-        this.prefijoTelefonico = prefijoTelefonico;
-    }
-
+    
     public Provincia getProvincia() {
         return provincia;
     }
