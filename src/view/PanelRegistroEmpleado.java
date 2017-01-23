@@ -194,11 +194,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanelDireccion.add(jcb_provincia_direccion);
         jcb_provincia_direccion.setBounds(150, 70, 180, 24);
 
-        jcb_localidad_direccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcb_localidad_direccionActionPerformed(evt);
-            }
-        });
         jPanelDireccion.add(jcb_localidad_direccion);
         jcb_localidad_direccion.setBounds(150, 110, 180, 24);
 
@@ -211,12 +206,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jlbl_calle_direccion.setBounds(40, 150, 60, 15);
         jPanelDireccion.add(jtf_calle_direccion);
         jtf_calle_direccion.setBounds(150, 150, 180, 19);
-
-        jtf_numero_direccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtf_numero_direccionActionPerformed(evt);
-            }
-        });
         jPanelDireccion.add(jtf_numero_direccion);
         jtf_numero_direccion.setBounds(150, 180, 180, 19);
 
@@ -249,14 +238,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         add(jbtn_Cancelar);
         jbtn_Cancelar.setBounds(270, 660, 170, 25);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jtf_numero_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_numero_direccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtf_numero_direccionActionPerformed
-
-    private void jcb_localidad_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_localidad_direccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcb_localidad_direccionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -311,11 +292,9 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Nuevo.addActionListener(c);
         jbtn_Listar.addActionListener(c);
         jbtn_Modificar.addActionListener(c);
-        jbtn_Eliminar.addActionListener(c);
-        
+        jbtn_Eliminar.addActionListener(c);        
         jbtn_Aceptar.addActionListener(c);
-        jbtn_Cancelar.addActionListener(c);
-        
+        jbtn_Cancelar.addActionListener(c);        
         jbtn_Volver.addActionListener(c);  
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
@@ -331,9 +310,14 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addItemListener(c);
-        jcb_provincia_direccion.addActionListener(c);
-        jcb_localidad_direccion.addActionListener(c);
+        jcb_provincia_direccion.addItemListener(c);
+        jcb_localidad_direccion.addItemListener(c);
         
+        //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
+        jcb_zona_direccion.addFocusListener(c);
+        jcb_provincia_direccion.addFocusListener(c);
+        jcb_localidad_direccion.addFocusListener(c);
+        jtf_DNI.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaEmpleados.addMouseListener(c);
