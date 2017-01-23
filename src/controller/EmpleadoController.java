@@ -488,7 +488,7 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         llenarJcomboboxZona();
         llenarJcomboboxProvincia(zBuscada);        
         llenarJcomboboxLocalidad(pBuscada);
-        
+        //modificar Esta Linea 491
         vista.getJcb_zona_direccion().setSelectedItem(zBuscada);
         vista.getJcb_provincia_direccion().setSelectedItem(pBuscada);
         vista.getJcb_localidad_direccion().setSelectedItem(lSeleccionada);
