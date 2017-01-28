@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
 import java.awt.Color;
@@ -12,17 +6,18 @@ import java.util.logging.Logger;
 import view.JframePrincipal;
 
 /**
- *
- * @author israis007
+ * Clase Bienvenida
+ * @author Ariel
  */
 public class Bienvenida extends javax.swing.JFrame {
-private int auxiliar = 0;
-private boolean realizado = false;
-private String tipoUsuario = null;
-hilo ejecutar = new hilo();
-    /**
-     * Creates new form welcome
-     */
+    
+    private int auxiliar = 0;
+    private boolean realizado = false;
+    private String tipoUsuario = null;
+    
+    hilo ejecutar = new hilo();
+
+   
     public Bienvenida(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
         initComponents();
@@ -79,10 +74,8 @@ hilo ejecutar = new hilo();
     }//GEN-LAST:event_formWindowActivated
 
     /**
-     * @param args the command line arguments
+     * hijo de Ejecucion
      */
- 
-
     private class hilo extends Thread{
     @Override
     public void run(){
