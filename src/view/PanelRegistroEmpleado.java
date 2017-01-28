@@ -443,7 +443,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         return jbtn_Modificar;
     }
 
-    public javax.swing.JButton getJbtn_Nuevo() {
+    public javax.swing.JButton getJbtn_Agregar() {
         return jbtn_Nuevo;
     }
 
