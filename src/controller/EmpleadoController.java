@@ -23,14 +23,20 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import model.Cajero;
 import model.Direccion;
 import model.Empleado;
+import model.JPAController.CajeroJpaController;
 import model.JPAController.DireccionJpaController;
 import model.JPAController.LocalidadJpaController;
 import model.JPAController.ProvinciaJpaController;
+import model.JPAController.TipoEmpleadoJpaController;
+import model.JPAController.UnidadJpaController;
 import model.JPAController.ZonaJpaController;
 import model.Localidad;
+import model.Persona;
 import model.Provincia;
+import model.Unidad;
 import model.Zona;
 import view.JframePrincipal;
 import view.PanelRegistroEmpleado;
@@ -50,6 +56,9 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
     private DireccionJpaController modeloDireccion;
     private ProvinciaJpaController modeloProvincia;
     private LocalidadJpaController modeloLocalidad;
+    private UnidadJpaController modeloUnidad;
+    private CajeroJpaController modeloCajero;
+    private TipoEmpleadoJpaController modeloTipoEmpleado;
         
     boolean bloquearAceptarCrear = false;
     boolean bloquearAceptarEliminar = false;
@@ -59,9 +68,12 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
     Provincia pBuscada = null;
     Localidad lBuscada = null;
     
+    Unidad unidadSeleccionada =null;
+    
     boolean zSeleccionada = false;
     boolean pSeleccionada = false;
     boolean lSeleccionada = false;
+    boolean uSeleccionada = false;
     
     String dniModificado = null;
     
@@ -185,6 +197,9 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         llenarJcomboboxProvincia(zBuscada);
         llenarJcomboboxLocalidad(pBuscada);     
         
+        //Llena El JComboBox de unidad
+        llenarJcomboboxUnidad();
+        llenarJcomboboxTipoEmpleado(unidadSeleccionada);
         //desbloquea el boton nuevo
         bloquearAceptarCrear=true;        
     }
@@ -241,6 +256,13 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         
         //desbloquea el boton modificar
         bloquearAceptarModificar = true;
+        
+        //Llena El JComboBox de unidad
+        llenarJcomboboxUnidad();
+        llenarJcomboboxTipoEmpleado((Unidad)vista.getJcb_unidad().getSelectedItem());
+        
+        //Posiciona dentro del combobox Unidad al objeto Unidad  que posee el empleado.
+        vista.getJcb_unidad().setSelectedItem(empModificado.getUnidad());
 
     }
     
@@ -353,6 +375,11 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
                             vista.getJtf_numero_direccion().setText(empleados.get(0).getDireccion().getNumero());
                             vista.getJtf_piso_direccion().setText(empleados.get(0).getDireccion().getPiso());
                             vista.getJtf_departamento_direccion().setText(empleados.get(0).getDireccion().getDepartamento());
+                            
+                            if (empleados.get(0).getUnidad() !=null) {
+                                vista.getJcb_unidad().addItem(empleados.get(0).getUnidad().getNombre());
+                            }
+                            
                         }else{
                             System.out.println("No tiene Localidad");
                         }
@@ -383,17 +410,19 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
      * asocia la direccion al empleado
      * persiste empleado
      */
-    public void btn_aceptarCrear(){       
+    public void btn_aceptarCrear(){
+        boolean empleadoCreado=false;
         
-         if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {
-             //Crear Instancia de Empleado
-            Empleado emp = new Empleado();
+         if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {             
+            //Crea Instancia de Direccion
             Direccion direccion = new Direccion();                
 
-            //setea empleado
-             emp.setApellido(vista.getJtfApellido().getText());
-             emp.setNombre(vista.getJtfNombre().getText());
-             emp.setDni(vista.getJtfDNI().getText());
+            //Crear Instancia de Empleado
+            Empleado emp = new Empleado();
+            
+            //setea DNI empleado
+            emp.setDni(vista.getJtfDNI().getText());
+                          
 
              //setea Direccion
              direccion.setCalle(vista.getJtf_calle_direccion().getText());
@@ -402,55 +431,119 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
              direccion.setDepartamento(vista.getJtf_departamento_direccion().getText());
 
              //Setea direccion con el campo JcomboBox de Objeto localidad
-             direccion.setLocalidad((Localidad)vista.getJcb_localidad_direccion().getSelectedItem());  
+             direccion.setLocalidad((Localidad)vista.getJcb_localidad_direccion().getSelectedItem());
+             
+            //Instancia de Unidad
+            Unidad unaUnidad = new Unidad();
+
+            //Instancia UnidadJpaController
+            modeloUnidad = new UnidadJpaController(Conexion.getEmf());
+
+            //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
+            unaUnidad = (Unidad)vista.getJcb_unidad().getSelectedItem();
+
+            
 
            //Verificar si el DNI ingresado ya existe en la base de datos
            if (modelo.buscarEmpleadoDNI(emp)==null) {
             
-                modeloDireccion = new DireccionJpaController(Conexion.getEmf());
-                //Persiste la Direccion
-               modeloDireccion.create(direccion);
+               if (vista.getJcb_empleado().getSelectedItem().toString().equals("CAJERO")) {
+                   //Instancia CajeroJpaController
+                   modeloCajero = new CajeroJpaController(Conexion.getEmf());
+                   
+                   Cajero cajero = new Cajero();
+                   
+                   cajero.setNombre(vista.getJtfNombre().getText());
+                   cajero.setDni(vista.getJtfDNI().getText());
+                   cajero.setApellido(vista.getJtfApellido().getText());
+                   
+                   //Agrega la unidad al empleado
+                   cajero.setUnidad(unaUnidad);                   
+                   
+                   modeloDireccion = new DireccionJpaController(Conexion.getEmf());
+                   //Persiste la Direccion
+                   modeloDireccion.create(direccion);
 
-               //Agrega la direccion al empleado
-               emp.setDireccion(direccion);
+                   //Agrega la direccion al empleado
+                   cajero.setDireccion(direccion);
 
-               //Persiste Empleado
-               modelo.create(emp);                    
-               JOptionPane.showMessageDialog(null, "Empleado Guardado");  
+                   
+                   //Persiste Empleado
+                   modeloCajero.create(cajero);                    
+                   JOptionPane.showMessageDialog(null, "Empleado Guardado");  
 
-               //llena la tabla de Empleados
-               llenarTabla(vista.getTablaEmpleados());
+                   //llena la tabla de Empleados
+                   llenarTabla(vista.getTablaEmpleados());
+                   
+                   empleadoCreado =true;
+                   
+               }
+               if (vista.getJcb_empleado().getSelectedItem().equals("")) {
+                   //Instancia CajeroJpaController
+                   modeloCajero = new CajeroJpaController(Conexion.getEmf());
+                   
+                   Cajero cajero = new Cajero();
+                   
+                   cajero.setNombre(vista.getJtfNombre().getText());
+                   cajero.setDni(vista.getJtfDNI().getText());
+                   cajero.setApellido(vista.getJtfApellido().getText());
+                   
+                   //Agrega la unidad al empleado
+                   cajero.setUnidad(unaUnidad);                   
+                   
+                   modeloDireccion = new DireccionJpaController(Conexion.getEmf());
+                   //Persiste la Direccion
+                   modeloDireccion.create(direccion);
 
-               //setea tamaño de columnas
-               setAnchoColumna();
+                   //Agrega la direccion al empleado
+                   cajero.setDireccion(direccion);
 
-               //Habilita Botones
-               vista.habilitarBoton(true, vista.getJbtn_Listar());
-               vista.habilitarBoton(true, vista.getJbtn_Agregar()); 
-               vista.habilitarBoton(true, vista.getJbtn_Volver()); 
+                   
+                   //Persiste Empleado
+                   modeloCajero.create(cajero);                    
+                   JOptionPane.showMessageDialog(null, "Empleado Guardado");  
 
-               //Inhabilita Boton                    
-               inhabilitarTodosLosCampos(false);
-               vista.habilitarBoton(false, vista.getJbtn_Aceptar());
-               vista.habilitarBoton(false, vista.getJbtn_Cancelar());
-               vista.habilitarBoton(false, vista.getJbtn_Modificar());
-               vista.habilitarBoton(false, vista.getJbtn_Eliminar());
-
-               //posiciona en foco de la lista en el ultimo Empleado creado                    
-               vista.getTablaEmpleados().changeSelection(sizeTabla(), 1, false, false);
-
-               //Da valor al ID en la tabla
-               vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(sizeTabla(), 1)));
+                   //llena la tabla de Empleados
+                   llenarTabla(vista.getTablaEmpleados());
+                   
+                   empleadoCreado =true;
+                   
+               }
                
-               //Posiciona la seleccion en el Panel datos empleados. 
-                vista.getjTabbedPaneContenedor().setSelectedIndex(0);
-           
-                //Todos los botones de aceptar Bloqueados
-                bloquearAceptarCrear=false;
-                bloquearAceptarEliminar = false;
-                bloquearAceptarModificar = false;
+               
                 
-                
+               if (empleadoCreado) {
+                   //setea tamaño de columnas
+                    setAnchoColumna();
+
+                    //Habilita Botones
+                    vista.habilitarBoton(true, vista.getJbtn_Listar());
+                    vista.habilitarBoton(true, vista.getJbtn_Agregar()); 
+                    vista.habilitarBoton(true, vista.getJbtn_Volver()); 
+
+                    //Inhabilita Boton                    
+                    inhabilitarTodosLosCampos(false);
+                    vista.habilitarBoton(false, vista.getJbtn_Aceptar());
+                    vista.habilitarBoton(false, vista.getJbtn_Cancelar());
+                    vista.habilitarBoton(false, vista.getJbtn_Modificar());
+                    vista.habilitarBoton(false, vista.getJbtn_Eliminar());
+
+                    //posiciona en foco de la lista en el ultimo Empleado creado                    
+                    vista.getTablaEmpleados().changeSelection(sizeTabla(), 1, false, false);
+
+                    //Da valor al ID en la tabla
+                    vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(sizeTabla(), 1)));
+
+                    //Posiciona la seleccion en el Panel datos empleados. 
+                     vista.getjTabbedPaneContenedor().setSelectedIndex(0);
+
+                     //Todos los botones de aceptar Bloqueados
+                     bloquearAceptarCrear=false;
+                     bloquearAceptarEliminar = false;
+                     bloquearAceptarModificar = false;
+               }
+               
+                                
             
             }else{                
                 JOptionPane.showMessageDialog(null, "El Empleado ya existe o el DNI es invalido");
@@ -475,11 +568,25 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         //setea empleado con nuevos valores
         emp.setApellido(vista.getJtfApellido().getText());
         emp.setNombre(vista.getJtfNombre().getText());
-        emp.setDni(vista.getJtfDNI().getText());
+        emp.setDni(vista.getJtfDNI().getText());                
         
-        Direccion direccion = new Direccion();           
+        //Instancia de Direccion
+        Direccion direccion = new Direccion();  
+        
+        //Instancia de Unidad
+        Unidad unaUnidad = new Unidad();
+        
+        //Instancia UnidadJpaController
+        modeloUnidad = new UnidadJpaController(Conexion.getEmf());
+        
+        //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
+        unaUnidad = (Unidad)vista.getJcb_unidad().getSelectedItem();
+        
+        //Agrega la unidad al empleado
+        emp.setUnidad(unaUnidad);
         
         //setea Direccion
+        direccion.setId(emp.getDireccion().getId());
         direccion.setCalle(vista.getJtf_calle_direccion().getText());
         direccion.setNumero(vista.getJtf_numero_direccion().getText());
         direccion.setPiso(vista.getJtf_piso_direccion().getText());
@@ -492,38 +599,41 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         if (emp.getDni().equals(dniModificado)) {            
             //El DNI es igual se mantiene sin cambio            
             try {
-                    modeloDireccion = new DireccionJpaController(Conexion.getEmf());
-                    modeloDireccion.edit(emp.getDireccion());
-                    //edita empleado
-                    emp.setDireccion(direccion);
-                    modelo.edit(emp);
-                    JOptionPane.showMessageDialog(null, "empleado modificado");
+                
+                
+                //Edita Direccion
+                modeloDireccion = new DireccionJpaController(Conexion.getEmf()); 
+                modeloDireccion.edit(direccion);
+                //edita empleado
+                emp.setDireccion(direccion);
+                modelo.edit(emp);
+                JOptionPane.showMessageDialog(null, "empleado modificado");
 
-                    //llena la tabla de Empleados
-                    llenarTabla(vista.getTablaEmpleados());
+                //llena la tabla de Empleados
+                llenarTabla(vista.getTablaEmpleados());
 
-                    //setea tamaño de columnas
-                    setAnchoColumna();
+                //setea tamaño de columnas
+                setAnchoColumna();
 
-                    //Habilita Botones
-                    vista.habilitarBoton(true, vista.getJbtn_Listar());
-                    vista.habilitarBoton(true, vista.getJbtn_Agregar());  
+                //Habilita Botones
+                vista.habilitarBoton(true, vista.getJbtn_Listar());
+                vista.habilitarBoton(true, vista.getJbtn_Agregar());  
 
-                    //Inhabilita Boton
-                    vista.habilitarBoton(false, vista.getJbtn_Aceptar());
-                    vista.habilitarBoton(false, vista.getJbtn_Cancelar());
-                    vista.habilitarBoton(false, vista.getJbtn_Modificar());
-                    vista.habilitarBoton(false, vista.getJbtn_Agregar());
+                //Inhabilita Boton
+                vista.habilitarBoton(false, vista.getJbtn_Aceptar());
+                vista.habilitarBoton(false, vista.getJbtn_Cancelar());
+                vista.habilitarBoton(false, vista.getJbtn_Modificar());
+                vista.habilitarBoton(false, vista.getJbtn_Agregar());
 
-                    inhabilitarTodosLosCampos(false);
-                    
-                    //posiciona en foco de la lista en el Empleado del modificado
-                    vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
+                inhabilitarTodosLosCampos(false);
 
-                    //Todos los botones de aceptar Bloqueados
-                    bloquearAceptarCrear=false;
-                    bloquearAceptarEliminar = false;
-                    bloquearAceptarModificar = false;
+                //posiciona en foco de la lista en el Empleado del modificado
+                vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
+
+                //Todos los botones de aceptar Bloqueados
+                bloquearAceptarCrear=false;
+                bloquearAceptarEliminar = false;
+                bloquearAceptarModificar = false;
 
                 } catch (Exception ex) {
                     Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -535,6 +645,10 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
                  //Se modifica el DNI
                  emp.setDni(vista.getJtfDNI().getText());
                  try {
+                    //Edita Direccion
+                    modeloDireccion = new DireccionJpaController(Conexion.getEmf());                    
+                    modeloDireccion.edit(direccion);
+                    
                     //edita empleado
                     modelo.edit(emp);
                     JOptionPane.showMessageDialog(null, "empleado modificado");
@@ -803,6 +917,7 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         vista.habilitarCombobox(estado, vista.getJcb_zona_direccion());
         vista.habilitarCombobox(estado, vista.getJcb_provincia_direccion());
         vista.habilitarCombobox(estado, vista.getJcb_localidad_direccion());
+        vista.habilitarCombobox(estado, vista.getJcb_unidad());
     }
     
     /**
@@ -823,6 +938,7 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         vista.limpiarCombobox(vista.getJcb_zona_direccion());
         vista.limpiarCombobox(vista.getJcb_provincia_direccion());
         vista.limpiarCombobox(vista.getJcb_localidad_direccion());
+        vista.limpiarCombobox(vista.getJcb_unidad());
     }
 
     /**
@@ -943,6 +1059,18 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         vista.getJcb_localidad_direccion().setModel(mdl);
     }
     
+    public void llenarJcomboboxUnidad(){
+        modeloUnidad = new UnidadJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloUnidad.findUnidadEntities());
+        vista.getJcb_unidad().setModel(mdl);
+        
+    }
+    
+    public void llenarJcomboboxTipoEmpleado(Unidad u){ 
+            modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
+            DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloTipoEmpleado.buscarTipoEmpleadoPorUnidad(u));
+            vista.getJcb_empleado().setModel(mdl);
+    }
     
     /**
      * Verifica el cambio de estado en los JComboBox
@@ -966,6 +1094,11 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
                 this.pBuscada = (Provincia) vista.getJcb_provincia_direccion().getSelectedItem();
                 llenarJcomboboxLocalidad(pBuscada);                
             }
+            
+                this.unidadSeleccionada = (Unidad)vista.getJcb_unidad().getSelectedItem();
+                llenarJcomboboxTipoEmpleado(unidadSeleccionada);
+           
+            
         }
     }
 
@@ -987,6 +1120,10 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         if(e.getSource().equals(vista.getJtfDNI())){
             dniModificado = vista.getJtfDNI().getText();
         }
+        if (e.getSource().equals(vista.getJcb_unidad())) {
+            this.uSeleccionada = true;
+        }
+        
     }
 
     /**
@@ -1004,7 +1141,10 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
         }
         if (e.getSource().equals(vista.getJcb_localidad_direccion())) {
             lSeleccionada = false;
-        }     
+        }
+        if (e.getSource().equals(vista.getJcb_unidad())) {
+            this.uSeleccionada = false;
+        }
     }
     
     @Override
@@ -1055,6 +1195,14 @@ public class EmpleadoController implements ActionListener, KeyListener, MouseLis
                             vista.getJtf_numero_direccion().setText(empleado.getDireccion().getNumero());
                             vista.getJtf_piso_direccion().setText(empleado.getDireccion().getPiso());
                             vista.getJtf_departamento_direccion().setText(empleado.getDireccion().getDepartamento());
+                            
+                            
+                            if (empleado.getUnidad() !=null) {
+                                vista.getJcb_unidad().removeAllItems();
+                                vista.getJcb_unidad().addItem(empleado.getUnidad().getNombre());
+                            }
+                            
+                            
                         }else{
                             JOptionPane.showMessageDialog(null, "empleado no tiene Localidad asignada");
                         }

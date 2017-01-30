@@ -7,20 +7,28 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import static javax.persistence.DiscriminatorType.STRING;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
+
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name="PERSONA")
+@Inheritance(strategy=SINGLE_TABLE)
+@DiscriminatorColumn(name="type", discriminatorType=STRING,length=20)
+@DiscriminatorValue("PERSONA")
 public abstract class Persona implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -39,6 +47,9 @@ public abstract class Persona implements Serializable{
         
     @ManyToOne
     private Direccion direccion;
+    
+    @ManyToOne
+    private Unidad unidad;
 
     public Long getId() {
         return id;
@@ -105,5 +116,17 @@ public abstract class Persona implements Serializable{
         this.direccion = direccion;
     }
 
+    public Unidad getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
+    }
+
+    public String getDiscriminatorValue(){
+        return this.getClass().getAnnotation( DiscriminatorValue.class).value();
+    }
+        
     
 }

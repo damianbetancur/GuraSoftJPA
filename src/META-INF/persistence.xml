@@ -12,6 +12,15 @@
     <class>model.Zona</class>
     <class>model.UnidadComercial</class>
     <class>model.Persona</class>
+    <class>model.UnidadDeSistemas</class>
+    <class>model.Unidad</class>
+    <class>model.Cliente</class>
+    <class>model.CuentaCorriente</class>
+    <class>model.Proveedor</class>
+    <class>model.ClienteMayorista</class>
+    <class>model.ClienteMinorista</class>
+    <class>model.Cajero</class>
+    <class>model.TipoEmpleado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

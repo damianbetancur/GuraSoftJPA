@@ -8,9 +8,11 @@ package view;
 
 import controller.Conexion;
 import controller.EmpleadoController;
+import controller.EmpresaController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
+import model.JPAController.EmpresaJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
 /**
@@ -62,100 +64,92 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("GuraSoft");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Administración General");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Empresa");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Puesto de Trabajo");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Sucursal");
-        treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Seguridad");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Empleados");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Grupo de Usuarios");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Autorizaciones");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empleados");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tablas Relativas a Articulos");
-        treeNode2.add(treeNode3);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad Comercial");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
+        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tablas Relativas a Articulos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Lista de Precios");
+        treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Lista de Precios");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Stock");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Depositos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Sectores");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Movimientos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Movimientos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Compras");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Proveedores");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Trensferencias");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Deposito");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Vendedores");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Descuentos y Rangos Varios");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Fecha de Facturación");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Definición para el ingreso de comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Anulación de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Cobrar");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Cobranzas");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Saldos Iniciales");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Pagar");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Pagos");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Stock");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Depositos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Sectores");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Movimientos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Movimientos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Compras");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Proveedores");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Trensferencias");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Deposito");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Vendedores");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Descuentos y Rangos Varios");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Fecha de Facturación");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Definición para el ingreso de comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Anulación de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Cobrar");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cobranzas");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Saldos Iniciales");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Pagar");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Pagos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad de Sistemas");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ordenes de Trabajo");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         arbolModulos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -204,7 +198,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
               Si ejecutamos nos daremos cuenta que esto
              genera una excepciòn ya que la cadena es nula*/
 
-            if(captura.equals("[GuraSoft, Administración General, Seguridad, Empleados]")){  
+            if(captura.equals("[GuraSoft, Administración General, Empleados]")){  
             
                 //Se crea el Panel Persona    
                 PanelRegistroEmpleado unPanelPersona = new PanelRegistroEmpleado();            
@@ -229,6 +223,30 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             }
             
+            if(captura.equals("[GuraSoft, Administración General, Empresa]")){  
+            
+                //Se crea el Panel Persona    
+                PanelEmpresa unPanelEmpresa = new PanelEmpresa();            
+                unPanelEmpresa.setSize(950, 800);
+                unPanelEmpresa.setLocation(0,0);
+                unPanelEmpresa.setVisible(true);
+
+                //Se Crea controlador JPA
+                EmpresaJpaController modelo = new EmpresaJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Persona
+                EmpresaController controlador = new EmpresaController(unPanelEmpresa, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelEmpresa.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelEmpresa, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
             
             
             

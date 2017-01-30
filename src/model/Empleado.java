@@ -5,16 +5,19 @@
  */
 package model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Ariel
  */
 @Entity
-@Table (name="EMPLEADOS")
+@DiscriminatorValue( value="EMPLEADO" )
 public class Empleado extends Persona{
    
+    @ManyToOne
+    private TipoEmpleado tipoEmpleado;
     
 }
