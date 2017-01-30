@@ -6,13 +6,12 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,8 +19,8 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="TIPO_USUARIOS")
-public class TipoUsuario implements Serializable {
+@Table (name="TIPO_EMPLEADO")
+public class TipoEmpleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -30,10 +29,10 @@ public class TipoUsuario implements Serializable {
     
     @Column(name="descripcion")
     private String descripcion;
-
-    @OneToMany(mappedBy="tipoUsuario")
-    private Set<Usuario> usuarios;
     
+    @ManyToOne
+    private Unidad unidad;
+
     public Long getId() {
         return id;
     }
@@ -52,10 +51,10 @@ public class TipoUsuario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoUsuario)) {
+        if (!(object instanceof TipoEmpleado)) {
             return false;
         }
-        TipoUsuario other = (TipoUsuario) object;
+        TipoEmpleado other = (TipoEmpleado) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -75,14 +74,13 @@ public class TipoUsuario implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Set<Usuario> getUsuarios() {
-        return usuarios;
+    public Unidad getUnidad() {
+        return unidad;
     }
 
-    public void setUsuarios(Set<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
     }
-    
     
     
 }

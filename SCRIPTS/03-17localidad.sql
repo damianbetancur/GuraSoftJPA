@@ -1,3 +1,6 @@
+INSERT INTO `localidades`
+(`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
+VALUES
 (17000, '5194', 'VA.SAN FELIPE', 6),
 (17001, '5189', 'VA.SAN ISIDRO', 6),
 (17002, '3401', 'VA.SAN ISIDRO', 7),
@@ -97,7 +100,11 @@
 (17096, '6307', 'VALLE ARG.(MACACHIN-ATREU', 11),
 (17097, '8200', 'VALLE ARGENTINO.(GRL.ACHA', 11),
 (17098, '8336', 'VALLE AZUL', 16),
-(17099, '9005', 'VALLE C', 5),
+(17099, '9005', 'VALLE C', 5);
+
+INSERT INTO `localidades`
+(`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
+VALUES
 (17100, '4631', 'VALLE COLORADO', 10),
 (17101, '8200', 'VALLE DAZA', 11),
 (17102, '9101', 'VALLE DE LAS PLUMAS', 5),
@@ -197,7 +204,11 @@
 (17196, '6319', 'VICTORICA', 11),
 (17197, '6411', 'VICTORINO DE LA PLAZA', 1),
 (17198, '6140', 'VICUÑA MACKENNA', 6),
-(17199, '4751', 'VICUÑA PAMPA', 3),
+(17199, '4751', 'VICUÑA PAMPA', 3);
+
+INSERT INTO `localidades`
+(`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
+VALUES
 (17200, '3048', 'VIDELA', 21),
 (17201, '8500', 'VIEDMA', 16),
 (17202, '4115', 'VIELOS', 24),
@@ -297,7 +308,11 @@
 (17296, '5251', 'WIÑANO', 22),
 (17297, '3316', 'YABEBIRY', 14),
 (17298, '4324', 'YACANO', 22),
-(17299, '5877', 'YACANTO', 6),
+(17299, '5877', 'YACANTO', 6);
+
+INSERT INTO `localidades`
+(`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
+VALUES
 (17300, '5197', 'YACANTO-CALAMUCHITA', 6),
 (17301, '4534', 'YACARA', 17),
 (17302, '3190', 'YACARE', 8),
@@ -397,7 +412,11 @@
 (17396, '4189', 'YUCHANCITO', 22),
 (17397, '4151', 'YUCUMANITA', 24),
 (17398, '4208', 'YULU HUASI', 22),
-(17399, '5251', 'YUMAMPA', 22),
+(17399, '5251', 'YUMAMPA', 22);
+
+INSERT INTO `localidades`
+(`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
+VALUES
 (17400, '3620', 'YUNCA', 9),
 (17401, '4242', 'YUNILLURA', 24),
 (17402, '3747', 'YUNTA POZO', 22),

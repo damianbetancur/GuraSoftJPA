@@ -7,15 +7,15 @@ package model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
 
 /**
  *
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue( value="UNIDAD COMERCIAL" )
-public class UnidadComercial extends Unidad{
+@DiscriminatorValue( value="UNIDAD DE SISTEMAS" )
+public class UnidadDeSistemas extends Unidad{
    
     
 }
