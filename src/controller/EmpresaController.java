@@ -6,15 +6,10 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -35,7 +30,7 @@ import view.PanelEmpresa;
  *
  * @author Ariel
  */
-public class EmpresaController implements ActionListener, KeyListener, MouseListener, ItemListener, FocusListener{
+public class EmpresaController extends Controller {
     private PanelEmpresa vista;
     private EmpresaJpaController modelo;
     

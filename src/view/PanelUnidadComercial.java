@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.EmpleadoController;
+import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -285,8 +285,8 @@ public final class PanelUnidadComercial extends javax.swing.JPanel  implements I
     private javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void setControlador(EmpleadoController c) {
+    @Override
+    public void setControlador(Controller c) {
         
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
         jbtn_Nuevo.addActionListener(c);

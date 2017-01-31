@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.EmpresaController;
+import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -199,7 +199,7 @@ public final class PanelEmpresa extends javax.swing.JPanel  implements Interface
     // End of variables declaration//GEN-END:variables
 
     
-    public void setControlador(EmpresaController c) {
+    public void setControlador(Controller c) {
         
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados            
         jbtn_Volver.addActionListener(c);  
