@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.EmpleadoController;
+import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -308,16 +308,18 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     // End of variables declaration//GEN-END:variables
 
     
-    public void setControlador(EmpleadoController c) {
+    @Override
+    public void setControlador(Controller c) {
         
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
         jbtn_Nuevo.addActionListener(c);
         jbtn_Listar.addActionListener(c);
         jbtn_Modificar.addActionListener(c);
-        jbtn_Eliminar.addActionListener(c);        
+        jbtn_Eliminar.addActionListener(c);       
         jbtn_Aceptar.addActionListener(c);
-        jbtn_Cancelar.addActionListener(c);        
-        jbtn_Volver.addActionListener(c);  
+        jbtn_Cancelar.addActionListener(c);      
+        jbtn_Volver.addActionListener(c); 
+        
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
         jtf_Nombre.addKeyListener(c);
@@ -335,6 +337,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_provincia_direccion.addItemListener(c);
         jcb_localidad_direccion.addItemListener(c);
         jcb_empleado.addItemListener(c);
+        jcb_unidad.addItemListener(c);
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addFocusListener(c);
@@ -342,6 +345,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_localidad_direccion.addFocusListener(c);
         jtf_DNI.addFocusListener(c);
         jcb_empleado.addFocusListener(c);
+        jcb_unidad.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaEmpleados.addMouseListener(c);

@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -14,6 +15,8 @@ import javax.swing.JTextField;
  * @author Ariel
  */
 public interface InterfacePanel {
+    
+    public void setControlador(Controller c);
     
     public void limpiarCampo(JTextField campo);
     

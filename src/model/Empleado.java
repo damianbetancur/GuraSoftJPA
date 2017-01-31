@@ -19,5 +19,14 @@ public class Empleado extends Persona{
    
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
+
+    public TipoEmpleado getTipoEmpleado() {
+        return tipoEmpleado;
+    }
+
+    public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
+        this.tipoEmpleado = tipoEmpleado;
+    }
+    
     
 }

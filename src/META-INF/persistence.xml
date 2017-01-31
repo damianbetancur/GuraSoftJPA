@@ -21,6 +21,12 @@
     <class>model.ClienteMinorista</class>
     <class>model.Cajero</class>
     <class>model.TipoEmpleado</class>
+    <class>model.Vendedor</class>
+    <class>model.Tecnico</class>
+    <class>model.Programador</class>
+    <class>model.EncargadoDeProyecto</class>
+    <class>model.Diseñador</class>
+    <class>model.Analista</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
