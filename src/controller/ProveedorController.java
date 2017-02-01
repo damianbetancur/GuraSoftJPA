@@ -1,7 +1,10 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
-import model.JPAController.EmpleadoJpaController;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -19,38 +22,32 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Direccion;
-import model.Empleado;
 import model.JPAController.DireccionJpaController;
 import model.JPAController.LocalidadJpaController;
+import model.JPAController.ProveedorJpaController;
 import model.JPAController.ProvinciaJpaController;
-import model.JPAController.TipoEmpleadoJpaController;
-import model.JPAController.UnidadJpaController;
 import model.JPAController.ZonaJpaController;
 import model.Localidad;
+import model.Proveedor;
 import model.Provincia;
 import model.TipoEmpleado;
 import model.Unidad;
 import model.Zona;
 import view.JframePrincipal;
-import view.PanelRegistroEmpleado;
-
-
+import view.PanelRegistroProveedor;
 
 /**
- * Clase controladora de Empleado
+ *
  * @author Ariel
  */
-public class EmpleadoController extends Controller {
-    
-    private PanelRegistroEmpleado vista;
-    private EmpleadoJpaController modelo;
+public class ProveedorController extends Controller{
+    private PanelRegistroProveedor vista;
+    private ProveedorJpaController modelo;
     
     private ZonaJpaController modeloZona;
     private DireccionJpaController modeloDireccion;
     private ProvinciaJpaController modeloProvincia;
     private LocalidadJpaController modeloLocalidad;
-    private UnidadJpaController modeloUnidad;
-    private TipoEmpleadoJpaController modeloTipoEmpleado;
         
     boolean bloquearAceptarCrear = false;
     boolean bloquearAceptarEliminar = false;
@@ -59,25 +56,23 @@ public class EmpleadoController extends Controller {
     Zona zBuscada = null;
     Provincia pBuscada = null;
     Localidad lBuscada = null;
-    
-    Unidad uBuscada =null;
+        
     
     boolean zSeleccionada = false;
     boolean pSeleccionada = false;
-    boolean lSeleccionada = false;
-    boolean uSeleccionada = false;
+    boolean lSeleccionada = false;    
     
-    String dniModificado = null;
+    String cuitModificado = null;
     
     int ultimoIndiceSeleccionado = 0;
-    List<Empleado> empleados;
+    List<Proveedor> proveedores;
 
     /**
-     * Constructor Empleado
-     * @param vista PanelRegistroEmpleado
-     * @param modelo EmpleadoJpaController
+     * Constructor Proveedor
+     * @param vista PanelRegistroProveedor
+     * @param modelo ProveedorJpaController
      */
-    public EmpleadoController(PanelRegistroEmpleado vista, EmpleadoJpaController modelo) {
+    public ProveedorController(PanelRegistroProveedor vista, ProveedorJpaController modelo) {
         this.vista = vista;
         this.modelo = modelo;        
         
@@ -156,7 +151,7 @@ public class EmpleadoController extends Controller {
      * Desbloquea el Boton AceptarCrear para poder crear 
      */
     public void btn_agregar(){
-        //Posiciona la seleccion en el Panel datos empleados. 
+        //Posiciona la seleccion en el Panel datos Proveedor. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);
         
         //habilitar Botones
@@ -181,22 +176,19 @@ public class EmpleadoController extends Controller {
         vista.habilitarBoton(false, vista.getJbtn_Agregar());
         vista.habilitarBoton(false, vista.getJbtn_Listar());
         
-        //posiciona en foco de la lista en el ultimo Empleado creado                    
-        vista.getTablaEmpleados().changeSelection(sizeTabla(), 1, false, false);
+        //posiciona en foco de la lista en el ultimo Proveedor creado                    
+        vista.getTablaProveedores().changeSelection(sizeTabla(), 1, false, false);
         
         //inicializa el JcomboBox
         llenarJcomboboxZona();
         llenarJcomboboxProvincia(zBuscada);
-        llenarJcomboboxLocalidad(pBuscada);     
+        llenarJcomboboxLocalidad(pBuscada);             
         
-        //Llena El JComboBox de unidad
-        llenarJcomboboxUnidad();
-        llenarJcomboboxTipoEmpleado(uBuscada);
         //desbloquea el boton nuevo
         bloquearAceptarCrear=true;      
         
         //Limpia la lista            
-        vista.getTablaEmpleados().setModel(new DefaultTableModel());
+        vista.getTablaProveedores().setModel(new DefaultTableModel());
     }
     
     /**
@@ -205,7 +197,7 @@ public class EmpleadoController extends Controller {
      */
     public void btn_modificar(){
         
-        //Posiciona la seleccion en el Panel datos empleados. 
+        //Posiciona la seleccion en el Panel datos proveedores. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);        
             
         //Politica de validacion de Campos
@@ -226,45 +218,35 @@ public class EmpleadoController extends Controller {
         vista.habilitarBoton(false, vista.getJbtn_Modificar()); 
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
-        //Crea instancia de empleado
-        Empleado empModificado = new Empleado();
+        //Crea instancia de proveedor
+        Proveedor provModificado = new Proveedor();
         
-        //setea empleado en funcion al ID de la vista
-        empModificado = modelo.findEmpleado(Long.parseLong(vista.getJtfID().getText()));       
+        //setea proveedor en funcion al ID de la vista
+        provModificado = modelo.findProveedor(Long.parseLong(vista.getJtfID().getText()));       
         
         //Llena el combobox de Zona
         llenarJcomboboxZona();
-        //Posiciona dentro del combobox zona al objeto zona que posee el empleado.
-        vista.getJcb_zona_direccion().setSelectedItem(empModificado.getDireccion().getLocalidad().getProvincia().getZona());
+        //Posiciona dentro del combobox zona al objeto zona que posee el proveedor.
+        vista.getJcb_zona_direccion().setSelectedItem(provModificado.getDireccion().getLocalidad().getProvincia().getZona());
         
         //Llena el combobox de provincia
-        llenarJcomboboxProvincia(empModificado.getDireccion().getLocalidad().getProvincia().getZona()); 
-        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del empleado.
-        vista.getJcb_provincia_direccion().setSelectedItem(empModificado.getDireccion().getLocalidad().getProvincia());
+        llenarJcomboboxProvincia(provModificado.getDireccion().getLocalidad().getProvincia().getZona()); 
+        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del proveedor.
+        vista.getJcb_provincia_direccion().setSelectedItem(provModificado.getDireccion().getLocalidad().getProvincia());
         
         //Llena el combobox de Localidad
-        llenarJcomboboxLocalidad(empModificado.getDireccion().getLocalidad().getProvincia());
-        //Posiciona dentro del combobox Localidad al objeto Localidad dentro de Provincia dentro zona que posee el empleado.
-        vista.getJcb_localidad_direccion().setSelectedItem(empModificado.getDireccion().getLocalidad());
-        
-        //Llena El JComboBox de unidad
-        llenarJcomboboxUnidad();        
-        //Posiciona dentro del combobox Unidad al objeto Unidad  que posee el empleado.
-        vista.getJcb_unidad().setSelectedItem(empModificado.getUnidad());
-
-        //Llena El JComboBox de Tipo Empleado
-        llenarJcomboboxTipoEmpleado(empModificado.getUnidad());        
-        //Posiciona dentro del combobox Unidad al objeto Unidad  que posee el empleado.
-        vista.getJcb_empleado().setSelectedItem(empModificado.getTipoEmpleado());
-        
+        llenarJcomboboxLocalidad(provModificado.getDireccion().getLocalidad().getProvincia());
+        //Posiciona dentro del combobox Localidad al objeto Localidad dentro de Provincia dentro zona que posee el proveedor.
+        vista.getJcb_localidad_direccion().setSelectedItem(provModificado.getDireccion().getLocalidad());
+                
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        cuitModificado = vista.getJtfCUIT().getText();
         
         //desbloquea el boton modificar
         bloquearAceptarModificar = true;
         
         //Limpia la lista            
-        vista.getTablaEmpleados().setModel(new DefaultTableModel());
+        vista.getTablaProveedores().setModel(new DefaultTableModel());
     }
     
     /**
@@ -273,7 +255,7 @@ public class EmpleadoController extends Controller {
      */
     public void btn_eliminar(){ 
         
-        //Posiciona la seleccion en el Panel datos empleados. 
+        //Posiciona la seleccion en el Panel datos proveedores. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);
         bloquearAceptarCrear = false;
             
@@ -295,48 +277,38 @@ public class EmpleadoController extends Controller {
         vista.habilitarBoton(false, vista.getJbtn_Modificar()); 
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
-        //Crea instancia de empleado
-        Empleado empAEliminar = new Empleado();
+        //Crea instancia de proveedor
+        Proveedor provAEliminar = new Proveedor();
         
-        //setea empleado en funcion al ID de la vista
-        empAEliminar = modelo.findEmpleado(Long.parseLong(vista.getJtfID().getText()));       
+        //setea proveedor en funcion al ID de la vista
+        provAEliminar = modelo.findProveedor(Long.parseLong(vista.getJtfID().getText()));       
         
         //Llena el combobox de Zona
         llenarJcomboboxZona();
-        //Posiciona dentro del combobox zona al objeto zona que posee el empleado.
-        vista.getJcb_zona_direccion().setSelectedItem(empAEliminar.getDireccion().getLocalidad().getProvincia().getZona());
+        //Posiciona dentro del combobox zona al objeto zona que posee el proveedor.
+        vista.getJcb_zona_direccion().setSelectedItem(provAEliminar.getDireccion().getLocalidad().getProvincia().getZona());
         
         //Llena el combobox de provincia
-        llenarJcomboboxProvincia(empAEliminar.getDireccion().getLocalidad().getProvincia().getZona());         
-        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del empleado.
-        vista.getJcb_provincia_direccion().setSelectedItem(empAEliminar.getDireccion().getLocalidad().getProvincia());
+        llenarJcomboboxProvincia(provAEliminar.getDireccion().getLocalidad().getProvincia().getZona());         
+        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del proveedor.
+        vista.getJcb_provincia_direccion().setSelectedItem(provAEliminar.getDireccion().getLocalidad().getProvincia());
         
         //Llena el combobox de Localidad
-        llenarJcomboboxLocalidad(empAEliminar.getDireccion().getLocalidad().getProvincia());        
-        //Posiciona dentro del combobox Localidad al objeto Localidad dentro de Provincia dentro zona que posee el empleado.
-        vista.getJcb_localidad_direccion().setSelectedItem(empAEliminar.getDireccion().getLocalidad());
+        llenarJcomboboxLocalidad(provAEliminar.getDireccion().getLocalidad().getProvincia());        
+        //Posiciona dentro del combobox Localidad al objeto Localidad dentro de Provincia dentro zona que posee el proveedor.
+        vista.getJcb_localidad_direccion().setSelectedItem(provAEliminar.getDireccion().getLocalidad());
+                
+        //cuitModificado incializa
+        cuitModificado = vista.getJtfCUIT().getText();
         
-        //Llena El JComboBox de unidad
-        llenarJcomboboxUnidad();        
-        //Posiciona dentro del combobox Unidad al objeto Unidad  que posee el empleado.
-        vista.getJcb_unidad().setSelectedItem(empAEliminar.getUnidad());
-
-        //Llena El JComboBox de Tipo Empleado
-        llenarJcomboboxTipoEmpleado(empAEliminar.getUnidad());        
-        //Posiciona dentro del combobox Unidad al objeto Unidad  que posee el empleado.
-        vista.getJcb_empleado().setSelectedItem(empAEliminar.getTipoEmpleado());
-        
-        //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
-        
-        //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        //cuitModificado incializa
+        cuitModificado = vista.getJtfCUIT().getText();
         
         //Habilita boton Aceptar Eliminar Bloqueado
         bloquearAceptarEliminar = true;
         
         //Limpia la lista            
-        vista.getTablaEmpleados().setModel(new DefaultTableModel());
+        vista.getTablaProveedores().setModel(new DefaultTableModel());
     }   
     
     /**
@@ -360,7 +332,7 @@ public class EmpleadoController extends Controller {
             vista.habilitarBoton(true, vista.getJbtn_Volver());
             
             //Llena la tabla
-            llenarTabla(vista.getTablaEmpleados());
+            llenarTabla(vista.getTablaProveedores());
             
            //Setea ancho de columna
             setAnchoColumna();
@@ -369,36 +341,28 @@ public class EmpleadoController extends Controller {
             if (sizeTabla()>=0) {    
                 //Si posee datos de direccion se cargan en la vista
                 
-                //Posicionar el cursor de la lista en el primer Elemento
-                vista.getJtfID().setText(empleados.get(0).getId().toString());
-                vista.getJtfDNI().setText(empleados.get(0).getDni());
-                vista.getJtfNombre().setText(empleados.get(0).getNombre());
-                vista.getJtfApellido().setText(empleados.get(0).getApellido());
-                if (empleados.get(0).getId().toString().equals(vista.getJtfID().getText())) {
-                    if (empleados.get(0).getDireccion()!=null) {
-                        if (empleados.get(0).getDireccion().getLocalidad() !=null) {
+                //Posicionar el cursor de la lista en el primer Proveedor
+                vista.getJtfID().setText(proveedores.get(0).getId().toString());
+                vista.getJtfCUIT().setText(proveedores.get(0).getCuit());
+                vista.getJtfRazonSocial().setText(proveedores.get(0).getRazonSocial());
+                if (proveedores.get(0).getId().toString().equals(vista.getJtfID().getText())) {
+                    if (proveedores.get(0).getDireccion()!=null) {
+                        if (proveedores.get(0).getDireccion().getLocalidad() !=null) {
 
 
                             vista.getJcb_zona_direccion().removeAllItems();
-                            vista.getJcb_zona_direccion().addItem(empleados.get(0).getDireccion().getLocalidad().getProvincia().getZona().getNombre());
+                            vista.getJcb_zona_direccion().addItem(proveedores.get(0).getDireccion().getLocalidad().getProvincia().getZona().getNombre());
                             
                             vista.getJcb_provincia_direccion().removeAllItems();
-                            vista.getJcb_provincia_direccion().addItem(empleados.get(0).getDireccion().getLocalidad().getProvincia().getNombre());
+                            vista.getJcb_provincia_direccion().addItem(proveedores.get(0).getDireccion().getLocalidad().getProvincia().getNombre());
                             
                             vista.getJcb_localidad_direccion().removeAllItems();
-                            vista.getJcb_localidad_direccion().addItem(empleados.get(0).getDireccion().getLocalidad().getNombre());
+                            vista.getJcb_localidad_direccion().addItem(proveedores.get(0).getDireccion().getLocalidad().getNombre());
                             
-                            vista.getJtf_calle_direccion().setText(empleados.get(0).getDireccion().getCalle());
-                            vista.getJtf_numero_direccion().setText(empleados.get(0).getDireccion().getNumero());
-                            vista.getJtf_piso_direccion().setText(empleados.get(0).getDireccion().getPiso());
-                            vista.getJtf_departamento_direccion().setText(empleados.get(0).getDireccion().getDepartamento());
-                            
-                            if (empleados.get(0).getUnidad() !=null) {
-                                vista.getJcb_unidad().addItem(empleados.get(0).getUnidad().getNombre());                                
-                            }
-                            if (empleados.get(0).getTipoEmpleado() !=null) {
-                                vista.getJcb_empleado().addItem(empleados.get(0).getTipoEmpleado().getDescripcion());
-                            }
+                            vista.getJtf_calle_direccion().setText(proveedores.get(0).getDireccion().getCalle());
+                            vista.getJtf_numero_direccion().setText(proveedores.get(0).getDireccion().getNumero());
+                            vista.getJtf_piso_direccion().setText(proveedores.get(0).getDireccion().getPiso());
+                            vista.getJtf_departamento_direccion().setText(proveedores.get(0).getDireccion().getDepartamento());                            
                             
                         }else{
                             System.out.println("No tiene Localidad");
@@ -409,36 +373,36 @@ public class EmpleadoController extends Controller {
                     }                    
                 }
                 
-                //posiciona en foco de la lista en el primer Empleado 
-                vista.getTablaEmpleados().changeSelection(0, 1, false, false);
+                //posiciona en foco de la lista en el primer Proveedor 
+                vista.getTablaProveedores().changeSelection(0, 1, false, false);
             }else{
                 //Habilita Botones
                 vista.habilitarBoton(false, vista.getJbtn_Modificar());
                 vista.habilitarBoton(false, vista.getJbtn_Eliminar());
                 limpiarTodosLosCampos();
-                JOptionPane.showMessageDialog(null, "No hay empleados que listar");
+                JOptionPane.showMessageDialog(null, "No hay Proveedor que listar");
             }
             
-            //Posiciona la seleccion en el Panel datos empleados. 
+            //Posiciona la seleccion en el Panel datos proveedores. 
             vista.getjTabbedPaneContenedor().setSelectedIndex(0);
     }
     
     /**
      * Controla el Boton Aceptar cuando se este creando
-     * crea instancia de empleado, slo si existe localidad
-     * crea instancia de direccion y persiste, solamente si el empleado no existe
-     * asocia la direccion al empleado
-     * persiste empleado
+    crea instancia de proveedor, slo si existe localidad
+    crea instancia de direccion y persiste, solamente si el proveedor no existe
+    asocia la direccion al proveedor
+    persiste proveedor
      */
     public void btn_aceptarCrear(){
-        boolean empleadoCreado=false;
+        boolean proveedorCreado=false;
         
         if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {   
-            //Crear Instancia de Empleado
-            Empleado emp = new Empleado();
+            //Crear Instancia de Proveedor
+            Proveedor prov = new Proveedor();
             
-            //setea DNI empleado
-            emp.setDni(vista.getJtfDNI().getText());
+            //setea DNI proveedor
+            prov.setCuit(vista.getJtfCUIT().getText());
                           
             //Crea Instancia de Direccion
             Direccion direccion = new Direccion(); 
@@ -455,60 +419,36 @@ public class EmpleadoController extends Controller {
             //Setea direccion con el campo JcomboBox de Objeto localidad
             direccion.setLocalidad((Localidad)vista.getJcb_localidad_direccion().getSelectedItem());
              
-            //Instancia de Unidad
-            Unidad unaUnidad = new Unidad();
-
-            //Instancia UnidadJpaController
-            modeloUnidad = new UnidadJpaController(Conexion.getEmf());
-
-            //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
-            unaUnidad = (Unidad)vista.getJcb_unidad().getSelectedItem();
-
-            //Instancia de TipoEmpleado
-            TipoEmpleado unTipoEmpleado = new TipoEmpleado();
-
-            //Instancia TipoEmpleadoJpaController
-            modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
-
-            //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
-            unTipoEmpleado = (TipoEmpleado)vista.getJcb_empleado().getSelectedItem();
             
-
-            //Verificar si el DNI ingresado ya existe en la base de datos
-            if (modelo.buscarEmpleadoDNI(emp)==null) {   
+            //Verificar si el CUIT ingresado ya existe en la base de datos
+            if (modelo.buscarProveedorCUIT(prov)==null) {   
                 
-               if (!empleadoCreado) {
-                   //Setea Datos de Empleado
-                   emp.setNombre(vista.getJtfNombre().getText());
-                   emp.setDni(vista.getJtfDNI().getText());
-                   emp.setApellido(vista.getJtfApellido().getText());
-                   
-                   //Setea TipoEmpleado
-                   emp.setTipoEmpleado(unTipoEmpleado);
-                   
-                   //Agrega la unidad al empleado
-                   emp.setUnidad(unaUnidad);       
+               if (!proveedorCreado) {
+                   //Setea Datos de Proveedor
+                   prov.setRazonSocial(vista.getJtfRazonSocial().getText());
+                   prov.setCuit(vista.getJtfCUIT().getText()); 
                    
                    //Persiste la Direccion
                    modeloDireccion.create(direccion);
 
-                   //Agrega la direccion al empleado
-                   emp.setDireccion(direccion);
+                   //Agrega la direccion al proveedor
+                   prov.setDireccion(direccion);
                    
-                   //Persiste Empleado
-                   modelo.create(emp);  
+                   //Persiste Proveedor
+                   modelo.create(prov);  
+                  
+                   //Bandera de proveedor creado a verdadero
+                   proveedorCreado =true;
                    
-                   //Bandera de empleado creado a verdadero
-                   empleadoCreado =true;
-                   
-                   //Mensaje de empleado Guardado
-                   JOptionPane.showMessageDialog(null, "Empleado Guardado");
+                   //Mensaje de proveedor Guardado
+                   JOptionPane.showMessageDialog(null, "Proveedor Guardado");
                }
                
                 
-               if (empleadoCreado) {
-                   //llena la tabla de Empleados
-                   llenarTabla(vista.getTablaEmpleados());
+               if (proveedorCreado) {
+                     
+                   //llena la tabla de Proveedores
+                   llenarTabla(vista.getTablaProveedores());
                    
                    //setea tamaño de columnas
                     setAnchoColumna();
@@ -527,13 +467,13 @@ public class EmpleadoController extends Controller {
                     vista.habilitarBoton(false, vista.getJbtn_Modificar());
                     vista.habilitarBoton(false, vista.getJbtn_Eliminar());
 
-                    //posiciona en foco de la lista en el ultimo Empleado creado                    
-                    vista.getTablaEmpleados().changeSelection(sizeTabla(), 1, false, false);
+                    //posiciona en foco de la lista en el ultimo Proveedor creado                    
+                    vista.getTablaProveedores().changeSelection(sizeTabla(), 1, false, false);
 
                     //Da valor al ID en la tabla
-                    vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(sizeTabla(), 1)));
+                    vista.getJtfID().setText(String.valueOf(vista.getTablaProveedores().getValueAt(sizeTabla(), 1)));
 
-                    //Posiciona la seleccion en el Panel datos empleados. 
+                    //Posiciona la seleccion en el Panel datos proveedores. 
                      vista.getjTabbedPaneContenedor().setSelectedIndex(0);
 
                      //Todos los botones de aceptar Bloqueados
@@ -545,7 +485,7 @@ public class EmpleadoController extends Controller {
                                 
             
             }else{                
-                JOptionPane.showMessageDialog(null, "El Empleado ya existe o el DNI es invalido");
+                JOptionPane.showMessageDialog(null, "El Proveedor ya existe o el CUIT es invalido");
             }  
         }else{
              JOptionPane.showMessageDialog(null, "Tiene que ingresar una Localidad");             
@@ -555,27 +495,27 @@ public class EmpleadoController extends Controller {
     
     /**
      * Controla el Boton Aceptar cuando se este modificando
-     * crea instancia de empleado, en funcion al ID seleccionado
-     * crea una instancia de direccion del empleado
-     * verifica que el DNI del empleado es modificado, si lo es setea el dni del empleado instanciado
-     * edita direccion
-     * edita empleado
+    crea instancia de proveedor, en funcion al ID seleccionado
+    crea una instancia de direccion del proveedor
+    verifica que el DNI del proveedor es modificado, si lo es setea el dni del proveedor instanciado
+    edita direccion
+    edita proveedor
      */
     public void btn_aceptarModificar(){
-        boolean empleadoModifocado=false;
+        boolean proveedorModifocado=false;
         
         if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {
-            //instancia de empleado igual al objeto guardado en Base de datos
-            Empleado emp = modelo.findEmpleado(Long.parseLong(vista.getJtfID().getText()));
+            //instancia de proveedor igual al objeto guardado en Base de datos
+            Proveedor prov = modelo.findProveedor(Long.parseLong(vista.getJtfID().getText()));
 
-            //setea DNI empleado con nuevos valores
-            emp.setDni(vista.getJtfDNI().getText());                
+            //setea CUIT proveedor con nuevos valores
+            prov.setCuit(vista.getJtfCUIT().getText());                
 
             //Instancia de Direccion
             Direccion direccion = new Direccion();  
 
             //setea Direccion
-            direccion.setId(emp.getDireccion().getId());
+            direccion.setId(prov.getDireccion().getId());
             direccion.setCalle(vista.getJtf_calle_direccion().getText());
             direccion.setNumero(vista.getJtf_numero_direccion().getText());
             direccion.setPiso(vista.getJtf_piso_direccion().getText());
@@ -586,85 +526,54 @@ public class EmpleadoController extends Controller {
 
             //Setea direccion con el campo JcomboBox de Objeto localidad
             direccion.setLocalidad((Localidad)vista.getJcb_localidad_direccion().getSelectedItem());
-
-            //Instancia de Unidad
-            Unidad unaUnidad = new Unidad();
-
-            //Instancia UnidadJpaController
-            modeloUnidad = new UnidadJpaController(Conexion.getEmf());
-
-            //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
-            unaUnidad = (Unidad)vista.getJcb_unidad().getSelectedItem();
-
-            //Instancia de TipoEmpleado
-            TipoEmpleado unTipoEmpleado = new TipoEmpleado();
-
-            //Instancia TipoEmpleadoJpaController
-            modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
-
-            //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
-            unTipoEmpleado = (TipoEmpleado)vista.getJcb_empleado().getSelectedItem();       
-
-            if (!empleadoModifocado) {
-                //verificar que el DNI sea igual que el DNI actual        
-                if (emp.getDni().equals(dniModificado)) {            
-                    //El DNI es igual se mantiene sin cambio            
+                     
+            
+            if (!proveedorModifocado) {
+                //verificar que el CUIT sea igual que el CUIT actual        
+                if (prov.getCuit().equals(cuitModificado)) {            
+                    //El CUIT es igual se mantiene sin cambio            
                     try {
-                        //Setea Datos de Empleado
-                        emp.setApellido(vista.getJtfApellido().getText());
-                        emp.setNombre(vista.getJtfNombre().getText());
-
-                        //Agrega tipo Empleado a emp
-                        emp.setTipoEmpleado(unTipoEmpleado);
-
-                        //Agrega unidad a emp
-                        emp.setUnidad(unaUnidad);
+                        //Setea Datos de Proveedor
+                        prov.setRazonSocial(vista.getJtfRazonSocial().getText());                        
 
                         //Edita Direccion
                         modeloDireccion.edit(direccion);
 
-                        //agrega direccion a emp
-                        emp.setDireccion(direccion);
+                        //agrega direccion a proveedor
+                        prov.setDireccion(direccion);
 
-                        //Persiste Empleado
-                        modelo.edit(emp);
-                        JOptionPane.showMessageDialog(null, "empleado modificado con DNI igual");
+                        //Persiste Proveedor
+                        modelo.edit(prov);
+                        JOptionPane.showMessageDialog(null, "Proveedor modificado con CUIT igual");
                         
-                        //Bandera de empleado creado a verdadero
-                        empleadoModifocado =true;
+                        //Bandera de proveedor creado a verdadero
+                        proveedorModifocado =true;
 
                         } catch (Exception ex) {
                             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                 //Si el DNI no es igual que el DNI actual
+                 //Si el CUIT no es igual que el CUIT actual
                  }else{
-                     //Verifica si existe el DNI, si no existe se procede
-                     if (modelo.buscarEmpleadoDNI(emp)==null) {
-                         //Se modifica el DNI
-                         emp.setDni(vista.getJtfDNI().getText());
+                     //Verifica si existe el CUIT, si no existe se procede
+                     if (modelo.buscarProveedorCUIT(prov)==null) {
+                         //Se modifica el CUIT
+                         prov.setCuit(vista.getJtfCUIT().getText());
                          try {
-                            //Setea Datos de Empleado
-                            emp.setApellido(vista.getJtfApellido().getText());
-                            emp.setNombre(vista.getJtfNombre().getText());
-
-                            //Agrega tipo Empleado a emp
-                            emp.setTipoEmpleado(unTipoEmpleado);
-
-                            //Agrega unidad a emp
-                            emp.setUnidad(unaUnidad);
-
+                            //Setea Datos de Proveedor
+                            prov.setRazonSocial(vista.getJtfRazonSocial().getText());
+                            
                             //Edita Direccion
                             modeloDireccion.edit(direccion);
 
-                            //agrega direccion a emp
-                            emp.setDireccion(direccion);
+                            //agrega direccion a prov
+                            prov.setDireccion(direccion);
 
-                            //Persiste Empleado
-                            modelo.edit(emp);
-                            JOptionPane.showMessageDialog(null, "empleado y DNI modificado");
+                            //Persiste Proveedor
+                            modelo.edit(prov);
+                            JOptionPane.showMessageDialog(null, "Proveedor y CUIT modificado");
                             
-                            //Bandera de empleado creado a verdadero
-                            empleadoModifocado =true;
+                            //Bandera de proveedor creado a verdadero
+                            proveedorModifocado =true;
 
                         } catch (Exception ex) {
                             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -672,14 +581,14 @@ public class EmpleadoController extends Controller {
 
 
                         }else{
-                            JOptionPane.showMessageDialog(null, "El DNI Ya existe, modifiquelo");
+                            JOptionPane.showMessageDialog(null, "El CUIT Ya existe, modifiquelo");
                         }
                  }
             }
-            if (empleadoModifocado) {
+            if (proveedorModifocado) {
                 
-                //llena la tabla de Empleados
-                llenarTabla(vista.getTablaEmpleados());
+                //llena la tabla de Proveedor
+                llenarTabla(vista.getTablaProveedores());
 
                 //setea tamaño de columnas
                 setAnchoColumna();
@@ -697,8 +606,8 @@ public class EmpleadoController extends Controller {
 
                 inhabilitarTodosLosCampos(false);
 
-                //posiciona en foco de la lista en el Empleado del modificado
-                vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
+                //posiciona en foco de la lista en el Proveedor del modificado
+                vista.getTablaProveedores().changeSelection(buscarPosicionEnTabla(prov.getId()), 1, false, false);
 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear=false;
@@ -714,36 +623,36 @@ public class EmpleadoController extends Controller {
     
     /**
      * Controla el Boton Aceptar cuando se este eliminando
-     * crea instancia de empleado, en funcion al ID seleccionado
-     * crea una instancia de direccion del empleado
-     * verifica que el empleado tenga dreccion, si tiene direccion se elimia la direccion del empleado,
-     * elimina direccion
-     * elimina empleado
+    crea instancia de proveedor, en funcion al ID seleccionado
+    crea una instancia de direccion del proveedor
+    verifica que el proveedor tenga dreccion, si tiene direccion se elimia la direccion del proveedor,
+    elimina direccion
+    elimina proveedor
      */
     public void btn_aceptarEliminar(){
         modeloDireccion= new DireccionJpaController(Conexion.getEmf());
-        //instancia de empleado igual al objeto guardado en Base de datos
-         Empleado emp = modelo.findEmpleado(Long.parseLong(vista.getJtfID().getText()));
+        //instancia de proveedor igual al objeto guardado en Base de datos
+         Proveedor prov = modelo.findProveedor(Long.parseLong(vista.getJtfID().getText()));
          Direccion direccion = null;
          
-         for (Empleado empleado : empleados) {
-             if (empleado.equals(emp)) {                 
-                 direccion = empleado.getDireccion();
+         for (Proveedor proveedor : proveedores) {
+             if (proveedor.equals(prov)) {                 
+                 direccion = proveedor.getDireccion();
              }
         }
         
         try {
-            //elimina empleado
+            //elimina proveedor
             if (direccion!= null) {
-                //Se elimina Empleado antes que la direccion por integridad referencia
-                modelo.destroy(emp.getId());
+                //Se elimina Proveedor antes que la direccion por integridad referencia
+                modelo.destroy(prov.getId());
                 //Se elimina direccion sin asociacion
                 modeloDireccion.destroy(direccion.getId());
                 
-                JOptionPane.showMessageDialog(null, "empleado con direccion eliminados");
+                JOptionPane.showMessageDialog(null, "Proveedor con direccion eliminados");
 
-                //llena la tabla de Empleados
-                llenarTabla(vista.getTablaEmpleados());
+                //llena la tabla de Proveedor
+                llenarTabla(vista.getTablaProveedores());
 
                 //setea tamaño de columnas
                 setAnchoColumna();
@@ -761,22 +670,22 @@ public class EmpleadoController extends Controller {
                 inhabilitarTodosLosCampos(false);
                 limpiarTodosLosCampos();
 
-                //posiciona en foco de la lista en el Empleado del modificado
-                vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
+                //posiciona en foco de la lista en el Proveedor del modificado
+                vista.getTablaProveedores().changeSelection(buscarPosicionEnTabla(prov.getId()), 1, false, false);
                               
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                cuitModificado = vista.getJtfCUIT().getText();
                 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear=false;
                 bloquearAceptarEliminar = false;
                 bloquearAceptarModificar = false;
             }else{
-                modelo.destroy(emp.getId());
-                JOptionPane.showMessageDialog(null, "empleado sin Direccion eliminado");
+                modelo.destroy(prov.getId());
+                JOptionPane.showMessageDialog(null, "Proveedor sin Direccion eliminado");
 
-                //llena la tabla de Empleados
-                llenarTabla(vista.getTablaEmpleados());
+                //llena la tabla de Proveedor
+                llenarTabla(vista.getTablaProveedores());
 
                 //setea tamaño de columnas
                 setAnchoColumna();
@@ -794,11 +703,11 @@ public class EmpleadoController extends Controller {
                 inhabilitarTodosLosCampos(false);
                 limpiarTodosLosCampos();
 
-                //posiciona en foco de la lista en el Empleado del modificado
-                vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
+                //posiciona en foco de la lista en el Proveedor del modificado
+                vista.getTablaProveedores().changeSelection(buscarPosicionEnTabla(prov.getId()), 1, false, false);
                 
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                cuitModificado = vista.getJtfCUIT().getText();
                 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear=false;
@@ -853,7 +762,7 @@ public class EmpleadoController extends Controller {
         inhabilitarTodosLosBotones(false);
 
         //Limpia la lista            
-        vista.getTablaEmpleados().setModel(new DefaultTableModel());
+        vista.getTablaProveedores().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
         JframePrincipal.modificarArbol(true);
@@ -867,12 +776,12 @@ public class EmpleadoController extends Controller {
     
     
     /**
-     * Llena Jtable de empleado
-     * crea una lista de empleados existentes en la base de datos. 
+     * Llena Jtable de proveedor
+    crea una lista de proveedores existentes en la base de datos. 
      * @param tablaD Tabla Empleado
      */
     public void llenarTabla(JTable tablaD){
-        empleados = new ArrayList<Empleado>();
+        proveedores = new ArrayList<Proveedor>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel(){
 
@@ -896,24 +805,22 @@ public class EmpleadoController extends Controller {
         //Setea las cabeceras de la tabla
         modeloT.addColumn("N°");
         modeloT.addColumn("ID");
-        modeloT.addColumn("DNI");
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Apellido");        
+        modeloT.addColumn("CUIT");
+        modeloT.addColumn("Razon Social"); 
         
         //Cantidad de columnas 
-        Object [] columna = new Object[6];
+        Object [] columna = new Object[4];
         
         int numero = 0;
         
-        for (Empleado emp : modelo.findEmpleadoEntities()) {
-            //Guarda en Lista de empleados  
-            empleados.add(emp);
+        for (Proveedor prov : modelo.findProveedorEntities()) {
+            //Guarda en Lista de proveedores  
+            proveedores.add(prov);
             numero = numero + 1;
             columna[0] = String.valueOf(numero);   
-            columna[1] = emp.getId();            
-            columna[2] = emp.getDni();
-            columna[3] = emp.getNombre();
-            columna[4] = emp.getApellido();           
+            columna[1] = prov.getId();            
+            columna[2] = prov.getCuit();
+            columna[3] = prov.getRazonSocial();         
             
             modeloT.addRow(columna);
         }
@@ -926,9 +833,8 @@ public class EmpleadoController extends Controller {
     public void inhabilitarTodosLosCampos(boolean estado){
         //inhabilita campos
         vista.habilitarCampo(estado, vista.getJtfID());
-        vista.habilitarCampo(estado, vista.getJtfNombre());
-        vista.habilitarCampo(estado, vista.getJtfApellido());
-        vista.habilitarCampo(estado, vista.getJtfDNI());
+        vista.habilitarCampo(estado, vista.getJtfRazonSocial());
+        vista.habilitarCampo(estado, vista.getJtfCUIT());
         
         vista.habilitarCampo(estado, vista.getJtf_calle_direccion());
         vista.habilitarCampo(estado, vista.getJtf_numero_direccion());
@@ -938,8 +844,6 @@ public class EmpleadoController extends Controller {
         vista.habilitarCombobox(estado, vista.getJcb_zona_direccion());
         vista.habilitarCombobox(estado, vista.getJcb_provincia_direccion());
         vista.habilitarCombobox(estado, vista.getJcb_localidad_direccion());
-        vista.habilitarCombobox(estado, vista.getJcb_unidad());
-        vista.habilitarCombobox(estado, vista.getJcb_empleado());
     }
     
     /**
@@ -947,9 +851,8 @@ public class EmpleadoController extends Controller {
      */
     public void limpiarTodosLosCampos(){        
         vista.limpiarCampo(vista.getJtfID());
-        vista.limpiarCampo(vista.getJtfNombre());
-        vista.limpiarCampo(vista.getJtfApellido());
-        vista.limpiarCampo(vista.getJtfDNI());
+        vista.limpiarCampo(vista.getJtfRazonSocial());
+        vista.limpiarCampo(vista.getJtfCUIT());
         
         vista.limpiarCampo(vista.getJtf_calle_direccion());
         vista.limpiarCampo(vista.getJtf_numero_direccion());
@@ -960,8 +863,6 @@ public class EmpleadoController extends Controller {
         vista.limpiarCombobox(vista.getJcb_zona_direccion());
         vista.limpiarCombobox(vista.getJcb_provincia_direccion());
         vista.limpiarCombobox(vista.getJcb_localidad_direccion());
-        vista.limpiarCombobox(vista.getJcb_unidad());
-        vista.limpiarCombobox(vista.getJcb_empleado());
     }
 
     /**
@@ -988,16 +889,11 @@ public class EmpleadoController extends Controller {
      */
     public void politicaValidacionDeCampos(){
         //Politica de validacióón de Campos
-        vista.getValidador().validarSoloLetras(vista.getJtfApellido());
-        vista.getValidador().LimitarCaracteres(vista.getJtfApellido(), 30);
+        vista.getValidador().validarSoloLetras(vista.getJtfRazonSocial());
+        vista.getValidador().LimitarCaracteres(vista.getJtfRazonSocial(), 30);
 
-        vista.getValidador().validarSoloLetras(vista.getJtfNombre());
-        vista.getValidador().LimitarCaracteres(vista.getJtfNombre(), 30);            
-
-        
-
-        vista.getValidador().validarSoloNumero(vista.getJtfDNI());
-        vista.getValidador().LimitarCaracteres(vista.getJtfDNI(), 8);
+        vista.getValidador().validarSoloNumero(vista.getJtfCUIT());
+        vista.getValidador().LimitarCaracteres(vista.getJtfCUIT(), 10);
                 
         vista.getValidador().LimitarCaracteres(vista.getJtf_calle_direccion(), 30);        
         
@@ -1011,26 +907,25 @@ public class EmpleadoController extends Controller {
     }
        
     /**
-     * Establece el Ancho de cada columna de la tabla empleado de la vista.
+     * Establece el Ancho de cada columna de la tabla proveedor de la vista.
      */
     public void setAnchoColumna(){
-        TableColumnModel columnModel = vista.getTablaEmpleados().getColumnModel();
+        TableColumnModel columnModel = vista.getTablaProveedores().getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(10);
         columnModel.getColumn(1).setPreferredWidth(50);
         columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
-        columnModel.getColumn(4).setPreferredWidth(150);
     }
     
     /**
-     * Busca la posicion que ocupa un empleado en la tabla empleado
-     * @param id de Empleado
-     * @return posicion de empleado
+     * Busca la posicion que ocupa un proveedor en la tabla proveedor
+     * @param id de Proveedor
+     * @return posicion de proveedor
      */
     public int buscarPosicionEnTabla(Long id){
         int posicion =0;
-        for (Empleado emp : modelo.findEmpleadoEntities()) {
-            if (id.equals(emp.getId())) {
+        for (Proveedor prov : modelo.findProveedorEntities()) {
+            if (id.equals(prov.getId())) {
                 return posicion;
             }
             posicion++;
@@ -1040,12 +935,12 @@ public class EmpleadoController extends Controller {
     }
     
     /**
-     * informa el tamaño de la tabla empleados
+     * informa el tamaño de la tabla proveedores
      * @return tamaño de la tabla
      */
     public int sizeTabla(){
         int posicion =0;
-        for (Empleado emp : modelo.findEmpleadoEntities()) {            
+        for (Proveedor prov : modelo.findProveedorEntities()) {            
             posicion++;
         }        
         return posicion-1;
@@ -1081,20 +976,7 @@ public class EmpleadoController extends Controller {
         DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloLocalidad.buscarLocalidadPorProvincia(p));
         vista.getJcb_localidad_direccion().setModel(mdl);
     }
-    
-    public void llenarJcomboboxUnidad(){
-        modeloUnidad = new UnidadJpaController(Conexion.getEmf());
-        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloUnidad.findUnidadEntities());
-        vista.getJcb_unidad().setModel(mdl);
-        this.uBuscada = (Unidad)vista.getJcb_unidad().getSelectedItem();
-    }
-    
-    public void llenarJcomboboxTipoEmpleado(Unidad u){ 
-            modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
-            DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloTipoEmpleado.buscarTipoEmpleadoPorUnidad(u));
-            vista.getJcb_empleado().setModel(mdl);
-    }
-    
+            
     /**
      * Verifica el cambio de estado en los JComboBox
      * @param e Evento de cambio de JCOMBOBOX
@@ -1117,11 +999,7 @@ public class EmpleadoController extends Controller {
                 this.pBuscada = (Provincia) vista.getJcb_provincia_direccion().getSelectedItem();
                 llenarJcomboboxLocalidad(pBuscada);                
             }
-            if (this.uSeleccionada) {
-                this.uBuscada = (Unidad)vista.getJcb_unidad().getSelectedItem();
-                llenarJcomboboxTipoEmpleado(uBuscada);
-            }
-               
+            
            
             
         }
@@ -1142,13 +1020,10 @@ public class EmpleadoController extends Controller {
         if (e.getSource().equals(vista.getJcb_localidad_direccion())) {
             this.lSeleccionada = true;
         }
-        if(e.getSource().equals(vista.getJtfDNI())){
+        if(e.getSource().equals(vista.getJtfCUIT())){
             System.out.println("hola");
-            dniModificado = vista.getJtfDNI().getText();
-        }
-        if (e.getSource()== vista.getJcb_unidad()) {
-            this.uSeleccionada = true;
-        }
+            cuitModificado = vista.getJtfCUIT().getText();
+        }        
         
     }
 
@@ -1167,10 +1042,7 @@ public class EmpleadoController extends Controller {
         }
         if (e.getSource().equals(vista.getJcb_localidad_direccion())) {
             lSeleccionada = false;
-        }
-        if (e.getSource().equals(vista.getJcb_unidad())) {
-            uSeleccionada = false;
-        }
+        }        
     }
     
     @Override
@@ -1188,56 +1060,48 @@ public class EmpleadoController extends Controller {
     }
     
     /**
-     * Verifica los eventos de click realizados en la tabla de empleados
-     * si cambia se completan los datos del empleado
+     * Verifica los eventos de click realizados en la tabla de proveedores
+    si cambia se completan los datos del proveedor
      * @param e Click de Mouse
      */
     @Override
     public void mouseClicked(MouseEvent e) {
         //carga los datos en la vista si cualquiera de las variables es verdadera
-        //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
-            int seleccion = vista.getTablaEmpleados().rowAtPoint(e.getPoint());
-            vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 1)));
-            vista.getJtfDNI().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 2)));
-            vista.getJtfNombre().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 3)));
-            vista.getJtfApellido().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 4)));
+            int seleccion = vista.getTablaProveedores().rowAtPoint(e.getPoint());
+            vista.getJtfID().setText(String.valueOf(vista.getTablaProveedores().getValueAt(seleccion, 1)));
+            vista.getJtfCUIT().setText(String.valueOf(vista.getTablaProveedores().getValueAt(seleccion, 2)));
+            vista.getJtfRazonSocial().setText(String.valueOf(vista.getTablaProveedores().getValueAt(seleccion, 3)));
             
             //Si posee datos de direccion se cargan en la vista
-            for (Empleado empleado : empleados) {
-                if (empleado.getId().toString().equals(vista.getJtfID().getText())) {
-                    if (empleado.getDireccion()!=null) {
-                        if (empleado.getDireccion().getLocalidad() !=null) {
+            for (Proveedor proveedor : proveedores) {
+                if (proveedor.getId().toString().equals(vista.getJtfID().getText())) {
+                    if (proveedor.getDireccion()!=null) {
+                        if (proveedor.getDireccion().getLocalidad() !=null) {
                             vista.getJcb_zona_direccion().removeAllItems();
-                            vista.getJcb_zona_direccion().addItem(empleado.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
+                            vista.getJcb_zona_direccion().addItem(proveedor.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
                             
                             vista.getJcb_provincia_direccion().removeAllItems();
-                            vista.getJcb_provincia_direccion().addItem(empleado.getDireccion().getLocalidad().getProvincia().getNombre());
+                            vista.getJcb_provincia_direccion().addItem(proveedor.getDireccion().getLocalidad().getProvincia().getNombre());
                             
                             vista.getJcb_localidad_direccion().removeAllItems();
-                            vista.getJcb_localidad_direccion().addItem(empleado.getDireccion().getLocalidad().getNombre());
-                            
-                            vista.getJcb_unidad().removeAllItems();
-                            vista.getJcb_unidad().addItem(empleado.getUnidad().getNombre());
-                            
-                            vista.getJcb_empleado().removeAllItems();
-                            vista.getJcb_empleado().addItem(empleado.getTipoEmpleado().getDescripcion());
-                            
-                            vista.getJtf_calle_direccion().setText(empleado.getDireccion().getCalle());
-                            vista.getJtf_numero_direccion().setText(empleado.getDireccion().getNumero());
-                            vista.getJtf_piso_direccion().setText(empleado.getDireccion().getPiso());
-                            vista.getJtf_departamento_direccion().setText(empleado.getDireccion().getDepartamento());
+                            vista.getJcb_localidad_direccion().addItem(proveedor.getDireccion().getLocalidad().getNombre());
+                                                        
+                            vista.getJtf_calle_direccion().setText(proveedor.getDireccion().getCalle());
+                            vista.getJtf_numero_direccion().setText(proveedor.getDireccion().getNumero());
+                            vista.getJtf_piso_direccion().setText(proveedor.getDireccion().getPiso());
+                            vista.getJtf_departamento_direccion().setText(proveedor.getDireccion().getDepartamento());
                             
                             
                         }else{
-                            JOptionPane.showMessageDialog(null, "empleado no tiene Localidad asignada");
+                            JOptionPane.showMessageDialog(null, "Proveedor no tiene Localidad asignada");
                         }
                         
                     }else{
-                        JOptionPane.showMessageDialog(null, "empleado no tiene Direccion asignada");
+                        JOptionPane.showMessageDialog(null, "Proveedor no tiene Direccion asignada");
                     }                    
                 }
             }
-            //Posiciona la seleccion en el Panel datos empleados. 
+            //Posiciona la seleccion en el Panel datos proveedores. 
             vista.getjTabbedPaneContenedor().setSelectedIndex(0);            
         //}
                 
@@ -1264,3 +1128,4 @@ public class EmpleadoController extends Controller {
     }
     
 }
+
