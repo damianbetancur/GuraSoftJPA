@@ -45,11 +45,6 @@ public final class PanelEmpresa extends javax.swing.JPanel  implements Interface
         jtf_ID = new javax.swing.JTextField();
         jtf_RazonSocial = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        msj_Direccion = new javax.swing.JLabel();
-        msj_ID = new javax.swing.JLabel();
-        msj_Nombre = new javax.swing.JLabel();
-        msj_Apellido = new javax.swing.JLabel();
-        msj_DNI = new javax.swing.JLabel();
         jcb_provincia_direccion = new javax.swing.JComboBox<>();
         jcb_zona_direccion = new javax.swing.JComboBox<>();
         jlbl_zona_direccion = new javax.swing.JLabel();
@@ -99,16 +94,6 @@ public final class PanelEmpresa extends javax.swing.JPanel  implements Interface
         jtf_RazonSocial.setBounds(140, 70, 180, 19);
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
-        jPanelEmpleado.add(msj_Direccion);
-        msj_Direccion.setBounds(480, 190, 34, 15);
-        jPanelEmpleado.add(msj_ID);
-        msj_ID.setBounds(480, 40, 0, 0);
-        jPanelEmpleado.add(msj_Nombre);
-        msj_Nombre.setBounds(480, 80, 0, 0);
-        jPanelEmpleado.add(msj_Apellido);
-        msj_Apellido.setBounds(480, 110, 0, 0);
-        jPanelEmpleado.add(msj_DNI);
-        msj_DNI.setBounds(480, 150, 0, 0);
 
         jPanelEmpleado.add(jcb_provincia_direccion);
         jcb_provincia_direccion.setBounds(140, 190, 180, 24);
@@ -191,11 +176,6 @@ public final class PanelEmpresa extends javax.swing.JPanel  implements Interface
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
-    private javax.swing.JLabel msj_Apellido;
-    private javax.swing.JLabel msj_DNI;
-    private javax.swing.JLabel msj_Direccion;
-    private javax.swing.JLabel msj_ID;
-    private javax.swing.JLabel msj_Nombre;
     // End of variables declaration//GEN-END:variables
 
     

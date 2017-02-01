@@ -9,10 +9,12 @@ package view;
 import controller.Conexion;
 import controller.EmpleadoController;
 import controller.EmpresaController;
+import controller.ProveedorController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
 import model.JPAController.EmpresaJpaController;
+import model.JPAController.ProveedorJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
 /**
@@ -198,31 +200,6 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
               Si ejecutamos nos daremos cuenta que esto
              genera una excepciòn ya que la cadena es nula*/
 
-            if(captura.equals("[GuraSoft, Administración General, Empleados]")){  
-            
-                //Se crea el Panel Persona    
-                PanelRegistroEmpleado unPanelPersona = new PanelRegistroEmpleado();            
-                unPanelPersona.setSize(950, 800);
-                unPanelPersona.setLocation(0,0);
-                unPanelPersona.setVisible(true);
-
-                //Se Crea controlador JPA
-                EmpleadoJpaController modelo = new EmpleadoJpaController(Conexion.getEmf());
-
-                //Se crea el controlador de Persona
-                EmpleadoController controlador = new EmpleadoController(unPanelPersona, modelo);
-
-                //setea el panel para que sea escuchado por el controlador
-                unPanelPersona.setControlador(controlador);
-
-
-                jPanelContenido.removeAll();
-                jPanelContenido.add(unPanelPersona, BorderLayout.NORTH);
-                jPanelContenido.repaint();
-
-                modificarArbol(false);
-            }
-            
             if(captura.equals("[GuraSoft, Administración General, Empresa]")){  
             
                 //Se crea el Panel Persona    
@@ -248,6 +225,56 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             }
             
+            if(captura.equals("[GuraSoft, Administración General, Empleados]")){  
+            
+                //Se crea el Panel Persona    
+                PanelRegistroEmpleado unPanelPersona = new PanelRegistroEmpleado();            
+                unPanelPersona.setSize(950, 800);
+                unPanelPersona.setLocation(0,0);
+                unPanelPersona.setVisible(true);
+
+                //Se Crea controlador JPA
+                EmpleadoJpaController modelo = new EmpleadoJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Persona
+                EmpleadoController controlador = new EmpleadoController(unPanelPersona, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelPersona.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelPersona, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }            
+            
+            
+            if(captura.equals("[GuraSoft, Unidad Comercial, Compras, Proveedores]")){  
+            
+                //Se crea el Panel Proveedor    
+                PanelRegistroProveedor unPanelProveedor = new PanelRegistroProveedor();            
+                unPanelProveedor.setSize(950, 800);
+                unPanelProveedor.setLocation(0,0);
+                unPanelProveedor.setVisible(true);
+
+                //Se Crea controlador JPA
+                ProveedorJpaController modelo = new ProveedorJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Proveedor
+                ProveedorController controlador = new ProveedorController(unPanelProveedor, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelProveedor.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelProveedor, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
             
             
        }else{

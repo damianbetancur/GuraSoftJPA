@@ -16,14 +16,14 @@ import javax.swing.JTextField;
  *
  * @author Ariel
  */
-public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements InterfacePanel{
+public final class PanelRegistroProveedor extends javax.swing.JPanel  implements InterfacePanel{
 
     /**
      * Creates new form PersonalPanel
      */
     private ValidadorDeCampos validador;
     
-    public PanelRegistroEmpleado() {
+    public PanelRegistroProveedor() {
         initComponents();      
         this.validador = new ValidadorDeCampos();
     }
@@ -43,24 +43,17 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Listar = new javax.swing.JButton();
         jbtn_Eliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
+        tablaProveedores = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jbtn_Volver = new javax.swing.JButton();
         jTabbedPaneContenedor = new javax.swing.JTabbedPane();
         jPanelEmpleado = new javax.swing.JPanel();
-        jlbl_Nombre = new javax.swing.JLabel();
-        jlbl_Apellido = new javax.swing.JLabel();
-        jlbl_DNI = new javax.swing.JLabel();
+        jlbl_RazonSocial = new javax.swing.JLabel();
+        jlbl_CUIT = new javax.swing.JLabel();
         jlbl_ID = new javax.swing.JLabel();
         jtf_ID = new javax.swing.JTextField();
-        jtf_Nombre = new javax.swing.JTextField();
-        jtf_DNI = new javax.swing.JTextField();
-        jtf_Apellido = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jcb_unidad = new javax.swing.JComboBox<>();
-        jlbl_unidad = new javax.swing.JLabel();
-        jlbl_TipoEmpleado = new javax.swing.JLabel();
-        jcb_empleado = new javax.swing.JComboBox<>();
+        jtf_RazonSocial = new javax.swing.JTextField();
+        jtf_CUIT = new javax.swing.JTextField();
         jPanelDireccion = new javax.swing.JPanel();
         jlbl_zona_direccion = new javax.swing.JLabel();
         jcb_zona_direccion = new javax.swing.JComboBox<>();
@@ -84,7 +77,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         setMinimumSize(new java.awt.Dimension(950, 800));
         setLayout(null);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Proveedores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jPanel2.setMinimumSize(new java.awt.Dimension(730, 290));
         jPanel2.setLayout(null);
 
@@ -104,7 +97,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanel2.add(jbtn_Eliminar);
         jbtn_Eliminar.setBounds(310, 190, 80, 30);
 
-        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -112,11 +105,11 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
             }
         ));
-        jScrollPane1.setViewportView(tablaEmpleados);
-        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
-            tablaEmpleados.getColumnModel().getColumn(0).setMinWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setMaxWidth(120);
+        jScrollPane1.setViewportView(tablaProveedores);
+        if (tablaProveedores.getColumnModel().getColumnCount() > 0) {
+            tablaProveedores.getColumnModel().getColumn(0).setMinWidth(120);
+            tablaProveedores.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tablaProveedores.getColumnModel().getColumn(0).setMaxWidth(120);
         }
 
         jPanel2.add(jScrollPane1);
@@ -126,9 +119,9 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanel2.setBounds(70, 50, 730, 230);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE EMPLEADOS");
+        jLabel4.setText("GESTIÓN DE PROVEEDORES");
         add(jLabel4);
-        jLabel4.setBounds(300, 10, 250, 30);
+        jLabel4.setBounds(260, 10, 270, 30);
 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
@@ -139,47 +132,25 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jPanelEmpleado.setName("Empleado"); // NOI18N
         jPanelEmpleado.setLayout(null);
 
-        jlbl_Nombre.setText("Nombre:");
-        jPanelEmpleado.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 80, 100, 15);
+        jlbl_RazonSocial.setText("Razon Social:");
+        jPanelEmpleado.add(jlbl_RazonSocial);
+        jlbl_RazonSocial.setBounds(60, 100, 100, 15);
 
-        jlbl_Apellido.setText("Apellido:");
-        jPanelEmpleado.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 120, 90, 15);
-
-        jlbl_DNI.setText("DNI:");
-        jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 15);
+        jlbl_CUIT.setText("CUIT:");
+        jPanelEmpleado.add(jlbl_CUIT);
+        jlbl_CUIT.setBounds(60, 160, 80, 15);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
         jlbl_ID.setBounds(60, 40, 90, 15);
         jPanelEmpleado.add(jtf_ID);
         jtf_ID.setBounds(160, 40, 272, 19);
-        jPanelEmpleado.add(jtf_Nombre);
-        jtf_Nombre.setBounds(160, 80, 272, 19);
-        jPanelEmpleado.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 160, 272, 19);
-        jPanelEmpleado.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 120, 272, 19);
-        jPanelEmpleado.add(jLabel1);
-        jLabel1.setBounds(450, 40, 210, 0);
+        jPanelEmpleado.add(jtf_RazonSocial);
+        jtf_RazonSocial.setBounds(160, 100, 272, 19);
+        jPanelEmpleado.add(jtf_CUIT);
+        jtf_CUIT.setBounds(160, 160, 272, 19);
 
-        jPanelEmpleado.add(jcb_unidad);
-        jcb_unidad.setBounds(160, 200, 270, 24);
-
-        jlbl_unidad.setText("UNIDAD:");
-        jPanelEmpleado.add(jlbl_unidad);
-        jlbl_unidad.setBounds(60, 200, 60, 15);
-
-        jlbl_TipoEmpleado.setText("EMPLEADO:");
-        jPanelEmpleado.add(jlbl_TipoEmpleado);
-        jlbl_TipoEmpleado.setBounds(60, 250, 70, 15);
-
-        jPanelEmpleado.add(jcb_empleado);
-        jcb_empleado.setBounds(160, 250, 270, 24);
-
-        jTabbedPaneContenedor.addTab("Empleado", jPanelEmpleado);
+        jTabbedPaneContenedor.addTab("Proveedor", jPanelEmpleado);
 
         jPanelDireccion.setLayout(null);
 
@@ -244,7 +215,6 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelDireccion;
@@ -258,33 +228,27 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JButton jbtn_Modificar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
-    private javax.swing.JComboBox<String> jcb_empleado;
     private javax.swing.JComboBox<String> jcb_localidad_direccion;
     private javax.swing.JComboBox<String> jcb_provincia_direccion;
-    private javax.swing.JComboBox<String> jcb_unidad;
     private javax.swing.JComboBox<String> jcb_zona_direccion;
-    private javax.swing.JLabel jlbl_Apellido;
-    private javax.swing.JLabel jlbl_DNI;
+    private javax.swing.JLabel jlbl_CUIT;
     private javax.swing.JLabel jlbl_ID;
-    private javax.swing.JLabel jlbl_Nombre;
-    private javax.swing.JLabel jlbl_TipoEmpleado;
+    private javax.swing.JLabel jlbl_RazonSocial;
     private javax.swing.JLabel jlbl_calle_direccion;
     private javax.swing.JLabel jlbl_departamento_direccion;
     private javax.swing.JLabel jlbl_localidad_direccion;
     private javax.swing.JLabel jlbl_numero_direccion;
     private javax.swing.JLabel jlbl_piso_direccion;
     private javax.swing.JLabel jlbl_provincia_direccion;
-    private javax.swing.JLabel jlbl_unidad;
     private javax.swing.JLabel jlbl_zona_direccion;
-    private javax.swing.JTextField jtf_Apellido;
-    private javax.swing.JTextField jtf_DNI;
+    private javax.swing.JTextField jtf_CUIT;
     private javax.swing.JTextField jtf_ID;
-    private javax.swing.JTextField jtf_Nombre;
+    private javax.swing.JTextField jtf_RazonSocial;
     private javax.swing.JTextField jtf_calle_direccion;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
-    private javax.swing.JTable tablaEmpleados;
+    private javax.swing.JTable tablaProveedores;
     // End of variables declaration//GEN-END:variables
 
     
@@ -302,9 +266,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
-        jtf_Nombre.addKeyListener(c);
-        jtf_Apellido.addKeyListener(c);
-        jtf_DNI.addKeyListener(c);
+        jtf_RazonSocial.addKeyListener(c);
+        jtf_CUIT.addKeyListener(c);
         
         //Agrega JTextField del Panel Direccion al escuchador KeyListener para verificar campos ingresados
         jtf_calle_direccion.addKeyListener(c);
@@ -316,19 +279,15 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_zona_direccion.addItemListener(c);
         jcb_provincia_direccion.addItemListener(c);
         jcb_localidad_direccion.addItemListener(c);
-        jcb_empleado.addItemListener(c);
-        jcb_unidad.addItemListener(c);
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addFocusListener(c);
         jcb_provincia_direccion.addFocusListener(c);
         jcb_localidad_direccion.addFocusListener(c);
-        jtf_DNI.addFocusListener(c);
-        jcb_empleado.addFocusListener(c);
-        jcb_unidad.addFocusListener(c);
+        jtf_CUIT.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
-        tablaEmpleados.addMouseListener(c);
+        tablaProveedores.addMouseListener(c);
         
         
         
@@ -336,21 +295,14 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
     /*
     CAMPOS del PANEL Getters y Setters
-    */
-    public javax.swing.JTextField getJtfApellido() {
-        return jtf_Apellido;
+    */    
+
+    public javax.swing.JTextField getJtfCUIT() {
+        return jtf_CUIT;
     }
 
-    public void setJtfApellido(javax.swing.JTextField jtfApellido) {
-        this.jtf_Apellido = jtfApellido;
-    }
-
-    public javax.swing.JTextField getJtfDNI() {
-        return jtf_DNI;
-    }
-
-    public void setJtfDNI(javax.swing.JTextField jtfDNI) {
-        this.jtf_DNI = jtfDNI;
+    public void setJtfCUIT(javax.swing.JTextField jtfCUIT) {
+        this.jtf_CUIT = jtfCUIT;
     }
    
     public javax.swing.JTextField getJtfID() {
@@ -361,12 +313,12 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         this.jtf_ID = jtfID;
     }
 
-    public javax.swing.JTextField getJtfNombre() {
-        return jtf_Nombre;
+    public javax.swing.JTextField getJtfRazonSocial() {
+        return jtf_RazonSocial;
     }
 
-    public void setJtfNombre(javax.swing.JTextField jtfNombre) {
-        this.jtf_Nombre = jtfNombre;
+    public void setJtfRazonSocial(javax.swing.JTextField jtfRazonSocial) {
+        this.jtf_RazonSocial = jtfRazonSocial;
     }
 
     public javax.swing.JComboBox<String> getJcb_localidad_direccion() {
@@ -482,8 +434,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         return validador;
     }
 
-    public javax.swing.JTable getTablaEmpleados() {
-        return tablaEmpleados;
+    public javax.swing.JTable getTablaProveedores() {
+        return tablaProveedores;
     }
 
     @Override
@@ -508,21 +460,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         return jTabbedPaneContenedor;
     }
 
-    public javax.swing.JComboBox<String> getJcb_unidad() {
-        return jcb_unidad;
-    }
-
-    public void setJcb_unidad(javax.swing.JComboBox<String> jcb_unidad) {
-        this.jcb_unidad = jcb_unidad;
-    }
-
-    public javax.swing.JComboBox<String> getJcb_empleado() {
-        return jcb_empleado;
-    }
-
-    public void setJcb_empleado(javax.swing.JComboBox<String> jcb_empleado) {
-        this.jcb_empleado = jcb_empleado;
-    }
+   
     
     
 }
