@@ -22,7 +22,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Direccion;
+import model.Empresa;
 import model.JPAController.DireccionJpaController;
+import model.JPAController.EmpresaJpaController;
 import model.JPAController.LocalidadJpaController;
 import model.JPAController.ProveedorJpaController;
 import model.JPAController.ProvinciaJpaController;
@@ -30,8 +32,6 @@ import model.JPAController.ZonaJpaController;
 import model.Localidad;
 import model.Proveedor;
 import model.Provincia;
-import model.TipoEmpleado;
-import model.Unidad;
 import model.Zona;
 import view.JframePrincipal;
 import view.PanelRegistroProveedor;
@@ -48,6 +48,7 @@ public class ProveedorController extends Controller{
     private DireccionJpaController modeloDireccion;
     private ProvinciaJpaController modeloProvincia;
     private LocalidadJpaController modeloLocalidad;
+    private EmpresaJpaController modeloEmpresa;
         
     boolean bloquearAceptarCrear = false;
     boolean bloquearAceptarEliminar = false;
@@ -56,6 +57,7 @@ public class ProveedorController extends Controller{
     Zona zBuscada = null;
     Provincia pBuscada = null;
     Localidad lBuscada = null;
+    Empresa empresa = null;
         
     
     boolean zSeleccionada = false;
@@ -72,7 +74,10 @@ public class ProveedorController extends Controller{
      * @param vista PanelRegistroProveedor
      * @param modelo ProveedorJpaController
      */
-    public ProveedorController(PanelRegistroProveedor vista, ProveedorJpaController modelo) {
+    public ProveedorController(PanelRegistroProveedor vista, ProveedorJpaController modelo) {        
+        modeloEmpresa = new EmpresaJpaController(Conexion.getEmf());
+        empresa = modeloEmpresa.findEmpresa(1L);
+        
         this.vista = vista;
         this.modelo = modelo;        
         
@@ -433,6 +438,9 @@ public class ProveedorController extends Controller{
 
                    //Agrega la direccion al proveedor
                    prov.setDireccion(direccion);
+                   
+                   //Agrega la empresa a la que pertenece el Proveedor
+                   prov.setUnaEmpresa(empresa);
                    
                    //Persiste Proveedor
                    modelo.create(prov);  

@@ -36775,15 +36775,34 @@ VALUES
 INSERT INTO `direcciones`
 (`ID`, `calle`, `departamento`, `numero`, `piso`, `LOCALIDAD_ID`) 
 VALUES 
-(1,'Rivadavia','4','13000','B',1);
+(1,'Tambor de Tacuari','1','500','0',12880),
+(2,'Santa Fe','10','100','A',2225),
+(3,'San Martin','4','501','B',2225),
+(4,'Azucena Villaflor','1','1','0',2225),
+(5,'Av. Rivadavia','4','13000','B',2225),
+(6,'Rocamora','14','500','C',2225),
+(7,'Sgto. Cabral','10','700','E',2225),
+(8,'Rivadavia','4','13000','B',2225),
+(9,'Rivadavia','5','13000','B',2225),
+(10,'Rivadavia','6','13000','B',2225),
+(11,'Rivadavia','7','13000','B',2225);
+
+
+--
+-- Insercion de datos de Catalogo De Articulos
+--
+INSERT INTO `catalogos_articulo`
+(`ID`, `descripcion`) 
+VALUES
+(1,'CATALOGO');
 
 --
 -- Insercion de datos de Tipos de Usuarios
 --
 INSERT INTO `empresas`
-(`ID`, `cuit`, `razonSocial`, `DIRECCION_ID`) 
+(`ID`, `cuit`, `razonSocial`, `CATALOGO_ID`, `DIRECCION_ID`) 
 VALUES 
-(1,'27-00000000-1','GuraSoft', 1);
+(1,'27-00000000-1','GuraSoft', 1, 1);
 
 --
 -- Insercion de datos de Tipos de UNIDAD COMERCIAL Y UNIDAD DE SISTEMAS
@@ -36808,3 +36827,193 @@ VALUES
 (6,'ENCARGADO DE PROYECTO', 2),
 (7,'DISEÑADOR', 2),
 (8,'ANALISTA', 2);
+
+--
+-- Insercion de datos de Tipos de Clientes
+--
+
+INSERT INTO `tipocliente`
+(`ID`, `DESCRIPCION`) 
+VALUES 
+(1,'MAYORISTA'),
+(2,'MINORISTA');
+
+--
+-- Insercion de datos de Categoria de Productos
+--
+INSERT INTO `categorias_articulo`
+(`ID`, `descripcion`, `UNCATALOGODEARTICULOS_ID`) 
+VALUES 
+(1, 'Access Point Indoor TP-LINK', 1),
+(2, 'ANTENA TP-LINK', 1),
+(3, 'DISCOS RIGIDOS INTERNOS', 1),
+(4, 'DISCOS RIGIDOS SSD', 1),
+(5, 'ESTABILIZADORES y UPS ', 1),
+(6, 'IMPRESORAS', 1),
+(7, 'MEMORIAS DDR3', 1),
+(8, 'MEMORIAS DDR4', 1),
+(9, 'MICROPROCESADORES AMD', 1),
+(10, 'MICROPROCESADORES INTEL', 1),
+(11, 'MOTHERBOARD AMD', 1),
+(12, 'MOTHERBOARD INTEL', 1),
+(13, 'ROUTER ', 1),
+(14, 'ROUTER WIFI', 1),
+(15, 'SCANNERS', 1);
+
+--
+-- Insercion de datos de Proveedor
+--
+INSERT INTO `persona`
+(`ID`, `type`, `apellido`, `dni`, `nombre`, `DIRECCION_ID`, `UNIDAD_ID`, `TIPOEMPLEADO_ID`, `cuit`, `CUENTACORRIENTE_ID`, `TIPOCLIENTE_ID`, `UNAEMPRESA_ID`, `razon_Social`) 
+VALUES 
+(1,'PROVEEDOR', NULL, NULL, NULL, 2, NULL, NULL, '27-00000010-1', NULL, NULL, 1,'AMD'),
+(2,'PROVEEDOR', NULL, NULL, NULL, 3, NULL, NULL, '27-00000011-1', NULL, NULL, 1,'CORSAIR'),
+(3,'PROVEEDOR', NULL, NULL, NULL, 4, NULL, NULL, '27-00000012-1', NULL, NULL, 1,'EPSON'),
+(4,'PROVEEDOR', NULL, NULL, NULL, 5, NULL, NULL, '27-00000013-1', NULL, NULL, 1,'INTEL'),
+(5,'PROVEEDOR', NULL, NULL, NULL, 6, NULL, NULL, '27-00000014-1', NULL, NULL, 1,'KINGSTON'),
+(6,'PROVEEDOR', NULL, NULL, NULL, 7, NULL, NULL, '27-00000015-1', NULL, NULL, 1,'LYON'),
+(7,'PROVEEDOR', NULL, NULL, NULL, 8, NULL, NULL, '27-00000016-1', NULL, NULL, 1,'SURELECTRIC'),
+(8,'PROVEEDOR', NULL, NULL, NULL, 9, NULL, NULL, '27-00000017-1', NULL, NULL, 1,'TP-LINK'),
+(9,'PROVEEDOR', NULL, NULL, NULL, 10, NULL, NULL, '27-00000018-1', NULL, NULL, 1,'WESTERN DIGITAL'),
+(10,'PROVEEDOR', NULL, NULL, NULL, 11, NULL, NULL, '27-00000019-1', NULL, NULL, 1,'SEAGATE');
+
+--
+-- Insercion de datos de Articulos
+--
+INSERT INTO `articulos`
+(`ID`, `descripcion`, `UNCATEGORIADEARTICULOS_ID`, `UNPROVEEDOR_ID`) 
+VALUES 
+(1, 'Epson Expression XP-231', 6, 3),
+(2, 'Epson Expression XP-241', 6, 3),
+(3, 'Epson Expression XP-431', 6, 3),
+(4, 'Epson Expression XP-441', 6, 3),
+(5, 'Epson L1300 (A3)', 6, 3),
+(6, 'Epson L220 (MF)', 6, 3),
+(7, 'Epson L375 (MF)', 6, 3),
+(8, 'Epson L455 (MF)', 6, 3),
+(9, 'Epson L475 (MF)', 6, 3),
+(10, 'Epson L565 (MF)', 6, 3),
+(11, 'Epson L575 (MF)', 6, 3),
+(12, 'Epson L655 (MF)', 6, 3),
+(13, 'Epson L656 (MF)', 6, 3),
+(14, 'Epson L850', 6, 3),
+(15, 'Epson LX-350 EDG Matriz de Punto 220V', 6, 3),
+(16, 'Epson M100', 6, 3),
+(17, 'Epson M105', 6, 3),
+(18, 'Epson M200', 6, 3),
+(19, 'Epson M205', 6, 3),
+(20, 'Scanner Epson Perfection V370P', 15, 3),
+(21, 'Scanner Epson Perfection V39', 15, 3),
+(22, 'Scanner Epson WorkForce GT-1500', 15, 3),
+(23, 'TL-WA801ND AP WiFi 300Mbps (N) 2 Ant Det', 1, 8),
+(24, 'TL-WA830RE Range Extender 300Mbps 2 Ant', 1, 8),
+(25, 'TL-WA850RE Range Extender 300Mbps Universal', 1, 8),
+(26, 'TL-WA901ND AP WiFi 450Mbps (N) 3 Ant Det', 1, 8),
+(27, 'TL-WPA4220 Kit 300 Mbps Powerline Extender', 1, 8),
+(28, 'TL-ANT2405C TPL 5dbi Indoor Omn SMA Base', 2, 8),
+(29, 'TL-ANT2408CL TPL 8dbi Ind Omn SMA S/Base', 2, 8),
+(30, 'TL-ANT2409B TPL 9dbi Outdoor Direcc N', 2, 8),
+(31, 'TL-ANT2412D TPL 12dbi Outdoor Omnindir N', 2, 8),
+(32, 'TL-ANT2415D TPL 15dbi Outdoor Omnindir N', 2, 8),
+(33, 'TL-ANT2424B TPL 24dbi Outdoor Direcc N', 2, 8),
+(34, 'TL-ANT5819MS TPL 19dbi Outdoor Direcc 5Ghz', 2, 8),
+(35, 'HD SEAGATE 1Tb Game Drive for PS4', 3, 10),
+(36, 'HD Western Digital 1TB RED NAS SATA III 64Mb', 3, 9),
+(37, 'HD Western Digital 1TB SATA III PURPLE SURVEILLANCE', 3, 9),
+(38, 'HD Western Digital 2TB BLACK SATA III 64Mb', 3, 9),
+(39, 'HD Western Digital 2TB RED SATA III 64Mb', 3, 9),
+(40, 'HD Western Digital 2TB SATA III PURPLE SURVEILLANCE', 3, 9),
+(41, 'HD Western Digital 3TB SATA III PURPLE SURVEILLANCE', 3, 9),
+(42, 'HD Western Digital 4TB BLACK SATA III 64Mb NUEVO', 3, 9),
+(43, 'HD Western Digital 4TB SATA III PURPLE SURVEILLANCE', 3, 9),
+(44, 'HD Western Digital 500Gb SATA III 32Mb BLUE', 3, 9),
+(45, 'Disco SSD Corsair 480 GB Force LE SATAIII 6Gb/s CSSD-F480GBLEB', 4, 2),
+(46, 'Disco SSD KINGSTON UV400 120 GB SATA Interno 7 mm', 4, 5),
+(47, 'Disco SSD KINGSTON UV400 480 GB SATA Interno 7 mm', 4, 5),
+(48, 'Estabilizador Lyonn Electronico TCA-1200N-V 6 Bocas 220v', 5, 6),
+(49, 'Estabilizador Surelectric 6 Bocas 220v-1000va', 5, 7),
+(50, 'Protector Lyonn para Notebook LNP - 3P', 5, 6),
+(51, 'UPS LYONN CTB  1200VA', 5, 6),
+(52, 'UPS LYONN CTB 800VA', 5, 6),
+(53, 'UPS LYONN DESIRE 500VA', 5, 6),
+(54, 'Memoria DDR3 4Gb 1333 Kingston', 7, 5),
+(55, 'Memoria DDR3 4Gb 1333 Kingston', 7, 5),
+(56, 'Memoria DDR3 4Gb 1600 Kingston', 7, 5),
+(57, 'Memoria DDR3 4Gb 1600 Kingston HyperX Fury Black', 7, 5),
+(58, 'Memoria DDR3 4Gb 1600 Kingston HyperX Fury Blue', 7, 5),
+(59, 'Memoria DDR3 4Gb 1866 Kingston HyperX Fury Blue', 7, 5),
+(60, 'Memoria DDR3 4Gb 1866 Kingston HyperX Fury Rede', 7, 5),
+(61, 'Memoria DDR3 8Gb 1333 Kingston', 7, 5),
+(62, 'Memoria DDR3 8Gb 1600 Kingston', 7, 5),
+(63, 'Memoria DDR3 8Gb 1600 Kingston HyperX Fury Black', 7, 5),
+(64, 'Memoria DDR3 8Gb 1600 MHz Corsair Value', 7, 2),
+(65, 'Memoria DDR3 8Gb 1866 Kingston HyperX Fury Black', 7, 5),
+(66, 'Memoria DDR3 8Gb 1866 Kingston HyperX Fury Blue', 7, 5),
+(67, 'Memoria DDR3 8Gb 1866 Kingston HyperX Fury Red', 7, 5),
+(68, 'Memoria DDR4 4Gb 2133 MHz Corsair Value', 8, 2),
+(69, 'Memoria DDR4 8Gb 2133 MHz Corsair Value', 8, 2),
+(70, 'Memoria DDR4 8Gb 2400 Kingston HyperX Fury FB2', 8, 5),
+(71, 'Memoria DDR4 8Gb 2400 MHz Corsair Vengeance LPX Black', 8, 2),
+(72, 'Proces. AMD A10 7870K 4.1Ghz sFM2 silent cooler', 9, 1),
+(73, 'Proces. AMD A4-4000 3.2Ghz sFM2', 9, 1),
+(74, 'Proces. AMD A4-6300 3.9Ghz 1MB HD 8370D sFM2', 9, 1),
+(75, 'Proces. AMD A6 7400K (740K) 3.9Ghz sFM2', 9, 1),
+(76, 'Proces. AMD A8 7600 3.8Ghz sFM2', 9, 1),
+(77, 'Proces. AMD A8 7650K 3.8Ghz sFM2', 9, 1),
+(78, 'Proces. AMD A8 7670K 3.9 Ghz sFM2 quiet cooler', 9, 1),
+(79, 'Proces. AMD FX-8300 4.2Ghz AM3+', 9, 1),
+(80, 'Proces. AMD FX-8370 4.0Ghz AM3+', 9, 1),
+(81, 'Proces. AMD Sempron 2650 1.45Ghz DC HD8240 AM1', 9, 1),
+(82, 'Proces. Intel Haswell Core I5-4460 3.2 Ghz s1150', 10, 4),
+(83, 'Proces. Intel Haswell Pentium G3250 3.2G s1150', 10, 4),
+(84, 'Proces. Intel Skylake Celeron DC G3900 2.8Ghz s1151', 10, 4),
+(85, 'Proces. Intel Skylake Core I3 6100 3.7 Ghz s1151', 10, 4),
+(86, 'Proces. Intel Skylake Pentium DC G4400 3.3Ghz s1151', 10, 4),
+(87, 'Mother ASROCK  FM2A58M-VG3+ sFM2+', 11, 1),
+(88, 'Mother ASUS A68HM-PLUS FM2+', 11, 1),
+(89, 'Mother GIGABYTE GA-990FXA-UD3 R5 sAM3+', 11, 1),
+(90, 'Mother GIGABYTE GA-990FXA-UD5 R5 sAM3+', 11, 1),
+(91, 'Mother GIGABYTE GA-F2A68HM-H sFM2+', 11, 1),
+(92, 'Mother GIGABYTE GA-F2A68HM-S1 sFM2+', 11, 1),
+(93, 'Mother MSI 970 GAMING AM3+', 11, 1),
+(94, 'Mother MSI 970 SLI KRAIT EDITION AM3+', 11, 1),
+(95, 'Mother MSI A68HM-E33 V2 HDMI FM2+', 11, 1),
+(96, 'Mother MSI A88XM-E45 V2 FM2+', 11, 1),
+(97, 'Mother Asrock H81M-VG4 1150', 12, 4),
+(98, 'Mother ASUS B150M-C s1151', 12, 4),
+(99, 'Mother ASUS H110M-D 1p serial 1pparelo s1151', 12, 4),
+(100, 'Mother ASUS H81M-A s1150', 12, 4),
+(101, 'Mother GIGABYTE GA-B85M-D3H-A s1150', 12, 4),
+(102, 'Mother GIGABYTE GA-H110M-H s1151 DDR4', 12, 4),
+(103, 'Mother GIGABYTE GA-H81M-H 1150', 12, 4),
+(104, 'Mother GIGABYTE GA-Z170X-GAMING 3 s1151', 12, 4),
+(105, 'Mother GIGABYTE GA-Z170X-GAMING 5 DDR4 s1151', 12, 4),
+(106, 'Mother GIGABYTE GA-Z170XP-SLI', 12, 4),
+(107, 'Mother GIGABYTE GA-Z170X-UD3', 12, 4),
+(108, 'Mother GIGABYTE GA-Z170X-UD5', 12, 4),
+(109, 'Mother MSI B150M PRO-VDH s1151', 12, 4),
+(110, 'Mother MSI H110M PRO-VH s1151', 12, 4),
+(111, 'Mother MSI Z170A GAMING M3 s1151', 12, 4),
+(112, 'Mother MSI Z170A GAMING M5 s1151', 12, 4),
+(113, 'Mother MSI Z170A KRAIT GAMING 3X s1151', 12, 4),
+(114, 'TL-ER5120 Rout MultiWan 10/100/1000 5ps', 13, 8),
+(115, 'TL-ER6120 Rout VPN 2Wan 10/100/1000 5ps', 13, 8),
+(116, 'TL-R470T+ Rou Multi Wan Bal Carga', 13, 8),
+(117, 'TL-R480T+ Rou Multi Wan Bal Carga', 13, 8),
+(118, 'TL-R600VPN+ Rou Gigabit VPN', 13, 8),
+(119, 'TL-ER604W Rou Wi VPN Gigabit 2wan 300 Mbps', 14, 8),
+(120, 'TL-WR1043ND Rou Wi 300Mbps (N) 3 Ant Det', 14, 8),
+(121, 'TL-WR720N Rou Wi 150Mbps 1 Ant 2 Lan', 14, 8),
+(122, 'TL-WR740N Rou Wi 150Mbps (LN) 1 Ant Fija', 14, 8),
+(123, 'TL-WR802N Nano Router Wi 300Mbps', 14, 8),
+(124, 'TL-WR840N Rou Wi 300Mbps N 2 Antenas Fijas', 14, 8),
+(125, 'TL-WR841HP Rou Wi 300Mbps 2Ant Hi Power', 14, 8),
+(126, 'TL-WR841N Rou Wi 300Mbps (N) 2 Ant Fija', 14, 8),
+(127, 'TL-WR842N Rou Wi 300Mbps c/USB Multifun', 14, 8),
+(128, 'TL-WR845N Rou Wi 300Mbps 3 Antenas', 14, 8),
+(129, 'TL-WR940N Rou Wi 450Mbps (N) 3 Ant Fijas', 14, 8),
+(130, 'TL-WR941HP Rou Wi 450 Mbps 3 Ant Hi Power', 14, 8),
+(131, 'TL-MR3020 Mini Rou Wi 3G 150Mb', 14, 8),
+(132, 'TL-MR3040 Portable 3G 150Mb Battery Powe', 14, 8),
+(133, 'TL-MR3220 RouWi 3G 150Mbps (LN) 1Ant Det', 14, 8),
+(134, 'TL-MR3420 RouWi 3G 300Mbps (N) 2 Ant Det', 14, 8);

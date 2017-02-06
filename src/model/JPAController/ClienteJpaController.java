@@ -32,12 +32,15 @@ public class ClienteJpaController implements Serializable {
     }
 
     public void create(Cliente cliente) {
+        
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(cliente);
             em.getTransaction().commit();
+            
+            
         } finally {
             if (em != null) {
                 em.close();
@@ -133,6 +136,29 @@ public class ClienteJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    //Buscar Cliente por DNI
+    public Cliente buscarClienteDNI(Cliente cli){
+        EntityManager em = getEntityManager();
+        Cliente cliente = null;
+        String consulta;
+        try {
+            consulta ="FROM Cliente cli WHERE cli.dni = ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, cli.getDni());
+            
+            
+            List <Cliente> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                cliente = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            em.close();
+        }
+        return cliente;
     }
     
 }

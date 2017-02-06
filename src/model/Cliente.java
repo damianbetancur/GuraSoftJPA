@@ -24,6 +24,12 @@ public class Cliente extends Persona{
    @ManyToOne
     private CuentaCorriente cuentaCorriente;
    
+   @ManyToOne
+    private TipoCliente tipocliente;
+   
+    @ManyToOne
+    private Empresa unaEmpresa;
+   
     public String getCuit() {
         return cuit;
     }    
@@ -47,6 +53,22 @@ public class Cliente extends Persona{
 
     public void setCuentaCorriente(CuentaCorriente unaCuentaCorriente) {
         this.cuentaCorriente = unaCuentaCorriente;
+    }
+
+    public TipoCliente getTipocliente() {
+        return tipocliente;
+    }
+
+    public void setTipocliente(TipoCliente tipocliente) {
+        this.tipocliente = tipocliente;
+    }
+
+    public Empresa getUnaEmpresa() {
+        return unaEmpresa;
+    }
+
+    public void setUnaEmpresa(Empresa unaEmpresa) {
+        this.unaEmpresa = unaEmpresa;
     }
     
     
