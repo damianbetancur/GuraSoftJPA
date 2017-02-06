@@ -6,12 +6,15 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,7 +40,19 @@ public class Empresa implements Serializable {
     //Direccion a la que pertenece la Empresa
     @ManyToOne
     private Direccion direccion;
+    
+    //Catalogo a la que pertenece la Empresa
+    @ManyToOne
+    private CatalogoArticulos catalogo;
+    
+    //Clientes que posee la empresa
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unaEmpresa")
+    private List <Cliente> listaClientes;
 
+    //Proveedores que posee la empresa
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unaEmpresa")
+    private List <Proveedor> listaproveedores;
+    
     public Long getId() {
         return id;
     }
@@ -95,6 +110,31 @@ public class Empresa implements Serializable {
         this.direccion = direccion;
     }
 
+    public List <Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
+    public void setListaClientes(List <Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+
+    public CatalogoArticulos getCatalogo() {
+        return catalogo;
+    }
+
+    public void setCatalogo(CatalogoArticulos catalogo) {
+        this.catalogo = catalogo;
+    }
+
+    public List <Proveedor> getListaproveedores() {
+        return listaproveedores;
+    }
+
+    public void setListaproveedores(List <Proveedor> listaproveedores) {
+        this.listaproveedores = listaproveedores;
+    }
    
+
+    
     
 }

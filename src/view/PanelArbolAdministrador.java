@@ -6,6 +6,8 @@
 package view;
 
 
+import controller.CatalogoCategoriaController;
+import controller.ClienteController;
 import controller.Conexion;
 import controller.EmpleadoController;
 import controller.EmpresaController;
@@ -13,6 +15,8 @@ import controller.ProveedorController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
+import model.JPAController.CategoriaArticuloJpaController;
+import model.JPAController.ClienteJpaController;
 import model.JPAController.EmpresaJpaController;
 import model.JPAController.ProveedorJpaController;
 import static view.JframePrincipal.jPanelContenido;
@@ -69,10 +73,14 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empleados");
         treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Catalogo");
+        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Categoria");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad Comercial");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tablas Relativas a Articulos");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tablas Relativas a Articulos");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
         treeNode3.add(treeNode4);
@@ -93,16 +101,6 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Compras");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Proveedores");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Trensferencias");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Deposito");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
         treeNode3.add(treeNode4);
@@ -202,7 +200,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
             if(captura.equals("[GuraSoft, Administración General, Empresa]")){  
             
-                //Se crea el Panel Persona    
+                //Se crea el Panel Emplesa    
                 PanelEmpresa unPanelEmpresa = new PanelEmpresa();            
                 unPanelEmpresa.setSize(950, 800);
                 unPanelEmpresa.setLocation(0,0);
@@ -211,7 +209,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 //Se Crea controlador JPA
                 EmpresaJpaController modelo = new EmpresaJpaController(Conexion.getEmf());
 
-                //Se crea el controlador de Persona
+                //Se crea el controlador de Empresa
                 EmpresaController controlador = new EmpresaController(unPanelEmpresa, modelo);
 
                 //setea el panel para que sea escuchado por el controlador
@@ -227,7 +225,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
             if(captura.equals("[GuraSoft, Administración General, Empleados]")){  
             
-                //Se crea el Panel Persona    
+                //Se crea el Panel Empleado    
                 PanelRegistroEmpleado unPanelPersona = new PanelRegistroEmpleado();            
                 unPanelPersona.setSize(950, 800);
                 unPanelPersona.setLocation(0,0);
@@ -236,7 +234,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 //Se Crea controlador JPA
                 EmpleadoJpaController modelo = new EmpleadoJpaController(Conexion.getEmf());
 
-                //Se crea el controlador de Persona
+                //Se crea el controlador de Empleado
                 EmpleadoController controlador = new EmpleadoController(unPanelPersona, modelo);
 
                 //setea el panel para que sea escuchado por el controlador
@@ -249,6 +247,31 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
                 modificarArbol(false);
             }            
+            
+            if(captura.equals("[GuraSoft, Administración General, Catalogo, Categoria]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroCatalogoCategoria unPanelCategoria = new PanelRegistroCatalogoCategoria();            
+                unPanelCategoria.setSize(950, 800);
+                unPanelCategoria.setLocation(0,0);
+                unPanelCategoria.setVisible(true);
+
+                //Se Crea controlador JPA
+                CategoriaArticuloJpaController modelo = new CategoriaArticuloJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                CatalogoCategoriaController controlador = new CatalogoCategoriaController(unPanelCategoria, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelCategoria.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelCategoria, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            } 
             
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Compras, Proveedores]")){  
@@ -276,6 +299,30 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             }
             
+            if(captura.equals("[GuraSoft, Unidad Comercial, Ventas, Clientes]")){  
+            
+                //Se crea el Panel Cliente    
+                PanelRegistroCliente unPanelCliente = new PanelRegistroCliente();            
+                unPanelCliente.setSize(950, 800);
+                unPanelCliente.setLocation(0,0);
+                unPanelCliente.setVisible(true);
+
+                //Se Crea controlador JPA
+                ClienteJpaController modelo = new ClienteJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Cliente
+                ClienteController controlador = new ClienteController(unPanelCliente, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelCliente.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelCliente, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
             
        }else{
        

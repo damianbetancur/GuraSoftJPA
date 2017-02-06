@@ -59,5 +59,13 @@ public class CuentaCorriente implements Serializable {
     public String toString() {
         return "model.CuentaCorriente[ id=" + id + " ]";
     }
+
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
     
 }

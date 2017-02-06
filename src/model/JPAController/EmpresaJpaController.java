@@ -37,7 +37,8 @@ public class EmpresaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(empresa);
-            em.getTransaction().commit();
+            em.getTransaction().commit();            
+            
         } finally {
             if (em != null) {
                 em.close();
@@ -134,5 +135,6 @@ public class EmpresaJpaController implements Serializable {
             em.close();
         }
     }
+  
     
 }

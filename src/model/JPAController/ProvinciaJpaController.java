@@ -5,10 +5,8 @@
  */
 package model.JPAController;
 
-import com.mysql.jdbc.StringUtils;
 import controller.exceptions.NonexistentEntityException;
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

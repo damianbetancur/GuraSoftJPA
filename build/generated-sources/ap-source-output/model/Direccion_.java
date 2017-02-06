@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import model.Localidad;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-01-22T17:33:45")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-02-03T01:27:47")
 @StaticMetamodel(Direccion.class)
 public class Direccion_ { 
 

@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,6 +26,13 @@ public class Proveedor extends Persona{
    
    @Column(name="razon_Social")
     private String RazonSocial;
+   
+   @ManyToOne
+    private Empresa unaEmpresa;
+   
+   ///Articulos que posee la Catalogoria de Articulos
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unProveedor")
+    private List <Articulo> listaDeArticulos;
 
     public String getCuit() {
         return cuit;
@@ -58,6 +68,22 @@ public class Proveedor extends Persona{
 
     public void setRazonSocial(String RazonSocial) {
         this.RazonSocial = RazonSocial;
+    }
+
+    public List <Articulo> getListaDeArticulos() {
+        return listaDeArticulos;
+    }
+
+    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
+        this.listaDeArticulos = listaDeArticulos;
+    }
+
+    public Empresa getUnaEmpresa() {
+        return unaEmpresa;
+    }
+
+    public void setUnaEmpresa(Empresa unaEmpresa) {
+        this.unaEmpresa = unaEmpresa;
     }
     
     
