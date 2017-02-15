@@ -647,9 +647,9 @@ public class CatalogoCategoriaController extends Controller{
      */
     public void setAnchoColumna(){
         TableColumnModel columnModel = vista.getTablaCategorias().getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(0).setPreferredWidth(50);
         columnModel.getColumn(1).setPreferredWidth(50);
-        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(400);
     }
     
     /**

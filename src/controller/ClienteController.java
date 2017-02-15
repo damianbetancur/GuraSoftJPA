@@ -39,7 +39,7 @@ import view.PanelRegistroCliente;
 
 
 /**
- * Clase controladora de Empleado
+ * Clase controladora de Cliente
  * @author Ariel
  */
 public class ClienteController extends Controller {
@@ -78,9 +78,9 @@ public class ClienteController extends Controller {
     List<Cliente> clientes;
 
     /**
-     * Constructor Empleado
-     * @param vista PanelRegistroEmpleado
-     * @param modelo EmpleadoJpaController
+     * Constructor Cliente
+     * @param vista PanelRegistroCliente
+     * @param modelo ClienteJpaController
      */
     public ClienteController(PanelRegistroCliente vista, ClienteJpaController modelo) {
         modeloEmpresa = new EmpresaJpaController(Conexion.getEmf());
@@ -421,7 +421,7 @@ public class ClienteController extends Controller {
                 vista.habilitarBoton(false, vista.getJbtn_Modificar());
                 vista.habilitarBoton(false, vista.getJbtn_Eliminar());
                 limpiarTodosLosCampos();
-                JOptionPane.showMessageDialog(null, "No hay empleados que listar");
+                JOptionPane.showMessageDialog(null, "No hay cliente que listar");
             }
             
             //Posiciona la seleccion en el Panel datos clientes. 
@@ -633,7 +633,7 @@ public class ClienteController extends Controller {
 
                         //Persiste Empleado
                         modelo.edit(cli);
-                        JOptionPane.showMessageDialog(null, "empleado modificado con DNI igual");
+                        JOptionPane.showMessageDialog(null, "cliente modificado con DNI igual");
                         
                         //Bandera de cliente creado a verdadero
                         empleadoModifocado =true;
@@ -663,7 +663,7 @@ public class ClienteController extends Controller {
 
                             //Persiste Empleado
                             modelo.edit(cli);
-                            JOptionPane.showMessageDialog(null, "empleado y DNI modificado");
+                            JOptionPane.showMessageDialog(null, "cliente y DNI modificado");
                             
                             //Bandera de cliente creado a verdadero
                             empleadoModifocado =true;
@@ -760,7 +760,7 @@ public class ClienteController extends Controller {
                     modeloCuentaCorriente.destroy(cuentaCorriente.getId());
                 } 
                 
-                JOptionPane.showMessageDialog(null, "empleado con direccion eliminados");
+                JOptionPane.showMessageDialog(null, "cliente con direccion eliminados");
 
                 //llena la tabla de Empleados
                 llenarTabla(vista.getTablaEmpleados());
@@ -799,7 +799,7 @@ public class ClienteController extends Controller {
                     modeloCuentaCorriente.destroy(cuentaCorriente.getId());
                 }
                 
-                JOptionPane.showMessageDialog(null, "empleado sin Direccion eliminado");
+                JOptionPane.showMessageDialog(null, "cliente sin Direccion eliminado");
 
                 //llena la tabla de Empleados
                 llenarTabla(vista.getTablaEmpleados());
@@ -1159,7 +1159,6 @@ public class ClienteController extends Controller {
             this.lSeleccionada = true;
         }
         if(e.getSource().equals(vista.getJtfDNI())){
-            System.out.println("hola");
             dniModificado = vista.getJtfDNI().getText();
         }
         if (e.getSource()== vista.getJcb_tipoCliente()) {
@@ -1249,11 +1248,11 @@ public class ClienteController extends Controller {
                             
                             
                         }else{
-                            JOptionPane.showMessageDialog(null, "empleado no tiene Localidad asignada");
+                            JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
                         }
                         
                     }else{
-                        JOptionPane.showMessageDialog(null, "empleado no tiene Direccion asignada");
+                        JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
                     }                    
                 }
             }

@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,14 +17,15 @@ import javax.swing.JTextField;
  *
  * @author Ariel
  */
-public final class PanelRegistroCliente extends javax.swing.JPanel  implements InterfacePanel{
+public final class PanelRegistroSueldoEmpleado extends javax.swing.JPanel  implements InterfacePanel{
 
     /**
      * Creates new form PersonalPanel
      */
     private ValidadorDeCampos validador;
     
-    public PanelRegistroCliente() {
+    
+    public PanelRegistroSueldoEmpleado() {
         initComponents();      
         this.validador = new ValidadorDeCampos();
     }
@@ -37,13 +39,6 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jbtn_Nuevo = new javax.swing.JButton();
-        jbtn_Modificar = new javax.swing.JButton();
-        jbtn_Listar = new javax.swing.JButton();
-        jbtn_Eliminar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jbtn_Volver = new javax.swing.JButton();
         jTabbedPaneContenedor = new javax.swing.JTabbedPane();
@@ -57,10 +52,12 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         jtf_DNI = new javax.swing.JTextField();
         jtf_Apellido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jcb_tipoCliente = new javax.swing.JComboBox<>();
-        jlbl_tipoCliente = new javax.swing.JLabel();
-        jlbl_ctaCte = new javax.swing.JLabel();
-        jtf_ctaCte = new javax.swing.JTextField();
+        jcb_unidad = new javax.swing.JComboBox<>();
+        jlbl_unidad = new javax.swing.JLabel();
+        jlbl_TipoEmpleado = new javax.swing.JLabel();
+        jcb_empleado = new javax.swing.JComboBox<>();
+        fechaIngreso = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        jlbl_fechngreso = new javax.swing.JLabel();
         jPanelDireccion = new javax.swing.JPanel();
         jlbl_zona_direccion = new javax.swing.JLabel();
         jcb_zona_direccion = new javax.swing.JComboBox<>();
@@ -76,64 +73,34 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         jlbl_piso_direccion = new javax.swing.JLabel();
         jtf_departamento_direccion = new javax.swing.JTextField();
         jlbl_departamento_direccion = new javax.swing.JLabel();
+        jPanelSueldos = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jbtn_Aceptar = new javax.swing.JButton();
         jbtn_Cancelar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jlbl_TipoEmpleado1 = new javax.swing.JLabel();
+        jcb_empleado1 = new javax.swing.JComboBox<>();
+        jlbl_fechngreso1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
         setMinimumSize(new java.awt.Dimension(950, 800));
         setLayout(null);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
-        jPanel2.setMinimumSize(new java.awt.Dimension(730, 290));
-        jPanel2.setLayout(null);
-
-        jbtn_Nuevo.setText("Agregar");
-        jPanel2.add(jbtn_Nuevo);
-        jbtn_Nuevo.setBounds(30, 190, 80, 30);
-
-        jbtn_Modificar.setText("Modificar");
-        jPanel2.add(jbtn_Modificar);
-        jbtn_Modificar.setBounds(120, 190, 90, 30);
-
-        jbtn_Listar.setText("Listar");
-        jPanel2.add(jbtn_Listar);
-        jbtn_Listar.setBounds(220, 190, 80, 30);
-
-        jbtn_Eliminar.setText("Eliminar");
-        jPanel2.add(jbtn_Eliminar);
-        jbtn_Eliminar.setBounds(310, 190, 80, 30);
-
-        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tablaEmpleados);
-        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
-            tablaEmpleados.getColumnModel().getColumn(0).setMinWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setMaxWidth(120);
-        }
-
-        jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 30, 680, 150);
-
-        add(jPanel2);
-        jPanel2.setBounds(70, 50, 730, 230);
-
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE CLIENTES");
+        jLabel4.setText("GESTIÓN DE SUELDOS");
         add(jLabel4);
         jLabel4.setBounds(300, 10, 250, 30);
 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
         add(jbtn_Volver);
-        jbtn_Volver.setBounds(590, 660, 210, 50);
+        jbtn_Volver.setBounds(590, 730, 210, 50);
 
         jPanelEmpleado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelEmpleado.setName("Empleado"); // NOI18N
@@ -141,44 +108,53 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
 
         jlbl_Nombre.setText("Nombre:");
         jPanelEmpleado.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 80, 100, 15);
+        jlbl_Nombre.setBounds(20, 60, 100, 15);
 
         jlbl_Apellido.setText("Apellido:");
         jPanelEmpleado.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 120, 90, 15);
+        jlbl_Apellido.setBounds(20, 100, 90, 15);
 
         jlbl_DNI.setText("DNI:");
         jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 15);
+        jlbl_DNI.setBounds(20, 140, 80, 15);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
-        jlbl_ID.setBounds(60, 40, 90, 15);
+        jlbl_ID.setBounds(20, 20, 90, 15);
         jPanelEmpleado.add(jtf_ID);
-        jtf_ID.setBounds(160, 40, 272, 19);
+        jtf_ID.setBounds(120, 20, 272, 19);
         jPanelEmpleado.add(jtf_Nombre);
-        jtf_Nombre.setBounds(160, 80, 272, 19);
+        jtf_Nombre.setBounds(120, 60, 272, 19);
         jPanelEmpleado.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 160, 272, 19);
+        jtf_DNI.setBounds(120, 140, 272, 19);
         jPanelEmpleado.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 120, 272, 19);
+        jtf_Apellido.setBounds(120, 100, 272, 19);
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
 
-        jPanelEmpleado.add(jcb_tipoCliente);
-        jcb_tipoCliente.setBounds(160, 200, 270, 24);
+        jPanelEmpleado.add(jcb_unidad);
+        jcb_unidad.setBounds(120, 180, 270, 24);
 
-        jlbl_tipoCliente.setText("Tipo Cliente:");
-        jPanelEmpleado.add(jlbl_tipoCliente);
-        jlbl_tipoCliente.setBounds(60, 200, 80, 15);
+        jlbl_unidad.setText("UNIDAD:");
+        jPanelEmpleado.add(jlbl_unidad);
+        jlbl_unidad.setBounds(20, 180, 60, 15);
 
-        jlbl_ctaCte.setText("CTA / CTE:");
-        jPanelEmpleado.add(jlbl_ctaCte);
-        jlbl_ctaCte.setBounds(60, 250, 80, 15);
-        jPanelEmpleado.add(jtf_ctaCte);
-        jtf_ctaCte.setBounds(160, 250, 272, 19);
+        jlbl_TipoEmpleado.setText("EMPLEADO:");
+        jPanelEmpleado.add(jlbl_TipoEmpleado);
+        jlbl_TipoEmpleado.setBounds(20, 230, 70, 15);
 
-        jTabbedPaneContenedor.addTab("Cliente", jPanelEmpleado);
+        jPanelEmpleado.add(jcb_empleado);
+        jcb_empleado.setBounds(120, 230, 270, 24);
+
+        fechaIngreso.setEnabled(false);
+        jPanelEmpleado.add(fechaIngreso);
+        fechaIngreso.setBounds(120, 270, 130, 30);
+
+        jlbl_fechngreso.setText("Fecha Ingreso:");
+        jPanelEmpleado.add(jlbl_fechngreso);
+        jlbl_fechngreso.setBounds(20, 270, 90, 30);
+
+        jTabbedPaneContenedor.addTab("Empleado", jPanelEmpleado);
 
         jPanelDireccion.setLayout(null);
 
@@ -229,75 +205,141 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
 
         jTabbedPaneContenedor.addTab("Dirección", jPanelDireccion);
 
+        jPanelSueldos.setLayout(null);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanelSueldos.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 10, 370, 290);
+
+        jTabbedPaneContenedor.addTab("Recibos de Sueldo", jPanelSueldos);
+
         add(jTabbedPaneContenedor);
-        jTabbedPaneContenedor.setBounds(70, 310, 730, 320);
+        jTabbedPaneContenedor.setBounds(10, 100, 410, 340);
 
         jbtn_Aceptar.setText("ACEPTAR");
         add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(70, 660, 170, 25);
+        jbtn_Aceptar.setBounds(70, 730, 170, 25);
 
         jbtn_Cancelar.setText("CANCELAR");
         add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(270, 660, 170, 25);
+        jbtn_Cancelar.setBounds(270, 730, 170, 25);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(null);
+        jPanel1.add(jDateChooser1);
+        jDateChooser1.setBounds(670, 9, 120, 30);
+
+        jlbl_TipoEmpleado1.setText("EMPLEADO:");
+        jPanel1.add(jlbl_TipoEmpleado1);
+        jlbl_TipoEmpleado1.setBounds(10, 10, 70, 30);
+
+        jPanel1.add(jcb_empleado1);
+        jcb_empleado1.setBounds(100, 10, 300, 30);
+
+        jlbl_fechngreso1.setText("Ultimo Periodo:");
+        jPanel1.add(jlbl_fechngreso1);
+        jlbl_fechngreso1.setBounds(570, 10, 90, 30);
+
+        add(jPanel1);
+        jPanel1.setBounds(10, 40, 810, 50);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setLayout(null);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 200, 360, 100);
+
+        add(jPanel2);
+        jPanel2.setBounds(430, 120, 390, 320);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser fechaIngreso;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelDireccion;
     private javax.swing.JPanel jPanelEmpleado;
+    private javax.swing.JPanel jPanelSueldos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneContenedor;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton jbtn_Aceptar;
     private javax.swing.JButton jbtn_Cancelar;
-    private javax.swing.JButton jbtn_Eliminar;
-    private javax.swing.JButton jbtn_Listar;
-    private javax.swing.JButton jbtn_Modificar;
-    private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
+    private javax.swing.JComboBox<String> jcb_empleado;
+    private javax.swing.JComboBox<String> jcb_empleado1;
     private javax.swing.JComboBox<String> jcb_localidad_direccion;
     private javax.swing.JComboBox<String> jcb_provincia_direccion;
-    private javax.swing.JComboBox<String> jcb_tipoCliente;
+    private javax.swing.JComboBox<String> jcb_unidad;
     private javax.swing.JComboBox<String> jcb_zona_direccion;
     private javax.swing.JLabel jlbl_Apellido;
     private javax.swing.JLabel jlbl_DNI;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Nombre;
+    private javax.swing.JLabel jlbl_TipoEmpleado;
+    private javax.swing.JLabel jlbl_TipoEmpleado1;
     private javax.swing.JLabel jlbl_calle_direccion;
-    private javax.swing.JLabel jlbl_ctaCte;
     private javax.swing.JLabel jlbl_departamento_direccion;
+    private javax.swing.JLabel jlbl_fechngreso;
+    private javax.swing.JLabel jlbl_fechngreso1;
     private javax.swing.JLabel jlbl_localidad_direccion;
     private javax.swing.JLabel jlbl_numero_direccion;
     private javax.swing.JLabel jlbl_piso_direccion;
     private javax.swing.JLabel jlbl_provincia_direccion;
-    private javax.swing.JLabel jlbl_tipoCliente;
+    private javax.swing.JLabel jlbl_unidad;
     private javax.swing.JLabel jlbl_zona_direccion;
     private javax.swing.JTextField jtf_Apellido;
     private javax.swing.JTextField jtf_DNI;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_calle_direccion;
-    private javax.swing.JTextField jtf_ctaCte;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
-    private javax.swing.JTable tablaEmpleados;
     // End of variables declaration//GEN-END:variables
 
     
     @Override
     public void setControlador(Controller c) {
         
+        
+        
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
-        jbtn_Nuevo.addActionListener(c);
-        jbtn_Listar.addActionListener(c);
-        jbtn_Modificar.addActionListener(c);
-        jbtn_Eliminar.addActionListener(c);       
         jbtn_Aceptar.addActionListener(c);
         jbtn_Cancelar.addActionListener(c);      
         jbtn_Volver.addActionListener(c); 
+        
         
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
@@ -314,19 +356,20 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addItemListener(c);
         jcb_provincia_direccion.addItemListener(c);
-        jcb_localidad_direccion.addItemListener(c);        
-        jcb_tipoCliente.addItemListener(c);
+        jcb_localidad_direccion.addItemListener(c);
+        jcb_empleado.addItemListener(c);
+        jcb_unidad.addItemListener(c);
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addFocusListener(c);
         jcb_provincia_direccion.addFocusListener(c);
         jcb_localidad_direccion.addFocusListener(c);
-        jtf_DNI.addFocusListener(c);        
-        jcb_tipoCliente.addFocusListener(c);
+        jtf_DNI.addFocusListener(c);
+        jcb_empleado.addFocusListener(c);
+        jcb_unidad.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
-        tablaEmpleados.addMouseListener(c);
-        
+        fechaIngreso.addMouseListener(c);
         
         
     }
@@ -436,21 +479,6 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         return jbtn_Cancelar;
     }
 
-    public javax.swing.JButton getJbtn_Eliminar() {
-        return jbtn_Eliminar;
-    }
-
-    public javax.swing.JButton getJbtn_Listar() {
-        return jbtn_Listar;
-    }
-
-    public javax.swing.JButton getJbtn_Modificar() {
-        return jbtn_Modificar;
-    }
-
-    public javax.swing.JButton getJbtn_Agregar() {
-        return jbtn_Nuevo;
-    }
 
     public javax.swing.JButton getJbtn_Volver() {
         return jbtn_Volver;
@@ -479,9 +507,6 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         return validador;
     }
 
-    public javax.swing.JTable getTablaEmpleados() {
-        return tablaEmpleados;
-    }
 
     @Override
     public void habilitarCombobox(boolean h, JComboBox campo) {
@@ -505,22 +530,33 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         return jTabbedPaneContenedor;
     }
 
-    public javax.swing.JComboBox<String> getJcb_tipoCliente() {
-        return jcb_tipoCliente;
+    public javax.swing.JComboBox<String> getJcb_unidad() {
+        return jcb_unidad;
     }
 
-    public void setJcb_tipoCliente(javax.swing.JComboBox<String> jcb_tipoCliente) {
-        this.jcb_tipoCliente = jcb_tipoCliente;
+    public void setJcb_unidad(javax.swing.JComboBox<String> jcb_unidad) {
+        this.jcb_unidad = jcb_unidad;
     }
 
-    public javax.swing.JTextField getJtf_ctaCte() {
-        return jtf_ctaCte;
+    public javax.swing.JComboBox<String> getJcb_empleado() {
+        return jcb_empleado;
     }
 
-    public void setJtf_ctaCte(javax.swing.JTextField jtf_ctaCte) {
-        this.jtf_ctaCte = jtf_ctaCte;
+    public void setJcb_empleado(javax.swing.JComboBox<String> jcb_empleado) {
+        this.jcb_empleado = jcb_empleado;
+    }
+
+    public com.toedter.calendar.JDateChooser getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(com.toedter.calendar.JDateChooser fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
     
+    public void limpiarCampo(JDateChooser campo){
+        campo.setDate(null);
+    }
     
 }

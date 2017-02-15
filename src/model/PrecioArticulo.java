@@ -6,15 +6,12 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,24 +19,23 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CATEGORIAS_ARTICULO")
-public class CategoriaArticulo implements Serializable {
+@Table (name="PRECIO ARTICULOS")
+public class PrecioArticulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="descripcion")
-    private String descripcion;
+
+    @ManyToOne
+    private ListaDePrecio unaListaPrecioArticulos;
     
     @ManyToOne
-    private CatalogoArticulos unCatalogoDeArticulos;
+    private Articulo unArticulo;
     
-    ///Articulos que posee la Catalogoria de Articulos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCategoriaDeArticulos")
-    private List <Articulo> listaDeArticulos;
-
+    @Column(name="precio")
+    private float precio;
+    
     public Long getId() {
         return id;
     }
@@ -58,10 +54,10 @@ public class CategoriaArticulo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CategoriaArticulo)) {
+        if (!(object instanceof PrecioArticulo)) {
             return false;
         }
-        CategoriaArticulo other = (CategoriaArticulo) object;
+        PrecioArticulo other = (PrecioArticulo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -70,32 +66,31 @@ public class CategoriaArticulo implements Serializable {
 
     @Override
     public String toString() {
-        return getDescripcion();
+        return "model.PrecioArticulo[ id=" + id + " ]";
     }
 
-    public CatalogoArticulos getUnCatalogoDeArticulos() {
-        return unCatalogoDeArticulos;
+    public ListaDePrecio getUnaListaPrecioArticulos() {
+        return unaListaPrecioArticulos;
     }
 
-    public void setUnCatalogoDeArticulos(CatalogoArticulos unCatalogoDeArticulos) {
-        this.unCatalogoDeArticulos = unCatalogoDeArticulos;
+    public void setUnaListaPrecioArticulos(ListaDePrecio unaListaPrecioArticulos) {
+        this.unaListaPrecioArticulos = unaListaPrecioArticulos;
     }
 
-    public List <Articulo> getListaDeArticulos() {
-        return listaDeArticulos;
+    public Articulo getUnArticulo() {
+        return unArticulo;
     }
 
-    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
-        this.listaDeArticulos = listaDeArticulos;
+    public void setUnArticulo(Articulo unArticulo) {
+        this.unArticulo = unArticulo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public float getPrecio() {
+        return precio;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
-    
     
 }

@@ -5,9 +5,13 @@
  */
 package model;
 
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -17,6 +21,10 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue( value="EMPLEADO" )
 public class Empleado extends Persona{
    
+    @Temporal(TemporalType.DATE)
+    @Column(name="FECHA_INGRESO")
+    private Date fechaIngreso;
+    
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
 
@@ -27,6 +35,18 @@ public class Empleado extends Persona{
     public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    
+
+    
     
     
 }
