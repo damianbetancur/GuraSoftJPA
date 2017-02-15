@@ -1029,7 +1029,6 @@ public class ProveedorController extends Controller{
             this.lSeleccionada = true;
         }
         if(e.getSource().equals(vista.getJtfCUIT())){
-            System.out.println("hola");
             cuitModificado = vista.getJtfCUIT().getText();
         }        
         

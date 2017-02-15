@@ -98,7 +98,8 @@ public class EmpleadoController extends Controller {
      * @param e  recepcion de Evento
      */
     @Override
-    public void actionPerformed(ActionEvent e) {        
+    public void actionPerformed(ActionEvent e) {
+        
         
         //Boton Agregar
         if (e.getSource()==vista.getJbtn_Agregar()) {
@@ -393,6 +394,8 @@ public class EmpleadoController extends Controller {
                             vista.getJtf_piso_direccion().setText(empleados.get(0).getDireccion().getPiso());
                             vista.getJtf_departamento_direccion().setText(empleados.get(0).getDireccion().getDepartamento());
                             
+                            vista.getFechaIngreso().setDate(empleados.get(0).getFechaIngreso());
+                            
                             if (empleados.get(0).getUnidad() !=null) {
                                 vista.getJcb_unidad().addItem(empleados.get(0).getUnidad().getNombre());                                
                             }
@@ -433,7 +436,8 @@ public class EmpleadoController extends Controller {
     public void btn_aceptarCrear(){
         boolean empleadoCreado=false;
         
-        if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {   
+        if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {
+            
             //Crear Instancia de Empleado
             Empleado emp = new Empleado();
             
@@ -478,6 +482,10 @@ public class EmpleadoController extends Controller {
             if (modelo.buscarEmpleadoDNI(emp)==null) {   
                 
                if (!empleadoCreado) {
+                   
+                   
+                   emp.setFechaIngreso(vista.getFechaIngreso().getDate());
+                   
                    //Setea Datos de Empleado
                    emp.setNombre(vista.getJtfNombre().getText());
                    emp.setDni(vista.getJtfDNI().getText());
@@ -610,6 +618,9 @@ public class EmpleadoController extends Controller {
                 if (emp.getDni().equals(dniModificado)) {            
                     //El DNI es igual se mantiene sin cambio            
                     try {
+                        //Setea fecha de ingreso de Empleado
+                        emp.setFechaIngreso(vista.getFechaIngreso().getDate());
+                        
                         //Setea Datos de Empleado
                         emp.setApellido(vista.getJtfApellido().getText());
                         emp.setNombre(vista.getJtfNombre().getText());
@@ -643,6 +654,9 @@ public class EmpleadoController extends Controller {
                          //Se modifica el DNI
                          emp.setDni(vista.getJtfDNI().getText());
                          try {
+                             //Setea fecha de ingreso de empleado
+                             emp.setFechaIngreso(vista.getFechaIngreso().getDate());
+                             
                             //Setea Datos de Empleado
                             emp.setApellido(vista.getJtfApellido().getText());
                             emp.setNombre(vista.getJtfNombre().getText());
@@ -940,6 +954,8 @@ public class EmpleadoController extends Controller {
         vista.habilitarCombobox(estado, vista.getJcb_localidad_direccion());
         vista.habilitarCombobox(estado, vista.getJcb_unidad());
         vista.habilitarCombobox(estado, vista.getJcb_empleado());
+        
+        vista.getFechaIngreso().setEnabled(estado);
     }
     
     /**
@@ -962,6 +978,8 @@ public class EmpleadoController extends Controller {
         vista.limpiarCombobox(vista.getJcb_localidad_direccion());
         vista.limpiarCombobox(vista.getJcb_unidad());
         vista.limpiarCombobox(vista.getJcb_empleado());
+        
+        vista.limpiarCampo(vista.getFechaIngreso());
     }
 
     /**
@@ -1143,7 +1161,6 @@ public class EmpleadoController extends Controller {
             this.lSeleccionada = true;
         }
         if(e.getSource().equals(vista.getJtfDNI())){
-            System.out.println("hola");
             dniModificado = vista.getJtfDNI().getText();
         }
         if (e.getSource()== vista.getJcb_unidad()) {
@@ -1227,6 +1244,8 @@ public class EmpleadoController extends Controller {
                             vista.getJtf_piso_direccion().setText(empleado.getDireccion().getPiso());
                             vista.getJtf_departamento_direccion().setText(empleado.getDireccion().getDepartamento());
                             
+                            
+                            vista.getFechaIngreso().setDate(empleado.getFechaIngreso());
                             
                         }else{
                             JOptionPane.showMessageDialog(null, "empleado no tiene Localidad asignada");

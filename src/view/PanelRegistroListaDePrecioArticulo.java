@@ -16,14 +16,14 @@ import javax.swing.JTextField;
  *
  * @author Ariel
  */
-public final class PanelRegistroCatalogoArticulo extends javax.swing.JPanel  implements InterfacePanel{
+public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel  implements InterfacePanel{
 
     /**
      * Creates new form PersonalPanel
      */
     private ValidadorDeCampos validador;
     
-    public PanelRegistroCatalogoArticulo() {
+    public PanelRegistroListaDePrecioArticulo() {
         initComponents();      
         this.validador = new ValidadorDeCampos();
     }
@@ -56,6 +56,8 @@ public final class PanelRegistroCatalogoArticulo extends javax.swing.JPanel  imp
         jlbl_Categoria = new javax.swing.JLabel();
         jlbl_Proveedor = new javax.swing.JLabel();
         jcb_Proveedor = new javax.swing.JComboBox<>();
+        jlbl_precio = new javax.swing.JLabel();
+        jtf_Precio = new javax.swing.JTextField();
         jbtn_Aceptar = new javax.swing.JButton();
         jbtn_Cancelar = new javax.swing.JButton();
 
@@ -106,9 +108,9 @@ public final class PanelRegistroCatalogoArticulo extends javax.swing.JPanel  imp
         jPanel2.setBounds(70, 50, 730, 230);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE ARTICULOS DEL CATALOGO");
+        jLabel4.setText("GESTIÓN DE ARTICULOS DE LISTA DE PRECIO");
         add(jLabel4);
-        jLabel4.setBounds(210, 10, 410, 30);
+        jLabel4.setBounds(210, 10, 450, 30);
 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
@@ -145,6 +147,12 @@ public final class PanelRegistroCatalogoArticulo extends javax.swing.JPanel  imp
         jPanelEmpleado.add(jcb_Proveedor);
         jcb_Proveedor.setBounds(160, 180, 550, 24);
 
+        jlbl_precio.setText("Precio:");
+        jPanelEmpleado.add(jlbl_precio);
+        jlbl_precio.setBounds(60, 220, 33, 15);
+        jPanelEmpleado.add(jtf_Precio);
+        jtf_Precio.setBounds(160, 220, 110, 19);
+
         jTabbedPaneContenedor.addTab("Articulo", jPanelEmpleado);
 
         add(jTabbedPaneContenedor);
@@ -179,8 +187,10 @@ public final class PanelRegistroCatalogoArticulo extends javax.swing.JPanel  imp
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Proveedor;
     private javax.swing.JLabel jlbl_descripcion;
+    private javax.swing.JLabel jlbl_precio;
     private javax.swing.JTextField jtf_Descripcion;
     private javax.swing.JTextField jtf_ID;
+    private javax.swing.JTextField jtf_Precio;
     private javax.swing.JTable tablaArticulos;
     // End of variables declaration//GEN-END:variables
 

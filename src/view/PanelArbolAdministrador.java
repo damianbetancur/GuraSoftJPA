@@ -6,15 +6,18 @@
 package view;
 
 
+import controller.CatalogoCategoriaArticuloController;
 import controller.CatalogoCategoriaController;
 import controller.ClienteController;
 import controller.Conexion;
 import controller.EmpleadoController;
 import controller.EmpresaController;
 import controller.ProveedorController;
+import controller.SueldoController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
+import model.JPAController.ArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
 import model.JPAController.ClienteJpaController;
 import model.JPAController.EmpresaJpaController;
@@ -73,28 +76,28 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empleados");
         treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Catalogo");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Categoria");
-        treeNode3.add(treeNode4);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Liquidación de Sueldos");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad Comercial");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tablas Relativas a Articulos");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
+        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Catalogo");
+        javax.swing.tree.DefaultMutableTreeNode treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Categoria");
+        treeNode4.add(treeNode5);
+        treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
+        treeNode4.add(treeNode5);
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Lista de Precios");
+        treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Definición");
+        treeNode4.add(treeNode5);
+        treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Lista de Precios");
+        treeNode4.add(treeNode5);
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Stock");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Depositos");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Sectores");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Movimientos");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Movimientos");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
@@ -104,45 +107,13 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
         treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Vendedores");
-        treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Clientes");
         treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Descuentos y Rangos Varios");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Fecha de Facturación");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Definición para el ingreso de comprobantes");
-        treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Anulación de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Cobrar");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Cobranzas");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Saldos Iniciales");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Cuentas a Pagar");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Pagos");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Consulta y Baja de Comprobantes");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
@@ -246,9 +217,36 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.repaint();
 
                 modificarArbol(false);
-            }            
+            }
+
+            if(captura.equals("[GuraSoft, Administración General, Liquidación de Sueldos]")){  
             
-            if(captura.equals("[GuraSoft, Administración General, Catalogo, Categoria]")){  
+                //Se crea el Panel Empleado    
+                PanelRegistroSueldoEmpleado unPanelSueldoEmpleado = new PanelRegistroSueldoEmpleado();            
+                unPanelSueldoEmpleado.setSize(950, 800);
+                unPanelSueldoEmpleado.setLocation(0,0);
+                unPanelSueldoEmpleado.setVisible(true);
+
+                //Se Crea controlador JPA
+                EmpleadoJpaController modelo = new EmpleadoJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                SueldoController controlador = new SueldoController(unPanelSueldoEmpleado, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelSueldoEmpleado.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelSueldoEmpleado, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
+            
+            
+            
+            if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Catalogo, Categoria]")){  
             
                 //Se crea el Panel Empleado    
                 PanelRegistroCatalogoCategoria unPanelCategoria = new PanelRegistroCatalogoCategoria();            
@@ -273,6 +271,30 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             } 
             
+            if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Catalogo, Articulos]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroCatalogoArticulo unPanelCatalogoArticulo = new PanelRegistroCatalogoArticulo();            
+                unPanelCatalogoArticulo.setSize(950, 800);
+                unPanelCatalogoArticulo.setLocation(0,0);
+                unPanelCatalogoArticulo.setVisible(true);
+
+                //Se Crea controlador JPA
+                ArticuloJpaController modelo = new ArticuloJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                CatalogoCategoriaArticuloController controlador = new CatalogoCategoriaArticuloController(unPanelCatalogoArticulo, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelCatalogoArticulo.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelCatalogoArticulo, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Compras, Proveedores]")){  
             

@@ -22,24 +22,25 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CATEGORIAS_ARTICULO")
-public class CategoriaArticulo implements Serializable {
+@Table (name="lISTA DE PRECIOS")
+public class ListaDePrecio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name="descripcion")
     private String descripcion;
     
+    //Empresa a la que pertenece la lista de precio
     @ManyToOne
-    private CatalogoArticulos unCatalogoDeArticulos;
+    private Empresa unaEmpresa;
     
-    ///Articulos que posee la Catalogoria de Articulos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCategoriaDeArticulos")
-    private List <Articulo> listaDeArticulos;
-
+    ///CategoriaProducto que posee el CatalogoArticulos
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unaListaPrecioArticulos")
+    private List <PrecioArticulo> listaDePrecioArticulos;
+    
     public Long getId() {
         return id;
     }
@@ -58,10 +59,10 @@ public class CategoriaArticulo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CategoriaArticulo)) {
+        if (!(object instanceof ListaDePrecio)) {
             return false;
         }
-        CategoriaArticulo other = (CategoriaArticulo) object;
+        ListaDePrecio other = (ListaDePrecio) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -70,23 +71,7 @@ public class CategoriaArticulo implements Serializable {
 
     @Override
     public String toString() {
-        return getDescripcion();
-    }
-
-    public CatalogoArticulos getUnCatalogoDeArticulos() {
-        return unCatalogoDeArticulos;
-    }
-
-    public void setUnCatalogoDeArticulos(CatalogoArticulos unCatalogoDeArticulos) {
-        this.unCatalogoDeArticulos = unCatalogoDeArticulos;
-    }
-
-    public List <Articulo> getListaDeArticulos() {
-        return listaDeArticulos;
-    }
-
-    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
-        this.listaDeArticulos = listaDeArticulos;
+        return "model.ListaDePrecio[ id=" + id + " ]";
     }
 
     public String getDescripcion() {
@@ -96,6 +81,21 @@ public class CategoriaArticulo implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    public Empresa getUnaEmpresa() {
+        return unaEmpresa;
+    }
+
+    public void setUnaEmpresa(Empresa unaEmpresa) {
+        this.unaEmpresa = unaEmpresa;
+    }
+
+    public List <PrecioArticulo> getListaDePrecioArticulos() {
+        return listaDePrecioArticulos;
+    }
+
+    public void setListaDePrecioArticulos(List <PrecioArticulo> listaDePrecioArticulos) {
+        this.listaDePrecioArticulos = listaDePrecioArticulos;
+    }
     
 }

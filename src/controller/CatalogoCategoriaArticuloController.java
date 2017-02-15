@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.awt.event.ActionEvent;
@@ -12,49 +7,66 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import model.CatalogoArticulos;
+import model.Articulo;
 import model.CategoriaArticulo;
+import model.Empresa;
 import model.JPAController.ArticuloJpaController;
-import model.JPAController.CatalogoArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
+import model.JPAController.EmpresaJpaController;
+import model.JPAController.ProveedorJpaController;
+import model.Proveedor;
 import view.JframePrincipal;
 import view.PanelRegistroCatalogoArticulo;
-import view.PanelRegistroCatalogoCategoria;
+
+
 
 /**
- *
+ * Clase controladora de Articulos de categorias en el Catalogo
  * @author Ariel
  */
-public class CatalogoCategoriaArticuloController extends Controller{
-
+public class CatalogoCategoriaArticuloController extends Controller {
+    
     private PanelRegistroCatalogoArticulo vista;
     private ArticuloJpaController modelo;
-    private CategoriaArticuloJpaController modeloCategoriaArticulo;    
+    
+        
+    private EmpresaJpaController modeloEmpresa;
+    private CategoriaArticuloJpaController modeloCategoriaArticulo;
+    private ProveedorJpaController modeloProveedor;
         
     boolean bloquearAceptarCrear = false;
     boolean bloquearAceptarEliminar = false;
-    boolean bloquearAceptarModificar = false;
-       
-    CategoriaArticulo categoria = null;           
+    boolean bloquearAceptarModificar = false;    
+    
+    Empresa empresa = null;        
+    
+    boolean zSeleccionada = false;
+    boolean pSeleccionada = false;
+    boolean lSeleccionada = false;
+    boolean tcSeleccionada = false;
+    
+    String dniModificado = null;
     
     int ultimoIndiceSeleccionado = 0;
-    List<CategoriaArticulo> categorias;
+    List<Articulo> articulos;
 
     /**
-     * Constructor Empleado
-     * @param vista PanelRegistroEmpleado
-     * @param modelo EmpleadoJpaController
+     * Constructor CatalogoCategoriaArticuloController
+     * @param vista PanelRegistroCatalogoArticulo
+     * @param modelo ArticuloJpaController
      */
     public CatalogoCategoriaArticuloController(PanelRegistroCatalogoArticulo vista, ArticuloJpaController modelo) {
-        modeloCategoriaArticulo = new CategoriaArticuloJpaController(Conexion.getEmf());
-        categoria = modeloCategoriaArticulo.findCategoriaArticulo(1L);
+        modeloEmpresa = new EmpresaJpaController(Conexion.getEmf());
+        empresa = modeloEmpresa.findEmpresa(1L);
         
         this.vista = vista;
         this.modelo = modelo;        
@@ -134,7 +146,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
      * Desbloquea el Boton AceptarCrear para poder crear 
      */
     public void btn_agregar(){
-        //Posiciona la seleccion en el Panel datos categorias. 
+        //Posiciona la seleccion en el Panel datos articulos. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);
         
         //habilitar Botones
@@ -150,7 +162,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
         //Habilitar Campos            
         inhabilitarTodosLosCampos(true);
         vista.habilitarCampo(false, vista.getJtfID());
-
+        
         //Inhabilitar Botones
         vista.habilitarBoton(false, vista.getJbtn_Volver());
         vista.habilitarBoton(false, vista.getJbtn_Listar());
@@ -160,7 +172,13 @@ public class CatalogoCategoriaArticuloController extends Controller{
         vista.habilitarBoton(false, vista.getJbtn_Listar());
         
         //posiciona en foco de la lista en el ultimo Empleado creado                    
-        vista.getTablaArticulos().changeSelection(sizeTabla(), 1, false, false);                
+        vista.getTablaArticulos().changeSelection(sizeTabla(), 1, false, false);
+        
+        //inicializa el JcomboBox de Categoria
+        llenarJcomboboxCategoria();
+        
+        //Llena El JComboBox de Proveedor
+        llenarJcomboboxProveedor();
         
         //desbloquea el boton nuevo
         bloquearAceptarCrear=true;      
@@ -175,7 +193,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
      */
     public void btn_modificar(){
         
-        //Posiciona la seleccion en el Panel datos categorias. 
+        //Posiciona la seleccion en el Panel datos articulos. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);        
             
         //Politica de validacion de Campos
@@ -197,17 +215,26 @@ public class CatalogoCategoriaArticuloController extends Controller{
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
         //Crea instancia de cliente
-        CategoriaArticulo categoriaModificado = new CategoriaArticulo();
+        Articulo articuloModificado = new Articulo();
         
         //setea cliente en funcion al ID de la vista
-        categoriaModificado = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));       
+        articuloModificado = modelo.findArticulo(Long.parseLong(vista.getJtfID().getText()));       
         
+        //Llena el combobox de Categoria
+        llenarJcomboboxCategoria();
+        //Posiciona dentro del combobox zona al objeto zona que posee el cliente.
+        vista.getJcb_Categoria().setSelectedItem(articuloModificado.getUnCategoriaDeArticulos());
+        
+        //Llena el combobox de Proveedor
+        llenarJcomboboxProveedor();
+        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del cliente.
+        vista.getJcb_Proveedor().setSelectedItem(articuloModificado.getUnProveedor());   
         
         //desbloquea el boton modificar
         bloquearAceptarModificar = true;
         
         //Limpia la lista            
-        vista.getTablaCategorias().setModel(new DefaultTableModel());
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
     }
     
     /**
@@ -216,7 +243,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
      */
     public void btn_eliminar(){ 
         
-        //Posiciona la seleccion en el Panel datos categorias. 
+        //Posiciona la seleccion en el Panel datos articulos. 
         vista.getjTabbedPaneContenedor().setSelectedIndex(0);
         bloquearAceptarCrear = false;
             
@@ -238,18 +265,28 @@ public class CatalogoCategoriaArticuloController extends Controller{
         vista.habilitarBoton(false, vista.getJbtn_Modificar()); 
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
-        //Crea instancia de cliente
-        CategoriaArticulo categoriaAEliminar = new CategoriaArticulo();
+        //Crea instancia de Articulo
+        Articulo articuloAEliminar = new Articulo();
         
-        //setea cliente en funcion al ID de la vista
-        categoriaAEliminar = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));      
+        //setea Articulo en funcion al ID de la vista
+        articuloAEliminar = modelo.findArticulo(Long.parseLong(vista.getJtfID().getText()));       
         
+        //Llena el combobox de Categoria
+        llenarJcomboboxCategoria();
+        //Posiciona dentro del combobox zona al objeto zona que posee el cliente.
+        vista.getJcb_Categoria().setSelectedItem(articuloAEliminar.getUnCategoriaDeArticulos());
+        
+        //Llena el combobox de Proveedor
+        llenarJcomboboxProveedor();
+        //Posiciona dentro del combobox Provincia al objeto Provincia que posee el la zona del cliente.
+        vista.getJcb_Proveedor().setSelectedItem(articuloAEliminar.getUnProveedor());
+                
         
         //Habilita boton Aceptar Eliminar Bloqueado
         bloquearAceptarEliminar = true;
         
         //Limpia la lista            
-        vista.getTablaCategorias().setModel(new DefaultTableModel());
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
     }   
     
     /**
@@ -273,7 +310,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
             vista.habilitarBoton(true, vista.getJbtn_Volver());
             
             //Llena la tabla
-            llenarTabla(vista.getTablaCategorias());
+            llenarTabla(vista.getTablaArticulos());
             
            //Setea ancho de columna
             setAnchoColumna();
@@ -283,20 +320,34 @@ public class CatalogoCategoriaArticuloController extends Controller{
                 //Si posee datos de direccion se cargan en la vista
                 
                 //Posicionar el cursor de la lista en el primer Elemento
-                vista.getJtfID().setText(categorias.get(0).getId().toString());
-                vista.getJtfDescripcion().setText(categorias.get(0).getDescripcion());
+                vista.getJtfID().setText(articulos.get(0).getId().toString());
+                vista.getJtfDescripcion().setText(articulos.get(0).getDescripcion());
+                
+                if (articulos.get(0).getId().toString().equals(vista.getJtfID().getText())) {
+                    if (articulos.get(0).getUnCategoriaDeArticulos()!=null) {
+                        vista.getJcb_Categoria().addItem(articulos.get(0).getUnCategoriaDeArticulos().getDescripcion());
+                    }else{
+                        System.out.println("no tiene categoria");
+                    }
+                    if (articulos.get(0).getUnProveedor()!=null) {
+                        vista.getJcb_Proveedor().addItem(articulos.get(0).getUnProveedor().getRazonSocial());
+                    }else{
+                        System.out.println("no tiene proveedor");
+                    }
+                    
+                }
                 
                 //posiciona en foco de la lista en el primer Empleado 
-                vista.getTablaCategorias().changeSelection(0, 1, false, false);
+                vista.getTablaArticulos().changeSelection(0, 1, false, false);
             }else{
                 //Habilita Botones
                 vista.habilitarBoton(false, vista.getJbtn_Modificar());
                 vista.habilitarBoton(false, vista.getJbtn_Eliminar());
                 limpiarTodosLosCampos();
-                JOptionPane.showMessageDialog(null, "No hay Categorias que listar");
+                JOptionPane.showMessageDialog(null, "No hay Articulos que listar");
             }
             
-            //Posiciona la seleccion en el Panel datos categorias. 
+            //Posiciona la seleccion en el Panel datos articulos. 
             vista.getjTabbedPaneContenedor().setSelectedIndex(0);
     }
     
@@ -308,35 +359,48 @@ public class CatalogoCategoriaArticuloController extends Controller{
  persiste cliente
      */
     public void btn_aceptarCrear(){
-        boolean categoriaCreada = false;
+        boolean articuloCreado=false;                 
+                
+       if (!articuloCreado) {
+            //Crear Instancia de Empleado
+            Articulo articulo = new Articulo();
 
+            //setea Descripcion de Articulo
+            articulo.setDescripcion(vista.getJtfDescripcion().getText());
+            
+            
+            //Instancia de unaCategoriaArticulo
+            CategoriaArticulo unaCategoriaArticulo = new CategoriaArticulo();
+            
+            //Setea unaCategoriaArticulo con lo que tiene seleccionado el JCB de unaCategoriaArticulo
+            unaCategoriaArticulo = (CategoriaArticulo)vista.getJcb_Categoria().getSelectedItem();
+            
+           //Agrega la unaCategoriaArticulo al Articulo
+           articulo.setUnCategoriaDeArticulos(unaCategoriaArticulo);       
 
-        //Crear Instancia de Categoria
-        CategoriaArticulo categoria = new CategoriaArticulo();
-
-        //setea descripcion de Categoria
-        categoria.setDescripcion(vista.getJtfDescripcion().getText());
-
-
-       if (!categoriaCreada) {
-
-           //Agrega la catalogo a la que pertenece el Cliente
-           categoria.setUnCatalogoDeArticulos(catalogo);
+           //Instancia de Proveedor
+            Proveedor unproveedor = new Proveedor();
+            
+            //Setea unproveedor con lo que tiene seleccionado el JCB de unproveedor
+            unproveedor = (Proveedor)vista.getJcb_Proveedor().getSelectedItem();
+            
+           //Agrega  unproveedor al Articulo
+           articulo.setUnProveedor(unproveedor);
 
            //Persiste Empleado
-           modelo.create(categoria);
+           modelo.create(articulo);
 
            //Bandera de cliente creado a verdadero
-           categoriaCreada =true;
+           articuloCreado =true;
 
            //Mensaje de cliente Guardado
-           JOptionPane.showMessageDialog(null, "Categoria Guardado");
+           JOptionPane.showMessageDialog(null, "Articulo Guardado");
        }
 
 
-       if (categoriaCreada) {
+       if (articuloCreado) {
            //llena la tabla de Empleados
-           llenarTabla(vista.getTablaCategorias());
+           llenarTabla(vista.getTablaArticulos());
 
            //setea tamaño de columnas
             setAnchoColumna();
@@ -356,12 +420,12 @@ public class CatalogoCategoriaArticuloController extends Controller{
             vista.habilitarBoton(false, vista.getJbtn_Eliminar());
 
             //posiciona en foco de la lista en el ultimo Empleado creado                    
-            vista.getTablaCategorias().changeSelection(sizeTabla(), 1, false, false);
+            vista.getTablaArticulos().changeSelection(sizeTabla(), 1, false, false);
 
             //Da valor al ID en la tabla
-            vista.getJtfID().setText(String.valueOf(vista.getTablaCategorias().getValueAt(sizeTabla(), 1)));
+            vista.getJtfID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(sizeTabla(), 1)));
 
-            //Posiciona la seleccion en el Panel datos categorias. 
+            //Posiciona la seleccion en el Panel datos articulos. 
              vista.getjTabbedPaneContenedor().setSelectedIndex(0);
 
              //Todos los botones de aceptar Bloqueados
@@ -369,125 +433,152 @@ public class CatalogoCategoriaArticuloController extends Controller{
              bloquearAceptarEliminar = false;
              bloquearAceptarModificar = false;
        }
+                            
+                
     }
     
     /**
      * Controla el Boton Aceptar cuando se este modificando
-    crea instancia de cliente, en funcion al ID seleccionado
-    crea una instancia de direccion del cliente
-    verifica que el DNI del cliente es modificado, si lo es setea el dni del cliente instanciado
-    edita direccion
-    edita cliente
+ crea instancia de cliente, en funcion al ID seleccionado
+ crea una instancia de direccion del cliente
+ verifica que el DNI del cliente es modificado, si lo es setea el dni del cliente instanciado
+ edita direccion
+ edita cliente
      */
     public void btn_aceptarModificar(){
-        boolean categoriaModifocada = false;
+         
+        boolean empleadoModifocado=false;
+        
+            //instancia de cliente igual al objeto guardado en Base de datos
+            Articulo articuloModificado = modelo.findArticulo(Long.parseLong(vista.getJtfID().getText()));
+
+            //setea Descripcion Articulo con nuevos valores
+            articuloModificado.setDescripcion(vista.getJtfDescripcion().getText());                
+            
+            
+            if (!empleadoModifocado) {
+                //verificar que el DNI sea igual que el DNI actual        
+                //Instancia de unaCategoriaArticulo
+                CategoriaArticulo unaCategoriaArticulo = new CategoriaArticulo();
+
+                //Setea unaCategoriaArticulo con lo que tiene seleccionado el JCB de unaCategoriaArticulo
+                unaCategoriaArticulo = (CategoriaArticulo)vista.getJcb_Categoria().getSelectedItem();
+
+               //Agrega la unaCategoriaArticulo al Articulo
+               articuloModificado.setUnCategoriaDeArticulos(unaCategoriaArticulo);       
+
+               //Instancia de Proveedor
+                Proveedor unproveedor = new Proveedor();
+
+                //Setea unproveedor con lo que tiene seleccionado el JCB de unproveedor
+                unproveedor = (Proveedor)vista.getJcb_Proveedor().getSelectedItem();
+
+               //Agrega  unproveedor al Articulo
+               articuloModificado.setUnProveedor(unproveedor); 
+               
+                    //El DNI es igual se mantiene sin cambio            
+                    try {
+                        //Persiste Empleado
+                        modelo.edit(articuloModificado);
+                        JOptionPane.showMessageDialog(null, "Articulo modificado");
+                        
+                        //Bandera de cliente creado a verdadero
+                        empleadoModifocado =true;
+
+                        } catch (Exception ex) {
+                            Logger.getLogger(CatalogoCategoriaArticuloController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                 //Si el DNI no es igual que el DNI actual
                 
-        //instancia de Categoria igual al objeto guardado en Base de datos
-        CategoriaArticulo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
+            }
+            if (empleadoModifocado) {
+                
+                //llena la tabla de Empleados
+                llenarTabla(vista.getTablaArticulos());
 
-        //setea Descripcion Categoria con nuevos valores
-        categoria.setDescripcion(vista.getJtfDescripcion().getText());  
+                //setea tamaño de columnas
+                setAnchoColumna();
 
-        if (!categoriaModifocada) {       
-            try {
-                //agrega el catalogo a categoria
-                categoria.setUnCatalogoDeArticulos(catalogo);
+                //Habilita Botones
+                vista.habilitarBoton(true, vista.getJbtn_Listar());
+                vista.habilitarBoton(true, vista.getJbtn_Agregar());  
+                vista.habilitarBoton(true, vista.getJbtn_Volver());
 
-                //Persiste Categoria
-                modelo.edit(categoria);
-                JOptionPane.showMessageDialog(null, "Categoria modificada");
+                //Inhabilita Boton
+                vista.habilitarBoton(false, vista.getJbtn_Aceptar());
+                vista.habilitarBoton(false, vista.getJbtn_Cancelar());
+                vista.habilitarBoton(false, vista.getJbtn_Modificar());
+                vista.habilitarBoton(false, vista.getJbtn_Agregar());
 
-                //Bandera de Categoria creado a verdadero
-                categoriaModifocada =true;
+                inhabilitarTodosLosCampos(false);
 
-                } catch (Exception ex) {
-                    Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        }
-        if (categoriaModifocada) {
-            //llena la tabla de Categoria
-            llenarTabla(vista.getTablaCategorias());
+                //posiciona en foco de la lista en el Empleado del modificado
+                vista.getTablaArticulos().changeSelection(buscarPosicionEnTabla(articuloModificado.getId()), 1, false, false);
 
-            //setea tamaño de columnas
-            setAnchoColumna();
-
-            //Habilita Botones
-            vista.habilitarBoton(true, vista.getJbtn_Listar());
-            vista.habilitarBoton(true, vista.getJbtn_Agregar());  
-            vista.habilitarBoton(true, vista.getJbtn_Volver());
-
-            //Inhabilita Boton
-            vista.habilitarBoton(false, vista.getJbtn_Aceptar());
-            vista.habilitarBoton(false, vista.getJbtn_Cancelar());
-            vista.habilitarBoton(false, vista.getJbtn_Modificar());
-            vista.habilitarBoton(false, vista.getJbtn_Agregar());
-
-            inhabilitarTodosLosCampos(false);
-
-            //posiciona en foco de la lista en el Empleado del modificado
-            vista.getTablaCategorias().changeSelection(buscarPosicionEnTabla(categoria.getId()), 1, false, false);
-
-            //Todos los botones de aceptar Bloqueados
-            bloquearAceptarCrear=false;
-            bloquearAceptarEliminar = false;
-            bloquearAceptarModificar = false;
-        }         
+                //Todos los botones de aceptar Bloqueados
+                bloquearAceptarCrear=false;
+                bloquearAceptarEliminar = false;
+                bloquearAceptarModificar = false;
+                
+                
+            }
+         
     }
     
     /**
      * Controla el Boton Aceptar cuando se este eliminando
-    crea instancia de cliente, en funcion al ID seleccionado
-    crea una instancia de direccion del cliente
-    verifica que el cliente tenga dreccion, si tiene direccion se elimia la direccion del cliente,
-    elimina direccion
-    elimina cliente
+ crea instancia de cliente, en funcion al ID seleccionado
+ crea una instancia de direccion del cliente
+ verifica que el cliente tenga dreccion, si tiene direccion se elimia la direccion del cliente,
+ elimina direccion
+ elimina cliente
      */
     public void btn_aceptarEliminar(){
-        boolean categoriaEliminada = false;
+        boolean articuloEliminado=false;
         
-        //instancia de cliente igual al objeto guardado en Base de datos
-         CategoriaArticulo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
-               
-        if (!categoriaEliminada) { 
-            try {
-                //Se elimina Categoria 
-                modelo.destroy(categoria.getId());    
-                categoriaEliminada = true;
-                JOptionPane.showMessageDialog(null, "Categoria Eliminada");
+        if (!articuloEliminado) {
+            //instancia de cliente igual al objeto guardado en Base de datos
+            Articulo articuloAEliminar = modelo.findArticulo(Long.parseLong(vista.getJtfID().getText()));
 
-            } catch (Exception ex) {
-                Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           try {
+                   //Se elimina Empleado antes que la direccion por integridad referencia
+                   modelo.destroy(articuloAEliminar.getId());
+                   JOptionPane.showMessageDialog(null, "Articulo eliminado");
+
+           } catch (Exception ex) {
+               Logger.getLogger(CatalogoCategoriaArticuloController.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           articuloEliminado=true;
         }
-        if (categoriaEliminada) {
-            //llena la tabla de Categorias
-            llenarTabla(vista.getTablaCategorias());
+        if (articuloEliminado) {
+                //llena la tabla de Empleados
+                llenarTabla(vista.getTablaArticulos());
 
-            //setea tamaño de columnas
-            setAnchoColumna();
+                //setea tamaño de columnas
+                setAnchoColumna();
 
-            //Habilita Botones
-            vista.habilitarBoton(true, vista.getJbtn_Listar());
-            vista.habilitarBoton(true, vista.getJbtn_Agregar());  
+                //Habilita Botones
+                vista.habilitarBoton(true, vista.getJbtn_Listar());
+                vista.habilitarBoton(true, vista.getJbtn_Agregar());  
 
-            //Inhabilita Boton
-            vista.habilitarBoton(false, vista.getJbtn_Aceptar());
-            vista.habilitarBoton(false, vista.getJbtn_Cancelar());
-            vista.habilitarBoton(false, vista.getJbtn_Modificar());
-            vista.habilitarBoton(false, vista.getJbtn_Eliminar());
+                //Inhabilita Boton
+                vista.habilitarBoton(false, vista.getJbtn_Aceptar());
+                vista.habilitarBoton(false, vista.getJbtn_Cancelar());
+                vista.habilitarBoton(false, vista.getJbtn_Modificar());
+                vista.habilitarBoton(false, vista.getJbtn_Eliminar());
 
-            inhabilitarTodosLosCampos(false);
-            limpiarTodosLosCampos();
+                inhabilitarTodosLosCampos(false);
+                limpiarTodosLosCampos();
 
-            //posiciona en foco de la lista en el Empleado del modificado
-            vista.getTablaCategorias().changeSelection(buscarPosicionEnTabla(categoria.getId()), 1, false, false);
-
-            btn_listar();
-
-            //Todos los botones de aceptar Bloqueados
-            bloquearAceptarCrear=false;
-            bloquearAceptarEliminar = false;
-            bloquearAceptarModificar = false;
+                //posiciona en foco de la lista en el Articulo del modificado
+                //vista.getTablaArticulos().changeSelection(buscarPosicionEnTabla(articuloAEliminar.getId()), 1, false, false);
+                              
+                btn_listar();
+                
+                //Todos los botones de aceptar Bloqueados
+                bloquearAceptarCrear=false;
+                bloquearAceptarEliminar = false;
+                bloquearAceptarModificar = false;
             
         }
     }
@@ -535,7 +626,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
         inhabilitarTodosLosBotones(false);
 
         //Limpia la lista            
-        vista.getTablaCategorias().setModel(new DefaultTableModel());
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
         JframePrincipal.modificarArbol(true);
@@ -550,11 +641,11 @@ public class CatalogoCategoriaArticuloController extends Controller{
     
     /**
      * Llena Jtable de cliente
- crea una lista de categorias existentes en la base de datos. 
+ crea una lista de articulos existentes en la base de datos. 
      * @param tablaD Tabla Empleado
      */
     public void llenarTabla(JTable tablaD){
-        categorias = new ArrayList<CategoriaArticulo>();
+        articulos = new ArrayList<Articulo>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel(){
 
@@ -578,20 +669,20 @@ public class CatalogoCategoriaArticuloController extends Controller{
         //Setea las cabeceras de la tabla
         modeloT.addColumn("N°");
         modeloT.addColumn("ID");
-        modeloT.addColumn("Descripcion");
+        modeloT.addColumn("Descripcion");   
         
         //Cantidad de columnas 
         Object [] columna = new Object[4];
         
         int numero = 0;
         
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {
-            //Guarda en Lista de categorias  
-            categorias.add(categoria);
+        for (Articulo articulo : modelo.findArticuloEntities()) {
+            //Guarda en Lista de articulos  
+            articulos.add(articulo);
             numero = numero + 1;
             columna[0] = String.valueOf(numero);   
-            columna[1] = categoria.getId();            
-            columna[2] = categoria.getDescripcion();   
+            columna[1] = articulo.getId();            
+            columna[2] = articulo.getDescripcion();   
             
             modeloT.addRow(columna);
         }
@@ -604,7 +695,11 @@ public class CatalogoCategoriaArticuloController extends Controller{
     public void inhabilitarTodosLosCampos(boolean estado){
         //inhabilita campos
         vista.habilitarCampo(estado, vista.getJtfID());
-        vista.habilitarCampo(estado, vista.getJtfDescripcion());        
+        vista.habilitarCampo(estado, vista.getJtfDescripcion());
+        
+        
+        vista.habilitarCombobox(estado, vista.getJcb_Categoria());
+        vista.habilitarCombobox(estado, vista.getJcb_Proveedor());
     }
     
     /**
@@ -613,6 +708,10 @@ public class CatalogoCategoriaArticuloController extends Controller{
     public void limpiarTodosLosCampos(){        
         vista.limpiarCampo(vista.getJtfID());
         vista.limpiarCampo(vista.getJtfDescripcion());        
+        
+        //vista.limpiarCampo(vista.getJtfDireccion());
+        vista.limpiarCombobox(vista.getJcb_Categoria());
+        vista.limpiarCombobox(vista.getJcb_Proveedor());
     }
 
     /**
@@ -640,18 +739,17 @@ public class CatalogoCategoriaArticuloController extends Controller{
     public void politicaValidacionDeCampos(){
         //Politica de validacióón de Campos
         vista.getValidador().validarSoloLetras(vista.getJtfDescripcion());
-        vista.getValidador().LimitarCaracteres(vista.getJtfDescripcion(), 30);           
-             
+        vista.getValidador().LimitarCaracteres(vista.getJtfDescripcion(), 30);      
     }
        
     /**
      * Establece el Ancho de cada columna de la tabla cliente de la vista.
      */
     public void setAnchoColumna(){
-        TableColumnModel columnModel = vista.getTablaCategorias().getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(10);
-        columnModel.getColumn(1).setPreferredWidth(50);
-        columnModel.getColumn(2).setPreferredWidth(150);
+        TableColumnModel columnModel = vista.getTablaArticulos().getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(25);
+        columnModel.getColumn(1).setPreferredWidth(25);
+        columnModel.getColumn(2).setPreferredWidth(350);
     }
     
     /**
@@ -661,8 +759,8 @@ public class CatalogoCategoriaArticuloController extends Controller{
      */
     public int buscarPosicionEnTabla(Long id){
         int posicion =0;
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {
-            if (id.equals(categoria.getId())) {
+        for (Articulo articulo : modelo.findArticuloEntities()) {
+            if (id.equals(articulo.getId())) {
                 return posicion;
             }
             posicion++;
@@ -672,18 +770,38 @@ public class CatalogoCategoriaArticuloController extends Controller{
     }
     
     /**
-     * informa el tamaño de la tabla categorias
+     * informa el tamaño de la tabla articulos
      * @return tamaño de la tabla
      */
     public int sizeTabla(){
         int posicion =0;
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {            
+        for (Articulo articulo : modelo.findArticuloEntities()) {            
             posicion++;
         }        
         return posicion-1;
     }    
     
+    /**
+     * llena el JcomboBox de Zona con objetos Zona de la base de datos
+     */
+    public void llenarJcomboboxCategoria(){
+        modeloCategoriaArticulo = new CategoriaArticuloJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloCategoriaArticulo.findCategoriaArticuloEntities());
+        vista.getJcb_Categoria().setModel(mdl);
+    }
 
+    /**
+     * llena el JcomboBox de Provincia con objetos Provincia de la base de datos en funcion a un objeto Zona
+     * @param z Zona
+     */
+    public void llenarJcomboboxProveedor(){
+        modeloProveedor = new ProveedorJpaController(Conexion.getEmf());             
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloProveedor.findProveedorEntities());
+        vista.getJcb_Proveedor().setModel(mdl); 
+    }
+    
+    
+        
     
     /**
      * Verifica el cambio de estado en los JComboBox
@@ -691,7 +809,6 @@ public class CatalogoCategoriaArticuloController extends Controller{
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        
     }
 
     /**
@@ -726,7 +843,7 @@ public class CatalogoCategoriaArticuloController extends Controller{
     }
     
     /**
-     * Verifica los eventos de click realizados en la tabla de categorias
+     * Verifica los eventos de click realizados en la tabla de articulos
  si cambia se completan los datos del cliente
      * @param e Click de Mouse
      */
@@ -734,11 +851,27 @@ public class CatalogoCategoriaArticuloController extends Controller{
     public void mouseClicked(MouseEvent e) {
         //carga los datos en la vista si cualquiera de las variables es verdadera
         //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
-            int seleccion = vista.getTablaCategorias().rowAtPoint(e.getPoint());
-            vista.getJtfID().setText(String.valueOf(vista.getTablaCategorias().getValueAt(seleccion, 1)));
-            vista.getJtfDescripcion().setText(String.valueOf(vista.getTablaCategorias().getValueAt(seleccion, 2)));
+            int seleccion = vista.getTablaArticulos().rowAtPoint(e.getPoint());
+            vista.getJtfID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(seleccion, 1)));
             
-            //Posiciona la seleccion en el Panel datos categorias. 
+            for (Articulo articulo : articulos) {
+                if (articulo.getId().toString().equals(vista.getJtfID().getText())) {
+                    //Setea Descripcion de Articulo
+                    vista.getJtfDescripcion().setText(articulo.getDescripcion());
+                    
+                    //Setea JCBox de Categoria en articulo
+                    vista.getJcb_Categoria().removeAllItems();
+                    vista.getJcb_Categoria().addItem(articulo.getUnCategoriaDeArticulos().getDescripcion());
+                    
+                    //Setea JCBox de Proveedor en articulo
+                    vista.getJcb_Proveedor().removeAllItems();
+                    vista.getJcb_Proveedor().addItem(articulo.getUnProveedor().getRazonSocial());
+                }
+            }
+            //Si posee datos de direccion se cargan en la vista
+          
+            
+            //Posiciona la seleccion en el Panel datos articulos. 
             vista.getjTabbedPaneContenedor().setSelectedIndex(0);            
         //}
                 

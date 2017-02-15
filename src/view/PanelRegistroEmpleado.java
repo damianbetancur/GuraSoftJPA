@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import controller.Controller;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +23,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
      * Creates new form PersonalPanel
      */
     private ValidadorDeCampos validador;
+    
     
     public PanelRegistroEmpleado() {
         initComponents();      
@@ -61,6 +63,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jlbl_unidad = new javax.swing.JLabel();
         jlbl_TipoEmpleado = new javax.swing.JLabel();
         jcb_empleado = new javax.swing.JComboBox<>();
+        fechaIngreso = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        jlbl_fechngreso = new javax.swing.JLabel();
         jPanelDireccion = new javax.swing.JPanel();
         jlbl_zona_direccion = new javax.swing.JLabel();
         jcb_zona_direccion = new javax.swing.JComboBox<>();
@@ -133,7 +137,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
         add(jbtn_Volver);
-        jbtn_Volver.setBounds(590, 660, 210, 50);
+        jbtn_Volver.setBounds(590, 680, 210, 50);
 
         jPanelEmpleado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelEmpleado.setName("Empleado"); // NOI18N
@@ -141,43 +145,51 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jlbl_Nombre.setText("Nombre:");
         jPanelEmpleado.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 80, 100, 15);
+        jlbl_Nombre.setBounds(60, 60, 100, 15);
 
         jlbl_Apellido.setText("Apellido:");
         jPanelEmpleado.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 120, 90, 15);
+        jlbl_Apellido.setBounds(60, 100, 90, 15);
 
         jlbl_DNI.setText("DNI:");
         jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 15);
+        jlbl_DNI.setBounds(60, 140, 80, 15);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
-        jlbl_ID.setBounds(60, 40, 90, 15);
+        jlbl_ID.setBounds(60, 20, 90, 15);
         jPanelEmpleado.add(jtf_ID);
-        jtf_ID.setBounds(160, 40, 272, 19);
+        jtf_ID.setBounds(160, 20, 272, 19);
         jPanelEmpleado.add(jtf_Nombre);
-        jtf_Nombre.setBounds(160, 80, 272, 19);
+        jtf_Nombre.setBounds(160, 60, 272, 19);
         jPanelEmpleado.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 160, 272, 19);
+        jtf_DNI.setBounds(160, 140, 272, 19);
         jPanelEmpleado.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 120, 272, 19);
+        jtf_Apellido.setBounds(160, 100, 272, 19);
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
 
         jPanelEmpleado.add(jcb_unidad);
-        jcb_unidad.setBounds(160, 200, 270, 24);
+        jcb_unidad.setBounds(160, 180, 270, 24);
 
         jlbl_unidad.setText("UNIDAD:");
         jPanelEmpleado.add(jlbl_unidad);
-        jlbl_unidad.setBounds(60, 200, 60, 15);
+        jlbl_unidad.setBounds(60, 180, 60, 15);
 
         jlbl_TipoEmpleado.setText("EMPLEADO:");
         jPanelEmpleado.add(jlbl_TipoEmpleado);
-        jlbl_TipoEmpleado.setBounds(60, 250, 70, 15);
+        jlbl_TipoEmpleado.setBounds(60, 230, 70, 15);
 
         jPanelEmpleado.add(jcb_empleado);
-        jcb_empleado.setBounds(160, 250, 270, 24);
+        jcb_empleado.setBounds(160, 230, 270, 24);
+
+        fechaIngreso.setEnabled(false);
+        jPanelEmpleado.add(fechaIngreso);
+        fechaIngreso.setBounds(160, 270, 130, 30);
+
+        jlbl_fechngreso.setText("Fecha Ingreso:");
+        jPanelEmpleado.add(jlbl_fechngreso);
+        jlbl_fechngreso.setBounds(60, 270, 90, 30);
 
         jTabbedPaneContenedor.addTab("Empleado", jPanelEmpleado);
 
@@ -231,19 +243,20 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jTabbedPaneContenedor.addTab("Dirección", jPanelDireccion);
 
         add(jTabbedPaneContenedor);
-        jTabbedPaneContenedor.setBounds(70, 310, 730, 320);
+        jTabbedPaneContenedor.setBounds(70, 300, 730, 340);
 
         jbtn_Aceptar.setText("ACEPTAR");
         add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(70, 660, 170, 25);
+        jbtn_Aceptar.setBounds(70, 680, 170, 25);
 
         jbtn_Cancelar.setText("CANCELAR");
         add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(270, 660, 170, 25);
+        jbtn_Cancelar.setBounds(270, 680, 170, 25);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser fechaIngreso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
@@ -270,6 +283,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel jlbl_TipoEmpleado;
     private javax.swing.JLabel jlbl_calle_direccion;
     private javax.swing.JLabel jlbl_departamento_direccion;
+    private javax.swing.JLabel jlbl_fechngreso;
     private javax.swing.JLabel jlbl_localidad_direccion;
     private javax.swing.JLabel jlbl_numero_direccion;
     private javax.swing.JLabel jlbl_piso_direccion;
@@ -291,6 +305,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     @Override
     public void setControlador(Controller c) {
         
+        
+        
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
         jbtn_Nuevo.addActionListener(c);
         jbtn_Listar.addActionListener(c);
@@ -299,6 +315,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jbtn_Aceptar.addActionListener(c);
         jbtn_Cancelar.addActionListener(c);      
         jbtn_Volver.addActionListener(c); 
+        
         
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
@@ -329,7 +346,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaEmpleados.addMouseListener(c);
-        
+        fechaIngreso.addMouseListener(c);
         
         
     }
@@ -523,6 +540,18 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     public void setJcb_empleado(javax.swing.JComboBox<String> jcb_empleado) {
         this.jcb_empleado = jcb_empleado;
     }
+
+    public com.toedter.calendar.JDateChooser getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(com.toedter.calendar.JDateChooser fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
     
+    public void limpiarCampo(JDateChooser campo){
+        campo.setDate(null);
+    }
     
 }

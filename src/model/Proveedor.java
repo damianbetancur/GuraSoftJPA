@@ -86,6 +86,10 @@ public class Proveedor extends Persona{
         this.unaEmpresa = unaEmpresa;
     }
     
+    @Override
+    public String toString() {
+        return getRazonSocial();
+    }
     
     
 }
