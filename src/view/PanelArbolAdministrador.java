@@ -10,8 +10,10 @@ import controller.CatalogoCategoriaArticuloController;
 import controller.CatalogoCategoriaController;
 import controller.ClienteController;
 import controller.Conexion;
+import controller.DefinicionListaPrecioController;
 import controller.EmpleadoController;
 import controller.EmpresaController;
+import controller.ListaDePreciosControlller;
 import controller.ProveedorController;
 import controller.SueldoController;
 import model.JPAController.EmpleadoJpaController;
@@ -21,6 +23,8 @@ import model.JPAController.ArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
 import model.JPAController.ClienteJpaController;
 import model.JPAController.EmpresaJpaController;
+import model.JPAController.ListaDePrecioJpaController;
+import model.JPAController.PrecioArticuloJpaController;
 import model.JPAController.ProveedorJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
@@ -295,6 +299,57 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
                 modificarArbol(false);
             }
+            
+            if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Lista de Precios, Definición]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroDefinicioListaPrecio unPanelRegistroDefinicionListaPrecio = new PanelRegistroDefinicioListaPrecio();            
+                unPanelRegistroDefinicionListaPrecio.setSize(950, 800);
+                unPanelRegistroDefinicionListaPrecio.setLocation(0,0);
+                unPanelRegistroDefinicionListaPrecio.setVisible(true);
+
+                //Se Crea controlador JPA
+                ListaDePrecioJpaController modelo = new ListaDePrecioJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                DefinicionListaPrecioController controlador = new DefinicionListaPrecioController(unPanelRegistroDefinicionListaPrecio, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelRegistroDefinicionListaPrecio.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelRegistroDefinicionListaPrecio, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
+            
+            if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Lista de Precios, Lista de Precios]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroListaDePrecioArticulo unPanelRegistroListaDePrecioArticulo = new PanelRegistroListaDePrecioArticulo();            
+                unPanelRegistroListaDePrecioArticulo.setSize(950, 800);
+                unPanelRegistroListaDePrecioArticulo.setLocation(0,0);
+                unPanelRegistroListaDePrecioArticulo.setVisible(true);
+
+                //Se Crea controlador JPA
+                PrecioArticuloJpaController modelo = new PrecioArticuloJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                ListaDePreciosControlller controlador = new ListaDePreciosControlller(unPanelRegistroListaDePrecioArticulo, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelRegistroListaDePrecioArticulo.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelRegistroListaDePrecioArticulo, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
+
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Compras, Proveedores]")){  
             
