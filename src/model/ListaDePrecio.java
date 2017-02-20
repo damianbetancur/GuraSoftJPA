@@ -28,6 +28,7 @@ public class ListaDePrecio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id_listaDePrecio")
     private Long id;
 
     @Column(name="descripcion")
@@ -36,10 +37,7 @@ public class ListaDePrecio implements Serializable {
     //Empresa a la que pertenece la lista de precio
     @ManyToOne
     private Empresa unaEmpresa;
-    
-    ///CategoriaProducto que posee el CatalogoArticulos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unaListaPrecioArticulos")
-    private List <PrecioArticulo> listaDePrecioArticulos;
+        
     
     public Long getId() {
         return id;
@@ -71,7 +69,7 @@ public class ListaDePrecio implements Serializable {
 
     @Override
     public String toString() {
-        return "model.ListaDePrecio[ id=" + id + " ]";
+        return getDescripcion();
     }
 
     public String getDescripcion() {
@@ -90,12 +88,6 @@ public class ListaDePrecio implements Serializable {
         this.unaEmpresa = unaEmpresa;
     }
 
-    public List <PrecioArticulo> getListaDePrecioArticulos() {
-        return listaDePrecioArticulos;
-    }
-
-    public void setListaDePrecioArticulos(List <PrecioArticulo> listaDePrecioArticulos) {
-        this.listaDePrecioArticulos = listaDePrecioArticulos;
-    }
+   
     
 }

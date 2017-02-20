@@ -36880,8 +36880,8 @@ VALUES
 --
 -- Insercion de datos de Articulos
 --
-INSERT INTO `articulos`
-(`ID`, `descripcion`, `UNCATEGORIADEARTICULOS_ID`, `UNPROVEEDOR_ID`) 
+INSERT INTO `articulo`
+(`id_articulo`, `descripcion`, `UNCATEGORIADEARTICULOS_ID`, `UNPROVEEDOR_ID`)
 VALUES 
 (1, 'Epson Expression XP-231', 6, 3),
 (2, 'Epson Expression XP-241', 6, 3),

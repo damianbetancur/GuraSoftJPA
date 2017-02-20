@@ -8,81 +8,48 @@ package model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
+
 @Entity
 @Table (name="PRECIO ARTICULOS")
+@IdClass(PrecioArticuloPK.class)
 public class PrecioArticulo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public PrecioArticulo(){}
+    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name="ID_articulo")
+    private Long id_articulo;
 
-    @ManyToOne
-    private ListaDePrecio unaListaPrecioArticulos;
-    
-    @ManyToOne
-    private Articulo unArticulo;
-    
-    @Column(name="precio")
+    @Id
+    @Column(name="ID_listaDePrecios",length=50)
+    private Long id_listaDePrecio;
+
+    @Column(name="PRECIO",length=50)
     private float precio;
-    
-    public Long getId() {
-        return id;
+
+    public Long getId_articulo() {
+        return id_articulo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId_articulo(Long id_articulo) {
+        this.id_articulo = id_articulo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Long getId_listaDePrecio() {
+        return id_listaDePrecio;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PrecioArticulo)) {
-            return false;
-        }
-        PrecioArticulo other = (PrecioArticulo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.PrecioArticulo[ id=" + id + " ]";
-    }
-
-    public ListaDePrecio getUnaListaPrecioArticulos() {
-        return unaListaPrecioArticulos;
-    }
-
-    public void setUnaListaPrecioArticulos(ListaDePrecio unaListaPrecioArticulos) {
-        this.unaListaPrecioArticulos = unaListaPrecioArticulos;
-    }
-
-    public Articulo getUnArticulo() {
-        return unArticulo;
-    }
-
-    public void setUnArticulo(Articulo unArticulo) {
-        this.unArticulo = unArticulo;
+    public void setId_listaDePrecio(Long id_listaDePrecio) {
+        this.id_listaDePrecio = id_listaDePrecio;
     }
 
     public float getPrecio() {
@@ -92,5 +59,8 @@ public class PrecioArticulo implements Serializable {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    
+    
     
 }

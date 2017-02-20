@@ -19,12 +19,13 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="ARTICULOS")
+@Table (name="ARTICULO")
 public class Articulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id_articulo")
     private Long id;
     
     @Column(name="descripcion")
