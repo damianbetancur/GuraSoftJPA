@@ -165,4 +165,24 @@ public class PrecioArticuloJpaController implements Serializable {
         return precioArticulo;
     }
     
+    public PrecioArticulo buscarPrecioArticuloPrimerListaDePrecio(PrecioArticulo unPrecioArticulo){
+        EntityManager em = getEntityManager();
+        PrecioArticulo precioArticulo = null;
+        String consulta;
+        try {
+            consulta ="FROM PrecioArticulo preArt WHERE preArt.id_articulo = ?1 AND preArt.id_listaDePrecio = 1 OR preArt.id_listaDePrecio = 2";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, unPrecioArticulo.getId_articulo());            
+            
+            List <PrecioArticulo> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                precioArticulo = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            em.close();
+        }
+        return precioArticulo;
+    }
 }

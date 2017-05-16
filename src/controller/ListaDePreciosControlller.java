@@ -227,8 +227,9 @@ public class ListaDePreciosControlller extends Controller {
     }
     
     public void btn_aceptar(){
+        boolean precioArticulo = false;
         
-        
+        if (!precioArticulo) {
         if (!vista.getJtf_Precio().getText().isEmpty()) {
             try {
                 ListaDePrecio unaListaDePrecio = new ListaDePrecio();
@@ -245,8 +246,11 @@ public class ListaDePreciosControlller extends Controller {
                 
                 if (modeloPrecioArticulo.buscarPrecioArticulo(nuevoPrecioArticulo)==null) {
                     modeloPrecioArticulo.create(nuevoPrecioArticulo);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Ya existe el Articulo en La lista de Precio");
+                    precioArticulo = true;
+                }else{                    
+                    modeloPrecioArticulo.edit(nuevoPrecioArticulo);
+                    JOptionPane.showMessageDialog(null, "Articulo en La lista de Precio Modificado");
+                    precioArticulo = true;
                 }
                 
                 
@@ -256,7 +260,31 @@ public class ListaDePreciosControlller extends Controller {
         }else{
             JOptionPane.showMessageDialog(null, "Ingrese un precio para el Articulo");        
         }
-        
+        }
+        if (precioArticulo) {
+            //llena la tabla de Empleados
+           llenarTabla(vista.getTablaArticulos());
+
+           //setea tamaño de columnas
+            setAnchoColumna();
+
+            //Habilita Botones 
+            vista.habilitarBoton(true, vista.getJbtn_Volver()); 
+
+            //Inhabilita Boton                    
+            inhabilitarTodosLosCampos(false);
+
+            //Inhabilita los Botones
+            vista.habilitarBoton(false, vista.getJbtn_Aceptar());
+            vista.habilitarBoton(false, vista.getJbtn_Cancelar());
+
+            //posiciona en foco de la lista en el ultimo Empleado creado                    
+            vista.getTablaArticulos().changeSelection(sizeTabla(), 1, false, false);
+
+            //Da valor al ID en la tabla
+            vista.getJtfID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(sizeTabla(), 1)));
+
+        }
         
     }
     
@@ -549,6 +577,27 @@ public class ListaDePreciosControlller extends Controller {
                     vista.getJcb_Proveedor().removeAllItems();
                     vista.getJcb_Proveedor().addItem(articulo.getUnProveedor().getRazonSocial());
                     
+                    PrecioArticulo unPrecioArticulo= new PrecioArticulo();
+                    unPrecioArticulo.setId_articulo(articulo.getId());                    
+                    if (modeloPrecioArticulo.buscarPrecioArticuloPrimerListaDePrecio(unPrecioArticulo)!=null) {
+                        unPrecioArticulo = modeloPrecioArticulo.buscarPrecioArticuloPrimerListaDePrecio(unPrecioArticulo);
+                        listaDePrecio = modeloListaDePrecio.findListaDePrecio(unPrecioArticulo.getId_listaDePrecio());
+                        
+                        vista.getJcb_ListaPrecio().removeAllItems();
+                        vista.getJcb_ListaPrecio().addItem(listaDePrecio.getDescripcion());
+                        
+                        vista.getJtf_Precio().setText(Float.toString(unPrecioArticulo.getPrecio()));
+                    }else{
+                        vista.getJcb_ListaPrecio().removeAllItems();
+                        vista.getJtf_Precio().setText("");
+                    
+                    }
+                    
+                    
+                    /*
+                    PrecioArticulo unPrecioArticulo= new PrecioArticulo();                    
+                    modeloPrecioArticulo.buscarPrecioArticulo(unPrecioArticulo);
+                    */        
                     
                    
                 }
