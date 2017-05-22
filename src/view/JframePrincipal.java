@@ -48,6 +48,7 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jButton1 = new javax.swing.JButton();
         JpanelContenedor = new javax.swing.JPanel();
@@ -67,7 +68,7 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
 
         JpanelContenedor.setMaximumSize(new java.awt.Dimension(1200, 821));
         JpanelContenedor.setPreferredSize(new java.awt.Dimension(1200, 821));
-        JpanelContenedor.setLayout(null);
+        JpanelContenedor.setLayout(new java.awt.GridBagLayout());
 
         jPanelContenido.setBackground(new java.awt.Color(0, 0, 0));
         jPanelContenido.setMaximumSize(null);
@@ -75,8 +76,11 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         jPanelContenido.setPreferredSize(new java.awt.Dimension(950, 800));
         jPanelContenido.setRequestFocusEnabled(false);
         jPanelContenido.setLayout(null);
-        JpanelContenedor.add(jPanelContenido);
-        jPanelContenido.setBounds(350, 0, 950, 800);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        JpanelContenedor.add(jPanelContenido, gridBagConstraints);
 
         jPanelArbol.setBackground(new java.awt.Color(255, 153, 204));
         jPanelArbol.setAutoscrolls(true);
@@ -93,8 +97,11 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
             }
         });
         jPanelArbol.setLayout(null);
-        JpanelContenedor.add(jPanelArbol);
-        jPanelArbol.setBounds(0, 0, 350, 800);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        JpanelContenedor.add(jPanelArbol, gridBagConstraints);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);

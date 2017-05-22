@@ -1,6 +1,7 @@
 --
 -- Insercion de datos de Tipos de Usuarios
 --
+--
 INSERT INTO `tipo_usuarios`
 (`ID`, `descripcion`) 
 VALUES 
