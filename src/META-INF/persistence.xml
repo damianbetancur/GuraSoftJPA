@@ -5,7 +5,6 @@
     <class>model.Empleado</class>
     <class>model.Usuario</class>
     <class>model.TipoUsuario</class>
-    <class>model.Empresa</class>
     <class>model.Direccion</class>
     <class>model.Localidad</class>
     <class>model.Provincia</class>
@@ -35,6 +34,7 @@
     <class>model.PrecioArticulo</class>
     <class>model.NewEntity</class>
     <class>model.PrecioArticuloPK</class>
+    <class>model.Empresa</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

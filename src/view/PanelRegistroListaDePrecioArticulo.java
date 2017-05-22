@@ -48,17 +48,19 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         jlbl_ID = new javax.swing.JLabel();
         jtf_ID = new javax.swing.JTextField();
         jtf_Descripcion = new javax.swing.JTextField();
-        jcb_Categoria = new javax.swing.JComboBox<>();
         jlbl_Categoria = new javax.swing.JLabel();
         jlbl_Proveedor = new javax.swing.JLabel();
         jcb_Proveedor = new javax.swing.JComboBox<>();
-        jlbl_precio = new javax.swing.JLabel();
-        jtf_Precio = new javax.swing.JTextField();
-        jlbl_Proveedor1 = new javax.swing.JLabel();
-        jcb_ListaPrecio = new javax.swing.JComboBox<>();
-        jbtn_asignarPrecio = new javax.swing.JButton();
+        jbtn_Nuevo = new javax.swing.JButton();
+        jbtn_Modificar = new javax.swing.JButton();
+        jlbl_descripcion1 = new javax.swing.JLabel();
+        jtf_Descripcion1 = new javax.swing.JTextField();
+        jcb_Categoria1 = new javax.swing.JComboBox<>();
         jbtn_Aceptar = new javax.swing.JButton();
         jbtn_Cancelar = new javax.swing.JButton();
+        jcb_Categoria = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
@@ -88,12 +90,12 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         jScrollPane1.setBounds(30, 30, 680, 150);
 
         add(jPanel2);
-        jPanel2.setBounds(70, 50, 730, 200);
+        jPanel2.setBounds(70, 120, 730, 190);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE ARTICULOS DE LISTA DE PRECIO");
+        jLabel4.setText("GESTIÓN DE LISTA DE PRECIOS DE ARTICULOS");
         add(jLabel4);
-        jLabel4.setBounds(210, 10, 450, 30);
+        jLabel4.setBounds(190, 10, 440, 30);
 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
@@ -111,13 +113,14 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
         jlbl_ID.setBounds(60, 40, 90, 15);
-        jPanelEmpleado.add(jtf_ID);
-        jtf_ID.setBounds(160, 40, 270, 19);
-        jPanelEmpleado.add(jtf_Descripcion);
-        jtf_Descripcion.setBounds(160, 80, 270, 19);
 
-        jPanelEmpleado.add(jcb_Categoria);
-        jcb_Categoria.setBounds(160, 130, 270, 24);
+        jtf_ID.setEnabled(false);
+        jPanelEmpleado.add(jtf_ID);
+        jtf_ID.setBounds(160, 40, 230, 19);
+
+        jtf_Descripcion.setEnabled(false);
+        jPanelEmpleado.add(jtf_Descripcion);
+        jtf_Descripcion.setBounds(160, 80, 550, 19);
 
         jlbl_Categoria.setText("CATEGORIA:");
         jPanelEmpleado.add(jlbl_Categoria);
@@ -128,29 +131,31 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         jlbl_Proveedor.setBounds(60, 180, 80, 15);
 
         jPanelEmpleado.add(jcb_Proveedor);
-        jcb_Proveedor.setBounds(160, 180, 270, 24);
+        jcb_Proveedor.setBounds(160, 180, 230, 24);
 
-        jlbl_precio.setText("Precio:");
-        jPanelEmpleado.add(jlbl_precio);
-        jlbl_precio.setBounds(60, 270, 70, 15);
-        jPanelEmpleado.add(jtf_Precio);
-        jtf_Precio.setBounds(160, 270, 270, 19);
+        jbtn_Nuevo.setText("Agregar");
+        jPanelEmpleado.add(jbtn_Nuevo);
+        jbtn_Nuevo.setBounds(30, 270, 80, 30);
 
-        jlbl_Proveedor1.setText("Lista de Precio:");
-        jPanelEmpleado.add(jlbl_Proveedor1);
-        jlbl_Proveedor1.setBounds(60, 230, 100, 15);
+        jbtn_Modificar.setText("Modificar");
+        jPanelEmpleado.add(jbtn_Modificar);
+        jbtn_Modificar.setBounds(120, 270, 90, 30);
 
-        jPanelEmpleado.add(jcb_ListaPrecio);
-        jcb_ListaPrecio.setBounds(160, 230, 270, 24);
+        jlbl_descripcion1.setText("Precio:");
+        jPanelEmpleado.add(jlbl_descripcion1);
+        jlbl_descripcion1.setBounds(60, 230, 100, 15);
 
-        jbtn_asignarPrecio.setText("Asignar Precio");
-        jPanelEmpleado.add(jbtn_asignarPrecio);
-        jbtn_asignarPrecio.setBounds(50, 310, 380, 30);
+        jtf_Descripcion1.setEnabled(false);
+        jPanelEmpleado.add(jtf_Descripcion1);
+        jtf_Descripcion1.setBounds(160, 230, 230, 19);
+
+        jPanelEmpleado.add(jcb_Categoria1);
+        jcb_Categoria1.setBounds(160, 130, 230, 24);
 
         jTabbedPaneContenedor.addTab("Articulo", jPanelEmpleado);
 
         add(jTabbedPaneContenedor);
-        jTabbedPaneContenedor.setBounds(70, 260, 730, 380);
+        jTabbedPaneContenedor.setBounds(70, 310, 730, 340);
 
         jbtn_Aceptar.setText("ACEPTAR");
         add(jbtn_Aceptar);
@@ -158,11 +163,24 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
 
         jbtn_Cancelar.setText("CANCELAR");
         add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(330, 660, 170, 25);
+        jbtn_Cancelar.setBounds(270, 660, 170, 25);
+
+        add(jcb_Categoria);
+        jcb_Categoria.setBounds(190, 60, 380, 24);
+
+        jLabel1.setText("Lista de Precios: ");
+        add(jLabel1);
+        jLabel1.setBounds(80, 65, 130, 20);
+
+        jButton1.setText("Cargar Articulos");
+        add(jButton1);
+        jButton1.setBounds(610, 60, 120, 25);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelEmpleado;
@@ -170,20 +188,20 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
     private javax.swing.JTabbedPane jTabbedPaneContenedor;
     private javax.swing.JButton jbtn_Aceptar;
     private javax.swing.JButton jbtn_Cancelar;
+    private javax.swing.JButton jbtn_Modificar;
+    private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
-    private javax.swing.JButton jbtn_asignarPrecio;
     private javax.swing.JComboBox<String> jcb_Categoria;
-    private javax.swing.JComboBox<String> jcb_ListaPrecio;
+    private javax.swing.JComboBox<String> jcb_Categoria1;
     private javax.swing.JComboBox<String> jcb_Proveedor;
     private javax.swing.JLabel jlbl_Categoria;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Proveedor;
-    private javax.swing.JLabel jlbl_Proveedor1;
     private javax.swing.JLabel jlbl_descripcion;
-    private javax.swing.JLabel jlbl_precio;
+    private javax.swing.JLabel jlbl_descripcion1;
     private javax.swing.JTextField jtf_Descripcion;
+    private javax.swing.JTextField jtf_Descripcion1;
     private javax.swing.JTextField jtf_ID;
-    private javax.swing.JTextField jtf_Precio;
     private javax.swing.JTable tablaArticulos;
     // End of variables declaration//GEN-END:variables
 
@@ -192,7 +210,8 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
     public void setControlador(Controller c) {
         
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
-        jbtn_asignarPrecio.addActionListener(c);
+        jbtn_Nuevo.addActionListener(c);
+        jbtn_Modificar.addActionListener(c);   
         jbtn_Aceptar.addActionListener(c);
         jbtn_Cancelar.addActionListener(c);      
         jbtn_Volver.addActionListener(c); 
@@ -200,17 +219,15 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
         jtf_Descripcion.addKeyListener(c);
-        jtf_Precio.addKeyListener(c);
+        
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_Proveedor.addItemListener(c);
         jcb_Categoria.addItemListener(c);
-        jcb_ListaPrecio.addItemListener(c);
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_Proveedor.addFocusListener(c);
         jcb_Categoria.addFocusListener(c);
-        jcb_ListaPrecio.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaArticulos.addMouseListener(c);
@@ -250,12 +267,15 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
     public javax.swing.JButton getJbtn_Cancelar() {
         return jbtn_Cancelar;
     }
-    
 
-    public javax.swing.JButton getJbtn_AsignarPrecio() {
-        return jbtn_asignarPrecio;
+
+    public javax.swing.JButton getJbtn_Modificar() {
+        return jbtn_Modificar;
     }
-    
+
+    public javax.swing.JButton getJbtn_Agregar() {
+        return jbtn_Nuevo;
+    }
 
     public javax.swing.JButton getJbtn_Volver() {
         return jbtn_Volver;
@@ -321,22 +341,6 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
 
     public void setJcb_Proveedor(javax.swing.JComboBox<String> jcb_Proveedor) {
         this.jcb_Proveedor = jcb_Proveedor;
-    }
-
-    public javax.swing.JComboBox<String> getJcb_ListaPrecio() {
-        return jcb_ListaPrecio;
-    }
-
-    public void setJcb_ListaPrecio(javax.swing.JComboBox<String> jcb_ListaPreio) {
-        this.jcb_ListaPrecio = jcb_ListaPreio;
-    }
-
-    public javax.swing.JTextField getJtf_Precio() {
-        return jtf_Precio;
-    }
-
-    public void setJtf_Precio(javax.swing.JTextField jtf_Precio) {
-        this.jtf_Precio = jtf_Precio;
     }
     
     

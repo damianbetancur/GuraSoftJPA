@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 import model.Articulo;
 import model.CategoriaArticulo;
 import model.JPAController.exceptions.NonexistentEntityException;
+import model.ListaDePrecio;
 import model.Proveedor;
 
 /**
@@ -194,4 +195,5 @@ public class ArticuloJpaController implements Serializable {
         }
     }
     
+  
 }
