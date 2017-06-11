@@ -24,12 +24,16 @@ import model.JPAController.DireccionJpaController;
 import model.JPAController.LocalidadJpaController;
 import model.JPAController.ProvinciaJpaController;
 import model.JPAController.TipoEmpleadoJpaController;
+import model.JPAController.TipoUsuarioJpaController;
 import model.JPAController.UnidadJpaController;
+import model.JPAController.UsuarioJpaController;
 import model.JPAController.ZonaJpaController;
 import model.Localidad;
 import model.Provincia;
 import model.TipoEmpleado;
+import model.TipoUsuario;
 import model.Unidad;
+import model.Usuario;
 import model.Zona;
 import view.JframePrincipal;
 import view.PanelRegistroEmpleado;
@@ -51,6 +55,14 @@ public class EmpleadoController extends Controller {
     private LocalidadJpaController modeloLocalidad;
     private UnidadJpaController modeloUnidad;
     private TipoEmpleadoJpaController modeloTipoEmpleado;
+    
+    //Modelo Usuario y Tipo Usuario
+    private TipoUsuario unTipoUsuario;
+    private Usuario unUsuario;
+    
+    //JpaController TipoUsuario y Usuario
+    private TipoUsuarioJpaController modeloTipoUsuario;
+    private UsuarioJpaController modeloUsuario;
         
     boolean bloquearAceptarCrear = false;
     boolean bloquearAceptarEliminar = false;
@@ -195,6 +207,9 @@ public class EmpleadoController extends Controller {
         llenarJcomboboxTipoEmpleado(uBuscada);
         //desbloquea el boton nuevo
         bloquearAceptarCrear=true;      
+        
+        //Llena Tipo Empleado
+        llenarTipoUsuario();
         
         //Limpia la lista            
         vista.getTablaEmpleados().setModel(new DefaultTableModel());
@@ -402,6 +417,14 @@ public class EmpleadoController extends Controller {
                             if (empleados.get(0).getTipoEmpleado() !=null) {
                                 vista.getJcb_empleado().addItem(empleados.get(0).getTipoEmpleado().getDescripcion());
                             }
+                            if(empleados.get(0).getUnUsuario() != null){
+                                vista.getJtf_Usuario().setText(empleados.get(0).getUnUsuario().getNombre());
+                                vista.getJtf_Password().setText(empleados.get(0).getUnUsuario().getClave());
+                                
+                                vista.getJcb_TipoUsuario().addItem(empleados.get(0).getUnUsuario().getTipoUsuario().getDescripcion());
+                            }else{
+                                System.out.println("No tiene Usuario Asignado");
+                            }
                             
                         }else{
                             System.out.println("No tiene Localidad");
@@ -440,6 +463,19 @@ public class EmpleadoController extends Controller {
             
             //Crear Instancia de Empleado
             Empleado emp = new Empleado();
+            
+            //Crea Instacia de Usuario y Tipo Usuario
+            Usuario nuevoUsuario = new Usuario();
+            TipoUsuario nuevoTipoUsuario = new TipoUsuario();
+            
+            modeloUsuario = new UsuarioJpaController(Conexion.getEmf());
+            
+            nuevoTipoUsuario = (TipoUsuario)vista.getJcb_TipoUsuario().getSelectedItem();
+            
+            nuevoUsuario.setTipoUsuario(nuevoTipoUsuario);
+            
+            nuevoUsuario.setNombre(vista.getJtf_Usuario().getText());
+            nuevoUsuario.setClave(vista.getJtf_Password().getText());
             
             //setea DNI empleado
             emp.setDni(vista.getJtfDNI().getText());
@@ -482,38 +518,54 @@ public class EmpleadoController extends Controller {
             if (modelo.buscarEmpleadoDNI(emp)==null) {   
                 
                if (!empleadoCreado) {
+                   //Verificar si el objeto usuario no existe, en funcion del nombre
+                   if(modeloUsuario.verificarUsuario(nuevoUsuario)==null){
+                       
+                       //Si la clave es vacia la completa con ceros
+                        if(nuevoUsuario.getClave().equals("")){
+                            nuevoUsuario.setClave("00000000");
+                        }
+                        emp.setFechaIngreso(vista.getFechaIngreso().getDate());
                    
-                   
-                   emp.setFechaIngreso(vista.getFechaIngreso().getDate());
-                   
-                   //Setea Datos de Empleado
-                   emp.setNombre(vista.getJtfNombre().getText());
-                   emp.setDni(vista.getJtfDNI().getText());
-                   emp.setApellido(vista.getJtfApellido().getText());
-                   
-                   //Setea TipoEmpleado
-                   emp.setTipoEmpleado(unTipoEmpleado);
-                   
-                   //Agrega la unidad al empleado
-                   emp.setUnidad(unaUnidad);       
-                   
-                   //Persiste la Direccion
-                   modeloDireccion.create(direccion);
+                        //Setea Datos de Empleado
+                        emp.setNombre(vista.getJtfNombre().getText());
+                        emp.setDni(vista.getJtfDNI().getText());
+                        emp.setApellido(vista.getJtfApellido().getText());
 
-                   //Agrega la direccion al empleado
-                   emp.setDireccion(direccion);
-                   
-                   //Persiste Empleado
-                   modelo.create(emp);  
-                   
-                   //Bandera de empleado creado a verdadero
-                   empleadoCreado =true;
-                   
-                   //Mensaje de empleado Guardado
-                   JOptionPane.showMessageDialog(null, "Empleado Guardado");
+                        //Setea TipoEmpleado
+                        emp.setTipoEmpleado(unTipoEmpleado);
+
+                        //Agrega la unidad al empleado
+                        emp.setUnidad(unaUnidad);       
+
+                        //Persiste la Direccion
+                        modeloDireccion.create(direccion);
+
+                        //Agrega la direccion al empleado
+                        emp.setDireccion(direccion);
+
+                          
+
+                        emp.setUnUsuario(nuevoUsuario);  
+
+                        //Persiste nuevo usuario
+                        modeloUsuario.create(nuevoUsuario);
+                        
+                        
+                        //Persiste Empleado
+                        modelo.create(emp);
+
+                        //Bandera de empleado creado a verdadero
+                        empleadoCreado =true;
+
+                        //Mensaje de empleado Guardado
+                        JOptionPane.showMessageDialog(null, "Empleado Guardado");
+                   }else{
+                       JOptionPane.showMessageDialog(null, "Usuario ya existente");
+                   }
                }
                
-                
+                //Si cumple con el IF anterior se cumple este IF
                if (empleadoCreado) {
                    //llena la tabla de Empleados
                    llenarTabla(vista.getTablaEmpleados());
@@ -618,6 +670,7 @@ public class EmpleadoController extends Controller {
                 if (emp.getDni().equals(dniModificado)) {            
                     //El DNI es igual se mantiene sin cambio            
                     try {
+                        
                         //Setea fecha de ingreso de Empleado
                         emp.setFechaIngreso(vista.getFechaIngreso().getDate());
                         
@@ -887,6 +940,8 @@ public class EmpleadoController extends Controller {
      */
     public void llenarTabla(JTable tablaD){
         empleados = new ArrayList<Empleado>();
+        
+        
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel(){
 
@@ -920,7 +975,7 @@ public class EmpleadoController extends Controller {
         int numero = 0;
         
         for (Empleado emp : modelo.findEmpleadoEntities()) {
-            //Guarda en Lista de empleados  
+            //Guarda en Lista de empleados            
             empleados.add(emp);
             numero = numero + 1;
             columna[0] = String.valueOf(numero);   
@@ -956,6 +1011,13 @@ public class EmpleadoController extends Controller {
         vista.habilitarCombobox(estado, vista.getJcb_empleado());
         
         vista.getFechaIngreso().setEnabled(estado);
+        
+        //Usuario y tipo de Usuario
+        vista.habilitarCampo(estado, vista.getJtf_Usuario());
+        vista.habilitarCampo(estado, vista.getJtf_Password());
+        
+        vista.habilitarCombobox(estado, vista.getJcb_TipoUsuario());
+        
     }
     
     /**
@@ -980,6 +1042,12 @@ public class EmpleadoController extends Controller {
         vista.limpiarCombobox(vista.getJcb_empleado());
         
         vista.limpiarCampo(vista.getFechaIngreso());
+        
+        //Usuario y Tipo Usuario
+        vista.limpiarCampo(vista.getJtf_Usuario());
+        vista.limpiarCampo(vista.getJtf_Password());
+        
+        vista.limpiarCombobox(vista.getJcb_TipoUsuario());
     }
 
     /**
@@ -1025,7 +1093,13 @@ public class EmpleadoController extends Controller {
         //vista.getValidador().validarSoloNumero(vista.getJtf_piso_direccion());
         vista.getValidador().LimitarCaracteres(vista.getJtf_piso_direccion(), 2);
                 
-        vista.getValidador().LimitarCaracteres(vista.getJtf_departamento_direccion(), 2);        
+        vista.getValidador().LimitarCaracteres(vista.getJtf_departamento_direccion(), 2);
+
+        //Usuario
+        vista.getValidador().LimitarCaracteres(vista.getJtf_Usuario(), 8);
+        vista.getValidador().validarSoloLetras(vista.getJtf_Usuario());
+        vista.getValidador().LimitarCaracteres(vista.getJtf_Password(), 8);
+        
     }
        
     /**
@@ -1108,10 +1182,17 @@ public class EmpleadoController extends Controller {
     }
     
     public void llenarJcomboboxTipoEmpleado(Unidad u){ 
-            modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
-            DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloTipoEmpleado.buscarTipoEmpleadoPorUnidad(u));
-            vista.getJcb_empleado().setModel(mdl);
+        modeloTipoEmpleado = new TipoEmpleadoJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloTipoEmpleado.buscarTipoEmpleadoPorUnidad(u));
+        vista.getJcb_empleado().setModel(mdl);
     }
+    
+    public void llenarTipoUsuario(){
+        modeloTipoUsuario = new TipoUsuarioJpaController(Conexion.getEmf());
+        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloTipoUsuario.findTipoUsuarioEntities());
+        vista.getJcb_TipoUsuario().setModel(mdl);
+    }
+    
     
     /**
      * Verifica el cambio de estado en los JComboBox
@@ -1246,6 +1327,13 @@ public class EmpleadoController extends Controller {
                             
                             
                             vista.getFechaIngreso().setDate(empleado.getFechaIngreso());
+                            
+                            if(empleado.getUnUsuario()!=null){
+                                vista.getJtf_Usuario().setText(empleado.getUnUsuario().getNombre());
+                                vista.getJtf_Password().setText(empleado.getUnUsuario().getClave());
+                                vista.getJcb_TipoUsuario().removeAllItems();
+                                vista.getJcb_TipoUsuario().addItem(empleado.getUnUsuario().getTipoUsuario().getDescripcion());
+                            }
                             
                         }else{
                             JOptionPane.showMessageDialog(null, "empleado no tiene Localidad asignada");

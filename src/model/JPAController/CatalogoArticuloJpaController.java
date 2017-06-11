@@ -10,12 +10,12 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.CategoriaArticulo;
+import model.CategoriaDeCatalogo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import model.CatalogoArticulos;
+import model.Catalogo;
 import model.JPAController.exceptions.NonexistentEntityException;
 
 /**
@@ -33,27 +33,27 @@ public class CatalogoArticuloJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(CatalogoArticulos catalogoDeArticulos) {
-        if (catalogoDeArticulos.getListaCatalogoDeArticulos() == null) {
-            catalogoDeArticulos.setListaCatalogoDeArticulos(new ArrayList<CategoriaArticulo>());
+    public void create(Catalogo catalogoDeArticulos) {
+        if (catalogoDeArticulos.getListaCategoriaCatalogo() == null) {
+            catalogoDeArticulos.setListaCategoriaCatalogo(new ArrayList<CategoriaDeCatalogo>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<CategoriaArticulo> attachedListaCatalogoDeArticulos = new ArrayList<CategoriaArticulo>();
-            for (CategoriaArticulo listaCatalogoDeArticulosCategoriaArticuloToAttach : catalogoDeArticulos.getListaCatalogoDeArticulos()) {
+            List<CategoriaDeCatalogo> attachedListaCatalogoDeArticulos = new ArrayList<CategoriaDeCatalogo>();
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosCategoriaArticuloToAttach : catalogoDeArticulos.getListaCategoriaCatalogo()) {
                 listaCatalogoDeArticulosCategoriaArticuloToAttach = em.getReference(listaCatalogoDeArticulosCategoriaArticuloToAttach.getClass(), listaCatalogoDeArticulosCategoriaArticuloToAttach.getId());
                 attachedListaCatalogoDeArticulos.add(listaCatalogoDeArticulosCategoriaArticuloToAttach);
             }
-            catalogoDeArticulos.setListaCatalogoDeArticulos(attachedListaCatalogoDeArticulos);
+            catalogoDeArticulos.setListaCategoriaCatalogo(attachedListaCatalogoDeArticulos);
             em.persist(catalogoDeArticulos);
-            for (CategoriaArticulo listaCatalogoDeArticulosCategoriaArticulo : catalogoDeArticulos.getListaCatalogoDeArticulos()) {
-                CatalogoArticulos oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo = listaCatalogoDeArticulosCategoriaArticulo.getUnCatalogoDeArticulos();
-                listaCatalogoDeArticulosCategoriaArticulo.setUnCatalogoDeArticulos(catalogoDeArticulos);
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosCategoriaArticulo : catalogoDeArticulos.getListaCategoriaCatalogo()) {
+                Catalogo oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo = listaCatalogoDeArticulosCategoriaArticulo.getUnCatalogo();
+                listaCatalogoDeArticulosCategoriaArticulo.setUnCatalogo(catalogoDeArticulos);
                 listaCatalogoDeArticulosCategoriaArticulo = em.merge(listaCatalogoDeArticulosCategoriaArticulo);
                 if (oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo != null) {
-                    oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo.getListaCatalogoDeArticulos().remove(listaCatalogoDeArticulosCategoriaArticulo);
+                    oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo.getListaCategoriaCatalogo().remove(listaCatalogoDeArticulosCategoriaArticulo);
                     oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo = em.merge(oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosCategoriaArticulo);
                 }
             }
@@ -65,35 +65,35 @@ public class CatalogoArticuloJpaController implements Serializable {
         }
     }
 
-    public void edit(CatalogoArticulos catalogoDeArticulos) throws NonexistentEntityException, Exception {
+    public void edit(Catalogo catalogoDeArticulos) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CatalogoArticulos persistentCatalogoDeArticulos = em.find(CatalogoArticulos.class, catalogoDeArticulos.getId());
-            List<CategoriaArticulo> listaCatalogoDeArticulosOld = persistentCatalogoDeArticulos.getListaCatalogoDeArticulos();
-            List<CategoriaArticulo> listaCatalogoDeArticulosNew = catalogoDeArticulos.getListaCatalogoDeArticulos();
-            List<CategoriaArticulo> attachedListaCatalogoDeArticulosNew = new ArrayList<CategoriaArticulo>();
-            for (CategoriaArticulo listaCatalogoDeArticulosNewCategoriaArticuloToAttach : listaCatalogoDeArticulosNew) {
+            Catalogo persistentCatalogoDeArticulos = em.find(Catalogo.class, catalogoDeArticulos.getId());
+            List<CategoriaDeCatalogo> listaCatalogoDeArticulosOld = persistentCatalogoDeArticulos.getListaCategoriaCatalogo();
+            List<CategoriaDeCatalogo> listaCatalogoDeArticulosNew = catalogoDeArticulos.getListaCategoriaCatalogo();
+            List<CategoriaDeCatalogo> attachedListaCatalogoDeArticulosNew = new ArrayList<CategoriaDeCatalogo>();
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosNewCategoriaArticuloToAttach : listaCatalogoDeArticulosNew) {
                 listaCatalogoDeArticulosNewCategoriaArticuloToAttach = em.getReference(listaCatalogoDeArticulosNewCategoriaArticuloToAttach.getClass(), listaCatalogoDeArticulosNewCategoriaArticuloToAttach.getId());
                 attachedListaCatalogoDeArticulosNew.add(listaCatalogoDeArticulosNewCategoriaArticuloToAttach);
             }
             listaCatalogoDeArticulosNew = attachedListaCatalogoDeArticulosNew;
-            catalogoDeArticulos.setListaCatalogoDeArticulos(listaCatalogoDeArticulosNew);
+            catalogoDeArticulos.setListaCategoriaCatalogo(listaCatalogoDeArticulosNew);
             catalogoDeArticulos = em.merge(catalogoDeArticulos);
-            for (CategoriaArticulo listaCatalogoDeArticulosOldCategoriaArticulo : listaCatalogoDeArticulosOld) {
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosOldCategoriaArticulo : listaCatalogoDeArticulosOld) {
                 if (!listaCatalogoDeArticulosNew.contains(listaCatalogoDeArticulosOldCategoriaArticulo)) {
-                    listaCatalogoDeArticulosOldCategoriaArticulo.setUnCatalogoDeArticulos(null);
+                    listaCatalogoDeArticulosOldCategoriaArticulo.setUnCatalogo(null);
                     listaCatalogoDeArticulosOldCategoriaArticulo = em.merge(listaCatalogoDeArticulosOldCategoriaArticulo);
                 }
             }
-            for (CategoriaArticulo listaCatalogoDeArticulosNewCategoriaArticulo : listaCatalogoDeArticulosNew) {
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosNewCategoriaArticulo : listaCatalogoDeArticulosNew) {
                 if (!listaCatalogoDeArticulosOld.contains(listaCatalogoDeArticulosNewCategoriaArticulo)) {
-                    CatalogoArticulos oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo = listaCatalogoDeArticulosNewCategoriaArticulo.getUnCatalogoDeArticulos();
-                    listaCatalogoDeArticulosNewCategoriaArticulo.setUnCatalogoDeArticulos(catalogoDeArticulos);
+                    Catalogo oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo = listaCatalogoDeArticulosNewCategoriaArticulo.getUnCatalogo();
+                    listaCatalogoDeArticulosNewCategoriaArticulo.setUnCatalogo(catalogoDeArticulos);
                     listaCatalogoDeArticulosNewCategoriaArticulo = em.merge(listaCatalogoDeArticulosNewCategoriaArticulo);
                     if (oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo != null && !oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo.equals(catalogoDeArticulos)) {
-                        oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo.getListaCatalogoDeArticulos().remove(listaCatalogoDeArticulosNewCategoriaArticulo);
+                        oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo.getListaCategoriaCatalogo().remove(listaCatalogoDeArticulosNewCategoriaArticulo);
                         oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo = em.merge(oldUnCatalogoDeArticulosOfListaCatalogoDeArticulosNewCategoriaArticulo);
                     }
                 }
@@ -120,16 +120,16 @@ public class CatalogoArticuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CatalogoArticulos catalogoDeArticulos;
+            Catalogo catalogoDeArticulos;
             try {
-                catalogoDeArticulos = em.getReference(CatalogoArticulos.class, id);
+                catalogoDeArticulos = em.getReference(Catalogo.class, id);
                 catalogoDeArticulos.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The catalogoDeArticulos with id " + id + " no longer exists.", enfe);
             }
-            List<CategoriaArticulo> listaCatalogoDeArticulos = catalogoDeArticulos.getListaCatalogoDeArticulos();
-            for (CategoriaArticulo listaCatalogoDeArticulosCategoriaArticulo : listaCatalogoDeArticulos) {
-                listaCatalogoDeArticulosCategoriaArticulo.setUnCatalogoDeArticulos(null);
+            List<CategoriaDeCatalogo> listaCatalogoDeArticulos = catalogoDeArticulos.getListaCategoriaCatalogo();
+            for (CategoriaDeCatalogo listaCatalogoDeArticulosCategoriaArticulo : listaCatalogoDeArticulos) {
+                listaCatalogoDeArticulosCategoriaArticulo.setUnCatalogo(null);
                 listaCatalogoDeArticulosCategoriaArticulo = em.merge(listaCatalogoDeArticulosCategoriaArticulo);
             }
             em.remove(catalogoDeArticulos);
@@ -141,19 +141,19 @@ public class CatalogoArticuloJpaController implements Serializable {
         }
     }
 
-    public List<CatalogoArticulos> findCatalogoDeArticulosEntities() {
+    public List<Catalogo> findCatalogoDeArticulosEntities() {
         return findCatalogoDeArticulosEntities(true, -1, -1);
     }
 
-    public List<CatalogoArticulos> findCatalogoDeArticulosEntities(int maxResults, int firstResult) {
+    public List<Catalogo> findCatalogoDeArticulosEntities(int maxResults, int firstResult) {
         return findCatalogoDeArticulosEntities(false, maxResults, firstResult);
     }
 
-    private List<CatalogoArticulos> findCatalogoDeArticulosEntities(boolean all, int maxResults, int firstResult) {
+    private List<Catalogo> findCatalogoDeArticulosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(CatalogoArticulos.class));
+            cq.select(cq.from(Catalogo.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -165,10 +165,10 @@ public class CatalogoArticuloJpaController implements Serializable {
         }
     }
 
-    public CatalogoArticulos findCatalogoDeArticulos(Long id) {
+    public Catalogo findCatalogoDeArticulos(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(CatalogoArticulos.class, id);
+            return em.find(Catalogo.class, id);
         } finally {
             em.close();
         }
@@ -178,7 +178,7 @@ public class CatalogoArticuloJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<CatalogoArticulos> rt = cq.from(CatalogoArticulos.class);
+            Root<Catalogo> rt = cq.from(Catalogo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

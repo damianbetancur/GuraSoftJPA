@@ -32,7 +32,7 @@ public class Articulo implements Serializable {
     private String descripcion;
     
     @ManyToOne
-    private CategoriaArticulo unCategoriaDeArticulos;
+    private CategoriaDeCatalogo unCategoriaDeCatalogo;
         
     @ManyToOne
     private Proveedor unProveedor;
@@ -79,12 +79,12 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public CategoriaArticulo getUnCategoriaDeArticulos() {
-        return unCategoriaDeArticulos;
+    public CategoriaDeCatalogo getUnCategoriaDeCatalogo() {
+        return unCategoriaDeCatalogo;
     }
 
-    public void setUnCategoriaDeArticulos(CategoriaArticulo unCategoriaDeArticulos) {
-        this.unCategoriaDeArticulos = unCategoriaDeArticulos;
+    public void setUnCategoriaDeCatalogo(CategoriaDeCatalogo unCategoriaDeCatalogo) {
+        this.unCategoriaDeCatalogo = unCategoriaDeCatalogo;
     }
 
     public Proveedor getUnProveedor() {

@@ -398,7 +398,7 @@ public class DefinicionListaPrecioController extends Controller{
                 listaDePrecioModifocada =true;
 
                 } catch (Exception ex) {
-                    Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaDeCatalogoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
         if (listaDePrecioModifocada) {
@@ -453,7 +453,7 @@ public class DefinicionListaPrecioController extends Controller{
                 JOptionPane.showMessageDialog(null, "Lista de Precio Eliminada");
 
             } catch (Exception ex) {
-                Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDeCatalogoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (listaDePrecioEliminada) {

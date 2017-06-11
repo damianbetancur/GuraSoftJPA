@@ -43,8 +43,9 @@ public class Empresa implements Serializable {
     
     //Catalogo a la que pertenece la Empresa
     @ManyToOne
-    private CatalogoArticulos catalogo;
+    private Catalogo catalogo;
     
+        
     //Clientes que posee la empresa
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "unaEmpresa")
     private List <Cliente> listaClientes;
@@ -118,11 +119,11 @@ public class Empresa implements Serializable {
         this.listaClientes = listaClientes;
     }
 
-    public CatalogoArticulos getCatalogo() {
+    public Catalogo getCatalogo() {
         return catalogo;
     }
 
-    public void setCatalogo(CatalogoArticulos catalogo) {
+    public void setCatalogo(Catalogo catalogo) {
         this.catalogo = catalogo;
     }
 

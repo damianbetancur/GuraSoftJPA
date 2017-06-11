@@ -6,37 +6,33 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Ariel
  */
 @Entity
-@Table (name="CATALOGOS_ARTICULO")
-public class CatalogoArticulos implements Serializable {
+public class Deposito implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name="descripcion")
     private String descripcion;
     
-    ///CategoriaProducto que posee el CatalogoArticulos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCatalogoDeArticulos")
-    private List <CategoriaArticulo> listaCatalogoDeArticulos;
-               
-
+    //Unidad Comercial a la que pertenece a la que pertenece el Deposito
+    @ManyToOne
+    private Unidad unaUnidad;
+    
+    
     public Long getId() {
         return id;
     }
@@ -55,10 +51,10 @@ public class CatalogoArticulos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CatalogoArticulos)) {
+        if (!(object instanceof Deposito)) {
             return false;
         }
-        CatalogoArticulos other = (CatalogoArticulos) object;
+        Deposito other = (Deposito) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,15 +63,7 @@ public class CatalogoArticulos implements Serializable {
 
     @Override
     public String toString() {
-        return "model.CatalogoDeArticulos[ id=" + id + " ]";
-    }
-
-    public List <CategoriaArticulo> getListaCatalogoDeArticulos() {
-        return listaCatalogoDeArticulos;
-    }
-
-    public void setListaCatalogoDeArticulos(List <CategoriaArticulo> listaCatalogoDeArticulos) {
-        this.listaCatalogoDeArticulos = listaCatalogoDeArticulos;
+        return "model.Deposito[ id=" + id + " ]";
     }
 
     public String getDescripcion() {
@@ -85,6 +73,13 @@ public class CatalogoArticulos implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    public Unidad getUnaUnidad() {
+        return unaUnidad;
+    }
+
+    public void setUnaUnidad(Unidad unaUnidad) {
+        this.unaUnidad = unaUnidad;
+    }
     
 }

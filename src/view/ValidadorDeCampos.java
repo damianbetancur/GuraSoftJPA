@@ -14,6 +14,7 @@ import javax.swing.JTextField;
  * @author Ariel
  */
 public class ValidadorDeCampos {
+    
     public void validarSoloLetras(JTextField campo){
         campo.addKeyListener(new KeyAdapter() {
             @Override
@@ -50,5 +51,32 @@ public class ValidadorDeCampos {
             }
         });
     
+    }
+    
+    public void validarNumeroDecimales(JTextField campo){
+        campo.addKeyListener(new KeyAdapter() {            
+            public void keyTyped(KeyEvent e){
+                int k = (int)e.getKeyChar();
+                if(k>=46 && k<=57){
+                    if(k==46){
+                        String dato = campo.getText();
+                        int tamA= dato.length();
+                        for(int i=0; i<=tamA; i++){
+                            if(dato.contains(".")){
+                                e.setKeyChar((char)KeyEvent.VK_CLEAR);
+                            }
+                        }
+                    }
+                    if(k==47){
+                        e.setKeyChar((char)KeyEvent.VK_CLEAR);
+                    }
+                }else{
+                    e.setKeyChar((char)KeyEvent.VK_CLEAR);
+                    e.consume();
+                }
+                
+                
+            }
+        });
     }
 }

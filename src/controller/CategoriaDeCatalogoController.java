@@ -19,8 +19,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import model.CatalogoArticulos;
-import model.CategoriaArticulo;
+import model.Catalogo;
+import model.CategoriaDeCatalogo;
 import model.JPAController.CatalogoArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
 import view.JframePrincipal;
@@ -30,7 +30,7 @@ import view.PanelRegistroCatalogoCategoria;
  *
  * @author Ariel
  */
-public class CatalogoCategoriaController extends Controller{
+public class CategoriaDeCatalogoController extends Controller{
 
     private PanelRegistroCatalogoCategoria vista;
     private CategoriaArticuloJpaController modelo;
@@ -40,17 +40,17 @@ public class CatalogoCategoriaController extends Controller{
     boolean bloquearAceptarEliminar = false;
     boolean bloquearAceptarModificar = false;
        
-    CatalogoArticulos catalogo = null;           
+    Catalogo catalogo = null;           
     
     int ultimoIndiceSeleccionado = 0;
-    List<CategoriaArticulo> categorias;
+    List<CategoriaDeCatalogo> categorias;
 
     /**
      * Constructor Empleado
      * @param vista PanelRegistroEmpleado
      * @param modelo EmpleadoJpaController
      */
-    public CatalogoCategoriaController(PanelRegistroCatalogoCategoria vista, CategoriaArticuloJpaController modelo) {
+    public CategoriaDeCatalogoController(PanelRegistroCatalogoCategoria vista, CategoriaArticuloJpaController modelo) {
         modeloCatalogoArticulo = new CatalogoArticuloJpaController(Conexion.getEmf());
         catalogo = modeloCatalogoArticulo.findCatalogoDeArticulos(1L);
         
@@ -195,7 +195,7 @@ public class CatalogoCategoriaController extends Controller{
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
         //Crea instancia de cliente
-        CategoriaArticulo categoriaModificado = new CategoriaArticulo();
+        CategoriaDeCatalogo categoriaModificado = new CategoriaDeCatalogo();
         
         //setea cliente en funcion al ID de la vista
         categoriaModificado = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));       
@@ -237,7 +237,7 @@ public class CatalogoCategoriaController extends Controller{
         vista.habilitarBoton(false, vista.getJbtn_Volver()); 
         
         //Crea instancia de cliente
-        CategoriaArticulo categoriaAEliminar = new CategoriaArticulo();
+        CategoriaDeCatalogo categoriaAEliminar = new CategoriaDeCatalogo();
         
         //setea cliente en funcion al ID de la vista
         categoriaAEliminar = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));      
@@ -310,7 +310,7 @@ public class CatalogoCategoriaController extends Controller{
 
 
         //Crear Instancia de Categoria
-        CategoriaArticulo categoria = new CategoriaArticulo();
+        CategoriaDeCatalogo categoria = new CategoriaDeCatalogo();
 
         //setea descripcion de Categoria
         categoria.setDescripcion(vista.getJtfDescripcion().getText());
@@ -319,7 +319,7 @@ public class CatalogoCategoriaController extends Controller{
        if (!categoriaCreada) {
 
            //Agrega la catalogo a la que pertenece el Cliente
-           categoria.setUnCatalogoDeArticulos(catalogo);
+           categoria.setUnCatalogo(catalogo);
 
            //Persiste Empleado
            modelo.create(categoria);
@@ -381,7 +381,7 @@ public class CatalogoCategoriaController extends Controller{
         boolean categoriaModifocada = false;
                 
         //instancia de Categoria igual al objeto guardado en Base de datos
-        CategoriaArticulo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
+        CategoriaDeCatalogo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
 
         //setea Descripcion Categoria con nuevos valores
         categoria.setDescripcion(vista.getJtfDescripcion().getText());  
@@ -389,7 +389,7 @@ public class CatalogoCategoriaController extends Controller{
         if (!categoriaModifocada) {       
             try {
                 //agrega el catalogo a categoria
-                categoria.setUnCatalogoDeArticulos(catalogo);
+                categoria.setUnCatalogo(catalogo);
 
                 //Persiste Categoria
                 modelo.edit(categoria);
@@ -399,7 +399,7 @@ public class CatalogoCategoriaController extends Controller{
                 categoriaModifocada =true;
 
                 } catch (Exception ex) {
-                    Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CategoriaDeCatalogoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
         if (categoriaModifocada) {
@@ -444,7 +444,7 @@ public class CatalogoCategoriaController extends Controller{
         boolean categoriaEliminada = false;
         
         //instancia de cliente igual al objeto guardado en Base de datos
-         CategoriaArticulo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
+         CategoriaDeCatalogo categoria = modelo.findCategoriaArticulo(Long.parseLong(vista.getJtfID().getText()));
                
         if (!categoriaEliminada) { 
             try {
@@ -454,7 +454,7 @@ public class CatalogoCategoriaController extends Controller{
                 JOptionPane.showMessageDialog(null, "Categoria Eliminada");
 
             } catch (Exception ex) {
-                Logger.getLogger(CatalogoCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDeCatalogoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (categoriaEliminada) {
@@ -552,7 +552,7 @@ public class CatalogoCategoriaController extends Controller{
      * @param tablaD Tabla Empleado
      */
     public void llenarTabla(JTable tablaD){
-        categorias = new ArrayList<CategoriaArticulo>();
+        categorias = new ArrayList<CategoriaDeCatalogo>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel(){
 
@@ -583,7 +583,7 @@ public class CatalogoCategoriaController extends Controller{
         
         int numero = 0;
         
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {
+        for (CategoriaDeCatalogo categoria : modelo.findCategoriaArticuloEntities()) {
             //Guarda en Lista de categorias  
             categorias.add(categoria);
             numero = numero + 1;
@@ -659,7 +659,7 @@ public class CatalogoCategoriaController extends Controller{
      */
     public int buscarPosicionEnTabla(Long id){
         int posicion =0;
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {
+        for (CategoriaDeCatalogo categoria : modelo.findCategoriaArticuloEntities()) {
             if (id.equals(categoria.getId())) {
                 return posicion;
             }
@@ -675,7 +675,7 @@ public class CatalogoCategoriaController extends Controller{
      */
     public int sizeTabla(){
         int posicion =0;
-        for (CategoriaArticulo categoria : modelo.findCategoriaArticuloEntities()) {            
+        for (CategoriaDeCatalogo categoria : modelo.findCategoriaArticuloEntities()) {            
             posicion++;
         }        
         return posicion-1;

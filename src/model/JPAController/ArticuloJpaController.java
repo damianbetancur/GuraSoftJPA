@@ -14,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Articulo;
-import model.CategoriaArticulo;
+import model.CategoriaDeCatalogo;
 import model.JPAController.exceptions.NonexistentEntityException;
 import model.ListaDePrecio;
 import model.Proveedor;
@@ -39,10 +39,10 @@ public class ArticuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CategoriaArticulo unCategoriaDeArticulos = articulo.getUnCategoriaDeArticulos();
+            CategoriaDeCatalogo unCategoriaDeArticulos = articulo.getUnCategoriaDeCatalogo();
             if (unCategoriaDeArticulos != null) {
                 unCategoriaDeArticulos = em.getReference(unCategoriaDeArticulos.getClass(), unCategoriaDeArticulos.getId());
-                articulo.setUnCategoriaDeArticulos(unCategoriaDeArticulos);
+                articulo.setUnCategoriaDeCatalogo(unCategoriaDeArticulos);
             }
             Proveedor unProveedor = articulo.getUnProveedor();
             if (unProveedor != null) {
@@ -72,13 +72,13 @@ public class ArticuloJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Articulo persistentArticulo = em.find(Articulo.class, articulo.getId());
-            CategoriaArticulo unCategoriaDeArticulosOld = persistentArticulo.getUnCategoriaDeArticulos();
-            CategoriaArticulo unCategoriaDeArticulosNew = articulo.getUnCategoriaDeArticulos();
+            CategoriaDeCatalogo unCategoriaDeArticulosOld = persistentArticulo.getUnCategoriaDeCatalogo();
+            CategoriaDeCatalogo unCategoriaDeArticulosNew = articulo.getUnCategoriaDeCatalogo();
             Proveedor unProveedorOld = persistentArticulo.getUnProveedor();
             Proveedor unProveedorNew = articulo.getUnProveedor();
             if (unCategoriaDeArticulosNew != null) {
                 unCategoriaDeArticulosNew = em.getReference(unCategoriaDeArticulosNew.getClass(), unCategoriaDeArticulosNew.getId());
-                articulo.setUnCategoriaDeArticulos(unCategoriaDeArticulosNew);
+                articulo.setUnCategoriaDeCatalogo(unCategoriaDeArticulosNew);
             }
             if (unProveedorNew != null) {
                 unProveedorNew = em.getReference(unProveedorNew.getClass(), unProveedorNew.getId());
@@ -130,7 +130,7 @@ public class ArticuloJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The articulo with id " + id + " no longer exists.", enfe);
             }
-            CategoriaArticulo unCategoriaDeArticulos = articulo.getUnCategoriaDeArticulos();
+            CategoriaDeCatalogo unCategoriaDeArticulos = articulo.getUnCategoriaDeCatalogo();
             if (unCategoriaDeArticulos != null) {
                 unCategoriaDeArticulos.getListaDeArticulos().remove(articulo);
                 unCategoriaDeArticulos = em.merge(unCategoriaDeArticulos);

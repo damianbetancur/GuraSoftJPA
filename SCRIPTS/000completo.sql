@@ -36843,7 +36843,7 @@ VALUES
 -- Insercion de datos de Categoria de Productos
 --
 INSERT INTO `categorias_articulo`
-(`ID`, `descripcion`, `UNCATALOGODEARTICULOS_ID`) 
+(`ID`, `descripcion`, `UNCATALOGO_ID`) 
 VALUES 
 (1, 'Access Point Indoor TP-LINK', 1),
 (2, 'ANTENA TP-LINK', 1),
@@ -36882,7 +36882,7 @@ VALUES
 -- Insercion de datos de Articulos
 --
 INSERT INTO `articulo`
-(`id_articulo`, `descripcion`, `UNCATEGORIADEARTICULOS_ID`, `UNPROVEEDOR_ID`)
+(`id_articulo`, `descripcion`, `UNCATEGORIADECATALOGO_ID`, `UNPROVEEDOR_ID`)
 VALUES 
 (1, 'Epson Expression XP-231', 6, 3),
 (2, 'Epson Expression XP-241', 6, 3),

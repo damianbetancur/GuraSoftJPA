@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,8 +21,8 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CATEGORIAS_ARTICULO")
-public class CategoriaArticulo implements Serializable {
+@Table (name="CATALOGOS_ARTICULO")
+public class Catalogo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,12 +32,10 @@ public class CategoriaArticulo implements Serializable {
     @Column(name="descripcion")
     private String descripcion;
     
-    @ManyToOne
-    private CatalogoArticulos unCatalogoDeArticulos;
-    
-    ///Articulos que posee la Catalogoria de Articulos
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCategoriaDeArticulos")
-    private List <Articulo> listaDeArticulos;
+    ///CategoriaProducto que posee el Catalogo
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCatalogo")
+    private List <CategoriaDeCatalogo> listaCategoriaCatalogo;
+               
 
     public Long getId() {
         return id;
@@ -58,10 +55,10 @@ public class CategoriaArticulo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CategoriaArticulo)) {
+        if (!(object instanceof Catalogo)) {
             return false;
         }
-        CategoriaArticulo other = (CategoriaArticulo) object;
+        Catalogo other = (Catalogo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -70,23 +67,15 @@ public class CategoriaArticulo implements Serializable {
 
     @Override
     public String toString() {
-        return getDescripcion();
+        return "model.CatalogoDeArticulos[ id=" + id + " ]";
     }
 
-    public CatalogoArticulos getUnCatalogoDeArticulos() {
-        return unCatalogoDeArticulos;
+    public List <CategoriaDeCatalogo> getListaCategoriaCatalogo() {
+        return listaCategoriaCatalogo;
     }
 
-    public void setUnCatalogoDeArticulos(CatalogoArticulos unCatalogoDeArticulos) {
-        this.unCatalogoDeArticulos = unCatalogoDeArticulos;
-    }
-
-    public List <Articulo> getListaDeArticulos() {
-        return listaDeArticulos;
-    }
-
-    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
-        this.listaDeArticulos = listaDeArticulos;
+    public void setListaCategoriaCatalogo(List <CategoriaDeCatalogo> listaCategoriaCatalogo) {
+        this.listaCategoriaCatalogo = listaCategoriaCatalogo;
     }
 
     public String getDescripcion() {
