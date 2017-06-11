@@ -65,6 +65,13 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_empleado = new javax.swing.JComboBox<>();
         fechaIngreso = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", '_');
         jlbl_fechngreso = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jlbl_Usuario = new javax.swing.JLabel();
+        jtf_Usuario = new javax.swing.JTextField();
+        jlbl_Password = new javax.swing.JLabel();
+        jtf_Password = new javax.swing.JTextField();
+        jcb_TipoUsuario = new javax.swing.JComboBox<>();
+        jlbl_TipoUsuario = new javax.swing.JLabel();
         jPanelDireccion = new javax.swing.JPanel();
         jlbl_zona_direccion = new javax.swing.JLabel();
         jcb_zona_direccion = new javax.swing.JComboBox<>();
@@ -145,51 +152,76 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jlbl_Nombre.setText("Nombre:");
         jPanelEmpleado.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(60, 60, 100, 15);
+        jlbl_Nombre.setBounds(20, 60, 100, 15);
 
         jlbl_Apellido.setText("Apellido:");
         jPanelEmpleado.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(60, 100, 90, 15);
+        jlbl_Apellido.setBounds(20, 100, 90, 15);
 
         jlbl_DNI.setText("DNI:");
         jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 140, 80, 15);
+        jlbl_DNI.setBounds(20, 140, 80, 15);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
-        jlbl_ID.setBounds(60, 20, 90, 15);
+        jlbl_ID.setBounds(20, 20, 90, 15);
         jPanelEmpleado.add(jtf_ID);
-        jtf_ID.setBounds(160, 20, 272, 19);
+        jtf_ID.setBounds(120, 20, 250, 19);
         jPanelEmpleado.add(jtf_Nombre);
-        jtf_Nombre.setBounds(160, 60, 272, 19);
+        jtf_Nombre.setBounds(120, 60, 250, 19);
         jPanelEmpleado.add(jtf_DNI);
-        jtf_DNI.setBounds(160, 140, 272, 19);
+        jtf_DNI.setBounds(120, 140, 250, 19);
         jPanelEmpleado.add(jtf_Apellido);
-        jtf_Apellido.setBounds(160, 100, 272, 19);
+        jtf_Apellido.setBounds(120, 100, 250, 19);
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
 
         jPanelEmpleado.add(jcb_unidad);
-        jcb_unidad.setBounds(160, 180, 270, 24);
+        jcb_unidad.setBounds(120, 180, 250, 24);
 
         jlbl_unidad.setText("UNIDAD:");
         jPanelEmpleado.add(jlbl_unidad);
-        jlbl_unidad.setBounds(60, 180, 60, 15);
+        jlbl_unidad.setBounds(20, 180, 60, 15);
 
         jlbl_TipoEmpleado.setText("EMPLEADO:");
         jPanelEmpleado.add(jlbl_TipoEmpleado);
-        jlbl_TipoEmpleado.setBounds(60, 230, 70, 15);
+        jlbl_TipoEmpleado.setBounds(20, 230, 70, 15);
 
         jPanelEmpleado.add(jcb_empleado);
-        jcb_empleado.setBounds(160, 230, 270, 24);
+        jcb_empleado.setBounds(120, 230, 250, 24);
 
         fechaIngreso.setEnabled(false);
         jPanelEmpleado.add(fechaIngreso);
-        fechaIngreso.setBounds(160, 270, 130, 30);
+        fechaIngreso.setBounds(120, 270, 250, 30);
 
         jlbl_fechngreso.setText("Fecha Ingreso:");
         jPanelEmpleado.add(jlbl_fechngreso);
-        jlbl_fechngreso.setBounds(60, 270, 90, 30);
+        jlbl_fechngreso.setBounds(20, 270, 90, 30);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(null);
+
+        jlbl_Usuario.setText("Usuario:");
+        jPanel1.add(jlbl_Usuario);
+        jlbl_Usuario.setBounds(20, 40, 80, 15);
+        jPanel1.add(jtf_Usuario);
+        jtf_Usuario.setBounds(130, 40, 180, 19);
+
+        jlbl_Password.setText("Contrseña:");
+        jPanel1.add(jlbl_Password);
+        jlbl_Password.setBounds(20, 80, 90, 15);
+        jPanel1.add(jtf_Password);
+        jtf_Password.setBounds(130, 80, 180, 19);
+
+        jPanel1.add(jcb_TipoUsuario);
+        jcb_TipoUsuario.setBounds(130, 120, 180, 24);
+
+        jlbl_TipoUsuario.setText("Tipo Usuario:");
+        jPanel1.add(jlbl_TipoUsuario);
+        jlbl_TipoUsuario.setBounds(20, 120, 90, 15);
+
+        jPanelEmpleado.add(jPanel1);
+        jPanel1.setBounds(390, 20, 320, 280);
 
         jTabbedPaneContenedor.addTab("Empleado", jPanelEmpleado);
 
@@ -259,6 +291,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private com.toedter.calendar.JDateChooser fechaIngreso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelDireccion;
     private javax.swing.JPanel jPanelEmpleado;
@@ -271,6 +304,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JButton jbtn_Modificar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
+    private javax.swing.JComboBox<String> jcb_TipoUsuario;
     private javax.swing.JComboBox<String> jcb_empleado;
     private javax.swing.JComboBox<String> jcb_localidad_direccion;
     private javax.swing.JComboBox<String> jcb_provincia_direccion;
@@ -280,7 +314,10 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel jlbl_DNI;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Nombre;
+    private javax.swing.JLabel jlbl_Password;
     private javax.swing.JLabel jlbl_TipoEmpleado;
+    private javax.swing.JLabel jlbl_TipoUsuario;
+    private javax.swing.JLabel jlbl_Usuario;
     private javax.swing.JLabel jlbl_calle_direccion;
     private javax.swing.JLabel jlbl_departamento_direccion;
     private javax.swing.JLabel jlbl_fechngreso;
@@ -294,6 +331,8 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JTextField jtf_DNI;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
+    private javax.swing.JTextField jtf_Password;
+    private javax.swing.JTextField jtf_Usuario;
     private javax.swing.JTextField jtf_calle_direccion;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
@@ -328,6 +367,9 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jtf_numero_direccion.addKeyListener(c);
         jtf_piso_direccion.addKeyListener(c);
         jtf_departamento_direccion.addKeyListener(c);
+        jtf_Usuario.addKeyListener(c);
+        jtf_Password.addKeyListener(c);
+                
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addItemListener(c);
@@ -335,6 +377,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_localidad_direccion.addItemListener(c);
         jcb_empleado.addItemListener(c);
         jcb_unidad.addItemListener(c);
+        jcb_TipoUsuario.addItemListener(c);
         
         //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
         jcb_zona_direccion.addFocusListener(c);
@@ -343,6 +386,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jtf_DNI.addFocusListener(c);
         jcb_empleado.addFocusListener(c);
         jcb_unidad.addFocusListener(c);
+        jcb_TipoUsuario.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaEmpleados.addMouseListener(c);
@@ -552,6 +596,30 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     
     public void limpiarCampo(JDateChooser campo){
         campo.setDate(null);
+    }
+
+    public javax.swing.JComboBox<String> getJcb_TipoUsuario() {
+        return jcb_TipoUsuario;
+    }
+
+    public void setJcb_TipoUsuario(javax.swing.JComboBox<String> jcb_TipoUsuario) {
+        this.jcb_TipoUsuario = jcb_TipoUsuario;
+    }
+
+    public javax.swing.JTextField getJtf_Password() {
+        return jtf_Password;
+    }
+
+    public void setJtf_Password(javax.swing.JTextField jtf_Password) {
+        this.jtf_Password = jtf_Password;
+    }
+
+    public javax.swing.JTextField getJtf_Usuario() {
+        return jtf_Usuario;
+    }
+
+    public void setJtf_Usuario(javax.swing.JTextField jtf_Usuario) {
+        this.jtf_Usuario = jtf_Usuario;
     }
     
 }

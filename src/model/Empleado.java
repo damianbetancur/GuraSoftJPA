@@ -9,7 +9,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,6 +30,10 @@ public class Empleado extends Persona{
     
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
+    
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_usuario")
+    private Usuario unUsuario;
 
     public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
@@ -42,6 +49,14 @@ public class Empleado extends Persona{
 
     public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
+    }
+
+    public Usuario getUnUsuario() {
+        return unUsuario;
+    }
+
+    public void setUnUsuario(Usuario unUsuario) {
+        this.unUsuario = unUsuario;
     }
 
     

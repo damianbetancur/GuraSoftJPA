@@ -17,7 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Articulo;
-import model.CategoriaArticulo;
+import model.CategoriaDeCatalogo;
 import model.Empresa;
 import model.JPAController.ArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
@@ -33,7 +33,7 @@ import view.PanelRegistroCatalogoArticulo;
  * Clase controladora de Articulos de categorias en el Catalogo
  * @author Ariel
  */
-public class CatalogoCategoriaArticuloController extends Controller {
+public class CatalogoController extends Controller {
     
     private PanelRegistroCatalogoArticulo vista;
     private ArticuloJpaController modelo;
@@ -64,7 +64,7 @@ public class CatalogoCategoriaArticuloController extends Controller {
      * @param vista PanelRegistroCatalogoArticulo
      * @param modelo ArticuloJpaController
      */
-    public CatalogoCategoriaArticuloController(PanelRegistroCatalogoArticulo vista, ArticuloJpaController modelo) {
+    public CatalogoController(PanelRegistroCatalogoArticulo vista, ArticuloJpaController modelo) {
         modeloEmpresa = new EmpresaJpaController(Conexion.getEmf());
         empresa = modeloEmpresa.findEmpresa(1L);
         
@@ -223,7 +223,7 @@ public class CatalogoCategoriaArticuloController extends Controller {
         //Llena el combobox de Categoria
         llenarJcomboboxCategoria();
         //Posiciona dentro del combobox zona al objeto zona que posee el cliente.
-        vista.getJcb_Categoria().setSelectedItem(articuloModificado.getUnCategoriaDeArticulos());
+        vista.getJcb_Categoria().setSelectedItem(articuloModificado.getUnCategoriaDeCatalogo());
         
         //Llena el combobox de Proveedor
         llenarJcomboboxProveedor();
@@ -274,7 +274,7 @@ public class CatalogoCategoriaArticuloController extends Controller {
         //Llena el combobox de Categoria
         llenarJcomboboxCategoria();
         //Posiciona dentro del combobox zona al objeto zona que posee el cliente.
-        vista.getJcb_Categoria().setSelectedItem(articuloAEliminar.getUnCategoriaDeArticulos());
+        vista.getJcb_Categoria().setSelectedItem(articuloAEliminar.getUnCategoriaDeCatalogo());
         
         //Llena el combobox de Proveedor
         llenarJcomboboxProveedor();
@@ -324,8 +324,8 @@ public class CatalogoCategoriaArticuloController extends Controller {
                 vista.getJtfDescripcion().setText(articulos.get(0).getDescripcion());
                 
                 if (articulos.get(0).getId().toString().equals(vista.getJtfID().getText())) {
-                    if (articulos.get(0).getUnCategoriaDeArticulos()!=null) {
-                        vista.getJcb_Categoria().addItem(articulos.get(0).getUnCategoriaDeArticulos().getDescripcion());
+                    if (articulos.get(0).getUnCategoriaDeCatalogo()!=null) {
+                        vista.getJcb_Categoria().addItem(articulos.get(0).getUnCategoriaDeCatalogo().getDescripcion());
                     }else{
                         System.out.println("no tiene categoria");
                     }
@@ -370,13 +370,13 @@ public class CatalogoCategoriaArticuloController extends Controller {
             
             
             //Instancia de unaCategoriaArticulo
-            CategoriaArticulo unaCategoriaArticulo = new CategoriaArticulo();
+            CategoriaDeCatalogo unaCategoriaArticulo = new CategoriaDeCatalogo();
             
             //Setea unaCategoriaArticulo con lo que tiene seleccionado el JCB de unaCategoriaArticulo
-            unaCategoriaArticulo = (CategoriaArticulo)vista.getJcb_Categoria().getSelectedItem();
+            unaCategoriaArticulo = (CategoriaDeCatalogo)vista.getJcb_Categoria().getSelectedItem();
             
            //Agrega la unaCategoriaArticulo al Articulo
-           articulo.setUnCategoriaDeArticulos(unaCategoriaArticulo);       
+           articulo.setUnCategoriaDeCatalogo(unaCategoriaArticulo);       
 
            //Instancia de Proveedor
             Proveedor unproveedor = new Proveedor();
@@ -459,13 +459,13 @@ public class CatalogoCategoriaArticuloController extends Controller {
             if (!empleadoModifocado) {
                 //verificar que el DNI sea igual que el DNI actual        
                 //Instancia de unaCategoriaArticulo
-                CategoriaArticulo unaCategoriaArticulo = new CategoriaArticulo();
+                CategoriaDeCatalogo unaCategoriaArticulo = new CategoriaDeCatalogo();
 
                 //Setea unaCategoriaArticulo con lo que tiene seleccionado el JCB de unaCategoriaArticulo
-                unaCategoriaArticulo = (CategoriaArticulo)vista.getJcb_Categoria().getSelectedItem();
+                unaCategoriaArticulo = (CategoriaDeCatalogo)vista.getJcb_Categoria().getSelectedItem();
 
                //Agrega la unaCategoriaArticulo al Articulo
-               articuloModificado.setUnCategoriaDeArticulos(unaCategoriaArticulo);       
+               articuloModificado.setUnCategoriaDeCatalogo(unaCategoriaArticulo);       
 
                //Instancia de Proveedor
                 Proveedor unproveedor = new Proveedor();
@@ -486,8 +486,11 @@ public class CatalogoCategoriaArticuloController extends Controller {
                         empleadoModifocado =true;
 
                         } catch (Exception ex) {
-                            Logger.getLogger(CatalogoCategoriaArticuloController.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(CatalogoController.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                 //Si el DNI no es igual que el DNI actual
+                 //Si el DNI no es igual que el DNI actual
+                 //Si el DNI no es igual que el DNI actual
                  //Si el DNI no es igual que el DNI actual
                 
             }
@@ -546,7 +549,7 @@ public class CatalogoCategoriaArticuloController extends Controller {
                    JOptionPane.showMessageDialog(null, "Articulo eliminado");
 
            } catch (Exception ex) {
-               Logger.getLogger(CatalogoCategoriaArticuloController.class.getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(CatalogoController.class.getName()).log(Level.SEVERE, null, ex);
            }
            articuloEliminado=true;
         }
@@ -861,7 +864,7 @@ public class CatalogoCategoriaArticuloController extends Controller {
                     
                     //Setea JCBox de Categoria en articulo
                     vista.getJcb_Categoria().removeAllItems();
-                    vista.getJcb_Categoria().addItem(articulo.getUnCategoriaDeArticulos().getDescripcion());
+                    vista.getJcb_Categoria().addItem(articulo.getUnCategoriaDeCatalogo().getDescripcion());
                     
                     //Setea JCBox de Proveedor en articulo
                     vista.getJcb_Proveedor().removeAllItems();

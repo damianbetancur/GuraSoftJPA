@@ -10,13 +10,13 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.CatalogoArticulos;
+import model.Catalogo;
 import model.Articulo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import model.CategoriaArticulo;
+import model.CategoriaDeCatalogo;
 import model.JPAController.exceptions.NonexistentEntityException;
 
 /**
@@ -34,7 +34,7 @@ public class CategoriaArticuloJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(CategoriaArticulo categoriaArticulo) {
+    public void create(CategoriaDeCatalogo categoriaArticulo) {
         if (categoriaArticulo.getListaDeArticulos() == null) {
             categoriaArticulo.setListaDeArticulos(new ArrayList<Articulo>());
         }
@@ -42,10 +42,10 @@ public class CategoriaArticuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CatalogoArticulos unCatalogoDeArticulos = categoriaArticulo.getUnCatalogoDeArticulos();
+            Catalogo unCatalogoDeArticulos = categoriaArticulo.getUnCatalogo();
             if (unCatalogoDeArticulos != null) {
                 unCatalogoDeArticulos = em.getReference(unCatalogoDeArticulos.getClass(), unCatalogoDeArticulos.getId());
-                categoriaArticulo.setUnCatalogoDeArticulos(unCatalogoDeArticulos);
+                categoriaArticulo.setUnCatalogo(unCatalogoDeArticulos);
             }
             List<Articulo> attachedListaDeArticulos = new ArrayList<Articulo>();
             for (Articulo listaDeArticulosArticuloToAttach : categoriaArticulo.getListaDeArticulos()) {
@@ -55,12 +55,12 @@ public class CategoriaArticuloJpaController implements Serializable {
             categoriaArticulo.setListaDeArticulos(attachedListaDeArticulos);
             em.persist(categoriaArticulo);
             if (unCatalogoDeArticulos != null) {
-                unCatalogoDeArticulos.getListaCatalogoDeArticulos().add(categoriaArticulo);
+                unCatalogoDeArticulos.getListaCategoriaCatalogo().add(categoriaArticulo);
                 unCatalogoDeArticulos = em.merge(unCatalogoDeArticulos);
             }
             for (Articulo listaDeArticulosArticulo : categoriaArticulo.getListaDeArticulos()) {
-                CategoriaArticulo oldUnCategoriaDeArticulosOfListaDeArticulosArticulo = listaDeArticulosArticulo.getUnCategoriaDeArticulos();
-                listaDeArticulosArticulo.setUnCategoriaDeArticulos(categoriaArticulo);
+                CategoriaDeCatalogo oldUnCategoriaDeArticulosOfListaDeArticulosArticulo = listaDeArticulosArticulo.getUnCategoriaDeCatalogo();
+                listaDeArticulosArticulo.setUnCategoriaDeCatalogo(categoriaArticulo);
                 listaDeArticulosArticulo = em.merge(listaDeArticulosArticulo);
                 if (oldUnCategoriaDeArticulosOfListaDeArticulosArticulo != null) {
                     oldUnCategoriaDeArticulosOfListaDeArticulosArticulo.getListaDeArticulos().remove(listaDeArticulosArticulo);
@@ -75,19 +75,19 @@ public class CategoriaArticuloJpaController implements Serializable {
         }
     }
 
-    public void edit(CategoriaArticulo categoriaArticulo) throws NonexistentEntityException, Exception {
+    public void edit(CategoriaDeCatalogo categoriaArticulo) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CategoriaArticulo persistentCategoriaArticulo = em.find(CategoriaArticulo.class, categoriaArticulo.getId());
-            CatalogoArticulos unCatalogoDeArticulosOld = persistentCategoriaArticulo.getUnCatalogoDeArticulos();
-            CatalogoArticulos unCatalogoDeArticulosNew = categoriaArticulo.getUnCatalogoDeArticulos();
+            CategoriaDeCatalogo persistentCategoriaArticulo = em.find(CategoriaDeCatalogo.class, categoriaArticulo.getId());
+            Catalogo unCatalogoDeArticulosOld = persistentCategoriaArticulo.getUnCatalogo();
+            Catalogo unCatalogoDeArticulosNew = categoriaArticulo.getUnCatalogo();
             List<Articulo> listaDeArticulosOld = persistentCategoriaArticulo.getListaDeArticulos();
             List<Articulo> listaDeArticulosNew = categoriaArticulo.getListaDeArticulos();
             if (unCatalogoDeArticulosNew != null) {
                 unCatalogoDeArticulosNew = em.getReference(unCatalogoDeArticulosNew.getClass(), unCatalogoDeArticulosNew.getId());
-                categoriaArticulo.setUnCatalogoDeArticulos(unCatalogoDeArticulosNew);
+                categoriaArticulo.setUnCatalogo(unCatalogoDeArticulosNew);
             }
             List<Articulo> attachedListaDeArticulosNew = new ArrayList<Articulo>();
             for (Articulo listaDeArticulosNewArticuloToAttach : listaDeArticulosNew) {
@@ -98,23 +98,23 @@ public class CategoriaArticuloJpaController implements Serializable {
             categoriaArticulo.setListaDeArticulos(listaDeArticulosNew);
             categoriaArticulo = em.merge(categoriaArticulo);
             if (unCatalogoDeArticulosOld != null && !unCatalogoDeArticulosOld.equals(unCatalogoDeArticulosNew)) {
-                unCatalogoDeArticulosOld.getListaCatalogoDeArticulos().remove(categoriaArticulo);
+                unCatalogoDeArticulosOld.getListaCategoriaCatalogo().remove(categoriaArticulo);
                 unCatalogoDeArticulosOld = em.merge(unCatalogoDeArticulosOld);
             }
             if (unCatalogoDeArticulosNew != null && !unCatalogoDeArticulosNew.equals(unCatalogoDeArticulosOld)) {
-                unCatalogoDeArticulosNew.getListaCatalogoDeArticulos().add(categoriaArticulo);
+                unCatalogoDeArticulosNew.getListaCategoriaCatalogo().add(categoriaArticulo);
                 unCatalogoDeArticulosNew = em.merge(unCatalogoDeArticulosNew);
             }
             for (Articulo listaDeArticulosOldArticulo : listaDeArticulosOld) {
                 if (!listaDeArticulosNew.contains(listaDeArticulosOldArticulo)) {
-                    listaDeArticulosOldArticulo.setUnCategoriaDeArticulos(null);
+                    listaDeArticulosOldArticulo.setUnCategoriaDeCatalogo(null);
                     listaDeArticulosOldArticulo = em.merge(listaDeArticulosOldArticulo);
                 }
             }
             for (Articulo listaDeArticulosNewArticulo : listaDeArticulosNew) {
                 if (!listaDeArticulosOld.contains(listaDeArticulosNewArticulo)) {
-                    CategoriaArticulo oldUnCategoriaDeArticulosOfListaDeArticulosNewArticulo = listaDeArticulosNewArticulo.getUnCategoriaDeArticulos();
-                    listaDeArticulosNewArticulo.setUnCategoriaDeArticulos(categoriaArticulo);
+                    CategoriaDeCatalogo oldUnCategoriaDeArticulosOfListaDeArticulosNewArticulo = listaDeArticulosNewArticulo.getUnCategoriaDeCatalogo();
+                    listaDeArticulosNewArticulo.setUnCategoriaDeCatalogo(categoriaArticulo);
                     listaDeArticulosNewArticulo = em.merge(listaDeArticulosNewArticulo);
                     if (oldUnCategoriaDeArticulosOfListaDeArticulosNewArticulo != null && !oldUnCategoriaDeArticulosOfListaDeArticulosNewArticulo.equals(categoriaArticulo)) {
                         oldUnCategoriaDeArticulosOfListaDeArticulosNewArticulo.getListaDeArticulos().remove(listaDeArticulosNewArticulo);
@@ -144,21 +144,21 @@ public class CategoriaArticuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CategoriaArticulo categoriaArticulo;
+            CategoriaDeCatalogo categoriaArticulo;
             try {
-                categoriaArticulo = em.getReference(CategoriaArticulo.class, id);
+                categoriaArticulo = em.getReference(CategoriaDeCatalogo.class, id);
                 categoriaArticulo.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The categoriaArticulo with id " + id + " no longer exists.", enfe);
             }
-            CatalogoArticulos unCatalogoDeArticulos = categoriaArticulo.getUnCatalogoDeArticulos();
+            Catalogo unCatalogoDeArticulos = categoriaArticulo.getUnCatalogo();
             if (unCatalogoDeArticulos != null) {
-                unCatalogoDeArticulos.getListaCatalogoDeArticulos().remove(categoriaArticulo);
+                unCatalogoDeArticulos.getListaCategoriaCatalogo().remove(categoriaArticulo);
                 unCatalogoDeArticulos = em.merge(unCatalogoDeArticulos);
             }
             List<Articulo> listaDeArticulos = categoriaArticulo.getListaDeArticulos();
             for (Articulo listaDeArticulosArticulo : listaDeArticulos) {
-                listaDeArticulosArticulo.setUnCategoriaDeArticulos(null);
+                listaDeArticulosArticulo.setUnCategoriaDeCatalogo(null);
                 listaDeArticulosArticulo = em.merge(listaDeArticulosArticulo);
             }
             em.remove(categoriaArticulo);
@@ -170,19 +170,19 @@ public class CategoriaArticuloJpaController implements Serializable {
         }
     }
 
-    public List<CategoriaArticulo> findCategoriaArticuloEntities() {
+    public List<CategoriaDeCatalogo> findCategoriaArticuloEntities() {
         return findCategoriaArticuloEntities(true, -1, -1);
     }
 
-    public List<CategoriaArticulo> findCategoriaArticuloEntities(int maxResults, int firstResult) {
+    public List<CategoriaDeCatalogo> findCategoriaArticuloEntities(int maxResults, int firstResult) {
         return findCategoriaArticuloEntities(false, maxResults, firstResult);
     }
 
-    private List<CategoriaArticulo> findCategoriaArticuloEntities(boolean all, int maxResults, int firstResult) {
+    private List<CategoriaDeCatalogo> findCategoriaArticuloEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(CategoriaArticulo.class));
+            cq.select(cq.from(CategoriaDeCatalogo.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -194,10 +194,10 @@ public class CategoriaArticuloJpaController implements Serializable {
         }
     }
 
-    public CategoriaArticulo findCategoriaArticulo(Long id) {
+    public CategoriaDeCatalogo findCategoriaArticulo(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(CategoriaArticulo.class, id);
+            return em.find(CategoriaDeCatalogo.class, id);
         } finally {
             em.close();
         }
@@ -207,7 +207,7 @@ public class CategoriaArticuloJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<CategoriaArticulo> rt = cq.from(CategoriaArticulo.class);
+            Root<CategoriaDeCatalogo> rt = cq.from(CategoriaDeCatalogo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

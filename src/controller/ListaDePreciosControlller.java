@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -8,7 +9,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +39,8 @@ public class ListaDePreciosControlller extends Controller {
     private PanelRegistroListaDePrecioArticulo vista;
     private PrecioArticuloJpaController modelo;
     
-    
+    private boolean aceptar_agregar;
+    private boolean aceptar_modificar;
    
     //modelos necesarios para el controlador.
     private EmpresaJpaController modeloEmpresa;
@@ -44,15 +49,18 @@ public class ListaDePreciosControlller extends Controller {
     private PrecioArticuloJpaController modeloPrecioArticulo;
     
     //Entidades necesarias para el controlador
-    Empresa empresa = null;        
-    
+    Empresa empresa = null; 
     
     ListaDePrecio lpBuscada = null;
-    
     
     List<Articulo> articulosCatalogo;
     
     List<PrecioArticulo> articulosprecios;
+    
+    //Articulo Encontrado
+    Articulo articuloEncontrado;
+    PrecioArticulo precioArticuloEncontrado;
+    
 
     /**
      * Constructor CatalogoCategoriaArticuloController
@@ -70,39 +78,33 @@ public class ListaDePreciosControlller extends Controller {
         this.vista = vista;
         this.modelo = modelo;        
         
+        //Limpia campos
+        limpiarTodosLosCampos();
+
+        //inhabilitar Campos
+        inhabilitarTodosLosCampos(false);
+
+        //Inhabilita Botones
+        inhabilitarTodosLosBotones(false);
+
+        //Limpia la lista            
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
         
         
-        llenarJcomboboxListaDePrecio();
-        this.lpBuscada = (ListaDePrecio) vista.getJcb_ListaDePrecio().getSelectedItem();
+        llenarJcomboboxListaDePrecio();        
         
-        llenarTabla(vista.getTablaArticulos());
+        llenarTabla(vista.getTablaArticulos(), this.lpBuscada);
             
-            if(!articulosCatalogo.isEmpty()){
-                //posiciona en foco de la lista en el Articulo 
-                vista.getTablaArticulos().changeSelection(0, 1, false, false); 
-                
-                Articulo articuloEncontrado = null;
-                int seleccion = 0;
-                vista.getJtf_ID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(seleccion, 1)));
-                for (Articulo articulo : articulosCatalogo) {
-                    if (articulo.getId().toString().equals(vista.getJtf_ID().getText())) {
-                        articuloEncontrado = articulo;
-                    }
-                }
-                vista.getJtf_Descripcion().setText(articuloEncontrado.getDescripcion());
-
-                //Setea JCBox de Categoria en articulo
-                vista.getJcb_Categoria().removeAllItems();
-                vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeArticulos().getDescripcion());
-
-                //Setea JCBox de Proveedor en articulo
-                vista.getJcb_Proveedor().removeAllItems();
-                vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial());
-                
-            }else{
-                System.out.println("lista vacia");
-            }
+        cargarArticuloInicio();
+        
+        //habilita el boton volver
+        vista.getJbtn_Volver().setEnabled(true);
+        
+        vista.getJbtn_Aceptar().setVisible(false);
+        vista.getJbtn_Cancelar().setVisible(false);
       
+        aceptar_modificar = false;
+        aceptar_agregar = false;
     }
     
     /**
@@ -112,29 +114,239 @@ public class ListaDePreciosControlller extends Controller {
      */
     @Override
     public void actionPerformed(ActionEvent e) {        
+        
+      
+         //Boton Agregar
+        if (e.getSource()==vista.getJbtn_Agregar()){
+            btn_agregar();
+            aceptar_agregar = true;
+            aceptar_modificar = false;
+        }
+        
+         //Boton Cancelar
+        if (e.getSource()==vista.getJbtn_Cancelar()){
+            btn_cancelar();
+            aceptar_modificar = false;
+            aceptar_agregar = false;
+        }
+        
+         //Boton Modificar
+        if (e.getSource()==vista.getJbtn_Modificar()){
+            btn_modificar();
+            aceptar_agregar = false;
+            aceptar_modificar = true;            
+        }
+        
          //Boton Volver
         if (e.getSource()==vista.getJbtn_Volver()){
             btn_volver();
-        }
-      
-         //Boton Volver
-        if (e.getSource()==vista.getJbtn_Agregar()){
-            btn_volver();
+            aceptar_modificar = false;
+            aceptar_agregar = false;
         }
         
-         //Boton Volver
-        if (e.getSource()==vista.getJbtn_Cancelar()){
-            btn_volver();
+        //Boton Aceptar
+        if (e.getSource()==vista.getJbtn_Aceptar()){
+            try {
+                btn_aceptar();
+                aceptar_modificar = false;
+                aceptar_agregar = false;
+            } catch (Exception ex) {
+                Logger.getLogger(ListaDePreciosControlller.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
-         //Boton Volver
-        if (e.getSource()==vista.getJbtn_Modificar()){
-            btn_volver();
-        }
-        
     }
 
+    /**
+     * Boton agregar habilita el precio 
+     */
+    public void btn_agregar(){
+        
+        //habilitar Botones
+        vista.habilitarBoton(true, vista.getJbtn_Aceptar());
+        vista.habilitarBoton(true, vista.getJbtn_Cancelar());
+        vista.habilitarBoton(false, vista.getJbtn_Volver());
+        
+        
+        vista.getJbtn_Aceptar().setVisible(true);
+        vista.getJbtn_Cancelar().setVisible(true);
+
+        //Limpiar Campos
+        limpiarTodosLosCampos();
+
+        //Politica de validacion de Campos
+        politicaValidacionDeCampos();
+
+        //Habilitar Campos            
+        inhabilitarTodosLosCampos(true);
+        vista.habilitarCampo(false, vista.getJtf_precio());
+
+        //Inhabilitar Botones
+        vista.habilitarBoton(false, vista.getJbtn_Volver());
+        vista.habilitarBoton(false, vista.getJbtn_Modificar());
+        vista.habilitarBoton(false, vista.getJbtn_Agregar());
+        
+        
+        
+        //Articulo articuloEncontrado;
+        //PrecioArticulo precioArticuloEncontrado;
+        //Limpia la lista            
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
+        
+        if(articuloEncontrado != null){
+            vista.getJtf_ID().setText(articuloEncontrado.getId().toString());
+            vista.getJtf_Descripcion().setText(articuloEncontrado.getDescripcion().toString());
+
+            //Setea JCBox de Categoria en articulo
+            vista.getJcb_Categoria().removeAllItems();
+            vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
+
+            //Setea JCBox de Proveedor en articulo
+            vista.getJcb_Proveedor().removeAllItems();
+            vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial()); 
+            
+            
+            if(precioArticuloEncontrado == null){
+                vista.getJtf_precio().setText("");
+                vista.getJtf_precio().setBackground(Color.GREEN);
+                vista.getJtf_precio().setEnabled(true);
+                vista.getJtf_precio().setEditable(true);
+            }
+        }
+    }
     
+    public void btn_modificar(){
+        
+        //habilitar Botones
+        vista.habilitarBoton(true, vista.getJbtn_Aceptar());
+        vista.habilitarBoton(true, vista.getJbtn_Cancelar());
+        vista.habilitarBoton(false, vista.getJbtn_Volver());
+        
+        
+        vista.getJbtn_Aceptar().setVisible(true);
+        vista.getJbtn_Cancelar().setVisible(true);
+
+        //Limpiar Campos
+        limpiarTodosLosCampos();
+
+        //Politica de validacion de Campos
+        politicaValidacionDeCampos();
+
+        //Habilitar Campos            
+        inhabilitarTodosLosCampos(true);
+        vista.habilitarCampo(false, vista.getJtf_precio());
+
+        //Inhabilitar Botones
+        vista.habilitarBoton(false, vista.getJbtn_Volver());
+        vista.habilitarBoton(false, vista.getJbtn_Modificar());
+        vista.habilitarBoton(false, vista.getJbtn_Agregar());
+        
+        
+        
+        //Articulo articuloEncontrado;
+        //PrecioArticulo precioArticuloEncontrado;
+        //Limpia la lista            
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
+        
+        if(articuloEncontrado != null){
+            vista.getJtf_ID().setText(articuloEncontrado.getId().toString());
+            vista.getJtf_Descripcion().setText(articuloEncontrado.getDescripcion().toString());
+
+            //Setea JCBox de Categoria en articulo
+            vista.getJcb_Categoria().removeAllItems();
+            vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
+
+            //Setea JCBox de Proveedor en articulo
+            vista.getJcb_Proveedor().removeAllItems();
+            vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial()); 
+            
+            
+            if(precioArticuloEncontrado != null){
+                vista.getJtf_precio().setText(Float.toString(precioArticuloEncontrado.getPrecio()));
+                vista.getJtf_precio().setBackground(Color.GREEN);
+                vista.getJtf_precio().setEnabled(true);
+                vista.getJtf_precio().setEditable(true);
+            }
+        }
+    }
+    
+    
+    public void btn_aceptar() throws Exception{
+        PrecioArticulo precioArticuloNuevo = new PrecioArticulo();
+        modelo = new PrecioArticuloJpaController(Conexion.getEmf());
+        
+        if(articuloEncontrado != null){            
+            
+            //No existe precio en Articulo
+            if(precioArticuloEncontrado == null){
+                
+                precioArticuloNuevo.setId_articulo(articuloEncontrado.getId());
+                precioArticuloNuevo.setId_listaDePrecio(lpBuscada.getId());
+                
+                if(!vista.getJtf_precio().getText().isEmpty()){
+                    precioArticuloNuevo.setPrecio(Float.parseFloat(vista.getJtf_precio().getText()));
+                    
+                    if(aceptar_agregar == true){
+                        //Persiste Precio Articulo
+                        modelo.create(precioArticuloNuevo);
+                        JOptionPane.showMessageDialog(null, "Precio Creado");
+                    }
+                    
+                }else{
+                    precioArticuloNuevo.setPrecio(0F);
+                }
+            }//Existe precio de Articulo
+            else{
+                precioArticuloNuevo.setId_articulo(articuloEncontrado.getId());
+                precioArticuloNuevo.setId_listaDePrecio(lpBuscada.getId());
+                
+                if(!vista.getJtf_precio().getText().isEmpty()){
+                    precioArticuloNuevo.setPrecio(Float.parseFloat(vista.getJtf_precio().getText()));
+                    
+                    if(aceptar_modificar == true){
+                        //Persiste Precio Articulo
+                        modelo.edit(precioArticuloNuevo);
+                        JOptionPane.showMessageDialog(null, "Precio modificado");
+                    }
+                    
+                }else{
+                    precioArticuloNuevo.setPrecio(0F);
+                }
+            }
+        }
+        btn_cancelar();
+    }
+    
+    
+    /**
+     * cancela las operaciones
+     */
+    public void btn_cancelar(){
+        //Limpia campos
+        limpiarTodosLosCampos();
+
+        //inhabilitar Campos
+        inhabilitarTodosLosCampos(false);
+
+        //Inhabilita Botones
+        inhabilitarTodosLosBotones(false);
+
+        //Limpia la lista            
+        vista.getTablaArticulos().setModel(new DefaultTableModel());
+        
+        
+        llenarJcomboboxListaDePrecio();        
+        
+        llenarTabla(vista.getTablaArticulos(), this.lpBuscada);
+            
+        cargarArticuloInicio();
+        
+        //habilita el boton volver
+        vista.getJbtn_Volver().setEnabled(true);
+        
+        vista.getJbtn_Aceptar().setVisible(false);
+        vista.getJbtn_Cancelar().setVisible(false);
+               
+    }
     
     /**
      * Controla el Boton Volver
@@ -159,8 +371,10 @@ public class ListaDePreciosControlller extends Controller {
         //Habilita el Arbol de seleccion
         JframePrincipal.modificarArbol(true);
         
+        //inhabilita bo
+        vista.getJcb_ListaDePrecio().setEnabled(false);
         
-        
+        vista.getJtf_precio().setBackground(null);
     }
     
     
@@ -170,10 +384,8 @@ public class ListaDePreciosControlller extends Controller {
  crea una lista de PreciosDeArticulos existentes en la base de datos. 
      * @param tablaD Tabla Empleado
      */
-    public void llenarTabla(JTable tablaD){ 
-        boolean agregado = false;
-        articulosCatalogo = new ArrayList<Articulo>();
-        articulosprecios = new ArrayList<PrecioArticulo>();
+    public void llenarTabla(JTable tablaD, ListaDePrecio lpBuscada){ 
+        
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel(){
 
@@ -202,57 +414,9 @@ public class ListaDePreciosControlller extends Controller {
         //Cantidad de columnas 
         Object [] columna = new Object[4];
         
-        int numero = 0;
         
+        cargarArticulosEnArray(columna,  modeloT);
        
-        
-        for (Articulo articulo : modeloArticuloCatalogo.findArticuloEntities()) {
-            
-            if(!modeloPrecioArticulo.findPrecioArticuloEntities().isEmpty()){
-                for (PrecioArticulo precioArticulo : modeloPrecioArticulo.findPrecioArticuloEntities()) {
-                    if (articulo.getId().equals(precioArticulo.getId_articulo()) && lpBuscada.getId().equals(precioArticulo.getId_listaDePrecio())&& agregado==false) {
-                        articulosprecios.add(precioArticulo);
-                        
-                         //Guarda en Lista de articulos  
-                        articulosCatalogo.add(articulo);
-                        numero = numero + 1;
-                        columna[0] = String.valueOf(numero);   
-                        columna[1] = articulo.getId();            
-                        columna[2] = articulo.getDescripcion();   
-
-                        modeloT.addRow(columna);
-                        //tiene precio
-                        agregado = true;
-                    }
-                    if(agregado==false){
-                        articulosCatalogo.add(articulo);
-                        numero = numero + 1;
-                        columna[0] = String.valueOf(numero);   
-                        columna[1] = articulo.getId();            
-                        columna[2] = articulo.getDescripcion();   
-
-                        modeloT.addRow(columna);
-                        agregado = true;
-                    }
-
-                }            
-            }else{
-                articulosCatalogo.add(articulo);
-                numero = numero + 1;
-                columna[0] = String.valueOf(numero);   
-                columna[1] = articulo.getId();            
-                columna[2] = articulo.getDescripcion();   
-
-                modeloT.addRow(columna);
-            
-            }
-            
-           
-            
-            agregado = false;
-        }
-        
-        
         setAnchoColumna();
     }
     
@@ -274,7 +438,8 @@ public class ListaDePreciosControlller extends Controller {
             modeloListaDePrecio = new ListaDePrecioJpaController(Conexion.getEmf());
             DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloListaDePrecio.findListaDePrecioEntities());
             vista.getJcb_ListaDePrecio().setModel(mdl);
-            
+            //lista de precio Buscada lpBuscada toma el valor del jcombobox --> Jcb_ListaDePrecio
+            this.lpBuscada = (ListaDePrecio) vista.getJcb_ListaDePrecio().getSelectedItem();
     }
     
     
@@ -285,14 +450,16 @@ public class ListaDePreciosControlller extends Controller {
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        Articulo articuloEncontrado = null;
-        PrecioArticulo precioArticuloEncontrado = null;
+        
         
         if (e.getStateChange() == ItemEvent.SELECTED) {
+            articuloEncontrado = null;
+            precioArticuloEncontrado = null;
             
+            // cada vez que se registra un cambio en Jcb_ListaDePrecio se almacena en lpBuscada
             this.lpBuscada = (ListaDePrecio) vista.getJcb_ListaDePrecio().getSelectedItem();
             
-            llenarTabla(vista.getTablaArticulos());
+            llenarTabla(vista.getTablaArticulos(), this.lpBuscada);
             
             if(!articulosCatalogo.isEmpty()){
                 //posiciona en foco de la lista en el Articulo 
@@ -302,19 +469,13 @@ public class ListaDePreciosControlller extends Controller {
                 int seleccion = 0;
                 vista.getJtf_ID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(seleccion, 1)));
                 
+                
                 for (Articulo articulo : articulosCatalogo) {
                     if (articulo.getId().toString().equals(vista.getJtf_ID().getText())) {
                         articuloEncontrado = articulo;
+                        precioArticuloEncontrado = modeloPrecioArticulo.buscarPrecioDeArticuloConListaDePrecio(articulo, lpBuscada);
+                        
                     }
-                    
-                    if(!articulosprecios.isEmpty()){
-                        for (PrecioArticulo PreciosDeArticulo : articulosprecios) {
-                            if(PreciosDeArticulo.getId_articulo().equals(articuloEncontrado.getId())){
-                                precioArticuloEncontrado = PreciosDeArticulo;
-                            }
-                        }
-                    }
-                    
                 }
                 
                 
@@ -323,22 +484,32 @@ public class ListaDePreciosControlller extends Controller {
 
                 //Setea JCBox de Categoria en articulo
                 vista.getJcb_Categoria().removeAllItems();
-                vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeArticulos().getDescripcion());
+                vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
 
                 //Setea JCBox de Proveedor en articulo
                 vista.getJcb_Proveedor().removeAllItems();
                 vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial());
                 
+                
+                
                 if(precioArticuloEncontrado != null){
                     vista.getJtf_precio().setText("");
                     vista.getJtf_precio().setText(Float.toString(precioArticuloEncontrado.getPrecio()));
+                    vista.getJtf_precio().setBackground(Color.GREEN);
+                    vista.getJbtn_Modificar().setEnabled(true);
+                    vista.getJbtn_Agregar().setEnabled(false);
+                }else{
+                    vista.getJtf_precio().setText("Sin Precio Asignado");                    
+                    vista.getJtf_precio().setBackground(Color.RED);
+                    vista.getJbtn_Agregar().setEnabled(true);
+                    vista.getJbtn_Modificar().setEnabled(false);
                 }
                 
                 
+                
             }else{
-                System.out.println("lista vacia");
+                JOptionPane.showMessageDialog(null, "Lista Vacia");
             }
-            
             
         }
         
@@ -384,46 +555,50 @@ public class ListaDePreciosControlller extends Controller {
      * @param e Click de Mouse
      */
     @Override
-    public void mouseClicked(MouseEvent e) {
-        Articulo articuloEncontrado = null;
-        PrecioArticulo precioArticuloEncontrado= null;
+    public void mouseClicked(MouseEvent e) 
+    {
+        this.lpBuscada = (ListaDePrecio) vista.getJcb_ListaDePrecio().getSelectedItem();
+        
+        this.articuloEncontrado = null;
+        this.precioArticuloEncontrado= null;
         
         int seleccion = vista.getTablaArticulos().rowAtPoint(e.getPoint());
         vista.getJtf_ID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(seleccion, 1)));
         
+        
         for (Articulo articulo : articulosCatalogo) {
             if (articulo.getId().toString().equals(vista.getJtf_ID().getText())) {
-                articuloEncontrado = articulo;                
+                articuloEncontrado = articulo;
+                precioArticuloEncontrado = modeloPrecioArticulo.buscarPrecioDeArticuloConListaDePrecio(articuloEncontrado, lpBuscada);
             }
         }
         
-        if(!articulosprecios.isEmpty()){
-            for (PrecioArticulo PreciosDeArticulo : modeloPrecioArticulo.findPrecioArticuloEntities()) {
-                if(PreciosDeArticulo.getId_articulo().equals(articuloEncontrado.getId())){
-                    precioArticuloEncontrado = PreciosDeArticulo;
-                }
-            }
-        }
-       
-        
-        System.out.println(precioArticuloEncontrado);
         
         vista.getJtf_Descripcion().setText(articuloEncontrado.getDescripcion());
         
         //Setea JCBox de Categoria en articulo
         vista.getJcb_Categoria().removeAllItems();
-        vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeArticulos().getDescripcion());
+        vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
 
         //Setea JCBox de Proveedor en articulo
         vista.getJcb_Proveedor().removeAllItems();
         vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial());
         
+        
         if(precioArticuloEncontrado != null){
             vista.getJtf_precio().setText("");
             vista.getJtf_precio().setText(Float.toString(precioArticuloEncontrado.getPrecio()));
+            vista.getJtf_precio().setBackground(Color.GREEN);
+            vista.getJbtn_Modificar().setEnabled(true);
+            vista.getJbtn_Agregar().setEnabled(false);
         }else{
-            vista.getJtf_precio().setText("");
+            vista.getJtf_precio().setText("Sin Precio Asignado");                    
+            vista.getJtf_precio().setBackground(Color.RED);
+            vista.getJbtn_Agregar().setEnabled(true);
+            vista.getJbtn_Modificar().setEnabled(false);
         }
+        
+        
         
     }
 
@@ -447,29 +622,8 @@ public class ListaDePreciosControlller extends Controller {
         
     }
     
-    /**
-     * Modifica la habilitación de los JtextField de la vista en funcion al parametro de estado. 
-     * @param estado de campos
-     */
-    public void inhabilitarTodosLosCampos(boolean estado){
-        //inhabilita campos
-        vista.habilitarCampo(estado, vista.getJtf_ID());
-        vista.habilitarCampo(estado, vista.getJtf_Descripcion());        
-        vista.habilitarCampo(estado, vista.getJtf_precio());
-    }
     
-     public void limpiarTodosLosCampos(){        
-        vista.limpiarCampo(vista.getJtf_ID());
-        vista.limpiarCampo(vista.getJtf_Descripcion());
-        vista.limpiarCampo(vista.getJtf_precio());
-        
-        
-        //vista.limpiarCampo(vista.getJtfDireccion());
-        vista.limpiarCombobox(vista.getJcb_Categoria());
-        vista.limpiarCombobox(vista.getJcb_ListaDePrecio());
-        vista.limpiarCombobox(vista.getJcb_Proveedor());
-        
-    }
+     
      
      
      /**
@@ -487,5 +641,170 @@ public class ListaDePreciosControlller extends Controller {
 
         //Inhabilita Boton Volver
         vista.habilitarBoton(estado, vista.getJbtn_Volver());
+        
     }
+    
+    
+    
+    /**
+     * Carga los articulos en array para poder ser usados en la vista
+     * @param columna
+     * @param modeloT 
+     */
+    public void cargarArticulosEnArray(Object [] columna, DefaultTableModel modeloT){
+        int numero = 0;
+        boolean agregado = false;
+        articulosCatalogo = null;
+        articulosprecios = null;
+        
+        PrecioArticulo precioArticulo = null;
+        
+        articulosCatalogo = new ArrayList<Articulo>();
+        articulosprecios = new ArrayList<PrecioArticulo>();
+        
+        if(lpBuscada!=null){
+            for (Articulo articuloBuscado : modeloArticuloCatalogo.findArticuloEntities()) {
+
+                precioArticulo = modeloPrecioArticulo.buscarPrecioDeArticuloConListaDePrecio(articuloBuscado, lpBuscada);
+
+                if(precioArticulo != null){
+                    if (agregado == false) {
+                        articulosprecios.add(precioArticulo);
+
+                         //Guarda en Lista de articulos  
+                        articulosCatalogo.add(articuloBuscado);
+                        numero = numero + 1;
+                        columna[0] = String.valueOf(numero);   
+                        columna[1] = articuloBuscado.getId();            
+                        columna[2] = articuloBuscado.getDescripcion();   
+
+                        modeloT.addRow(columna);
+                        //tiene precio
+                        agregado = true;
+
+                    }
+                    if(agregado==false){
+                        articulosCatalogo.add(articuloBuscado);
+                        numero = numero + 1;
+                        columna[0] = String.valueOf(numero);   
+                        columna[1] = articuloBuscado.getId();            
+                        columna[2] = articuloBuscado.getDescripcion();   
+
+                        modeloT.addRow(columna);
+                        agregado = true;
+                    }
+
+                }else{
+                    articulosCatalogo.add(articuloBuscado);
+                    numero = numero + 1;
+                    columna[0] = String.valueOf(numero);   
+                    columna[1] = articuloBuscado.getId();            
+                    columna[2] = articuloBuscado.getDescripcion();   
+                    modeloT.addRow(columna);
+                }
+                agregado = false;
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No existen listas de precios");
+        }
+        
+    }
+    
+    /**
+     * Carga los articulos si hay elementos en el catalo, posicionandose en el 1 er elemento y mostrandolo
+     */
+    public void cargarArticuloInicio(){
+        if(!articulosCatalogo.isEmpty()){
+                
+                //posiciona en foco de la lista en el Articulo 
+                vista.getTablaArticulos().changeSelection(0, 1, false, false); 
+                
+                this.articuloEncontrado = null;
+                this.precioArticuloEncontrado = null;
+                
+                int seleccion = 0;
+                vista.getJtf_ID().setText(String.valueOf(vista.getTablaArticulos().getValueAt(seleccion, 1)));
+                
+                
+                
+                for (Articulo articulo : articulosCatalogo) {
+                    if (articulo.getId().toString().equals(vista.getJtf_ID().getText())) {
+                        articuloEncontrado = articulo;
+                        precioArticuloEncontrado = modeloPrecioArticulo.buscarPrecioDeArticuloConListaDePrecio(articulo, lpBuscada);
+                        
+                    }
+                }
+                vista.getJtf_Descripcion().setText(articuloEncontrado.getDescripcion());
+
+                //Setea JCBox de Categoria en articulo
+                vista.getJcb_Categoria().removeAllItems();
+                vista.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
+
+                //Setea JCBox de Proveedor en articulo
+                vista.getJcb_Proveedor().removeAllItems();
+                vista.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial());
+                
+                
+                if(precioArticuloEncontrado != null){
+                    vista.getJtf_precio().setText("");
+                    vista.getJtf_precio().setText(Float.toString(precioArticuloEncontrado.getPrecio()));
+                    vista.getJtf_precio().setBackground(Color.GREEN);
+                }else{
+                    vista.getJtf_precio().setText("Sin Precio Asignado");                    
+                    vista.getJtf_precio().setBackground(Color.RED);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Lista Vacia");
+            }
+    
+    }
+    
+    
+    public void politicaValidacionDeCampos(){
+        //Politica de validacióón de Campos
+        vista.getValidador().validarSoloLetras(vista.getJtf_Descripcion());
+        vista.getValidador().LimitarCaracteres(vista.getJtf_Descripcion(), 30);
+
+        precioSoloFloat();
+        vista.getValidador().LimitarCaracteres(vista.getJtf_precio(), 8);
+                
+    }
+    
+    /**
+     * Modifica la habilitación de los JtextField de la vista en funcion al parametro de estado. 
+     * @param estado de campos
+     */
+    public void inhabilitarTodosLosCampos(boolean estado){
+        //inhabilita campos
+        vista.habilitarCampo(estado, vista.getJtf_ID());
+        vista.habilitarCampo(estado, vista.getJtf_Descripcion());        
+        vista.habilitarCampo(estado, vista.getJtf_precio());
+        
+    }
+    
+     public void limpiarTodosLosCampos(){        
+        vista.limpiarCampo(vista.getJtf_ID());
+        vista.limpiarCampo(vista.getJtf_Descripcion());
+        vista.limpiarCampo(vista.getJtf_precio());
+        
+        
+        //vista.limpiarCampo(vista.getJtfDireccion());
+        vista.limpiarCombobox(vista.getJcb_Categoria());
+        vista.limpiarCombobox(vista.getJcb_ListaDePrecio());
+        vista.limpiarCombobox(vista.getJcb_Proveedor());
+    }
+    
+    public void precioSoloFloat(){
+        vista.getValidador().validarNumeroDecimales(vista.getJtf_precio());
+    } 
+    
+    
+    
+    public int sizeTabla(){
+        int posicion =0;
+        for (PrecioArticulo precio : modelo.findPrecioArticuloEntities()) {            
+            posicion++;
+        }        
+        return posicion-1;
+    }  
 }

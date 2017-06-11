@@ -159,7 +159,6 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         add(jPanelArticulo);
         jPanelArticulo.setBounds(60, 370, 730, 270);
 
-        jbtn_Volver.setBackground(new java.awt.Color(0, 0, 0));
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
         jbtn_Volver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -172,7 +171,6 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         add(jlbl_TituloPanel);
         jlbl_TituloPanel.setBounds(190, 10, 440, 30);
 
-        jbtn_Cancelar.setBackground(new java.awt.Color(204, 0, 0));
         jbtn_Cancelar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jbtn_Cancelar.setText("CANCELAR");
         jbtn_Cancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -180,7 +178,6 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         add(jbtn_Cancelar);
         jbtn_Cancelar.setBounds(280, 680, 210, 50);
 
-        jbtn_Aceptar.setBackground(new java.awt.Color(0, 153, 51));
         jbtn_Aceptar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jbtn_Aceptar.setText("ACEPTAR");
         jbtn_Aceptar.setBorderPainted(false);
@@ -236,7 +233,7 @@ public final class PanelRegistroListaDePrecioArticulo extends javax.swing.JPanel
         tablaArticulos.addMouseListener(c);
         
         
-        
+        jtf_precio.addKeyListener(c);
         
     }
 

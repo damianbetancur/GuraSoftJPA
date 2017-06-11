@@ -13,8 +13,10 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Articulo;
 import model.JPAController.exceptions.NonexistentEntityException;
 import model.JPAController.exceptions.PreexistingEntityException;
+import model.ListaDePrecio;
 import model.PrecioArticulo;
 
 /**
@@ -141,16 +143,22 @@ public class PrecioArticuloJpaController implements Serializable {
         }
     }
     
-    //Buscar Cliente por DNI
-    public PrecioArticulo buscarPrecioArticulo(PrecioArticulo unPrecioArticulo){
+    
+    /**
+     * Busca el precio de un articulo
+     * @param unArticulo
+     * @param unaListaDePrecio
+     * @return 
+     */
+    public PrecioArticulo buscarPrecioDeArticuloConListaDePrecio(Articulo unArticulo, ListaDePrecio unaListaDePrecio){
         EntityManager em = getEntityManager();
         PrecioArticulo precioArticulo = null;
         String consulta;
         try {
             consulta ="FROM PrecioArticulo preArt WHERE preArt.id_articulo = ?1 AND preArt.id_listaDePrecio = ?2";
             Query query = em.createQuery(consulta);
-            query.setParameter(1, unPrecioArticulo.getId_articulo());
-            query.setParameter(2, unPrecioArticulo.getId_listaDePrecio());
+            query.setParameter(1, unArticulo.getId());
+            query.setParameter(2, unaListaDePrecio.getId());
             
             
             List <PrecioArticulo> lista = query.getResultList();
@@ -165,24 +173,5 @@ public class PrecioArticuloJpaController implements Serializable {
         return precioArticulo;
     }
     
-    public PrecioArticulo buscarPrecioArticuloPrimerListaDePrecio(PrecioArticulo unPrecioArticulo){
-        EntityManager em = getEntityManager();
-        PrecioArticulo precioArticulo = null;
-        String consulta;
-        try {
-            consulta ="FROM PrecioArticulo preArt WHERE preArt.id_articulo = ?1 AND preArt.id_listaDePrecio = 1 OR preArt.id_listaDePrecio = 2";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, unPrecioArticulo.getId_articulo());            
-            
-            List <PrecioArticulo> lista = query.getResultList();
-            if (!lista.isEmpty()) {
-                precioArticulo = lista.get(0);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally{
-            em.close();
-        }
-        return precioArticulo;
-    }
+    
 }

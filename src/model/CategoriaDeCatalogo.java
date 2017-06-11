@@ -6,15 +6,15 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,27 +22,24 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table(name="USUARIOS")
-public class Usuario implements Serializable {
+@Table (name="CATEGORIAS_ARTICULO")
+public class CategoriaDeCatalogo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="nombre")
-    private String nombre;
+    @Column(name="descripcion")
+    private String descripcion;
     
-    @Column(name="clave")
-    private String clave;
-
     @ManyToOne
-    @JoinColumn(name="id_tipoUsuario")
-    private TipoUsuario tipoUsuario; 
+    private Catalogo unCatalogo;
     
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="unUsuario")
-    private Empleado unEmpleado;
-    
+    ///Articulos que posee la Catalogoria de Articulos
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCategoriaDeCatalogo")
+    private List <Articulo> listaDeArticulos;
+
     public Long getId() {
         return id;
     }
@@ -61,10 +58,10 @@ public class Usuario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof CategoriaDeCatalogo)) {
             return false;
         }
-        Usuario other = (Usuario) object;
+        CategoriaDeCatalogo other = (CategoriaDeCatalogo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -73,41 +70,32 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Usuario[ id=" + id + " ]";
+        return getDescripcion();
     }
 
-    public String getNombre() {
-        return nombre;
+    public Catalogo getUnCatalogo() {
+        return unCatalogo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUnCatalogo(Catalogo unCatalogo) {
+        this.unCatalogo = unCatalogo;
     }
 
-    public String getClave() {
-        return clave;
+    public List <Articulo> getListaDeArticulos() {
+        return listaDeArticulos;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
+        this.listaDeArticulos = listaDeArticulos;
     }
 
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-
-    public Empleado getUnEmpleado() {
-        return unEmpleado;
-    }
-
-    public void setUnEmpleado(Empleado unEmpleado) {
-        this.unEmpleado = unEmpleado;
-    }
-    
     
     
 }
