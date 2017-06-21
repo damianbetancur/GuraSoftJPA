@@ -2,7 +2,7 @@
 -- Insercion de datos de Tipos de Usuarios
 --
 --
-INSERT INTO `tipo_usuarios`
+INSERT INTO `tipo_usuario`
 (`ID`, `descripcion`) 
 VALUES 
 (1, 'Administrador'),
@@ -11,7 +11,7 @@ VALUES
 --
 -- Insercion de datos de Usuarios
 --
-INSERT INTO `usuarios`
+INSERT INTO `usuario`
 (`ID`, `clave`, `nombre`, `id_tipoUsuario`) 
 VALUES 
 (1, 'Admin', 'Admin', 1),
@@ -20,7 +20,7 @@ VALUES
 --
 -- Insercion de datos de Zonas
 --
-INSERT INTO `zonas` 
+INSERT INTO `zona` 
 (`ID`, `nombre`) 
 VALUES 
 (1, 'NOROESTE'),
@@ -34,7 +34,7 @@ VALUES
 -- Insercion de datos de Provincia
 --
 
-INSERT INTO `provincias`
+INSERT INTO `provincia`
 (`ID`, `nombre`, `ZONA_ID`) 
 VALUES
 (1, 'Buenos Aires-GBA', 4),
@@ -65,7 +65,7 @@ VALUES
 --
 -- Insercion de datos de Zonas_Provincias
 --
-INSERT INTO `zonas_provincias`
+INSERT INTO `zona_provincia`
 (`Zona_ID`, `provincias_ID`) 
 VALUES 
 (4, 1),
@@ -93,7 +93,7 @@ VALUES
 (5, 23),
 (1, 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1, '5741', '13 DE ENERO', 19),
@@ -197,7 +197,7 @@ VALUES
 (99, '3603', 'AGENTE A VIDAL LEGUIZAMON', 9),
 (100, '3608', 'AGENTE ARGENTINO ALEGRE', 9);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (101, '3624', 'AGENTE F SANTIAGO IBA#EZ', 9),
@@ -301,7 +301,7 @@ VALUES
 (199, '3306', 'AGUAPEY', 7),
 (200, '3342', 'AGUAPEY', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (201, '8105', 'AGUARA', 1),
@@ -405,7 +405,7 @@ VALUES
 (299, '3101', 'ALDEA SALTO', 8),
 (300, '8126', 'ALDEA SAN ANDRES', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (301, '2826', 'ALDEA SAN ANTONIO', 8),
@@ -509,7 +509,7 @@ VALUES
 (399, '6309', 'ALPACHIRI', 11),
 (400, '5813', 'ALPAPUCA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (401, '5251', 'ALPAPUCA (STO.DOMINGO)', 22),
@@ -613,7 +613,7 @@ VALUES
 (499, '8345', 'ALUMINE', 15),
 (500, '4122', 'ALURRALDE', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (501, '2107', 'ALVAREZ', 21),
@@ -716,7 +716,7 @@ VALUES
 (598, '4117', 'ANGOSTURA', 24),
 (599, '4419', 'ANGOSTURA', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (600, '5155', 'ANGOSTURA', 6),
@@ -821,7 +821,7 @@ VALUES
 (699, '5297', 'ARCOYO', 6),
 (700, '4302', 'ARDILES', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (701, '4302', 'ARDILES DE LA COSTA', 22),
@@ -924,7 +924,7 @@ VALUES
 (798, '2113', 'ARROYO DEL MEDIO', 1),
 (799, '3144', 'ARROYO DEL MEDIO', 8);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (800, '3313', 'ARROYO DEL MEDIO', 14),
@@ -1028,7 +1028,7 @@ VALUES
 (898, '3280', 'ARROYO URQUIZA', 8),
 (899, '3196', 'ARROYO VEGA', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (900, '6437', 'ARROYO VENADO', 1),
@@ -1132,7 +1132,7 @@ VALUES
 (998, '9410', 'BAHIA BUEN SUCESO', 23),
 (999, '9111', 'BAHIA BUSTAMANTE', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1000, '9120', 'BAHIA CRACHER', 5),
@@ -1236,7 +1236,7 @@ VALUES
 (1098, '5871', 'BALDE DE LA MORA', 6),
 (1099, '5871', 'BALDE DE LA ORILLA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1100, '5871', 'BALDE DE LAS CA#AS', 6),
@@ -1340,7 +1340,7 @@ VALUES
 (1198, '5871', 'BAÑADO DE PAJA', 6),
 (1199, '5285', 'BAÑADO DE SOTO', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1200, '5248', 'BAÑADO DEL FUERTE', 6),
@@ -1444,7 +1444,7 @@ VALUES
 (1298, '1929', 'BASE NAVAL RIO SANTIAGO', 1),
 (1299, '3483', 'BASTIDORES', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1300, '3185', 'BASUALDO', 8),
@@ -1548,7 +1548,7 @@ VALUES
 (1398, '3366', 'BERNARDO DE IRIGOYEN', 14),
 (1399, '6220', 'BERNARDO LARROUDE', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1400, '7313', 'BERNARDO VERA Y PINTADO', 1),
@@ -1652,7 +1652,7 @@ VALUES
 (1498, '3403', 'BREGAIN CUE', 7),
 (1499, '4124', 'BRETE', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1500, '4126', 'BRETE', 17),
@@ -1756,7 +1756,7 @@ VALUES
 (1598, '3540', 'CABEZA DEL TIGRE', 4),
 (1599, '5449', 'CABEZA DEL TORO', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1600, '3228', 'CABI MONDA', 8),
@@ -1860,7 +1860,7 @@ VALUES
 (1698, '8138', 'CALEU CALEU', 11),
 (1699, '6387', 'CALEUFU', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1700, '7613', 'CALFUCURA', 1),
@@ -1964,7 +1964,7 @@ VALUES
 (1798, '2123', 'CAMPO CALVO', 21),
 (1799, '2423', 'CAMPO CALVO', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1800, '3427', 'CAMPO CARDOZO', 7),
@@ -2068,7 +2068,7 @@ VALUES
 (1898, '8185', 'CAMPO LOS AROMOS', 1),
 (1899, '6330', 'CAMPO LUDUE#A', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (1900, '3011', 'CAMPO MAGNIN', 21),
@@ -2172,7 +2172,7 @@ VALUES
 (1998, '4354', 'CANDELARIA (SARMIENTO)', 22),
 (1999, '4201', 'CANDELARIA (SILIPICA)', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2000, '5235', 'CANDELARIA NORTE', 6),
@@ -2276,7 +2276,7 @@ VALUES
 (2098, '8424', 'CAÑADA GRANDE', 16),
 (2099, '3405', 'CAÑADA GRANDE (GRAL.PAZ)', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2100, '5891', 'CAÑADA GRANDE (S.ALBERTO)', 6),
@@ -2380,7 +2380,7 @@ VALUES
 (2198, '5131', 'CAPILLA DE ESPERANZA', 6),
 (2199, '5125', 'CAPILLA DE LA SDA.FAMILIA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2200, '5101', 'CAPILLA DE REMEDIOS', 6),
@@ -2484,7 +2484,7 @@ VALUES
 (2298, '5621', 'CARMENSA', 13),
 (2299, '5166', 'CARNERILLO (COSQUIN-PUNIL', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2300, '5805', 'CARNERILLO (JUAREZ CELMAN', 6),
@@ -2588,7 +2588,7 @@ VALUES
 (2398, '7547', 'CASCADA', 1),
 (2399, '5172', 'CASCADA DE LA IGLESIA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2400, '5172', 'CASCADA DE LOS DURAZNOS', 6),
@@ -2692,7 +2692,7 @@ VALUES
 (2498, '9217', 'CENTRO CIVICO', 5),
 (2499, '4612', 'CENTRO FORESTAL', 10);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2500, '9035', 'CENTRO RIO MAYO', 5),
@@ -2796,7 +2796,7 @@ VALUES
 (2598, '9120', 'CERRO PICHAIN', 5),
 (2599, '4643', 'CERRO REDONDO', 10);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2600, '9017', 'CERRO RENZEL', 20),
@@ -2900,7 +2900,7 @@ VALUES
 (2698, '5773', 'CHAÑAR DE LA LEGUA', 19),
 (2699, '4301', 'CHAÑAR ESQUINA', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2700, '3187', 'CHAÑAR FELICIANO', 8),
@@ -3004,7 +3004,7 @@ VALUES
 (2798, '5255', 'CHILCA (SOL DE JULIO)', 22),
 (2799, '4319', 'CHILCA JULIANA', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2800, '5251', 'CHILCA(STO.DOMINGO-OJO DE', 22),
@@ -3108,7 +3108,7 @@ VALUES
 (2898, '4119', 'CHURQUI', 24),
 (2899, '4301', 'CHURQUI', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (2900, '5246', 'CHURQUI CA#ADA', 6),
@@ -3212,7 +3212,7 @@ VALUES
 (2998, '6279', 'CNEL.SEGOVIA', 19),
 (2999, '6628', 'CNEL.SEGUI', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3000, '7540', 'CNEL.SUAREZ', 1),
@@ -3316,7 +3316,7 @@ VALUES
 (3098, '2317', 'CNIA.BIGAND', 21),
 (3099, '2651', 'CNIA.BISMARCK', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3100, '3206', 'CNIA.BIZCOCHO', 8),
@@ -3420,7 +3420,7 @@ VALUES
 (3198, '3734', 'CNIA.DRYSDALE', 4),
 (3199, '2845', 'CNIA.DUPORTAL', 8);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3200, '3553', 'CNIA.DURAN', 21),
@@ -3524,7 +3524,7 @@ VALUES
 (3298, '3206', 'CNIA.GUALEGUAYCITO', 8),
 (3299, '3309', 'CNIA.GUARANI', 14);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3300, '3252', 'CNIA.GUIBURG', 8),
@@ -3628,7 +3628,7 @@ VALUES
 (3398, '6132', 'CNIA.LA MAGDALENA DE ORO', 6),
 (3399, '6214', 'CNIA.LA MARGARITA', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3400, '3056', 'CNIA.LA MARIA', 21),
@@ -3732,7 +3732,7 @@ VALUES
 (3498, '3248', 'CNIA.LUCRECIA', 8),
 (3499, '3440', 'CNIA.LUJAN', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3500, '5738', 'CNIA.LUNA', 19),
@@ -3836,7 +3836,7 @@ VALUES
 (3598, '5801', 'CNIA.PASO CARRIL', 6),
 (3599, '3601', 'CNIA.PASTORIL', 9);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3600, '2356', 'CNIA.PAULA', 22),
@@ -3940,7 +3940,7 @@ VALUES
 (3698, '3246', 'CNIA.SAN MANUEL', 8),
 (3699, '3563', 'CNIA.SAN MANUEL', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3700, '3113', 'CNIA.SAN MARTIN', 8),
@@ -4044,7 +4044,7 @@ VALUES
 (3798, '5194', 'CNIA.VAC.DE CALAMUCHITA', 6),
 (3799, '5857', 'CNIA.VAC.DE EMPLEADOS', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3800, '2115', 'CNIA.VALDEZ', 21),
@@ -4148,7 +4148,7 @@ VALUES
 (3898, '4111', 'COLOMBRES', 24),
 (3899, '4419', 'COLOME', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (3900, '2720', 'COLON', 1),
@@ -4252,7 +4252,7 @@ VALUES
 (3998, '9201', 'CORCOVADO', 5),
 (3999, '5000', 'CORDOBA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4000, '5331', 'CORDOBITA', 3),
@@ -4356,7 +4356,7 @@ VALUES
 (4098, '9201', 'COSTA DEL LEPA', 5),
 (4099, '3601', 'COSTA DEL LINDO', 9);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4100, '3155', 'COSTA DEL NOGOYA', 8),
@@ -4460,7 +4460,7 @@ VALUES
 (4198, '7116', 'CUARTEL 9NO.', 1),
 (4199, '6700', 'CUARTEL IV', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4200, '8105', 'CUATREROS', 1),
@@ -4564,7 +4564,7 @@ VALUES
 (4298, '6271', 'DE LA SERNA', 6),
 (4299, '5200', 'DEAN FUNES', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4300, '7521', 'DEFERRARI', 1),
@@ -4668,7 +4668,7 @@ VALUES
 (4398, '5443', 'DIVISORIA', 18),
 (4399, '6279', 'DIXONVILLE', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4400, '6305', 'DOBLAS', 11),
@@ -4772,7 +4772,7 @@ VALUES
 (4498, '8164', 'DUFAUR', 1),
 (4499, '2764', 'DUGGAN', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4500, '6405', 'DUHAU', 1),
@@ -4876,7 +4876,7 @@ VALUES
 (4598, '4306', 'EL AÑIL', 22),
 (4599, '5947', 'EL ARAÑADO', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4600, '3563', 'EL ARAZA', 21),
@@ -4980,7 +4980,7 @@ VALUES
 (4698, '4711', 'EL BOLSON (LOS VARELA)', 3),
 (4699, '7507', 'EL BOMBERO', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4700, '7601', 'EL BOQUERON', 1),
@@ -5084,7 +5084,7 @@ VALUES
 (4798, '5197', 'EL CARMEN (YACANTO)', 6),
 (4799, '3561', 'EL CARMEN DE AVELLANEDA', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4800, '7203', 'EL CARMEN DE LANGUEYU', 1),
@@ -5188,7 +5188,7 @@ VALUES
 (4898, '8353', 'EL CHOLAR', 15),
 (4899, '5701', 'EL CHORRILLO', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (4900, '3636', 'EL CHORRO', 9),
@@ -5292,7 +5292,7 @@ VALUES
 (4998, '6321', 'EL DESTINO (TELEN)', 11),
 (4999, '6381', 'EL DESTINO(CONELO)', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5000, '6305', 'EL DESTINO(ROLON)', 1),
@@ -5396,7 +5396,7 @@ VALUES
 (5098, '4409', 'EL GOLGOTA', 17),
 (5099, '3144', 'EL GRAMILLAL', 8);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5100, '4187', 'EL GRAMILLAR', 22),
@@ -5500,7 +5500,7 @@ VALUES
 (5198, '3760', 'EL MATACO', 22),
 (5199, '5724', 'EL MATACO', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5200, '6321', 'EL MATE', 11),
@@ -5604,7 +5604,7 @@ VALUES
 (5298, '5589', 'EL ÑANGO', 13),
 (5299, '6277', 'EL OASIS', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5300, '6300', 'EL OASIS', 11),
@@ -5708,7 +5708,7 @@ VALUES
 (5398, '5719', 'EL PEDERNAL', 19),
 (5399, '5361', 'EL PEDREGAL', 12);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5400, '5755', 'EL PEJE', 19),
@@ -5812,7 +5812,7 @@ VALUES
 (5498, '4149', 'EL POTRERILLO', 24),
 (5499, '4711', 'EL POTRERILLO', 3);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5500, '5711', 'EL POTRERILLO', 19),
@@ -5916,7 +5916,7 @@ VALUES
 (5598, '3109', 'EL RAMBLON', 8),
 (5599, '5582', 'EL RAMBLON', 13);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5600, '5719', 'EL RAMBLON', 19),
@@ -6020,7 +6020,7 @@ VALUES
 (5698, '6352', 'EL RUBI', 11),
 (5699, '3451', 'EL RUBIO', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5700, '3734', 'EL SALADILLO', 4),
@@ -6124,7 +6124,7 @@ VALUES
 (5798, '5835', 'EL TALA (CHACABUCO)', 6),
 (5799, '4715', 'EL TALA (EL RODEO-AMBATO)', 3);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5800, '5701', 'EL TALA (EMBALSE FLORIDA)', 19),
@@ -6228,7 +6228,7 @@ VALUES
 (5898, '3736', 'EL URUNDAY', 22),
 (5899, '5601', 'EL USILLAL', 13);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (5900, '5473', 'EL VALDECITO', 12),
@@ -6332,7 +6332,7 @@ VALUES
 (5998, '3007', 'EMPALME SAN CARLOS', 21),
 (5999, '2918', 'EMPALME VA.CONSTITUCION', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6000, '3418', 'EMPEDRADO', 7),
@@ -6436,7 +6436,7 @@ VALUES
 (6098, '6601', 'ESPORA', 1),
 (6099, '9200', 'ESQUEL', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6100, '3196', 'ESQUINA', 7),
@@ -6540,7 +6540,7 @@ VALUES
 (6198, '5701', 'ESTANCIA GRANDE', 19),
 (6199, '9420', 'ESTANCIA INES', 23);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6200, '9420', 'ESTANCIA JOSE MENENDEZ', 23),
@@ -6644,7 +6644,7 @@ VALUES
 (6298, '3206', 'FEDERACION', 8),
 (6299, '4198', 'FEDERACION', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6300, '3180', 'FEDERAL', 8),
@@ -6748,7 +6748,7 @@ VALUES
 (6398, '3620', 'FORTIN FONTANA', 9),
 (6399, '4535', 'FORTIN FRIAS', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6400, '3601', 'FORTIN GALPON', 9),
@@ -6852,7 +6852,7 @@ VALUES
 (6498, '3526', 'GANDOLFI', 4),
 (6499, '4452', 'GAONA', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6500, '3403', 'GARABATA', 7),
@@ -6956,7 +6956,7 @@ VALUES
 (6598, '5501', 'GODOY CRUZ', 13),
 (6599, '5609', 'GOICO', 13);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6600, '6614', 'GOLDNEY', 1),
@@ -7060,7 +7060,7 @@ VALUES
 (6698, '7172', 'GRAL.PIRAN', 1),
 (6699, '4449', 'GRAL.PIZARRO', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6700, '6140', 'GRAL.PUEYRREDON', 6),
@@ -7164,7 +7164,7 @@ VALUES
 (6798, '3232', 'GUAVIRAVI', 7),
 (6799, '4452', 'GUAYACAN', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6800, '4506', 'GUAYACAN', 10),
@@ -7268,7 +7268,7 @@ VALUES
 (6898, '2840', 'HOJAS ANCHAS', 8),
 (6899, '9009', 'HOLDICH', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (6900, '5825', 'HOLMBERG', 6),
@@ -7372,7 +7372,7 @@ VALUES
 (6998, '8353', 'HUINGANCO', 15),
 (6999, '8353', 'HUITRIN', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7000, '4630', 'HUMAHUACA', 10),
@@ -7476,7 +7476,7 @@ VALUES
 (7098, '4168', 'INGENIO BELLA VISTA', 24),
 (7099, '4109', 'INGENIO CONCEPCION', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7100, '4184', 'INGENIO CRUZ ALTA (FCGB)', 22),
@@ -7580,7 +7580,7 @@ VALUES
 (7198, '4711', 'ISLA LARGA', 3),
 (7199, '5129', 'ISLA LARGA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7200, '4187', 'ISLA MOTA', 22),
@@ -7684,7 +7684,7 @@ VALUES
 (7298, '3550', 'JOBSON', 21),
 (7299, '5543', 'JOCOLI', 13);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7300, '5533', 'JOCOLI VIEJO', 13),
@@ -7788,7 +7788,7 @@ VALUES
 (7398, '8417', 'KILI MALAL', 16),
 (7399, '3750', 'KIMILIOJ', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7400, '4302', 'KISKA HUMANA', 22),
@@ -7892,7 +7892,7 @@ VALUES
 (7498, '4600', 'LA ALMONA', 10),
 (7499, '6279', 'LA AMALIA', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7500, '7130', 'LA AMALIA', 1),
@@ -7996,7 +7996,7 @@ VALUES
 (7598, '5248', 'LA BARRANCA(RIO SECO)', 6),
 (7599, '7260', 'LA BARRANCOSA', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7600, '5833', 'LA BARRANQUITA', 6),
@@ -8100,7 +8100,7 @@ VALUES
 (7698, '5465', 'LA CAÑADA (RODEO-IGLESIA)', 18),
 (7699, '5218', 'LA CAÑADA ANGOSTA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7700, '5803', 'LA CAÑADA GRANDE', 6),
@@ -8204,7 +8204,7 @@ VALUES
 (7798, '5467', 'LA CHIGUA', 18),
 (7799, '5431', 'LA CHILCA', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7800, '5473', 'LA CHILCA', 12),
@@ -8308,7 +8308,7 @@ VALUES
 (7898, '4187', 'LA COSTOSA', 22),
 (7899, '5220', 'LA COTITA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (7900, '6461', 'LA COTORRA', 1),
@@ -8412,7 +8412,7 @@ VALUES
 (7998, '5773', 'LA ESTANZUELA', 19),
 (7999, '6325', 'LA ESTHER', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8000, '5242', 'LA ESTRECHURA', 6),
@@ -8516,7 +8516,7 @@ VALUES
 (8098, '3747', 'LA FORTUNA (CAMPO GALLO)', 22),
 (8099, '4304', 'LA FORTUNA (GRAMILLA)', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8100, '4197', 'LA FRAGUA', 22),
@@ -8620,7 +8620,7 @@ VALUES
 (8198, '3064', 'LA HUERTA', 22),
 (8199, '4633', 'LA HUERTA', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8200, '5383', 'LA HUERTA', 12),
@@ -8724,7 +8724,7 @@ VALUES
 (8298, '6321', 'LA LAURENTINA', 11),
 (8299, '9227', 'LA LAURITA', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8300, '5411', 'LA LEGUA', 18),
@@ -8828,7 +8828,7 @@ VALUES
 (8398, '7260', 'LA MARGARITA(SADALILLO)', 1),
 (8399, '5722', 'LA MARIA', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8400, '6640', 'LA MARIA', 1),
@@ -8932,7 +8932,7 @@ VALUES
 (8498, '4139', 'LA OLLADA', 3),
 (8499, '4603', 'LA OLLADA-DTO.P.D.CARMEN', 10);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8500, '4501', 'LA OLLADA-DTO.STA.BARBARA', 10),
@@ -9036,7 +9036,7 @@ VALUES
 (8598, '5721', 'LA PEREGRINA', 19),
 (8599, '8315', 'LA PEREZA', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8600, '3216', 'LA PERLA', 8),
@@ -9140,7 +9140,7 @@ VALUES
 (8698, '6301', 'LA PRIMAVERA-DPTO.ATREUCO', 11),
 (8699, '6214', 'LA PRIMAVERA-DPTO.RANCUL', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8700, '5565', 'LA PRIMAVERA-DPTO.TUNUYAN', 13),
@@ -9244,7 +9244,7 @@ VALUES
 (8798, '2354', 'LA RECOMPENSA', 22),
 (8799, '3765', 'LA RECONQUISTA', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8800, '5105', 'LA REDENCION', 6),
@@ -9348,7 +9348,7 @@ VALUES
 (8898, '5380', 'LA SERENA', 12),
 (8899, '5703', 'LA SERRANA', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (8900, '5189', 'LA SERRANITA', 6),
@@ -9452,7 +9452,7 @@ VALUES
 (8998, '5738', 'LA TULA', 19),
 (8999, '4149', 'LA TUNA', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9000, '5713', 'LA TUNA', 19),
@@ -9556,7 +9556,7 @@ VALUES
 (9098, '5261', 'LA ZANJA', 3),
 (9099, '5276', 'LA ZANJA', 12);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9100, '6400', 'LA ZANJA', 1),
@@ -9660,7 +9660,7 @@ VALUES
 (9198, '5255', 'LAGUNA DEL SUNCHO', 22),
 (9199, '3514', 'LAGUNA ESCONDIDA', 4);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9200, '9410', 'LAGUNA ESCONDIDA', 23),
@@ -9764,7 +9764,7 @@ VALUES
 (9298, '3281', 'LAS ACHIRAS', 8),
 (9299, '7116', 'LAS ACHIRAS', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9300, '4113', 'LAS ACOSTILLAS', 24),
@@ -9868,7 +9868,7 @@ VALUES
 (9398, '5613', 'LAS CHACRAS', 13),
 (9399, '6381', 'LAS CHACRAS', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9400, '5284', 'LAS CHACRAS - MINAS', 6),
@@ -9972,7 +9972,7 @@ VALUES
 (9498, '3472', 'LAS ELINAS', 7),
 (9499, '2607', 'LAS ENCADENADAS', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9500, '5109', 'LAS ENCADENADAS', 6),
@@ -10076,7 +10076,7 @@ VALUES
 (9598, '5719', 'LAS LAGUNAS(CANTANTAL)', 19),
 (9599, '3191', 'LAS LAGUNAS(LA PAZ)', 8);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9600, '2568', 'LAS LAGUNITAS', 6),
@@ -10180,7 +10180,7 @@ VALUES
 (9698, '8353', 'LAS OVEJAS', 15),
 (9699, '2559', 'LAS OVERIAS', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9700, '2354', 'LAS PALMAS', 22),
@@ -10284,7 +10284,7 @@ VALUES
 (9798, '6533', 'LAS ROSAS', 1),
 (9799, '5295', 'LAS ROSAS (SALSACATE POCH', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9800, '5131', 'LAS ROSAS (TINOCO COLON)', 6),
@@ -10388,7 +10388,7 @@ VALUES
 (9898, '5569', 'LAS VIOLETAS', 13),
 (9899, '9007', 'LAS VIOLETAS', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (9900, '5590', 'LAS VISCACHAS', 13),
@@ -10492,7 +10492,7 @@ VALUES
 (9998, '3463', 'LIMAS CUE', 7),
 (9999, '8313', 'LIMAY CENTRO', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10000, '8201', 'LIMAY MAHUIDA', 11),
@@ -10597,7 +10597,7 @@ VALUES
 (10099, '3420', 'LOMAS SALADAS', 7);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10100, '3483', 'LOMAS SAN JUAN', 7),
@@ -10702,7 +10702,7 @@ VALUES
 (10199, '5713', 'LOS ARCES', 19);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10200, '2720', 'LOS ARCOS', 21),
@@ -10807,7 +10807,7 @@ VALUES
 (10299, '5435', 'LOS CHAÑARES', 18);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10300, '6475', 'LOS CHAÑARES', 1),
@@ -10912,7 +10912,7 @@ VALUES
 (10399, '3628', 'LOS ESTEROS', 9);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10400, '1895', 'LOS EUCALIPTOS', 1),
@@ -11017,7 +11017,7 @@ VALUES
 (10499, '4501', 'LOS MATOS', 10);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10500, '5751', 'LOS MEDANITOS', 19),
@@ -11122,7 +11122,7 @@ VALUES
 (10599, '5253', 'LOS PAREDONES', 22);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10600, '5701', 'LOS PASITOS', 19),
@@ -11227,7 +11227,7 @@ VALUES
 (10699, '5329', 'LOS ROBLES', 12);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10700, '8341', 'LOS RODILLOS', 15),
@@ -11332,7 +11332,7 @@ VALUES
 (10799, '3543', 'LOTE12/12', 4);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10800, '8138', 'LOTE14/14', 1),
@@ -11437,7 +11437,7 @@ VALUES
 (10899, '8353', 'LUICOCO', 15);
 
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (10900, '2423', 'LUIS A.SAUZE', 6),
@@ -11541,7 +11541,7 @@ VALUES
 (10998, '6443', 'MALABIA', 1),
 (10999, '3572', 'MALABRIGO', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11000, '5220', 'MALABRIGO', 6),
@@ -11645,7 +11645,7 @@ VALUES
 (11098, '6608', 'MANUEL JOSE GARCIA', 1),
 (11099, '2713', 'MANUEL OCAMPO', 1);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11100, '4166', 'MANUELA PEDRAZA', 24),
@@ -11749,7 +11749,7 @@ VALUES
 (11198, '3481', 'MARTINEZ CUE', 7),
 (11199, '3536', 'MARTINEZ DE HOZ', 4);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11200, '4537', 'MARTINEZ DEL TINEO', 17),
@@ -11853,7 +11853,7 @@ VALUES
 (11298, '3420', 'MEDIO DIA', 7),
 (11299, '4238', 'MEDIO MUNDO', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11300, '5585', 'MEDRANO', 13),
@@ -11957,7 +11957,7 @@ VALUES
 (11398, '4415', 'MINAS VICTORIA', 17),
 (11399, '4530', 'MINAS Y.P.F.', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11400, '5579', 'MINELLI', 13),
@@ -12061,7 +12061,7 @@ VALUES
 (11498, '5557', 'MOLUCHES', 13),
 (11499, '4624', 'MOLULO', 10);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11500, '4449', 'MONASTERIO', 17),
@@ -12165,7 +12165,7 @@ VALUES
 (11598, '8144', 'MTE.LA PLATA', 1),
 (11599, '4117', 'MTE.LARGO', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11600, '2564', 'MTE.LEÑA', 6),
@@ -12269,7 +12269,7 @@ VALUES
 (11698, '5261', 'NAVAGUIN', 3),
 (11699, '2103', 'NAVARRO', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11700, '5209', 'NAVARRO', 6),
@@ -12373,7 +12373,7 @@ VALUES
 (11798, '6216', 'NVA.GALIA', 19),
 (11799, '3461', 'NVA.GRANADA', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11800, '4301', 'NVA.GRANADA(ALBERDI)', 22),
@@ -12477,7 +12477,7 @@ VALUES
 (11898, '8418', 'OJOS DE AGUA (EMBAC.FCGR)', 16),
 (11899, '8409', 'OJOS DEL AGUA(LLAO \ BRC)', 16);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (11900, '4413', 'OLACAPATO', 17),
@@ -12581,7 +12581,7 @@ VALUES
 (11998, '5385', 'PACATADA', 12),
 (11999, '5405', 'PACHACO', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12000, '7020', 'PACHAN', 1),
@@ -12685,7 +12685,7 @@ VALUES
 (12098, '5961', 'PALO NEGRO', 6),
 (12099, '4231', 'PALO PARADO', 3);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12100, '5281', 'PALO PARADO', 6),
@@ -12789,7 +12789,7 @@ VALUES
 (12198, '5461', 'PANACAN', 18),
 (12199, '5893', 'PANAHOLMA', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12200, '3361', 'PANAMBI', 14),
@@ -12893,7 +12893,7 @@ VALUES
 (12298, '8341', 'PASO CATA TUN', 15),
 (12299, '3197', 'PASO CEJAS', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12300, '4701', 'PASO CERCADO', 3),
@@ -12997,7 +12997,7 @@ VALUES
 (12398, '8115', 'PASO MAYOR', 1),
 (12399, '3190', 'PASO MEDINA', 8);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12400, '9227', 'PASO MORENO', 5),
@@ -13101,7 +13101,7 @@ VALUES
 (12498, '2301', 'PBLO.MARINI', 21),
 (12499, '2631', 'PBLO.MIGUEL TORRES', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12500, '3122', 'PBLO.MORENO', 8),
@@ -13205,7 +13205,7 @@ VALUES
 (12598, '4603', 'PERICO SAN JUAN', 10),
 (12599, '3025', 'PERICOTA', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12600, '8416', 'PERITO MORENO', 16),
@@ -13309,7 +13309,7 @@ VALUES
 (12698, '5871', 'PIEDRA PINTADA', 6),
 (12699, '8315', 'PIEDRA PINTADA', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12700, '5753', 'PIEDRA ROSADA', 19),
@@ -13413,7 +13413,7 @@ VALUES
 (12798, '8333', 'PLANICIE DE JAGUELITO', 16),
 (12799, '5753', 'PLANTA DE SANDIA', 19);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12800, '4452', 'PLATERO', 22),
@@ -13517,7 +13517,7 @@ VALUES
 (12898, '5405', 'POTRERITOS', 18),
 (12899, '4129', 'POTRERO', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (12900, '5265', 'POTRERO', 3),
@@ -13621,7 +13621,7 @@ VALUES
 (12998, '3636', 'POZO DEL MAZA', 9),
 (12999, '5274', 'POZO DEL MEDIO', 12);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13000, '5715', 'POZO DEL MEDIO', 19),
@@ -13725,7 +13725,7 @@ VALUES
 (13098, '5231', 'PROVIDENCIA', 6),
 (13099, '3506', 'PROVINCIA PLAZA', 4);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13100, '3107', 'PTE.AVELLANEDA', 8),
@@ -13829,7 +13829,7 @@ VALUES
 (13198, '3381', 'PTO.PIRAY', 14),
 (13199, '3386', 'PTO.PTE.AVELLANEDA', 14);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13200, '7631', 'PTO.QUEQUEN', 1),
@@ -13933,7 +13933,7 @@ VALUES
 (13298, '5438', 'PUENTE RUFINO', 18),
 (13299, '3514', 'PUENTE SVRITZ', 4);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13300, '3153', 'PUENTE VICTORIA', 8),
@@ -14037,7 +14037,7 @@ VALUES
 (13398, '5153', 'PUESTO GUZMAN', 6),
 (13399, '8319', 'PUESTO HERNANDEZ(BAT.YPF)', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13400, '3487', 'PUESTO ISLA', 7),
@@ -14141,7 +14141,7 @@ VALUES
 (13498, '3302', 'PUNTA MERCEDES', 7),
 (13499, '9313', 'PUNTA MERCEDES', 20);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13500, '9120', 'PUNTA NINFAS', 5),
@@ -14245,7 +14245,7 @@ VALUES
 (13598, '9201', 'QUICHAURA', 5),
 (13599, '9405', 'QUIEN SABE', 20);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13600, '8345', 'QUILA - CHANQUIL', 15),
@@ -14349,7 +14349,7 @@ VALUES
 (13698, '2701', 'RANCAGUA', 1),
 (13699, '4178', 'RANCHILLOS', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13700, '4178', 'RANCHILLOS VIEJOS', 24),
@@ -14453,7 +14453,7 @@ VALUES
 (13798, '4111', 'RETIRO', 24),
 (13799, '4162', 'RETIRO', 24);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13800, '4421', 'RETIRO', 17),
@@ -14557,7 +14557,7 @@ VALUES
 (13898, '4301', 'RINCON(BOQUERON-FIGUEROA)', 22),
 (13899, '5162', 'RINCON(CASA GDE.-PUNILLA)', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (13900, '5442', 'RINCON(CAUCETE-CAUCETE)', 18),
@@ -14661,7 +14661,7 @@ VALUES
 (13998, '4301', 'RIO MUERTO', 22),
 (13999, '4504', 'RIO NEGRO', 10);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14000, '5460', 'RIO PALO', 18),
@@ -14765,7 +14765,7 @@ VALUES
 (14098, '3448', 'ROLON CUE', 7),
 (14099, '3450', 'ROLON JACINTO', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14100, '4111', 'ROMA', 24),
@@ -14869,7 +14869,7 @@ VALUES
 (14198, '4235', 'SACUMA', 3),
 (14199, '3222', 'SAENZ VALIENTE', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14200, '6022', 'SAFORCADA', 1),
@@ -14973,7 +14973,7 @@ VALUES
 (14298, '4186', 'SAN AGUSTIN', 24),
 (14299, '4421', 'SAN AGUSTIN', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14300, '5191', 'SAN AGUSTIN', 6),
@@ -15077,7 +15077,7 @@ VALUES
 (14398, '3302', 'SAN ANTONIO(ITUZAINGO)', 14),
 (14399, '3222', 'SAN ANTONIO(JUAN PUJOL)', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14400, '3601', 'SAN ANTONIO(LAISHI)', 9),
@@ -15181,7 +15181,7 @@ VALUES
 (14498, '3420', 'SAN EMILIO', 7),
 (14499, '6321', 'SAN EMILIO', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14500, '8136', 'SAN EMILIO (ALGARROBO)', 1),
@@ -15285,7 +15285,7 @@ VALUES
 (14598, '5751', 'SAN GREGORIO', 19),
 (14599, '2347', 'SAN GUILLERMO', 21);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14600, '2512', 'SAN GUILLERMO', 21),
@@ -15389,7 +15389,7 @@ VALUES
 (14698, '2354', 'SAN JOSE', 22),
 (14699, '2356', 'SAN JOSE', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14700, '2569', 'SAN JOSE', 6),
@@ -15493,7 +15493,7 @@ VALUES
 (14798, '3302', 'SAN JUAN', 7),
 (14799, '3306', 'SAN JUAN', 14);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14800, '3344', 'SAN JUAN', 7),
@@ -15597,7 +15597,7 @@ VALUES
 (14898, '6009', 'SAN MARCELO', 21),
 (14899, '6214', 'SAN MARCELO', 11);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (14900, '3248', 'SAN MARCIAL', 8),
@@ -15701,7 +15701,7 @@ VALUES
 (14998, '4208', 'SAN PABLO (LORETO)', 22),
 (14999, '5209', 'SAN PABLO (S.F.DEL CHAÑAR', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15000, '4220', 'SAN PABLO (TMAS.RIO HONDO', 22),
@@ -15805,7 +15805,7 @@ VALUES
 (15098, '4322', 'SAN RAMON (FERNAND-ROBLES', 22),
 (15099, '4238', 'SAN RAMON (GUASAYAN)', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15100, '4301', 'SAN RAMON (HUACHANA)', 22),
@@ -15909,7 +15909,7 @@ VALUES
 (15198, '2912', 'SANCHEZ', 1),
 (15199, '5539', 'SANCHEZ DE BUSTAMANTE', 13);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15200, '5427', 'SANCHEZ DE LORIA (E.FCGSM', 18),
@@ -16013,7 +16013,7 @@ VALUES
 (15298, '4317', 'SAUCEN', 22),
 (15299, '4315', 'SAUCES', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15300, '3191', 'SAUCESITO', 8),
@@ -16117,7 +16117,7 @@ VALUES
 (15398, '8532', 'SIERRA GRANDE', 16),
 (15399, '9023', 'SIERRA NEVADA', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15400, '9207', 'SIERRA NEVADA', 5),
@@ -16221,7 +16221,7 @@ VALUES
 (15498, '4115', 'SOLEDAD(AGUA DULCE-LEALES', 24),
 (15499, '4530', 'SOLEDAD(S RAMON NVA ORAN)', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15500, '2764', 'SOLIS', 1),
@@ -16325,7 +16325,7 @@ VALUES
 (15598, '5831', 'STA.CLARA(S.NICOLAS PUNIL', 6),
 (15599, '5425', 'STA.CLARA(VILLA KRAUSE)', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15600, '7406', 'STA.CLEMENTINA', 1),
@@ -16429,7 +16429,7 @@ VALUES
 (15698, '5715', 'STA.LUCIA(LAS PALOMAS)', 19),
 (15699, '3440', 'STA.LUCIA(LAVALLE)', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15700, '5260', 'STA.LUCIA(RECREO)', 3),
@@ -16533,7 +16533,7 @@ VALUES
 (15798, '4423', 'STA.ROSA', 17),
 (15799, '4427', 'STA.ROSA', 17);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15800, '4432', 'STA.ROSA', 17),
@@ -16637,7 +16637,7 @@ VALUES
 (15898, '4301', 'STO.DOMINGO ROBLES', 22),
 (15899, '3326', 'STO.PIPO', 14);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (15900, '3306', 'STO.TOMAS', 14),
@@ -16741,7 +16741,7 @@ VALUES
 (15998, '4324', 'TACO HUACO', 22),
 (15999, '4321', 'TACO ISLA', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16000, '5250', 'TACO MISQUI', 22),
@@ -16845,7 +16845,7 @@ VALUES
 (16098, '5721', 'TAMASCANES', 19),
 (16099, '5401', 'TAMBERIAS (D.CALINGASTA)', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16100, '5461', 'TAMBERIAS (P.DEL CHA#AR)', 18),
@@ -16949,7 +16949,7 @@ VALUES
 (16198, '5569', 'TIERRAS BLANCAS', 13),
 (16199, '8353', 'TIERRAS BLANCAS', 15);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16200, '4334', 'TIESTITUYOS', 22),
@@ -17053,7 +17053,7 @@ VALUES
 (16298, '4208', 'TORO CHARQUINA', 22),
 (16299, '3197', 'TORO CHIPAY', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16300, '9207', 'TORO HOSCO', 5),
@@ -17157,7 +17157,7 @@ VALUES
 (16398, '3454', 'TRES BOCAS(B. ESPERANZA)', 7),
 (16399, '3194', 'TRES BOCAS(GUAYQUIRARO)', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16400, '8212', 'TRES BOTONES', 11),
@@ -17261,7 +17261,7 @@ VALUES
 (16498, '4203', 'TRONCO JURAS', 22),
 (16499, '5223', 'TRONCO POZO', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16500, '5253', 'TRONCO QUEMADO', 22),
@@ -17365,7 +17365,7 @@ VALUES
 (16598, '3248', 'URQUIZA', 8),
 (16599, '3474', 'URUGUAY', 7);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16600, '4542', 'URUNDEL', 17),
@@ -17469,7 +17469,7 @@ VALUES
 (16698, '5221', 'VA.CERRO NEGRO', 6),
 (16699, '5471', 'VA.CHEPES', 12);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16700, '5189', 'VA.CIUD.PARQ.LOS REARTES', 6),
@@ -17573,7 +17573,7 @@ VALUES
 (16798, '2800', 'VA.FOX', 1),
 (16799, '5425', 'VA.FRANCA', 18);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16800, '6058', 'VA.FRANCIA(PDO.GRL.PINTO)', 1),
@@ -17677,7 +17677,7 @@ VALUES
 (16898, '3000', 'VA.MARIA SELVA', 21),
 (16899, '5220', 'VA.MARIA(J.MARIA - COLON)', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (16900, '4101', 'VA.MARIANO MORENO', 24),
@@ -17781,7 +17781,7 @@ VALUES
 (16998, '2124', 'VA.SAN DIEGO', 21),
 (16999, '5947', 'VA.SAN ESTEBAN', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (17000, '5194', 'VA.SAN FELIPE', 6),
@@ -17885,7 +17885,7 @@ VALUES
 (17098, '8336', 'VALLE AZUL', 16),
 (17099, '9005', 'VALLE C', 5);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (17100, '4631', 'VALLE COLORADO', 10),
@@ -17989,7 +17989,7 @@ VALUES
 (17198, '6140', 'VICUÑA MACKENNA', 6),
 (17199, '4751', 'VICUÑA PAMPA', 3);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (17200, '3048', 'VIDELA', 21),
@@ -18093,7 +18093,7 @@ VALUES
 (17298, '4324', 'YACANO', 22),
 (17299, '5877', 'YACANTO', 6);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (17300, '5197', 'YACANTO-CALAMUCHITA', 6),
@@ -18197,7 +18197,7 @@ VALUES
 (17398, '4208', 'YULU HUASI', 22),
 (17399, '5251', 'YUMAMPA', 22);
 
-INSERT INTO `localidades`
+INSERT INTO `localidad`
 (`ID`, `codigoPostal`, `nombre`, `PROVINCIA_ID`) 
 VALUES
 (17400, '3620', 'YUNCA', 9),
@@ -18263,7 +18263,7 @@ VALUES
 --
 -- Insercion de datos de Localidades
 --
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18368,7 +18368,7 @@ VALUES
 (6, 98),	
 (9, 99);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18474,7 +18474,7 @@ VALUES
 (18, 198),	
 (7, 199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18580,7 +18580,7 @@ VALUES
 (1, 298),	
 (8, 299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18686,7 +18686,7 @@ VALUES
 (24, 398),	
 (11, 399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18792,7 +18792,7 @@ VALUES
 (3, 498),	
 (15, 499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -18898,7 +18898,7 @@ VALUES
 (24, 598),	
 (17, 599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19004,7 +19004,7 @@ VALUES
 (24, 698),	
 (6, 699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19110,7 +19110,7 @@ VALUES
 (1, 798),	
 (8, 799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19216,7 +19216,7 @@ VALUES
 (8, 898),	
 (7, 899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19322,7 +19322,7 @@ VALUES
 (23, 998),	
 (5, 999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19428,7 +19428,7 @@ VALUES
 (6, 1098),	
 (6, 1099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19534,7 +19534,7 @@ VALUES
 (6, 1198),	
 (6, 1199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19640,7 +19640,7 @@ VALUES
 (1, 1298),	
 (7, 1299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19746,7 +19746,7 @@ VALUES
 (14, 1398),	
 (11, 1399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19852,7 +19852,7 @@ VALUES
 (7, 1498),	
 (24, 1499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -19958,7 +19958,7 @@ VALUES
 (4, 1598),	
 (18, 1599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20064,7 +20064,7 @@ VALUES
 (11, 1698),	
 (11, 1699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20170,7 +20170,7 @@ VALUES
 (21, 1798),	
 (6, 1799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20276,7 +20276,7 @@ VALUES
 (1, 1898),	
 (11, 1899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20382,7 +20382,7 @@ VALUES
 (22, 1998),	
 (22, 1999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20488,7 +20488,7 @@ VALUES
 (16, 2098),	
 (7, 2099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20594,7 +20594,7 @@ VALUES
 (6, 2198),	
 (6, 2199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20700,7 +20700,7 @@ VALUES
 (13, 2298),	
 (6, 2299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20806,7 +20806,7 @@ VALUES
 (1, 2398),	
 (6, 2399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -20912,7 +20912,7 @@ VALUES
 (5, 2498),	
 (10, 2499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21018,7 +21018,7 @@ VALUES
 (5, 2598),	
 (10, 2599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21124,7 +21124,7 @@ VALUES
 (19, 2698),	
 (22, 2699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21230,7 +21230,7 @@ VALUES
 (22, 2798),	
 (22, 2799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21336,7 +21336,7 @@ VALUES
 (24, 2898),	
 (22, 2899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21442,7 +21442,7 @@ VALUES
 (19, 2998),	
 (1, 2999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21548,7 +21548,7 @@ VALUES
 (21, 3098),	
 (6, 3099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21654,7 +21654,7 @@ VALUES
 (4, 3198),	
 (8, 3199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21760,7 +21760,7 @@ VALUES
 (8, 3298),	
 (14, 3299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21866,7 +21866,7 @@ VALUES
 (6, 3398),	
 (11, 3399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -21972,7 +21972,7 @@ VALUES
 (8, 3498),	
 (7, 3499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22078,7 +22078,7 @@ VALUES
 (6, 3598),	
 (9, 3599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22184,7 +22184,7 @@ VALUES
 (8, 3698),	
 (21, 3699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22290,7 +22290,7 @@ VALUES
 (6, 3798),	
 (6, 3799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22396,7 +22396,7 @@ VALUES
 (24, 3898),	
 (17, 3899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22502,7 +22502,7 @@ VALUES
 (5, 3998),	
 (6, 3999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22608,7 +22608,7 @@ VALUES
 (5, 4098),	
 (9, 4099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22714,7 +22714,7 @@ VALUES
 (1, 4198),	
 (1, 4199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22820,7 +22820,7 @@ VALUES
 (6, 4298),	
 (6, 4299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -22926,7 +22926,7 @@ VALUES
 (18, 4398),	
 (19, 4399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23032,7 +23032,7 @@ VALUES
 (1, 4498),	
 (1, 4499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23138,7 +23138,7 @@ VALUES
 (22, 4598),	
 (6, 4599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23244,7 +23244,7 @@ VALUES
 (3, 4698),	
 (1, 4699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23350,7 +23350,7 @@ VALUES
 (6, 4798),	
 (21, 4799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23456,7 +23456,7 @@ VALUES
 (15, 4898),	
 (19, 4899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23562,7 +23562,7 @@ VALUES
 (11, 4998),	
 (11, 4999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23668,7 +23668,7 @@ VALUES
 (17, 5098),	
 (8, 5099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23774,7 +23774,7 @@ VALUES
 (22, 5198),	
 (19, 5199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23880,7 +23880,7 @@ VALUES
 (13, 5298),	
 (19, 5299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -23986,7 +23986,7 @@ VALUES
 (19, 5398),	
 (12, 5399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24092,7 +24092,7 @@ VALUES
 (24, 5498),	
 (3, 5499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24198,7 +24198,7 @@ VALUES
 (8, 5598),	
 (13, 5599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24304,7 +24304,7 @@ VALUES
 (11, 5698),	
 (7, 5699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24410,7 +24410,7 @@ VALUES
 (6, 5798),	
 (3, 5799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24516,7 +24516,7 @@ VALUES
 (22, 5898),	
 (13, 5899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24622,7 +24622,7 @@ VALUES
 (21, 5998),	
 (21, 5999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24728,7 +24728,7 @@ VALUES
 (1, 6098),	
 (5, 6099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24834,7 +24834,7 @@ VALUES
 (19, 6198),	
 (23, 6199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -24940,7 +24940,7 @@ VALUES
 (8, 6298),	
 (17, 6299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25046,7 +25046,7 @@ VALUES
 (9, 6398),	
 (17, 6399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25152,7 +25152,7 @@ VALUES
 (4, 6498),	
 (17, 6499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25258,7 +25258,7 @@ VALUES
 (13, 6598),	
 (13, 6599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25364,7 +25364,7 @@ VALUES
 (1, 6698),	
 (17, 6699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25470,7 +25470,7 @@ VALUES
 (7, 6798),	
 (22, 6799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25576,7 +25576,7 @@ VALUES
 (8, 6898),	
 (5, 6899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25682,7 +25682,7 @@ VALUES
 (15, 6998),	
 (15, 6999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25788,7 +25788,7 @@ VALUES
 (24, 7098),	
 (24, 7099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -25894,7 +25894,7 @@ VALUES
 (3, 7198),	
 (6, 7199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26000,7 +26000,7 @@ VALUES
 (21, 7298),	
 (13, 7299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26106,7 +26106,7 @@ VALUES
 (16, 7398),	
 (22, 7399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26212,7 +26212,7 @@ VALUES
 (10, 7498),	
 (19, 7499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26318,7 +26318,7 @@ VALUES
 (6, 7598),	
 (1, 7599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26424,7 +26424,7 @@ VALUES
 (18, 7698),	
 (6, 7699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26530,7 +26530,7 @@ VALUES
 (18, 7798),	
 (18, 7799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26636,7 +26636,7 @@ VALUES
 (22, 7898),	
 (6, 7899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26742,7 +26742,7 @@ VALUES
 (19, 7998),	
 (11, 7999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26848,7 +26848,7 @@ VALUES
 (22, 8098),	
 (22, 8099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -26954,7 +26954,7 @@ VALUES
 (22, 8198),	
 (17, 8199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27060,7 +27060,7 @@ VALUES
 (11, 8298),	
 (5, 8299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27166,7 +27166,7 @@ VALUES
 (1, 8398),	
 (19, 8399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27272,7 +27272,7 @@ VALUES
 (3, 8498),	
 (10, 8499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27378,7 +27378,7 @@ VALUES
 (19, 8598),	
 (15, 8599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27484,7 +27484,7 @@ VALUES
 (11, 8698),	
 (11, 8699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27590,7 +27590,7 @@ VALUES
 (22, 8798),	
 (22, 8799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27696,7 +27696,7 @@ VALUES
 (12, 8898),	
 (19, 8899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27802,7 +27802,7 @@ VALUES
 (19, 8998),	
 (24, 8999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -27908,7 +27908,7 @@ VALUES
 (3, 9098),	
 (12, 9099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28014,7 +28014,7 @@ VALUES
 (22, 9198),	
 (4, 9199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28120,7 +28120,7 @@ VALUES
 (8, 9298),	
 (1, 9299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28226,7 +28226,7 @@ VALUES
 (13, 9398),	
 (11, 9399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28332,7 +28332,7 @@ VALUES
 (7, 9498),	
 (21, 9499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28438,7 +28438,7 @@ VALUES
 (19, 9598),	
 (8, 9599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28544,7 +28544,7 @@ VALUES
 (15, 9698),	
 (6, 9699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28650,7 +28650,7 @@ VALUES
 (1, 9798),	
 (6, 9799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28756,7 +28756,7 @@ VALUES
 (13, 9898),	
 (5, 9899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28862,7 +28862,7 @@ VALUES
 (7, 9998),	
 (15, 9999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -28968,7 +28968,7 @@ VALUES
 (7, 10098),	
 (7, 10099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29074,7 +29074,7 @@ VALUES
 (22, 10198),	
 (19, 10199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29180,7 +29180,7 @@ VALUES
 (22, 10298),	
 (18, 10299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29286,7 +29286,7 @@ VALUES
 (3, 10398),	
 (9, 10399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29392,7 +29392,7 @@ VALUES
 (1, 10498),	
 (10, 10499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29498,7 +29498,7 @@ VALUES
 (8, 10598),	
 (22, 10599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29604,7 +29604,7 @@ VALUES
 (22, 10698),	
 (12, 10699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29710,7 +29710,7 @@ VALUES
 (14, 10798),	
 (4, 10799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29816,7 +29816,7 @@ VALUES
 (22, 10898),	
 (15, 10899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -29922,7 +29922,7 @@ VALUES
 (1, 10998),	
 (21, 10999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30028,7 +30028,7 @@ VALUES
 (1, 11098),	
 (1, 11099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30134,7 +30134,7 @@ VALUES
 (7, 11198),	
 (4, 11199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30240,7 +30240,7 @@ VALUES
 (7, 11298),	
 (22, 11299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30346,7 +30346,7 @@ VALUES
 (17, 11398),	
 (17, 11399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30452,7 +30452,7 @@ VALUES
 (13, 11498),	
 (10, 11499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30558,7 +30558,7 @@ VALUES
 (1, 11598),	
 (24, 11599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30664,7 +30664,7 @@ VALUES
 (3, 11698),	
 (21, 11699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30770,7 +30770,7 @@ VALUES
 (19, 11798),	
 (7, 11799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30876,7 +30876,7 @@ VALUES
 (16, 11898),	
 (16, 11899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -30982,7 +30982,7 @@ VALUES
 (12, 11998),	
 (18, 11999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31088,7 +31088,7 @@ VALUES
 (6, 12098),	
 (3, 12099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31194,7 +31194,7 @@ VALUES
 (18, 12198),	
 (6, 12199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31300,7 +31300,7 @@ VALUES
 (15, 12298),	
 (7, 12299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31406,7 +31406,7 @@ VALUES
 (1, 12398),	
 (8, 12399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31512,7 +31512,7 @@ VALUES
 (21, 12498),	
 (21, 12499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31618,7 +31618,7 @@ VALUES
 (10, 12598),	
 (21, 12599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31724,7 +31724,7 @@ VALUES
 (6, 12698),	
 (15, 12699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31830,7 +31830,7 @@ VALUES
 (16, 12798),	
 (19, 12799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -31936,7 +31936,7 @@ VALUES
 (18, 12898),	
 (24, 12899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32042,7 +32042,7 @@ VALUES
 (9, 12998),	
 (12, 12999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32148,7 +32148,7 @@ VALUES
 (6, 13098),	
 (4, 13099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32254,7 +32254,7 @@ VALUES
 (14, 13198),	
 (14, 13199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32360,7 +32360,7 @@ VALUES
 (18, 13298),	
 (4, 13299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32466,7 +32466,7 @@ VALUES
 (6, 13398),	
 (15, 13399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32572,7 +32572,7 @@ VALUES
 (7, 13498),	
 (20, 13499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32678,7 +32678,7 @@ VALUES
 (5, 13598),	
 (20, 13599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32784,7 +32784,7 @@ VALUES
 (1, 13698),	
 (24, 13699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32890,7 +32890,7 @@ VALUES
 (24, 13798),	
 (24, 13799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -32996,7 +32996,7 @@ VALUES
 (22, 13898),	
 (6, 13899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33102,7 +33102,7 @@ VALUES
 (22, 13998),	
 (10, 13999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33208,7 +33208,7 @@ VALUES
 (7, 14098),	
 (7, 14099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33314,7 +33314,7 @@ VALUES
 (3, 14198),	
 (7, 14199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33420,7 +33420,7 @@ VALUES
 (24, 14298),	
 (17, 14299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33526,7 +33526,7 @@ VALUES
 (14, 14398),	
 (7, 14399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33632,7 +33632,7 @@ VALUES
 (7, 14498),	
 (11, 14499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33738,7 +33738,7 @@ VALUES
 (19, 14598),	
 (21, 14599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33844,7 +33844,7 @@ VALUES
 (22, 14698),	
 (22, 14699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -33950,7 +33950,7 @@ VALUES
 (7, 14798),	
 (14, 14799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34056,7 +34056,7 @@ VALUES
 (21, 14898),	
 (11, 14899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34162,7 +34162,7 @@ VALUES
 (22, 14998),	
 (6, 14999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34268,7 +34268,7 @@ VALUES
 (22, 15098),	
 (22, 15099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34374,7 +34374,7 @@ VALUES
 (1, 15198),	
 (13, 15199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34480,7 +34480,7 @@ VALUES
 (22, 15298),	
 (22, 15299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34586,7 +34586,7 @@ VALUES
 (16, 15398),	
 (5, 15399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34692,7 +34692,7 @@ VALUES
 (24, 15498),	
 (17, 15499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34798,7 +34798,7 @@ VALUES
 (6, 15598),	
 (18, 15599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -34904,7 +34904,7 @@ VALUES
 (19, 15698),	
 (7, 15699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35010,7 +35010,7 @@ VALUES
 (17, 15798),	
 (17, 15799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35116,7 +35116,7 @@ VALUES
 (22, 15898),	
 (14, 15899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35222,7 +35222,7 @@ VALUES
 (22, 15998),	
 (22, 15999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35328,7 +35328,7 @@ VALUES
 (19, 16098),	
 (18, 16099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35434,7 +35434,7 @@ VALUES
 (13, 16198),	
 (15, 16199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35540,7 +35540,7 @@ VALUES
 (22, 16298),	
 (7, 16299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35646,7 +35646,7 @@ VALUES
 (7, 16398),	
 (7, 16399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35752,7 +35752,7 @@ VALUES
 (22, 16498),	
 (6, 16499);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35858,7 +35858,7 @@ VALUES
 (8, 16598),	
 (7, 16599);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -35964,7 +35964,7 @@ VALUES
 (6, 16698),	
 (12, 16699);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36070,7 +36070,7 @@ VALUES
 (1, 16798),	
 (18, 16799);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36176,7 +36176,7 @@ VALUES
 (21, 16898),	
 (6, 16899);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36282,7 +36282,7 @@ VALUES
 (21, 16998),	
 (6, 16999);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36388,7 +36388,7 @@ VALUES
 (16, 17098),	
 (5, 17099);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36494,7 +36494,7 @@ VALUES
 (6, 17198),	
 (3, 17199);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36600,7 +36600,7 @@ VALUES
 (22, 17298),	
 (6, 17299);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36706,7 +36706,7 @@ VALUES
 (22, 17398),	
 (22, 17399);
 
-INSERT INTO `provincias_localidades`
+INSERT INTO `provincia_localidad`
 
 (`Provincia_ID`, `localidades_ID`) 
 
@@ -36773,7 +36773,7 @@ VALUES
 --
 -- Insercion de direccion de empresa
 --
-INSERT INTO `direcciones`
+INSERT INTO `direccion`
 (`ID`, `calle`, `departamento`, `numero`, `piso`, `LOCALIDAD_ID`) 
 VALUES 
 (1,'Tambor de Tacuari','1','500','0',12880),
@@ -36792,7 +36792,7 @@ VALUES
 --
 -- Insercion de datos de Catalogo De Articulos
 --
-INSERT INTO `catalogos_articulo`
+INSERT INTO `catalogo_articulo`
 (`ID`, `descripcion`) 
 VALUES
 (1,'CATALOGO');
@@ -36800,7 +36800,7 @@ VALUES
 --
 -- Insercion de datos de Tipos de Usuarios
 --
-INSERT INTO `empresas`
+INSERT INTO `empresa`
 (`ID`, `cuit`, `razonSocial`, `CATALOGO_ID`, `DIRECCION_ID`) 
 VALUES 
 (1,'27-00000000-1','GuraSoft', 1, 1);
@@ -36808,7 +36808,7 @@ VALUES
 --
 -- Insercion de datos de Tipos de UNIDAD COMERCIAL Y UNIDAD DE SISTEMAS
 --
-INSERT INTO `unidades`
+INSERT INTO `unidad`
 (`ID`, `type`, `nombre`, `UNAEMPRESA_ID`) 
 VALUES 
 (1,'UNIDAD COMERCIAL','UNIDAD COMERCIAL',1),
@@ -36833,7 +36833,7 @@ VALUES
 -- Insercion de datos de Tipos de Clientes
 --
 
-INSERT INTO `tipocliente`
+INSERT INTO `tipo_cliente`
 (`ID`, `DESCRIPCION`) 
 VALUES 
 (1,'MAYORISTA'),
@@ -36842,7 +36842,7 @@ VALUES
 --
 -- Insercion de datos de Categoria de Productos
 --
-INSERT INTO `categorias_articulo`
+INSERT INTO `categoria_catalogo`
 (`ID`, `descripcion`, `UNCATALOGO_ID`) 
 VALUES 
 (1, 'Access Point Indoor TP-LINK', 1),

@@ -16,9 +16,8 @@ import javax.persistence.Table;
  *
  * @author Ariel
  */
-
 @Entity
-@Table (name="PRECIO ARTICULOS")
+@Table (name="PRECIO_ARTICULO")
 @IdClass(PrecioArticuloPK.class)
 public class PrecioArticulo implements Serializable {
 
@@ -30,7 +29,7 @@ public class PrecioArticulo implements Serializable {
     private Long id_articulo;
 
     @Id
-    @Column(name="ID_listaDePrecios",length=50)
+    @Column(name="ID_listaDePrecios")
     private Long id_listaDePrecio;
 
     @Column(name="PRECIO",length=50)

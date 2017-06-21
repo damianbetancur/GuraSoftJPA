@@ -31,7 +31,7 @@ public class Empleado extends Persona{
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
     
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_usuario")
     private Usuario unUsuario;
 

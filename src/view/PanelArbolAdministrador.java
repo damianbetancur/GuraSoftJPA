@@ -11,9 +11,10 @@ import controller.CategoriaDeCatalogoController;
 import controller.ClienteController;
 import controller.Conexion;
 import controller.DefinicionListaPrecioController;
+import controller.DepositoController;
 import controller.EmpleadoController;
 import controller.EmpresaController;
-import controller.ListaDePreciosControlller;
+import controller.ListaDePreciosController;
 import controller.ProveedorController;
 import controller.SueldoController;
 import controller.UnidadController;
@@ -23,6 +24,7 @@ import javax.swing.tree.TreePath;
 import model.JPAController.ArticuloJpaController;
 import model.JPAController.CategoriaArticuloJpaController;
 import model.JPAController.ClienteJpaController;
+import model.JPAController.DepositoJpaController;
 import model.JPAController.EmpresaJpaController;
 import model.JPAController.ListaDePrecioJpaController;
 import model.JPAController.PrecioArticuloJpaController;
@@ -113,7 +115,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Stock");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Depositos");
         treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Sectores");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Articulos en Stock");
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
@@ -312,6 +314,60 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             } 
             
+            //Deposito
+            if(captura.equals("[GuraSoft, Unidad Comercial, Stock, Depositos]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroDeDeposito unPanelDeposito = new PanelRegistroDeDeposito();            
+                unPanelDeposito.setSize(950, 800);
+                unPanelDeposito.setLocation(0,0);
+                unPanelDeposito.setVisible(true);
+
+                //Se Crea controlador JPA
+                DepositoJpaController modelo = new DepositoJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                DepositoController controlador = new DepositoController(unPanelDeposito, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelDeposito.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelDeposito, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
+            
+            /*
+            //Articulos en Stock
+            if(captura.equals("[GuraSoft, Unidad Comercial, Stock, Articulos en Stock]")){  
+            
+                //Se crea el Panel Empleado    
+                PanelRegistroStock unPanelStock = new PanelRegistroStock();            
+                unPanelStock.setSize(950, 800);
+                unPanelStock.setLocation(0,0);
+                unPanelStock.setVisible(true);
+
+                //Se Crea controlador JPA
+                StockArticuloJpaController modelo = new StockArticuloJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Empleado
+                StockArticuloController controlador = new StockArticuloController(unPanelStock, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelStock.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelStock, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                modificarArbol(false);
+            }
+            */
+            
             if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Catalogo, Articulos]")){  
             
                 //Se crea el Panel Empleado    
@@ -374,7 +430,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 PrecioArticuloJpaController modelo = new PrecioArticuloJpaController(Conexion.getEmf());
 
                 //Se crea el controlador de Empleado
-                ListaDePreciosControlller controlador = new ListaDePreciosControlller(unPanelRegistroListaDePrecioArticulo, modelo);
+                ListaDePreciosController controlador = new ListaDePreciosController(unPanelRegistroListaDePrecioArticulo, modelo);
 
                 //setea el panel para que sea escuchado por el controlador
                 unPanelRegistroListaDePrecioArticulo.setControlador(controlador);

@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CATEGORIAS_ARTICULO")
+@Table (name="CATEGORIA_CATALOGO")
 public class CategoriaDeCatalogo implements Serializable {
 
     private static final long serialVersionUID = 1L;
