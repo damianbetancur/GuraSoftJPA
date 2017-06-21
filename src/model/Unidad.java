@@ -24,7 +24,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name = "UNIDADES")
+@Table (name = "UNIDAD")
 @Inheritance( strategy = InheritanceType.SINGLE_TABLE )
 @DiscriminatorColumn( name="type" )
 public class Unidad implements Serializable {

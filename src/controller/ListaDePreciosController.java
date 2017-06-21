@@ -34,7 +34,7 @@ import view.PanelRegistroListaDePrecioArticulo;
  * Clase controladora de Articulos de categorias en el Catalogo
  * @author Ariel
  */
-public class ListaDePreciosControlller extends Controller {
+public class ListaDePreciosController extends Controller {
     
     private PanelRegistroListaDePrecioArticulo vista;
     private PrecioArticuloJpaController modelo;
@@ -67,7 +67,7 @@ public class ListaDePreciosControlller extends Controller {
      * @param vista PanelRegistroCatalogoArticulo
      * @param modelo ArticuloJpaController
      */
-    public ListaDePreciosControlller(PanelRegistroListaDePrecioArticulo vista, PrecioArticuloJpaController modelo) {
+    public ListaDePreciosController(PanelRegistroListaDePrecioArticulo vista, PrecioArticuloJpaController modelo) {
         modeloArticuloCatalogo = new ArticuloJpaController(Conexion.getEmf());
         modeloListaDePrecio = new ListaDePrecioJpaController(Conexion.getEmf());
         modeloPrecioArticulo = new PrecioArticuloJpaController(Conexion.getEmf());
@@ -151,7 +151,7 @@ public class ListaDePreciosControlller extends Controller {
                 aceptar_modificar = false;
                 aceptar_agregar = false;
             } catch (Exception ex) {
-                Logger.getLogger(ListaDePreciosControlller.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListaDePreciosController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

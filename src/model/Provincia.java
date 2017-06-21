@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="PROVINCIAS")
+@Table (name="PROVINCIA")
 public class Provincia implements Serializable {
 
     private static final long serialVersionUID = 1L;

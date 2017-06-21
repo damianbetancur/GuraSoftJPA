@@ -12,17 +12,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ariel
  */
 @Entity
+@Table (name="DEPOSITO")
 public class Deposito implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id_deposito")
     private Long id;
 
     @Column(name="descripcion")
@@ -63,7 +66,7 @@ public class Deposito implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Deposito[ id=" + id + " ]";
+        return getDescripcion();
     }
 
     public String getDescripcion() {

@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="lISTA DE PRECIOS")
+@Table (name="lISTA_PRECIO")
 public class ListaDePrecio implements Serializable {
 
     private static final long serialVersionUID = 1L;

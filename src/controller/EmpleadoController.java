@@ -32,6 +32,7 @@ import model.Localidad;
 import model.Provincia;
 import model.TipoEmpleado;
 import model.TipoUsuario;
+import model.TipoUsuario_;
 import model.Unidad;
 import model.Usuario;
 import model.Zona;
@@ -627,6 +628,8 @@ public class EmpleadoController extends Controller {
         if (vista.getJcb_localidad_direccion().getSelectedIndex()>=0) {
             //instancia de empleado igual al objeto guardado en Base de datos
             Empleado emp = modelo.findEmpleado(Long.parseLong(vista.getJtfID().getText()));
+            
+            modeloUsuario = new UsuarioJpaController(Conexion.getEmf());
 
             //setea DNI empleado con nuevos valores
             emp.setDni(vista.getJtfDNI().getText());                
@@ -665,6 +668,7 @@ public class EmpleadoController extends Controller {
             //Setea la Unidad con lo que tiene seleccionado el JCB de unidad
             unTipoEmpleado = (TipoEmpleado)vista.getJcb_empleado().getSelectedItem();       
 
+            
             if (!empleadoModifocado) {
                 //verificar que el DNI sea igual que el DNI actual        
                 if (emp.getDni().equals(dniModificado)) {            
@@ -690,13 +694,18 @@ public class EmpleadoController extends Controller {
                         //agrega direccion a emp
                         emp.setDireccion(direccion);
 
+                        
                         //Persiste Empleado
                         modelo.edit(emp);
+                        
+                        
+                        
                         JOptionPane.showMessageDialog(null, "empleado modificado con DNI igual");
                         
                         //Bandera de empleado creado a verdadero
                         empleadoModifocado =true;
 
+                        //aca
                         } catch (Exception ex) {
                             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
                         }

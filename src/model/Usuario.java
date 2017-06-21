@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table(name="USUARIOS")
+@Table(name="USUARIO")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
     @JoinColumn(name="id_tipoUsuario")
     private TipoUsuario tipoUsuario; 
     
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="unUsuario")
+    @OneToOne(fetch=FetchType.EAGER, mappedBy="unUsuario")
     private Empleado unEmpleado;
     
     public Long getId() {

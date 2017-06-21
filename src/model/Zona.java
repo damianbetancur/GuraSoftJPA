@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="ZONAS")
+@Table (name="ZONA")
 public class Zona implements Serializable {
 
     private static final long serialVersionUID = 1L;
