@@ -36,6 +36,7 @@
     <class>model.Catalogo</class>
     <class>model.CategoriaDeCatalogo</class>
     <class>model.Deposito</class>
+    <class>model.StockArticulo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

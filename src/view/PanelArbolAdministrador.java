@@ -16,6 +16,7 @@ import controller.EmpleadoController;
 import controller.EmpresaController;
 import controller.ListaDePreciosController;
 import controller.ProveedorController;
+import controller.StockArticuloController;
 import controller.SueldoController;
 import controller.UnidadController;
 import model.JPAController.EmpleadoJpaController;
@@ -29,6 +30,7 @@ import model.JPAController.EmpresaJpaController;
 import model.JPAController.ListaDePrecioJpaController;
 import model.JPAController.PrecioArticuloJpaController;
 import model.JPAController.ProveedorJpaController;
+import model.JPAController.StockArticuloJpaController;
 import model.JPAController.UnidadJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
@@ -340,7 +342,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 modificarArbol(false);
             }
             
-            /*
+            
             //Articulos en Stock
             if(captura.equals("[GuraSoft, Unidad Comercial, Stock, Articulos en Stock]")){  
             
@@ -366,7 +368,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
                 modificarArbol(false);
             }
-            */
+            
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Catalogo, Articulos]")){  
             
