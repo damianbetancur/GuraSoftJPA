@@ -21,18 +21,18 @@ import javax.persistence.TemporalType;
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue( value="EMPLEADO" )
-public class Empleado extends Persona{
-   
+@DiscriminatorValue(value = "EMPLEADO")
+public class Empleado extends Persona {
+
     @Temporal(TemporalType.DATE)
-    @Column(name="FECHA_INGRESO")
+    @Column(name = "FECHA_INGRESO")
     private Date fechaIngreso;
-    
+
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
-    
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_usuario")
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario")
     private Usuario unUsuario;
 
     public TipoEmpleado getTipoEmpleado() {
@@ -59,9 +59,4 @@ public class Empleado extends Persona{
         this.unUsuario = unUsuario;
     }
 
-    
-
-    
-    
-    
 }

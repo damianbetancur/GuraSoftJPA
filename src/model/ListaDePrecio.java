@@ -19,23 +19,24 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="lISTA_PRECIO")
+@Table(name = "lISTA_PRECIO")
 public class ListaDePrecio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id_listaDePrecio")
     private Long id;
 
-    @Column(name="descripcion")
+    @Column(name = "descripcion")
     private String descripcion;
-    
+
     //Empresa a la que pertenece la lista de precio
     @ManyToOne
     private Empresa unaEmpresa;
-        
-    
+
+    @ManyToOne
+    private TipoCliente tipoCliente;
+
     public Long getId() {
         return id;
     }
@@ -85,6 +86,12 @@ public class ListaDePrecio implements Serializable {
         this.unaEmpresa = unaEmpresa;
     }
 
-   
-    
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
 }

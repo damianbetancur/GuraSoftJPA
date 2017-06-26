@@ -13,29 +13,29 @@ import javax.persistence.Embeddable;
  * @author Ariel
  */
 @Embeddable
-public class PrecioArticuloPK implements Serializable{
+public class PrecioArticuloPK implements Serializable {
 
-    public PrecioArticuloPK(){}
-    
+    public PrecioArticuloPK() {
+    }
 
     private Long id_articulo;
     private Long id_listaDePrecio;
 
     @Override
-    public int hashCode(){        
+    public int hashCode() {
         int hash = 0;
         hash += (id_articulo != null ? id_articulo.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         boolean flag = false;
         PrecioArticuloPK myId = (PrecioArticuloPK) o;
 
-        if((o instanceof PrecioArticuloPK) 
+        if ((o instanceof PrecioArticuloPK)
                 && (this.getId_listaDePrecio().equals(myId.getId_listaDePrecio()))
-                && (this.id_articulo == myId.getId_articulo())){
+                && (this.id_articulo == myId.getId_articulo())) {
             flag = true;
         }
         return flag;
@@ -57,5 +57,5 @@ public class PrecioArticuloPK implements Serializable{
     public void setId_listaDePrecio(Long id_listaDePrecio) {
         this.id_listaDePrecio = id_listaDePrecio;
     }
-    
+
 }

@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="PROVINCIA")
+@Table(name = "PROVINCIA")
 public class Provincia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,16 +29,16 @@ public class Provincia implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
-        
+
     @ManyToOne
     private Zona zona;
-    
+
     //Localidades contenidas en Provincias
-    @ManyToMany(targetEntity=Localidad.class)
+    @ManyToMany(targetEntity = Localidad.class)
     private Set localidades;
-    
+
     public Long getId() {
         return id;
     }
@@ -78,7 +78,7 @@ public class Provincia implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }   
+    }
 
     public Zona getZona() {
         return zona;
@@ -95,6 +95,5 @@ public class Provincia implements Serializable {
     public void setLocalidades(Set localidades) {
         this.localidades = localidades;
     }
-    
-    
+
 }

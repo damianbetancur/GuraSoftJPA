@@ -24,27 +24,27 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name = "UNIDAD")
-@Inheritance( strategy = InheritanceType.SINGLE_TABLE )
-@DiscriminatorColumn( name="type" )
+@Table(name = "UNIDAD")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public class Unidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="nombre")
+
+    @Column(name = "nombre")
     private String nombre;
 
     //Empleados que contiene la Unidad
-    @ManyToMany(targetEntity=Empleado.class)
+    @ManyToMany(targetEntity = Empleado.class)
     private Set empleados;
-    
+
     //Empresa a la que pertenece la unidad
     @ManyToOne
     private Empresa unaEmpresa;
-    
+
     public Long getId() {
         return id;
     }
@@ -101,6 +101,5 @@ public class Unidad implements Serializable {
     public void setUnaEmpresa(Empresa unaEmpresa) {
         this.unaEmpresa = unaEmpresa;
     }
-    
-    
+
 }

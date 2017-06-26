@@ -23,31 +23,30 @@ import javax.persistence.Table;
  *
  * @author Ariel
  */
-
 @Entity
-@Table(name="PERSONA")
-@Inheritance(strategy=SINGLE_TABLE)
-@DiscriminatorColumn(name="type", discriminatorType=STRING,length=20)
+@Table(name = "PERSONA")
+@Inheritance(strategy = SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = STRING, length = 20)
 @DiscriminatorValue("PERSONA")
-public abstract class Persona implements Serializable{
-    
+public abstract class Persona implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     Long id;
-    
-    @Column(name="nombre")
+    Long id;
+
+    @Column(name = "nombre")
     private String nombre;
-    
-    @Column(name="apellido")
+
+    @Column(name = "apellido")
     private String apellido;
-    
-    @Column(name="dni")
+
+    @Column(name = "dni")
     private String dni;
-        
+
     @ManyToOne
     private Direccion direccion;
-    
+
     @ManyToOne
     private Unidad unidad;
 
@@ -124,9 +123,8 @@ public abstract class Persona implements Serializable{
         this.unidad = unidad;
     }
 
-    public String getDiscriminatorValue(){
-        return this.getClass().getAnnotation( DiscriminatorValue.class).value();
+    public String getDiscriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
-        
-    
+
 }

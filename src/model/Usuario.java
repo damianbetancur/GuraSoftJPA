@@ -22,27 +22,27 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table(name="USUARIO")
+@Table(name = "USUARIO")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="nombre")
+
+    @Column(name = "nombre")
     private String nombre;
-    
-    @Column(name="clave")
+
+    @Column(name = "clave")
     private String clave;
 
     @ManyToOne
-    @JoinColumn(name="id_tipoUsuario")
-    private TipoUsuario tipoUsuario; 
-    
-    @OneToOne(fetch=FetchType.EAGER, mappedBy="unUsuario")
+    @JoinColumn(name = "id_tipoUsuario")
+    private TipoUsuario tipoUsuario;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "unUsuario")
     private Empleado unEmpleado;
-    
+
     public Long getId() {
         return id;
     }
@@ -107,7 +107,5 @@ public class Usuario implements Serializable {
     public void setUnEmpleado(Empleado unEmpleado) {
         this.unEmpleado = unEmpleado;
     }
-    
-    
-    
+
 }

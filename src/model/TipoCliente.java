@@ -6,10 +6,13 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +20,7 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="TIPO_CLIENTE")
+@Table(name = "TIPO_CLIENTE")
 public class TipoCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +29,11 @@ public class TipoCliente implements Serializable {
     private Long id;
 
     private String descripcion;
-    
+
+    //TipoCliente que posee la ListaDePrecio
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoCliente")
+    private List<ListaDePrecio> listaDePercio;
+
     public Long getId() {
         return id;
     }
@@ -67,6 +74,13 @@ public class TipoCliente implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
+
+    public List<ListaDePrecio> getListaDePercio() {
+        return listaDePercio;
+    }
+
+    public void setListaDePercio(List<ListaDePrecio> listaDePercio) {
+        this.listaDePercio = listaDePercio;
+    }
+
 }

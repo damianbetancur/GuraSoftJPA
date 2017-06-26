@@ -15,6 +15,6 @@ import java.awt.event.MouseListener;
  *
  * @author Ariel
  */
-public abstract class Controller implements ActionListener, KeyListener, MouseListener, ItemListener, FocusListener{
+public abstract class Controller implements ActionListener, KeyListener, MouseListener, ItemListener, FocusListener {
     //Clase Abstracta utilizada para permitir a la vista recepcionaar Varios Controladores
 }

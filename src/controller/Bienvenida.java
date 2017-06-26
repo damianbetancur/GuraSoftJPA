@@ -7,23 +7,23 @@ import view.JframePrincipal;
 
 /**
  * Clase Bienvenida
+ *
  * @author Ariel
  */
 public class Bienvenida extends javax.swing.JFrame {
-    
+
     private int auxiliar = 0;
     private boolean realizado = false;
     private String tipoUsuario = null;
-    
+
     hilo ejecutar = new hilo();
 
-   
     public Bienvenida(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
         initComponents();
-        Bienvenida.this.getRootPane().setOpaque(false);        
-        Bienvenida.this.getContentPane ().setBackground (new Color (0, 0, 0, 0));
-        Bienvenida.this.setBackground (new Color (0, 0, 0, 0)); 
+        Bienvenida.this.getRootPane().setOpaque(false);
+        Bienvenida.this.getContentPane().setBackground(new Color(0, 0, 0, 0));
+        Bienvenida.this.setBackground(new Color(0, 0, 0, 0));
         this.setResizable(false);
         this.setLocationRelativeTo(this);
     }
@@ -64,51 +64,53 @@ public class Bienvenida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(realizado == false){
-        realizado = true;
-        barra.setMaximum(49);
-        barra.setMinimum(0);
-        barra.setStringPainted(true);
-        ejecutar.start();
+        if (realizado == false) {
+            realizado = true;
+            barra.setMaximum(49);
+            barra.setMinimum(0);
+            barra.setStringPainted(true);
+            ejecutar.start();
         }
     }//GEN-LAST:event_formWindowActivated
 
     /**
      * hijo de Ejecucion
      */
-    private class hilo extends Thread{
-    @Override
-    public void run(){
-        try {while(true){
-            auxiliar++;
-            barra.setValue(auxiliar);
-            repaint();
-            
-            
-            switch(auxiliar){
-                case 3:
-                    text.setText("Cargando programa...");
-                    
-                    break;
-                case 20:
-                    text.setText("Leyendo preferencias");
-                    
-                    break;
-                case 50:
-                    text.setText("Carga finalizada");    
-                    break;
-                case 60:      
-                    JframePrincipal main = new JframePrincipal();
-                    main.setTipoUsuario(tipoUsuario);
-                    main.arranca();
-                    Bienvenida.this.dispose();
-                    break;                    
+    private class hilo extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    auxiliar++;
+                    barra.setValue(auxiliar);
+                    repaint();
+
+                    switch (auxiliar) {
+                        case 3:
+                            text.setText("Cargando programa...");
+
+                            break;
+                        case 20:
+                            text.setText("Leyendo preferencias");
+
+                            break;
+                        case 50:
+                            text.setText("Carga finalizada");
+                            break;
+                        case 60:
+                            JframePrincipal main = new JframePrincipal();
+                            main.setTipoUsuario(tipoUsuario);
+                            main.arranca();
+                            Bienvenida.this.dispose();
+                            break;
+                    }
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Bienvenida.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Thread.sleep(100);}
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Bienvenida.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra;
@@ -116,4 +118,3 @@ public class Bienvenida extends javax.swing.JFrame {
     private javax.swing.JLabel text;
     // End of variables declaration//GEN-END:variables
 }
-

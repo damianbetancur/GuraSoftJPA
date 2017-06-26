@@ -12,31 +12,30 @@ import javax.persistence.Embeddable;
  *
  * @author Ariel
  */
-
 @Embeddable
 public class StockArticuloPK implements Serializable {
-    
-    public StockArticuloPK(){}
-    
+
+    public StockArticuloPK() {
+    }
 
     private Long id_articulo;
     private Long id_Deposito;
 
     @Override
-    public int hashCode(){        
+    public int hashCode() {
         int hash = 0;
         hash += (id_articulo != null ? id_articulo.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         boolean flag = false;
         StockArticuloPK myId = (StockArticuloPK) o;
 
-        if((o instanceof PrecioArticuloPK) 
+        if ((o instanceof PrecioArticuloPK)
                 && (this.getId_Deposito().equals(myId.getId_Deposito()))
-                && (this.id_articulo == myId.getId_articulo())){
+                && (this.id_articulo == myId.getId_articulo())) {
             flag = true;
         }
         return flag;
@@ -59,5 +58,4 @@ public class StockArticuloPK implements Serializable {
         this.id_Deposito = id_Deposito;
     }
 
-    
 }

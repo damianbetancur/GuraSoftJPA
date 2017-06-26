@@ -13,27 +13,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-//
+
 /**
  *
  * @author Ariel
  */
 @Entity
-@Table (name="ARTICULO")
+@Table(name = "ARTICULO")
 public class Articulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id_articulo")
+    @Column(name = "id_articulo")
     private Long id;
-    
-    @Column(name="descripcion")
+
+    @Column(name = "descripcion")
     private String descripcion;
-    
+
     @ManyToOne
     private CategoriaDeCatalogo unCategoriaDeCatalogo;
-        
+
     @ManyToOne
     private Proveedor unProveedor;
 
@@ -69,7 +69,6 @@ public class Articulo implements Serializable {
     public String toString() {
         return "model.Articulo[ id=" + id + " ]";
     }
-    
 
     public String getDescripcion() {
         return descripcion;
@@ -94,6 +93,5 @@ public class Articulo implements Serializable {
     public void setUnProveedor(Proveedor unProveedor) {
         this.unProveedor = unProveedor;
     }
-    
-    
+
 }

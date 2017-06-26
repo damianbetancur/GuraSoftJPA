@@ -15,36 +15,36 @@ import javax.persistence.ManyToOne;
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue( value="CLIENTE" )
-public class Cliente extends Persona{
-    
-   @Column(name="cuit")
+@DiscriminatorValue(value = "CLIENTE")
+public class Cliente extends Persona {
+
+    @Column(name = "cuit")
     private String cuit;
 
-   @ManyToOne
+    @ManyToOne
     private CuentaCorriente cuentaCorriente;
-   
-   @ManyToOne
+
+    @ManyToOne
     private TipoCliente tipocliente;
-   
+
     @ManyToOne
     private Empresa unaEmpresa;
-   
+
     public String getCuit() {
         return cuit;
-    }    
+    }
 
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
 
     public Cliente(String cuit) {
-        super( );
+        super();
         this.cuit = cuit;
     }
-   
+
     public Cliente() {
-        super( );       
+        super();
     }
 
     public CuentaCorriente getCuentaCorriente() {
@@ -70,6 +70,5 @@ public class Cliente extends Persona{
     public void setUnaEmpresa(Empresa unaEmpresa) {
         this.unaEmpresa = unaEmpresa;
     }
-    
-    
+
 }

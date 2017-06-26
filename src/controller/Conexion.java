@@ -14,11 +14,12 @@ import javax.persistence.Persistence;
  * @author Ariel
  */
 public class Conexion {
+
     private static EntityManagerFactory emf;
     private static EntityManager em;
-    
-    private static void setup(){
-        if (em==null) {
+
+    private static void setup() {
+        if (em == null) {
             Conexion.emf = Persistence.createEntityManagerFactory("jpaDesde0PU");
             Conexion.em = Conexion.emf.createEntityManager();
         }
@@ -43,6 +44,5 @@ public class Conexion {
     public Conexion() {
         Conexion.setup();
     }
-    
 
 }
