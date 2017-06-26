@@ -18,17 +18,17 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CUENTA_CORRIENTE")
+@Table(name = "CUENTA_CORRIENTE")
 public class CuentaCorriente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="saldo")
+
+    @Column(name = "saldo")
     private float saldo;
-    
+
     public Long getId() {
         return id;
     }
@@ -69,5 +69,5 @@ public class CuentaCorriente implements Serializable {
     public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
-    
+
 }

@@ -53,6 +53,8 @@ public final class PanelRegistroDefinicioListaPrecio extends javax.swing.JPanel 
         jtf_ID = new javax.swing.JTextField();
         jtf_descripcion = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jcb_TipoCliente = new javax.swing.JComboBox<>();
+        jlbl_tipoCliente = new javax.swing.JLabel();
         jbtn_Aceptar = new javax.swing.JButton();
         jbtn_Cancelar = new javax.swing.JButton();
 
@@ -130,6 +132,13 @@ public final class PanelRegistroDefinicioListaPrecio extends javax.swing.JPanel 
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
 
+        jPanelEmpleado.add(jcb_TipoCliente);
+        jcb_TipoCliente.setBounds(160, 130, 270, 24);
+
+        jlbl_tipoCliente.setText("Tipo Cliente:");
+        jPanelEmpleado.add(jlbl_tipoCliente);
+        jlbl_tipoCliente.setBounds(60, 130, 80, 15);
+
         jTabbedPaneContenedor.addTab("Lista de Precio", jPanelEmpleado);
 
         add(jTabbedPaneContenedor);
@@ -159,8 +168,10 @@ public final class PanelRegistroDefinicioListaPrecio extends javax.swing.JPanel 
     private javax.swing.JButton jbtn_Modificar;
     private javax.swing.JButton jbtn_Nuevo;
     private javax.swing.JButton jbtn_Volver;
+    private javax.swing.JComboBox<String> jcb_TipoCliente;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_descripcion;
+    private javax.swing.JLabel jlbl_tipoCliente;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_descripcion;
     private javax.swing.JTable tablaListaDePrecios;
@@ -187,7 +198,10 @@ public final class PanelRegistroDefinicioListaPrecio extends javax.swing.JPanel 
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaListaDePrecios.addMouseListener(c);
         
+        //Agrega JcomboBox del Panel TipoCliente al escuchador ItemListener para verificar items seleccionados        
+        jcb_TipoCliente.addItemListener(c);
         
+        jcb_TipoCliente.addFocusListener(c);
         
     }
 
@@ -287,6 +301,16 @@ public final class PanelRegistroDefinicioListaPrecio extends javax.swing.JPanel 
     public javax.swing.JTabbedPane getjTabbedPaneContenedor() {
         return jTabbedPaneContenedor;
     }
+
+    public javax.swing.JComboBox<String> getJcb_TipoCliente() {
+        return jcb_TipoCliente;
+    }
+
+    public void setJcb_TipoCliente(javax.swing.JComboBox<String> jcb_TipoCliente) {
+        this.jcb_TipoCliente = jcb_TipoCliente;
+    }
+
+   
     
     
 }

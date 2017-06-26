@@ -5,7 +5,6 @@
  */
 package model;
 
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -14,9 +13,7 @@ import javax.persistence.Entity;
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue( value="CLIENTE MINORISTA" )
-public class ClienteMinorista extends Cliente{
-    
-   
-    
+@DiscriminatorValue(value = "CLIENTE MINORISTA")
+public class ClienteMinorista extends Cliente {
+
 }

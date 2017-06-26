@@ -18,22 +18,22 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="PRECIO_ARTICULO")
+@Table(name = "PRECIO_ARTICULO")
 @IdClass(PrecioArticuloPK.class)
 public class PrecioArticulo implements Serializable {
 
-    public PrecioArticulo(){}
-    
+    public PrecioArticulo() {
+    }
 
     @Id
-    @Column(name="ID_articulo")
+    @Column(name = "ID_articulo")
     private Long id_articulo;
 
     @Id
-    @Column(name="ID_listaDePrecios")
+    @Column(name = "ID_listaDePrecios")
     private Long id_listaDePrecio;
 
-    @Column(name="PRECIO",length=50)
+    @Column(name = "PRECIO", length = 50)
     private float precio;
 
     public Long getId_articulo() {
@@ -60,7 +60,4 @@ public class PrecioArticulo implements Serializable {
         this.precio = precio;
     }
 
-    
-    
-    
 }

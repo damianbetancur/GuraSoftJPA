@@ -19,23 +19,22 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="DEPOSITO")
+@Table(name = "DEPOSITO")
 public class Deposito implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id_deposito")
+    @Column(name = "id_deposito")
     private Long id;
 
-    @Column(name="descripcion")
+    @Column(name = "descripcion")
     private String descripcion;
-    
+
     //Unidad Comercial a la que pertenece a la que pertenece el Deposito
     @ManyToOne
     private Unidad unaUnidad;
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -84,5 +83,5 @@ public class Deposito implements Serializable {
     public void setUnaUnidad(Unidad unaUnidad) {
         this.unaUnidad = unaUnidad;
     }
-    
+
 }

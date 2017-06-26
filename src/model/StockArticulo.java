@@ -17,37 +17,37 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="STOCK_ARTICULO")
+@Table(name = "STOCK_ARTICULO")
 @IdClass(StockArticuloPK.class)
 public class StockArticulo implements Serializable {
 
-    public StockArticulo(){}
-    
+    public StockArticulo() {
+    }
 
     @Id
-    @Column(name="ID_articulo")
+    @Column(name = "ID_articulo")
     private Long id_articulo;
 
     @Id
-    @Column(name="ID_deposito")
+    @Column(name = "ID_deposito")
     private Long id_Deposito;
 
-    @Column(name="STOCK_Actual",length=8)
-    private int stockActual;       
+    @Column(name = "STOCK_Actual", length = 8)
+    private int stockActual;
 
-    @Column(name="STOCK_Minimo",length=8)
+    @Column(name = "STOCK_Minimo", length = 8)
     private int stockMinimo;
-    
-    @Column(name="STOCK_Maximo",length=8)
+
+    @Column(name = "STOCK_Maximo", length = 8)
     private int stockMaximo;
-    
+
     public Long getId_Deposito() {
         return id_Deposito;
     }
 
     public void setId_Deposito(Long id_Deposito) {
         this.id_Deposito = id_Deposito;
-    }    
+    }
 
     public Long getId_articulo() {
         return id_articulo;
@@ -80,6 +80,5 @@ public class StockArticulo implements Serializable {
     public void setStockMaximo(int stockMaximo) {
         this.stockMaximo = stockMaximo;
     }
-    
-    
+
 }

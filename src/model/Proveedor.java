@@ -18,26 +18,26 @@ import javax.persistence.OneToMany;
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue( value="PROVEEDOR" )
-public class Proveedor extends Persona{
-    
-   @Column(name="cuit")
+@DiscriminatorValue(value = "PROVEEDOR")
+public class Proveedor extends Persona {
+
+    @Column(name = "cuit")
     private String cuit;
-   
-   @Column(name="razon_Social")
+
+    @Column(name = "razon_Social")
     private String RazonSocial;
-   
-   @ManyToOne
+
+    @ManyToOne
     private Empresa unaEmpresa;
-   
-   ///Articulos que posee la Catalogoria de Articulos
+
+    ///Articulos que posee la Catalogoria de Articulos
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "unProveedor")
-    private List <Articulo> listaDeArticulos;
+    private List<Articulo> listaDeArticulos;
 
     public String getCuit() {
         return cuit;
     }
-    
+
     @ManyToOne
     private CuentaCorriente cuentaCorriente;
 
@@ -46,12 +46,12 @@ public class Proveedor extends Persona{
     }
 
     public Proveedor(String cuit) {
-        super( );
+        super();
         this.cuit = cuit;
     }
-   
+
     public Proveedor() {
-        super( );       
+        super();
     }
 
     public CuentaCorriente getCuentaCorriente() {
@@ -70,11 +70,11 @@ public class Proveedor extends Persona{
         this.RazonSocial = RazonSocial;
     }
 
-    public List <Articulo> getListaDeArticulos() {
+    public List<Articulo> getListaDeArticulos() {
         return listaDeArticulos;
     }
 
-    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
+    public void setListaDeArticulos(List<Articulo> listaDeArticulos) {
         this.listaDeArticulos = listaDeArticulos;
     }
 
@@ -85,11 +85,10 @@ public class Proveedor extends Persona{
     public void setUnaEmpresa(Empresa unaEmpresa) {
         this.unaEmpresa = unaEmpresa;
     }
-    
+
     @Override
     public String toString() {
         return getRazonSocial();
     }
-    
-    
+
 }

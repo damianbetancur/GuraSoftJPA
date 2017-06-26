@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.Serializable;
@@ -15,30 +14,30 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="DIRECCION")
+@Table(name = "DIRECCION")
 public class Direccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="calle")
+
+    @Column(name = "calle")
     private String calle;
-    
-    @Column(name="numero")
+
+    @Column(name = "numero")
     private String numero;
-    
-    @Column(name="piso")
+
+    @Column(name = "piso")
     private String piso;
-    
-    @Column(name="departamento")
+
+    @Column(name = "departamento")
     private String departamento;
-    
+
     //Localidad a la que pertenece la direccion
     @ManyToOne
     private Localidad localidad;
-    
+
     public Long getId() {
         return id;
     }
@@ -68,7 +67,7 @@ public class Direccion implements Serializable {
     }
 
     @Override
-    public String toString() {        
+    public String toString() {
         return "model.Direccion[ id=" + id + " ]";
     }
 
@@ -111,6 +110,5 @@ public class Direccion implements Serializable {
     public void setLocalidad(Localidad localidad) {
         this.localidad = localidad;
     }
-    
-    
+
 }

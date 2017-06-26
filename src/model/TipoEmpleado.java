@@ -19,17 +19,17 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="TIPO_EMPLEADO")
+@Table(name = "TIPO_EMPLEADO")
 public class TipoEmpleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="descripcion")
+
+    @Column(name = "descripcion")
     private String descripcion;
-    
+
     @ManyToOne
     private Unidad unidad;
 
@@ -81,6 +81,5 @@ public class TipoEmpleado implements Serializable {
     public void setUnidad(Unidad unidad) {
         this.unidad = unidad;
     }
-    
-    
+
 }

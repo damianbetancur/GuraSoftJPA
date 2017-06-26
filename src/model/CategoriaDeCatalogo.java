@@ -22,23 +22,23 @@ import javax.persistence.Table;
  * @author Ariel
  */
 @Entity
-@Table (name="CATEGORIA_CATALOGO")
+@Table(name = "CATEGORIA_CATALOGO")
 public class CategoriaDeCatalogo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name="descripcion")
+
+    @Column(name = "descripcion")
     private String descripcion;
-    
+
     @ManyToOne
     private Catalogo unCatalogo;
-    
+
     ///Articulos que posee la Catalogoria de Articulos
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "unCategoriaDeCatalogo")
-    private List <Articulo> listaDeArticulos;
+    private List<Articulo> listaDeArticulos;
 
     public Long getId() {
         return id;
@@ -81,11 +81,11 @@ public class CategoriaDeCatalogo implements Serializable {
         this.unCatalogo = unCatalogo;
     }
 
-    public List <Articulo> getListaDeArticulos() {
+    public List<Articulo> getListaDeArticulos() {
         return listaDeArticulos;
     }
 
-    public void setListaDeArticulos(List <Articulo> listaDeArticulos) {
+    public void setListaDeArticulos(List<Articulo> listaDeArticulos) {
         this.listaDeArticulos = listaDeArticulos;
     }
 
@@ -96,6 +96,5 @@ public class CategoriaDeCatalogo implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
+
 }
