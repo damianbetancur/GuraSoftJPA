@@ -13,7 +13,9 @@ import javax.persistence.Entity;
  * @author Ariel
  */
 @Entity
-@DiscriminatorValue(value = "CLIENTE MINORISTA")
-public class ClienteMinorista extends Cliente {
+@DiscriminatorValue(value = "FACTURA")
+public class Factura extends Comprobante{
 
+    
+    
 }

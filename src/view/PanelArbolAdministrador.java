@@ -19,6 +19,7 @@ import controller.ProveedorController;
 import controller.StockArticuloController;
 import controller.SueldoController;
 import controller.UnidadController;
+import controller.VentaController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
 import javax.swing.tree.TreePath;
@@ -32,6 +33,7 @@ import model.JPAController.PrecioArticuloJpaController;
 import model.JPAController.ProveedorJpaController;
 import model.JPAController.StockArticuloJpaController;
 import model.JPAController.UnidadJpaController;
+import model.JPAController.VentaJpaController;
 import static view.JframePrincipal.jPanelContenido;
 
 /**
@@ -211,7 +213,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelEmpresa, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             if(captura.equals("[GuraSoft, Administración General, Unidad]")){  
@@ -236,7 +238,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelUnidad, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             if(captura.equals("[GuraSoft, Administración General, Empleados]")){  
@@ -261,7 +263,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelPersona, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
 
             if(captura.equals("[GuraSoft, Administración General, Liquidación de Sueldos]")){  
@@ -286,7 +288,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelSueldoEmpleado, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             
@@ -313,7 +315,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelCategoria, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             } 
             
             //Deposito
@@ -339,7 +341,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelDeposito, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             
@@ -366,7 +368,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelStock, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             
@@ -392,7 +394,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelCatalogoArticulo, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Lista de Precios, Definición]")){  
@@ -417,7 +419,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelRegistroDefinicionListaPrecio, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Lista de Precios, Lista de Precios]")){  
@@ -442,7 +444,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelRegistroListaDePrecioArticulo, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
 
             
@@ -468,7 +470,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelProveedor, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Ventas, Clientes]")){  
@@ -493,8 +495,34 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
                 jPanelContenido.add(unPanelCliente, BorderLayout.NORTH);
                 jPanelContenido.repaint();
 
-                modificarArbol(false);
+                habilitarArbol(false);
             }
+            
+            if(captura.equals("[GuraSoft, Unidad Comercial, Ventas, Ingreso de Comprobantes]")){  
+            
+                //Se crea el Panel Cliente    
+                PanelRegistroVenta unPanelVenta = new PanelRegistroVenta();            
+                unPanelVenta.setSize(950, 800);
+                unPanelVenta.setLocation(0,0);
+                unPanelVenta.setVisible(true);
+
+                //Se Crea controlador JPA
+                VentaJpaController modelo = new VentaJpaController(Conexion.getEmf());
+
+                //Se crea el controlador de Cliente
+                VentaController controlador = new VentaController(unPanelVenta, modelo);
+
+                //setea el panel para que sea escuchado por el controlador
+                unPanelVenta.setControlador(controlador);
+
+
+                jPanelContenido.removeAll();
+                jPanelContenido.add(unPanelVenta, BorderLayout.NORTH);
+                jPanelContenido.repaint();
+
+                habilitarArbol(false);
+            }
+            
             
        }else{
        
@@ -510,7 +538,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
     private javax.swing.JPanel panelContenedorArbol;
     // End of variables declaration//GEN-END:variables
 
-    public void modificarArbol(boolean valor) {
+    public void habilitarArbol(boolean valor) {
         if (valor) {
             arbolModulos.setEnabled(true);
         }else {

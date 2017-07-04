@@ -18,8 +18,8 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue(value = "CLIENTE")
 public class Cliente extends Persona {
 
-    @Column(name = "cuit")
-    private String cuit;
+    @Column(name = "cuitCuil")
+    private String cuitCuil;
 
     @ManyToOne
     private CuentaCorriente cuentaCorriente;
@@ -30,17 +30,17 @@ public class Cliente extends Persona {
     @ManyToOne
     private Empresa unaEmpresa;
 
-    public String getCuit() {
-        return cuit;
+    public String getCuitCuil() {
+        return cuitCuil;
     }
 
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
+    public void setCuitCuil(String cuitCuil) {
+        this.cuitCuil = cuitCuil;
     }
 
     public Cliente(String cuit) {
         super();
-        this.cuit = cuit;
+        this.cuitCuil = cuit;
     }
 
     public Cliente() {

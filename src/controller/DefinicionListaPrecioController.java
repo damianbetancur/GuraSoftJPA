@@ -576,7 +576,7 @@ public class DefinicionListaPrecioController extends Controller {
         vista.getTablaListaDePrecio().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
         //Todos los botones de aceptar Bloqueados
         bloquearAceptarCrear = false;

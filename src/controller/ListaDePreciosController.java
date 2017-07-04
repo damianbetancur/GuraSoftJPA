@@ -355,7 +355,7 @@ public class ListaDePreciosController extends Controller {
         vista.getTablaArticulos().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
         //inhabilita bo
         vista.getJcb_ListaDePrecio().setEnabled(false);

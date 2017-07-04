@@ -756,7 +756,7 @@ public class ProveedorController extends Controller {
         vista.getTablaProveedores().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
         //Todos los botones de aceptar Bloqueados
         bloquearAceptarCrear = false;

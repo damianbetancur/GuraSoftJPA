@@ -37,6 +37,13 @@
     <class>model.CategoriaDeCatalogo</class>
     <class>model.Deposito</class>
     <class>model.StockArticulo</class>
+    <class>model.Venta</class>
+    <class>model.Pago</class>
+    <class>model.LineaDeVenta</class>
+    <class>model.Comprobante</class>
+    <class>model.Factura</class>
+    <class>model.Recibo</class>
+    <class>model.porongaMan</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

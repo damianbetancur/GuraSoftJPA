@@ -29,7 +29,7 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
      */
     private static PanelArbolAdministrador unPanelArbolAdministrador = null;
     private static PanelArbolUsuario unPanelArbolUsuario = null;
-    PanelContenedor unPanelContenedor = null;
+    private static PanelContenedor unPanelContenedor = null;
     public JframePrincipal() {
         try {
             //Icono de la aplicacion
@@ -48,15 +48,16 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jButton1 = new javax.swing.JButton();
         JpanelContenedor = new javax.swing.JPanel();
         jPanelContenido = new javax.swing.JPanel();
         jPanelArbol = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jpanel_Usuario = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jlbl_usuario = new javax.swing.JLabel();
+        jlbl_TipoUsuario = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -68,7 +69,7 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
 
         JpanelContenedor.setMaximumSize(new java.awt.Dimension(1200, 821));
         JpanelContenedor.setPreferredSize(new java.awt.Dimension(1200, 821));
-        JpanelContenedor.setLayout(new java.awt.GridBagLayout());
+        JpanelContenedor.setLayout(null);
 
         jPanelContenido.setBackground(new java.awt.Color(0, 0, 0));
         jPanelContenido.setMaximumSize(null);
@@ -76,11 +77,8 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         jPanelContenido.setPreferredSize(new java.awt.Dimension(950, 800));
         jPanelContenido.setRequestFocusEnabled(false);
         jPanelContenido.setLayout(null);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        JpanelContenedor.add(jPanelContenido, gridBagConstraints);
+        JpanelContenedor.add(jPanelContenido);
+        jPanelContenido.setBounds(350, 0, 850, 800);
 
         jPanelArbol.setBackground(new java.awt.Color(255, 153, 204));
         jPanelArbol.setAutoscrolls(true);
@@ -97,19 +95,25 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
             }
         });
         jPanelArbol.setLayout(null);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        JpanelContenedor.add(jPanelArbol, gridBagConstraints);
+        JpanelContenedor.add(jPanelArbol);
+        jPanelArbol.setBounds(0, 0, 350, 800);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jpanel_Usuario.setLayout(null);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jLabel1.setText("USUARIO:");
+        jpanel_Usuario.add(jLabel1);
+        jLabel1.setBounds(10, 0, 60, 20);
+        jpanel_Usuario.add(jlbl_usuario);
+        jlbl_usuario.setBounds(80, 0, 150, 20);
+        jpanel_Usuario.add(jlbl_TipoUsuario);
+        jlbl_TipoUsuario.setBounds(450, 0, 180, 20);
 
-        setJMenuBar(jMenuBar1);
+        jLabel4.setText("TIPO USUARIO:");
+        jpanel_Usuario.add(jLabel4);
+        jLabel4.setBounds(350, 0, 90, 20);
+
+        JpanelContenedor.add(jpanel_Usuario);
+        jpanel_Usuario.setBounds(0, 800, 1200, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +123,9 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JpanelContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JpanelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,11 +141,13 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelContenedor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     public static javax.swing.JPanel jPanelArbol;
     public static javax.swing.JPanel jPanelContenido;
+    private javax.swing.JLabel jlbl_TipoUsuario;
+    private javax.swing.JLabel jlbl_usuario;
+    private javax.swing.JPanel jpanel_Usuario;
     // End of variables declaration//GEN-END:variables
 
 
@@ -182,22 +190,39 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         setVisible(true);// visualiza la ventana
     }
 
-    public static void modificarArbol(boolean valor) {
+    public static void habilitarArbol(boolean valor) {
         if (unPanelArbolAdministrador!=null) {
-            unPanelArbolAdministrador.modificarArbol(valor);
+            unPanelArbolAdministrador.habilitarArbol(valor);
         }
         if (unPanelArbolUsuario!=null){
-            unPanelArbolUsuario.modificarArbol(valor);
+            unPanelArbolUsuario.habilitarArbol(valor);
         }    
 
     }
-
+    
+    
     public String getTipoUsuario() {
         return tipoUsuario;
     }
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public javax.swing.JLabel getJlbl_TipoUsuario() {
+        return jlbl_TipoUsuario;
+    }
+
+    public void setJlbl_TipoUsuario(javax.swing.JLabel jlbl_TipoUsuario) {
+        this.jlbl_TipoUsuario = jlbl_TipoUsuario;
+    }
+
+    public javax.swing.JLabel getJlbl_usuario() {
+        return jlbl_usuario;
+    }
+
+    public void setJlbl_usuario(javax.swing.JLabel jlbl_usuario) {
+        this.jlbl_usuario = jlbl_usuario;
     }
 
     
