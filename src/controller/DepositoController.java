@@ -391,7 +391,7 @@ public class DepositoController extends Controller {
         vista.getTablaListaDeDeposito().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
     }
 

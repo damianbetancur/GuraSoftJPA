@@ -186,7 +186,7 @@ public class EmpresaController extends Controller {
         inhabilitarTodosLosBotones(false);
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
     }
 

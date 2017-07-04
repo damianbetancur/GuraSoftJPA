@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import static javax.persistence.DiscriminatorType.STRING;
@@ -16,37 +17,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Ariel
  */
 @Entity
-@Table(name = "PERSONA")
+@Table(name = "COMPROBANTE")
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = STRING, length = 20)
-@DiscriminatorValue("PERSONA")
-public abstract class Persona implements Serializable {
+@DiscriminatorValue("COMPROBANTE")
+public abstract class Comprobante implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Column(name = "apellido")
-    private String apellido;
-
-    @ManyToOne
-    private Direccion direccion;
-
-    @ManyToOne
-    private Unidad unidad;
-
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    
     public Long getId() {
         return id;
     }
@@ -65,10 +58,10 @@ public abstract class Persona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleado)) {
+        if (!(object instanceof Comprobante)) {
             return false;
         }
-        Empleado other = (Empleado) object;
+        Comprobante other = (Comprobante) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -77,43 +70,16 @@ public abstract class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Persona[ id=" + id + " ]";
+        return "model.Comprobante[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
     
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public Unidad getUnidad() {
-        return unidad;
-    }
-
-    public void setUnidad(Unidad unidad) {
-        this.unidad = unidad;
-    }
-
-    public String getDiscriminatorValue() {
-        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
-    }
-
+    
 }

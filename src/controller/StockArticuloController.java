@@ -406,7 +406,7 @@ public class StockArticuloController extends Controller {
         vista.getTablaArticulos().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
         //inhabilita bo
         vista.getJcb_ListaDeDeposito().setEnabled(false);

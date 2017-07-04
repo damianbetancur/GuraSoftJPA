@@ -13,16 +13,16 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Cliente;
 import model.JPAController.exceptions.NonexistentEntityException;
+import model.Pago;
 
 /**
  *
  * @author Ariel
  */
-public class ClienteJpaController implements Serializable {
+public class PagoJpaController implements Serializable {
 
-    public ClienteJpaController(EntityManagerFactory emf) {
+    public PagoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,16 +31,13 @@ public class ClienteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Cliente cliente) {
-        
+    public void create(Pago pago) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(cliente);
+            em.persist(pago);
             em.getTransaction().commit();
-            
-            
         } finally {
             if (em != null) {
                 em.close();
@@ -48,19 +45,19 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
-    public void edit(Cliente cliente) throws NonexistentEntityException, Exception {
+    public void edit(Pago pago) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            cliente = em.merge(cliente);
+            pago = em.merge(pago);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = cliente.getId();
-                if (findCliente(id) == null) {
-                    throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.");
+                Long id = pago.getId();
+                if (findPago(id) == null) {
+                    throw new NonexistentEntityException("The pago with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -76,14 +73,14 @@ public class ClienteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Cliente cliente;
+            Pago pago;
             try {
-                cliente = em.getReference(Cliente.class, id);
-                cliente.getId();
+                pago = em.getReference(Pago.class, id);
+                pago.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The pago with id " + id + " no longer exists.", enfe);
             }
-            em.remove(cliente);
+            em.remove(pago);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -92,19 +89,19 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
-    public List<Cliente> findClienteEntities() {
-        return findClienteEntities(true, -1, -1);
+    public List<Pago> findPagoEntities() {
+        return findPagoEntities(true, -1, -1);
     }
 
-    public List<Cliente> findClienteEntities(int maxResults, int firstResult) {
-        return findClienteEntities(false, maxResults, firstResult);
+    public List<Pago> findPagoEntities(int maxResults, int firstResult) {
+        return findPagoEntities(false, maxResults, firstResult);
     }
 
-    private List<Cliente> findClienteEntities(boolean all, int maxResults, int firstResult) {
+    private List<Pago> findPagoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Cliente.class));
+            cq.select(cq.from(Pago.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -116,20 +113,20 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
-    public Cliente findCliente(Long id) {
+    public Pago findPago(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Cliente.class, id);
+            return em.find(Pago.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getClienteCount() {
+    public int getPagoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Cliente> rt = cq.from(Cliente.class);
+            Root<Pago> rt = cq.from(Pago.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -137,30 +134,5 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
-    //Buscar Cliente por DNI
-    public Cliente buscarClienteCuitCuil(Cliente cli){
-        EntityManager em = getEntityManager();
-        Cliente cliente = null;
-        String consulta;
-        try {
-            consulta ="FROM Cliente cli WHERE cli.cuitCuil = ?1 ";
-            Query query = em.createQuery(consulta);
-            query.setParameter(1, cli.getCuitCuil());
-            
-            
-            List <Cliente> lista = query.getResultList();
-            if (!lista.isEmpty()) {
-                cliente = lista.get(0);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally{
-            em.close();
-        }
-        return cliente;
-    }
-    
-    
     
 }

@@ -207,7 +207,7 @@ public class PanelArbolUsuario extends javax.swing.JPanel{
             jPanelContenido.add(unPanelPersona, BorderLayout.NORTH);
             jPanelContenido.repaint();
 
-            modificarArbol(false);
+            habilitarArbol(false);
             }
        }else{
        
@@ -223,7 +223,7 @@ public class PanelArbolUsuario extends javax.swing.JPanel{
     private javax.swing.JPanel panelContenedorArbol;
     // End of variables declaration//GEN-END:variables
 
-    public void modificarArbol(boolean valor) {
+    public void habilitarArbol(boolean valor) {
         if (valor) {
             arbolModulos.setEnabled(true);
         }else {

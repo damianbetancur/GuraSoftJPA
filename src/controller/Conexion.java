@@ -8,6 +8,7 @@ package controller;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -45,4 +46,10 @@ public class Conexion {
         Conexion.setup();
     }
 
+    //obtener hora del servidor
+    public static Query Date_NOW(){
+        String Cons = "SELECT NOW()";
+        Query qy = em.createNativeQuery(Cons);
+        return qy;
+    }
 }

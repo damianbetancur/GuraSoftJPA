@@ -142,7 +142,7 @@ public class UnidadController extends Controller {
         vista.getTablaListaDeUnidad().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
     }
 

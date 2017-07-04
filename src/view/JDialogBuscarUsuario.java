@@ -10,22 +10,20 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-
-
 /**
  *
  * @author Ariel
  */
-public final class PanelRegistroCliente extends javax.swing.JPanel  implements InterfacePanel{
+public class JDialogBuscarUsuario extends javax.swing.JDialog implements InterfacePanel {
 
-    /**
-     * Creates new form PersonalPanel
-     */
     private ValidadorDeCampos validador;
-    
-    public PanelRegistroCliente() {
-        initComponents();      
+    /**
+     * Creates new form JDialogBuscarUsuario
+     */
+    public JDialogBuscarUsuario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         this.validador = new ValidadorDeCampos();
+        initComponents();
     }
 
     /**
@@ -37,20 +35,20 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jbtn_Nuevo = new javax.swing.JButton();
-        jbtn_Modificar = new javax.swing.JButton();
-        jbtn_Listar = new javax.swing.JButton();
-        jbtn_Eliminar = new javax.swing.JButton();
+        jbtn_Agregar = new javax.swing.JButton();
+        jbtn_Cancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaEmpleados = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jbtn_Volver = new javax.swing.JButton();
+        tablaClientes = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jtf_BuscarCliente = new javax.swing.JTextField();
+        jlbl_TituloBusqueda = new javax.swing.JLabel();
         jTabbedPaneContenedor = new javax.swing.JTabbedPane();
         jPanelEmpleado = new javax.swing.JPanel();
         jlbl_Nombre = new javax.swing.JLabel();
         jlbl_Apellido = new javax.swing.JLabel();
-        jlbl_DNI = new javax.swing.JLabel();
+        jlbl_cuitCuil = new javax.swing.JLabel();
         jlbl_ID = new javax.swing.JLabel();
         jtf_ID = new javax.swing.JTextField();
         jtf_Nombre = new javax.swing.JTextField();
@@ -76,35 +74,24 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         jlbl_piso_direccion = new javax.swing.JLabel();
         jtf_departamento_direccion = new javax.swing.JTextField();
         jlbl_departamento_direccion = new javax.swing.JLabel();
-        jbtn_Aceptar = new javax.swing.JButton();
-        jbtn_Cancelar = new javax.swing.JButton();
 
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setMaximumSize(new java.awt.Dimension(950, 800));
-        setMinimumSize(new java.awt.Dimension(950, 800));
-        setLayout(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setLayout(null);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lista de Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
         jPanel2.setMinimumSize(new java.awt.Dimension(730, 290));
         jPanel2.setLayout(null);
 
-        jbtn_Nuevo.setText("Agregar");
-        jPanel2.add(jbtn_Nuevo);
-        jbtn_Nuevo.setBounds(30, 190, 80, 30);
+        jbtn_Agregar.setText("Agregar");
+        jPanel2.add(jbtn_Agregar);
+        jbtn_Agregar.setBounds(30, 140, 80, 30);
 
-        jbtn_Modificar.setText("Modificar");
-        jPanel2.add(jbtn_Modificar);
-        jbtn_Modificar.setBounds(120, 190, 90, 30);
+        jbtn_Cancelar.setText("Cancelar");
+        jPanel2.add(jbtn_Cancelar);
+        jbtn_Cancelar.setBounds(120, 140, 90, 30);
 
-        jbtn_Listar.setText("Listar");
-        jPanel2.add(jbtn_Listar);
-        jbtn_Listar.setBounds(220, 190, 80, 30);
-
-        jbtn_Eliminar.setText("Eliminar");
-        jPanel2.add(jbtn_Eliminar);
-        jbtn_Eliminar.setBounds(310, 190, 80, 30);
-
-        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -112,28 +99,39 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
 
             }
         ));
-        jScrollPane1.setViewportView(tablaEmpleados);
-        if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
-            tablaEmpleados.getColumnModel().getColumn(0).setMinWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tablaEmpleados.getColumnModel().getColumn(0).setMaxWidth(120);
-        }
+        jScrollPane1.setViewportView(tablaClientes);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 30, 680, 150);
+        jScrollPane1.setBounds(10, 30, 560, 100);
 
-        add(jPanel2);
-        jPanel2.setBounds(70, 50, 730, 230);
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(10, 80, 580, 180);
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel4.setText("GESTIÓN DE CLIENTES");
-        add(jLabel4);
-        jLabel4.setBounds(300, 10, 250, 30);
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jbtn_Volver.setText("VOLVER");
-        add(jbtn_Volver);
-        jbtn_Volver.setBounds(590, 660, 210, 50);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlbl_TituloBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtf_BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtf_BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbl_TituloBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(10, 20, 580, 50);
 
         jPanelEmpleado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelEmpleado.setName("Empleado"); // NOI18N
@@ -147,9 +145,9 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         jPanelEmpleado.add(jlbl_Apellido);
         jlbl_Apellido.setBounds(60, 120, 90, 14);
 
-        jlbl_DNI.setText("CUIT-CUIL:");
-        jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(60, 160, 80, 14);
+        jlbl_cuitCuil.setText("CUIT-CUIL:");
+        jPanelEmpleado.add(jlbl_cuitCuil);
+        jlbl_cuitCuil.setBounds(60, 160, 80, 14);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
@@ -229,44 +227,49 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
 
         jTabbedPaneContenedor.addTab("Dirección", jPanelDireccion);
 
-        add(jTabbedPaneContenedor);
-        jTabbedPaneContenedor.setBounds(70, 310, 730, 320);
+        jPanel1.add(jTabbedPaneContenedor);
+        jTabbedPaneContenedor.setBounds(10, 260, 580, 310);
 
-        jbtn_Aceptar.setText("ACEPTAR");
-        add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(70, 660, 170, 23);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
-        jbtn_Cancelar.setText("CANCELAR");
-        add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(270, 660, 170, 23);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelDireccion;
     private javax.swing.JPanel jPanelEmpleado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPaneContenedor;
-    private javax.swing.JButton jbtn_Aceptar;
+    private javax.swing.JButton jbtn_Agregar;
     private javax.swing.JButton jbtn_Cancelar;
-    private javax.swing.JButton jbtn_Eliminar;
-    private javax.swing.JButton jbtn_Listar;
-    private javax.swing.JButton jbtn_Modificar;
-    private javax.swing.JButton jbtn_Nuevo;
-    private javax.swing.JButton jbtn_Volver;
     private javax.swing.JComboBox<String> jcb_localidad_direccion;
     private javax.swing.JComboBox<String> jcb_provincia_direccion;
     private javax.swing.JComboBox<String> jcb_tipoCliente;
     private javax.swing.JComboBox<String> jcb_zona_direccion;
     private javax.swing.JLabel jlbl_Apellido;
-    private javax.swing.JLabel jlbl_DNI;
     private javax.swing.JLabel jlbl_ID;
     private javax.swing.JLabel jlbl_Nombre;
+    private javax.swing.JLabel jlbl_TituloBusqueda;
     private javax.swing.JLabel jlbl_calle_direccion;
     private javax.swing.JLabel jlbl_ctaCte;
+    private javax.swing.JLabel jlbl_cuitCuil;
     private javax.swing.JLabel jlbl_departamento_direccion;
     private javax.swing.JLabel jlbl_localidad_direccion;
     private javax.swing.JLabel jlbl_numero_direccion;
@@ -275,6 +278,7 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
     private javax.swing.JLabel jlbl_tipoCliente;
     private javax.swing.JLabel jlbl_zona_direccion;
     private javax.swing.JTextField jtf_Apellido;
+    private javax.swing.JTextField jtf_BuscarCliente;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_calle_direccion;
@@ -283,21 +287,14 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
-    private javax.swing.JTable tablaEmpleados;
+    private javax.swing.JTable tablaClientes;
     // End of variables declaration//GEN-END:variables
 
-    
-    @Override
-    public void setControlador(Controller c) {
-        
+
+public void setControlador(Controller c) {
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
-        jbtn_Nuevo.addActionListener(c);
-        jbtn_Listar.addActionListener(c);
-        jbtn_Modificar.addActionListener(c);
-        jbtn_Eliminar.addActionListener(c);       
-        jbtn_Aceptar.addActionListener(c);
-        jbtn_Cancelar.addActionListener(c);      
-        jbtn_Volver.addActionListener(c); 
+        jbtn_Agregar.addActionListener(c);
+        jbtn_Cancelar.addActionListener(c);
         
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
@@ -321,143 +318,14 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         jcb_zona_direccion.addFocusListener(c);
         jcb_provincia_direccion.addFocusListener(c);
         jcb_localidad_direccion.addFocusListener(c);
-        jtf_cuitCuil.addFocusListener(c);        
         jcb_tipoCliente.addFocusListener(c);
         
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
-        tablaEmpleados.addMouseListener(c);
+        tablaClientes.addMouseListener(c);
         
-        
-        
+        jtf_BuscarCliente.addKeyListener(c);
     }
 
-    /*
-    CAMPOS del PANEL Getters y Setters
-    */
-    public javax.swing.JTextField getJtfApellido() {
-        return jtf_Apellido;
-    }
-
-    public void setJtfApellido(javax.swing.JTextField jtfApellido) {
-        this.jtf_Apellido = jtfApellido;
-    }
-
-    public javax.swing.JTextField getJtfCuitCuil() {
-        return jtf_cuitCuil;
-    }
-
-    public void setJtfCuituil(javax.swing.JTextField jtfuitCuil) {
-        this.jtf_cuitCuil = jtfuitCuil;
-    }
-   
-    public javax.swing.JTextField getJtfID() {
-        return jtf_ID;
-    }
-
-    public void setJtfID(javax.swing.JTextField jtfID) {
-        this.jtf_ID = jtfID;
-    }
-
-    public javax.swing.JTextField getJtfNombre() {
-        return jtf_Nombre;
-    }
-
-    public void setJtfNombre(javax.swing.JTextField jtfNombre) {
-        this.jtf_Nombre = jtfNombre;
-    }
-
-    public javax.swing.JComboBox<String> getJcb_localidad_direccion() {
-        return jcb_localidad_direccion;
-    }
-
-    public void setJcb_localidad_direccion(javax.swing.JComboBox<String> jcb_localidad_direccion) {
-        this.jcb_localidad_direccion = jcb_localidad_direccion;
-    }
-
-    public javax.swing.JComboBox<String> getJcb_provincia_direccion() {
-        return jcb_provincia_direccion;
-    }
-
-    public void setJcb_provincia_direccion(javax.swing.JComboBox<String> jcb_provincia_direccion) {
-        this.jcb_provincia_direccion = jcb_provincia_direccion;
-    }
-
-    public javax.swing.JComboBox<String> getJcb_zona_direccion() {
-        return jcb_zona_direccion;
-    }
-
-    public void setJcb_zona_direccion(javax.swing.JComboBox<String> jcb_zona_direccion) {
-        this.jcb_zona_direccion = jcb_zona_direccion;
-    }
-
-    public javax.swing.JTextField getJtf_calle_direccion() {
-        return jtf_calle_direccion;
-    }
-
-    public void setJtf_calle_direccion(javax.swing.JTextField jtf_calle_direccion) {
-        this.jtf_calle_direccion = jtf_calle_direccion;
-    }
-
-    public javax.swing.JTextField getJtf_departamento_direccion() {
-        return jtf_departamento_direccion;
-    }
-
-    public void setJtf_departamento_direccion(javax.swing.JTextField jtf_departamento_direccion) {
-        this.jtf_departamento_direccion = jtf_departamento_direccion;
-    }
-
-    public javax.swing.JTextField getJtf_numero_direccion() {
-        return jtf_numero_direccion;
-    }
-
-    public void setJtf_numero_direccion(javax.swing.JTextField jtf_numero_direccion) {
-        this.jtf_numero_direccion = jtf_numero_direccion;
-    }
-
-    public javax.swing.JTextField getJtf_piso_direccion() {
-        return jtf_piso_direccion;
-    }
-
-    public void setJtf_piso_direccion(javax.swing.JTextField jtf_piso_direccion) {
-        this.jtf_piso_direccion = jtf_piso_direccion;
-    }
-    
-    
-    
-    /*
-    BOTONES del PANEL
-    */
-        
-    public javax.swing.JButton getJbtn_Aceptar() {
-        return jbtn_Aceptar;
-    }
-
-    public javax.swing.JButton getJbtn_Cancelar() {
-        return jbtn_Cancelar;
-    }
-
-    public javax.swing.JButton getJbtn_Eliminar() {
-        return jbtn_Eliminar;
-    }
-
-    public javax.swing.JButton getJbtn_Listar() {
-        return jbtn_Listar;
-    }
-
-    public javax.swing.JButton getJbtn_Modificar() {
-        return jbtn_Modificar;
-    }
-
-    public javax.swing.JButton getJbtn_Agregar() {
-        return jbtn_Nuevo;
-    }
-
-    public javax.swing.JButton getJbtn_Volver() {
-        return jbtn_Volver;
-    }
-      
-    
-    
     @Override
     public void limpiarCampo(JTextField campo){
         campo.setText("");        
@@ -479,8 +347,8 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         return validador;
     }
 
-    public javax.swing.JTable getTablaEmpleados() {
-        return tablaEmpleados;
+    public javax.swing.JTable getTablaClientes() {
+        return tablaClientes;
     }
 
     @Override
@@ -493,34 +361,77 @@ public final class PanelRegistroCliente extends javax.swing.JPanel  implements I
         campo.removeAllItems();
     }
 
-    public javax.swing.JPanel getjPanelDireccion() {
-        return jPanelDireccion;
+    public javax.swing.JButton getJbtn_Agregar() {
+        return jbtn_Agregar;
+    }
+    
+    public javax.swing.JButton getJbtn_Cancelar() {
+        return jbtn_Cancelar;
     }
 
-    public javax.swing.JPanel getjPanelEmpleado() {
-        return jPanelEmpleado;
+    public javax.swing.JComboBox<String> getJcb_localidad_direccion() {
+        return jcb_localidad_direccion;
     }
 
-    public javax.swing.JTabbedPane getjTabbedPaneContenedor() {
-        return jTabbedPaneContenedor;
+    public javax.swing.JComboBox<String> getJcb_provincia_direccion() {
+        return jcb_provincia_direccion;
     }
 
     public javax.swing.JComboBox<String> getJcb_tipoCliente() {
         return jcb_tipoCliente;
     }
 
-    public void setJcb_tipoCliente(javax.swing.JComboBox<String> jcb_tipoCliente) {
-        this.jcb_tipoCliente = jcb_tipoCliente;
+    public javax.swing.JComboBox<String> getJcb_zona_direccion() {
+        return jcb_zona_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_Apellido() {
+        return jtf_Apellido;
+    }
+
+    public javax.swing.JTextField getJtf_BuscarCliente() {
+        return jtf_BuscarCliente;
+    }
+
+    public javax.swing.JTextField getJtf_cuitCuil() {
+        return jtf_cuitCuil;
+    }
+
+    public javax.swing.JTextField getJtf_ID() {
+        return jtf_ID;
+    }
+
+    public javax.swing.JTextField getJtf_Nombre() {
+        return jtf_Nombre;
+    }
+
+    public javax.swing.JTextField getJtf_calle_direccion() {
+        return jtf_calle_direccion;
     }
 
     public javax.swing.JTextField getJtf_ctaCte() {
         return jtf_ctaCte;
     }
 
-    public void setJtf_ctaCte(javax.swing.JTextField jtf_ctaCte) {
-        this.jtf_ctaCte = jtf_ctaCte;
+    public javax.swing.JTextField getJtf_departamento_direccion() {
+        return jtf_departamento_direccion;
     }
 
+    public javax.swing.JTextField getJtf_numero_direccion() {
+        return jtf_numero_direccion;
+    }
+
+    public javax.swing.JTextField getJtf_piso_direccion() {
+        return jtf_piso_direccion;
+    }
+
+    public javax.swing.JLabel getJlbl_TituloBusqueda() {
+        return jlbl_TituloBusqueda;
+    }
+
+    public void setJlbl_TituloBusqueda(javax.swing.JLabel jlbl_TituloBusqueda) {
+        this.jlbl_TituloBusqueda = jlbl_TituloBusqueda;
+    }
     
     
 }

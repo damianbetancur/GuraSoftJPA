@@ -69,7 +69,7 @@ public class ClienteController extends Controller {
     boolean lSeleccionada = false;
     boolean tcSeleccionada = false;
 
-    String dniModificado = null;
+    String cuitCuilModificado = null;
 
     int ultimoIndiceSeleccionado = 0;
     List<Cliente> clientes;
@@ -261,7 +261,7 @@ public class ClienteController extends Controller {
         vista.getJcb_tipoCliente().setSelectedItem(clienteModificado.getTipocliente());
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        cuitCuilModificado = vista.getJtfCuitCuil().getText();
 
         //desbloquea el boton modificar
         bloquearAceptarModificar = true;
@@ -326,10 +326,10 @@ public class ClienteController extends Controller {
         vista.getJcb_tipoCliente().setSelectedItem(clienteAEliminar.getTipocliente());
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        cuitCuilModificado = vista.getJtfCuitCuil().getText();
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        cuitCuilModificado = vista.getJtfCuitCuil().getText();
 
         //Habilita boton Aceptar Eliminar Bloqueado
         bloquearAceptarEliminar = true;
@@ -369,7 +369,7 @@ public class ClienteController extends Controller {
 
             //Posicionar el cursor de la lista en el primer Elemento
             vista.getJtfID().setText(clientes.get(0).getId().toString());
-            vista.getJtfDNI().setText(clientes.get(0).getDni());
+            vista.getJtfCuitCuil().setText(clientes.get(0).getCuitCuil());
             vista.getJtfNombre().setText(clientes.get(0).getNombre());
             vista.getJtfApellido().setText(clientes.get(0).getApellido());
             if (clientes.get(0).getId().toString().equals(vista.getJtfID().getText())) {
@@ -438,7 +438,7 @@ public class ClienteController extends Controller {
             Cliente cli = new Cliente();
 
             //setea DNI cliente
-            cli.setDni(vista.getJtfDNI().getText());
+            cli.setCuitCuil(vista.getJtfCuitCuil().getText());
 
             //Crea Instancia de Direccion
             Direccion direccion = new Direccion();
@@ -474,12 +474,12 @@ public class ClienteController extends Controller {
             unaCtaCorriente.setSaldo(0f);
 
             //Verificar si el DNI ingresado ya existe en la base de datos
-            if (modelo.buscarClienteDNI(cli) == null) {
+            if (modelo.buscarClienteCuitCuil(cli) == null) {
 
                 if (!clienteCreado) {
                     //Setea Datos de Empleado
                     cli.setNombre(vista.getJtfNombre().getText());
-                    cli.setDni(vista.getJtfDNI().getText());
+                    cli.setCuitCuil(vista.getJtfCuitCuil().getText());
                     cli.setApellido(vista.getJtfApellido().getText());
 
                     //Agrega la unidad al cliente
@@ -562,14 +562,14 @@ public class ClienteController extends Controller {
      * el dni del cliente instanciado edita direccion edita cliente
      */
     public void btn_aceptarModificar() {
-        boolean empleadoModifocado = false;
+        boolean clienteModifocado = false;
 
         if (vista.getJcb_localidad_direccion().getSelectedIndex() >= 0) {
             //instancia de cliente igual al objeto guardado en Base de datos
             Cliente cli = modelo.findCliente(Long.parseLong(vista.getJtfID().getText()));
 
             //setea DNI cliente con nuevos valores
-            cli.setDni(vista.getJtfDNI().getText());
+            cli.setCuitCuil(vista.getJtfCuitCuil().getText());
 
             //Instancia de Direccion
             Direccion direccion = new Direccion();
@@ -599,9 +599,9 @@ public class ClienteController extends Controller {
             //Instancia TipoEClienteJpaController
             modeloTipoCliente = new TipoClienteJpaController(Conexion.getEmf());
 
-            if (!empleadoModifocado) {
+            if (!clienteModifocado) {
                 //verificar que el DNI sea igual que el DNI actual        
-                if (cli.getDni().equals(dniModificado)) {
+                if (cli.getCuitCuil().equals(cuitCuilModificado)) {
                     //El DNI es igual se mantiene sin cambio            
                     try {
                         //Setea Datos de Empleado
@@ -622,16 +622,16 @@ public class ClienteController extends Controller {
                         JOptionPane.showMessageDialog(null, "cliente modificado con DNI igual");
 
                         //Bandera de cliente creado a verdadero
-                        empleadoModifocado = true;
+                        clienteModifocado = true;
 
                     } catch (Exception ex) {
                         Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //Si el DNI no es igual que el DNI actual
                 } else //Verifica si existe el DNI, si no existe se procede
-                if (modelo.buscarClienteDNI(cli) == null) {
+                if (modelo.buscarClienteCuitCuil(cli) == null) {
                     //Se modifica el DNI
-                    cli.setDni(vista.getJtfDNI().getText());
+                    cli.setCuitCuil(vista.getJtfCuitCuil().getText());
                     try {
                         //Setea Datos de Empleado
                         cli.setApellido(vista.getJtfApellido().getText());
@@ -651,7 +651,7 @@ public class ClienteController extends Controller {
                         JOptionPane.showMessageDialog(null, "cliente y DNI modificado");
 
                         //Bandera de cliente creado a verdadero
-                        empleadoModifocado = true;
+                        clienteModifocado = true;
 
                     } catch (Exception ex) {
                         Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -661,7 +661,7 @@ public class ClienteController extends Controller {
                     JOptionPane.showMessageDialog(null, "El DNI Ya existe, modifiquelo");
                 }
             }
-            if (empleadoModifocado) {
+            if (clienteModifocado) {
 
                 //llena la tabla de Empleados
                 llenarTabla(vista.getTablaEmpleados());
@@ -765,7 +765,7 @@ public class ClienteController extends Controller {
                 vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(cli.getId()), 1, false, false);
 
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                cuitCuilModificado = vista.getJtfCuitCuil().getText();
 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear = false;
@@ -804,7 +804,7 @@ public class ClienteController extends Controller {
                 vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(cli.getId()), 1, false, false);
 
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                cuitCuilModificado = vista.getJtfCuitCuil().getText();
 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear = false;
@@ -860,7 +860,7 @@ public class ClienteController extends Controller {
         vista.getTablaEmpleados().setModel(new DefaultTableModel());
 
         //Habilita el Arbol de seleccion
-        JframePrincipal.modificarArbol(true);
+        JframePrincipal.habilitarArbol(true);
 
         //Todos los botones de aceptar Bloqueados
         bloquearAceptarCrear = false;
@@ -899,7 +899,7 @@ public class ClienteController extends Controller {
         //Setea las cabeceras de la tabla
         modeloT.addColumn("N°");
         modeloT.addColumn("ID");
-        modeloT.addColumn("DNI");
+        modeloT.addColumn("CUIT-CUIL");
         modeloT.addColumn("Nombre");
         modeloT.addColumn("Apellido");
 
@@ -914,7 +914,7 @@ public class ClienteController extends Controller {
             numero = numero + 1;
             columna[0] = String.valueOf(numero);
             columna[1] = cli.getId();
-            columna[2] = cli.getDni();
+            columna[2] = cli.getCuitCuil();
             columna[3] = cli.getNombre();
             columna[4] = cli.getApellido();
 
@@ -933,7 +933,7 @@ public class ClienteController extends Controller {
         vista.habilitarCampo(estado, vista.getJtfID());
         vista.habilitarCampo(estado, vista.getJtfNombre());
         vista.habilitarCampo(estado, vista.getJtfApellido());
-        vista.habilitarCampo(estado, vista.getJtfDNI());
+        vista.habilitarCampo(estado, vista.getJtfCuitCuil());
         vista.habilitarCampo(estado, vista.getJtf_ctaCte());
 
         vista.habilitarCampo(estado, vista.getJtf_calle_direccion());
@@ -954,7 +954,7 @@ public class ClienteController extends Controller {
         vista.limpiarCampo(vista.getJtfID());
         vista.limpiarCampo(vista.getJtfNombre());
         vista.limpiarCampo(vista.getJtfApellido());
-        vista.limpiarCampo(vista.getJtfDNI());
+        vista.limpiarCampo(vista.getJtfCuitCuil());
         vista.limpiarCampo(vista.getJtf_ctaCte());
 
         vista.limpiarCampo(vista.getJtf_calle_direccion());
@@ -1002,8 +1002,8 @@ public class ClienteController extends Controller {
         vista.getValidador().validarSoloLetras(vista.getJtfNombre());
         vista.getValidador().LimitarCaracteres(vista.getJtfNombre(), 30);
 
-        vista.getValidador().validarSoloNumero(vista.getJtfDNI());
-        vista.getValidador().LimitarCaracteres(vista.getJtfDNI(), 8);
+        vista.getValidador().validarSoloNumero(vista.getJtfCuitCuil());
+        vista.getValidador().LimitarCaracteres(vista.getJtfCuitCuil(), 10);
 
         vista.getValidador().LimitarCaracteres(vista.getJtf_calle_direccion(), 30);
 
@@ -1144,8 +1144,8 @@ public class ClienteController extends Controller {
         if (e.getSource().equals(vista.getJcb_localidad_direccion())) {
             this.lSeleccionada = true;
         }
-        if (e.getSource().equals(vista.getJtfDNI())) {
-            dniModificado = vista.getJtfDNI().getText();
+        if (e.getSource().equals(vista.getJtfCuitCuil())) {
+            cuitCuilModificado = vista.getJtfCuitCuil().getText();
         }
         if (e.getSource() == vista.getJcb_tipoCliente()) {
             this.tcSeleccionada = true;
@@ -1201,7 +1201,7 @@ public class ClienteController extends Controller {
         //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
         int seleccion = vista.getTablaEmpleados().rowAtPoint(e.getPoint());
         vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 1)));
-        vista.getJtfDNI().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 2)));
+        vista.getJtfCuitCuil().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 2)));
         vista.getJtfNombre().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 3)));
         vista.getJtfApellido().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 4)));
 

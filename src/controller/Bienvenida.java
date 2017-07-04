@@ -99,8 +99,12 @@ public class Bienvenida extends javax.swing.JFrame {
                             text.setText("Carga finalizada");
                             break;
                         case 60:
+                            
                             JframePrincipal main = new JframePrincipal();
                             main.setTipoUsuario(tipoUsuario);
+                            //Uso del Singleton creado en el Login
+                            main.getJlbl_usuario().setText(LoginController.getInstance().getNombre());
+                            main.getJlbl_TipoUsuario().setText(LoginController.getInstance().getTipoUsuario().getDescripcion());
                             main.arranca();
                             Bienvenida.this.dispose();
                             break;
