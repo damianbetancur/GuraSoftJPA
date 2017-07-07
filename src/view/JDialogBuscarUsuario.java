@@ -38,7 +38,6 @@ public class JDialogBuscarUsuario extends javax.swing.JDialog implements Interfa
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jbtn_Agregar = new javax.swing.JButton();
-        jbtn_Cancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -85,11 +84,7 @@ public class JDialogBuscarUsuario extends javax.swing.JDialog implements Interfa
 
         jbtn_Agregar.setText("Agregar");
         jPanel2.add(jbtn_Agregar);
-        jbtn_Agregar.setBounds(30, 140, 80, 30);
-
-        jbtn_Cancelar.setText("Cancelar");
-        jPanel2.add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(120, 140, 90, 30);
+        jbtn_Agregar.setBounds(10, 140, 80, 30);
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -258,7 +253,6 @@ public class JDialogBuscarUsuario extends javax.swing.JDialog implements Interfa
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPaneContenedor;
     private javax.swing.JButton jbtn_Agregar;
-    private javax.swing.JButton jbtn_Cancelar;
     private javax.swing.JComboBox<String> jcb_localidad_direccion;
     private javax.swing.JComboBox<String> jcb_provincia_direccion;
     private javax.swing.JComboBox<String> jcb_tipoCliente;
@@ -292,9 +286,9 @@ public class JDialogBuscarUsuario extends javax.swing.JDialog implements Interfa
 
 
 public void setControlador(Controller c) {
+    try {
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados
         jbtn_Agregar.addActionListener(c);
-        jbtn_Cancelar.addActionListener(c);
         
         
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
@@ -324,6 +318,10 @@ public void setControlador(Controller c) {
         tablaClientes.addMouseListener(c);
         
         jtf_BuscarCliente.addKeyListener(c);
+        jtf_BuscarCliente.addFocusListener(c);
+    } catch (Exception e) {
+    }
+        
     }
 
     @Override
@@ -365,9 +363,6 @@ public void setControlador(Controller c) {
         return jbtn_Agregar;
     }
     
-    public javax.swing.JButton getJbtn_Cancelar() {
-        return jbtn_Cancelar;
-    }
 
     public javax.swing.JComboBox<String> getJcb_localidad_direccion() {
         return jcb_localidad_direccion;

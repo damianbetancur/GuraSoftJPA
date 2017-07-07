@@ -42,7 +42,6 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLineaDeVenta = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jbtn_Volver = new javax.swing.JButton();
         jbtn_GrabarEImprimir = new javax.swing.JButton();
         jbtn_SalirSinGrabar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -82,20 +81,18 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jlbl_Apellido1 = new javax.swing.JLabel();
         jtf_Apellido = new javax.swing.JTextField();
         jlbl_DNI1 = new javax.swing.JLabel();
-        jtf_DNI = new javax.swing.JTextField();
+        jtf_cuitCuil = new javax.swing.JTextField();
         jlbl_tipoCliente1 = new javax.swing.JLabel();
         jcb_tipoCliente = new javax.swing.JComboBox<>();
         jlbl_ctaCte1 = new javax.swing.JLabel();
         jtf_ctaCte = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
-        jlbl_Deposito = new javax.swing.JLabel();
-        jcb_Deposito = new javax.swing.JComboBox<>();
         jbtn_CargarItem = new javax.swing.JButton();
         jbtn_ModificarItem = new javax.swing.JButton();
         jbtn_EliminarItem = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        jlbl_Deposito = new javax.swing.JLabel();
+        jcb_Deposito = new javax.swing.JComboBox<>();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
@@ -131,11 +128,6 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jLabel4.setText("Registro de Comprobante");
         add(jLabel4);
         jLabel4.setBounds(300, 0, 220, 30);
-
-        jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jbtn_Volver.setText("VOLVER");
-        add(jbtn_Volver);
-        jbtn_Volver.setBounds(260, 690, 170, 25);
 
         jbtn_GrabarEImprimir.setText("GRABAR E IMPRIMIR");
         add(jbtn_GrabarEImprimir);
@@ -209,11 +201,11 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jPanel3.add(jlbl_Unidad);
         jlbl_Unidad.setBounds(10, 10, 50, 20);
         jPanel3.add(jdc_fechaComprobante);
-        jdc_fechaComprobante.setBounds(720, 10, 80, 20);
+        jdc_fechaComprobante.setBounds(700, 10, 110, 20);
 
         jLabel8.setText("FECHA:");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(640, 10, 60, 20);
+        jLabel8.setBounds(640, 10, 50, 20);
 
         jPanel3.add(jcb_Unidad);
         jcb_Unidad.setBounds(70, 10, 140, 22);
@@ -279,11 +271,11 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jPanel5.add(jtf_Apellido);
         jtf_Apellido.setBounds(100, 190, 200, 20);
 
-        jlbl_DNI1.setText("DNI - CUIT:");
+        jlbl_DNI1.setText("CUIT-CUIL:");
         jPanel5.add(jlbl_DNI1);
         jlbl_DNI1.setBounds(20, 160, 60, 14);
-        jPanel5.add(jtf_DNI);
-        jtf_DNI.setBounds(100, 160, 200, 20);
+        jPanel5.add(jtf_cuitCuil);
+        jtf_cuitCuil.setBounds(100, 160, 200, 20);
 
         jlbl_tipoCliente1.setText("Tipo Cliente:");
         jPanel5.add(jlbl_tipoCliente1);
@@ -303,14 +295,6 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("DEPOSITO")));
         jPanel6.setLayout(null);
-
-        jlbl_Deposito.setText("DEPOSITO:");
-        jPanel6.add(jlbl_Deposito);
-        jlbl_Deposito.setBounds(20, 20, 70, 20);
-
-        jPanel6.add(jcb_Deposito);
-        jcb_Deposito.setBounds(100, 20, 200, 22);
-
         add(jPanel6);
         jPanel6.setBounds(10, 620, 820, 60);
 
@@ -329,12 +313,12 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("DEPOSITO")));
         jPanel7.setLayout(null);
 
-        jLabel11.setText("DEPOSITO:");
-        jPanel7.add(jLabel11);
-        jLabel11.setBounds(20, 20, 70, 20);
+        jlbl_Deposito.setText("DEPOSITO:");
+        jPanel7.add(jlbl_Deposito);
+        jlbl_Deposito.setBounds(10, 20, 70, 20);
 
-        jPanel7.add(jComboBox6);
-        jComboBox6.setBounds(100, 20, 200, 22);
+        jPanel7.add(jcb_Deposito);
+        jcb_Deposito.setBounds(90, 20, 200, 22);
 
         add(jPanel7);
         jPanel7.setBounds(10, 410, 310, 60);
@@ -343,8 +327,6 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.ButtonGroup busquedaCliente;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -362,7 +344,6 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JButton jbtn_GrabarEImprimir;
     private javax.swing.JButton jbtn_ModificarItem;
     private javax.swing.JButton jbtn_SalirSinGrabar;
-    private javax.swing.JButton jbtn_Volver;
     private javax.swing.JComboBox<String> jcb_Comprobante;
     private javax.swing.JComboBox<String> jcb_Deposito;
     private javax.swing.JComboBox<String> jcb_Unidad;
@@ -391,12 +372,12 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JRadioButton jrb_CuitDni;
     private javax.swing.JRadioButton jrb_Nombre;
     private javax.swing.JTextField jtf_Apellido;
-    private javax.swing.JTextField jtf_DNI;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_NumeroComprobante;
     private javax.swing.JTextField jtf_calle_direccion;
     private javax.swing.JTextField jtf_ctaCte;
+    private javax.swing.JTextField jtf_cuitCuil;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
@@ -412,40 +393,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jbtn_CargarItem.addActionListener(c); 
         jbtn_ModificarItem.addActionListener(c); 
         jbtn_EliminarItem.addActionListener(c); 
-        jbtn_Volver.addActionListener(c); 
         jbtn_SalirSinGrabar.addActionListener(c); 
         jbtn_GrabarEImprimir.addActionListener(c); 
         
-        //Agrega JcomboBox del Panel Direccion al escuchador ItemListener para verificar items seleccionados
-        jcb_Unidad.addItemListener(c);
-        jcb_Comprobante.addItemListener(c);
-        jcb_tipoCliente.addItemListener(c);
-        jcb_zona_direccion.addItemListener(c);
-        jcb_provincia_direccion.addItemListener(c);
-        jcb_localidad_direccion.addItemListener(c);
-        jcb_Deposito.addItemListener(c);
-        
-        //Agrega JcomboBox del Panel Direccion al escuchador FocusListener para verificar items seleccionados
-        jcb_Unidad.addFocusListener(c);
-        jcb_Comprobante.addFocusListener(c);
-        jcb_tipoCliente.addFocusListener(c);
-        jcb_zona_direccion.addFocusListener(c);
-        jcb_provincia_direccion.addFocusListener(c);
-        jcb_localidad_direccion.addFocusListener(c);
-        jcb_Deposito.addFocusListener(c);
-        
-        //Agrega JTextField del Panel Direccion al escuchador KeyListener para verificar campos ingresados     
-        jtf_NumeroComprobante.addKeyListener(c);
-        jtf_ID.addKeyListener(c);
-        jtf_Nombre.addKeyListener(c);
-        jtf_DNI.addKeyListener(c);
-        jtf_Apellido.addKeyListener(c);
-        jtf_ctaCte.addKeyListener(c);
-        jtf_calle_direccion.addKeyListener(c);
-        jtf_numero_direccion.addKeyListener(c);
-        jtf_piso_direccion.addKeyListener(c);
-        jtf_departamento_direccion.addKeyListener(c);
-        
+       
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaLineaDeVenta.addMouseListener(c);
         
@@ -453,6 +404,8 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jrb_Codigo.addItemListener(c);
         jrb_CuitDni.addItemListener(c);
         jrb_Nombre.addItemListener(c);
+        
+        jcb_Deposito.addItemListener(c);
     }
 
    
@@ -523,10 +476,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         return jbtn_SalirSinGrabar;
     }
 
-    public javax.swing.JButton getJbtn_Volver() {
-        return jbtn_Volver;
-    }
-
+   
     
      /*
     CAMPOS del PANEL Getters y Setters
@@ -539,12 +489,12 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         this.jtf_Apellido = jtf_Apellido;
     }
 
-    public javax.swing.JTextField getJtf_DNI() {
-        return jtf_DNI;
+    public javax.swing.JTextField getJtf_cuitCuil() {
+        return jtf_cuitCuil;
     }
 
-    public void setJtf_DNI(javax.swing.JTextField jtf_DNI) {
-        this.jtf_DNI = jtf_DNI;
+    public void setJtf_cuitCuil(javax.swing.JTextField jtf_DNI) {
+        this.jtf_cuitCuil = jtf_DNI;
     }
 
     public javax.swing.JTextField getJtf_ID() {

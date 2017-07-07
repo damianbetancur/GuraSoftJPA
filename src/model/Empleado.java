@@ -35,6 +35,9 @@ public class Empleado extends Persona {
     @JoinColumn(name = "id_usuario")
     private Usuario unUsuario;
 
+    @Column(name = "cuitCuil")
+    private String cuitCuil;
+    
     public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
@@ -59,4 +62,13 @@ public class Empleado extends Persona {
         this.unUsuario = unUsuario;
     }
 
+    public String getCuitCuil() {
+        return cuitCuil;
+    }
+
+    public void setCuitCuil(String cuitCuil) {
+        this.cuitCuil = cuitCuil;
+    }
+
+    
 }

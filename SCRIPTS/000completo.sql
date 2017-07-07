@@ -37018,3 +37018,9 @@ VALUES
 (132, 'TL-MR3040 Portable 3G 150Mb Battery Powe', 14, 8),
 (133, 'TL-MR3220 RouWi 3G 150Mbps (LN) 1Ant Det', 14, 8),
 (134, 'TL-MR3420 RouWi 3G 300Mbps (N) 2 Ant Det', 14, 8);
+
+INSERT INTO `talonario_comprobante` 
+(`ID_TipoCliente`, `ID_Unidad`, `descripcion`, `numeracion_Actual`, `numeracion_Desde`, `numeracion_Hasta`) 
+VALUES 
+('1', '1', 'FACTURA', '0000', '0000', '9999'), 
+('2', '1', 'TICKET', '0000', '0000', '9999');

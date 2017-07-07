@@ -56,7 +56,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jlbl_ID = new javax.swing.JLabel();
         jtf_ID = new javax.swing.JTextField();
         jtf_Nombre = new javax.swing.JTextField();
-        jtf_DNI = new javax.swing.JTextField();
+        jtf_cuitCuil = new javax.swing.JTextField();
         jtf_Apellido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jcb_unidad = new javax.swing.JComboBox<>();
@@ -152,43 +152,43 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jlbl_Nombre.setText("Nombre:");
         jPanelEmpleado.add(jlbl_Nombre);
-        jlbl_Nombre.setBounds(20, 60, 100, 15);
+        jlbl_Nombre.setBounds(20, 60, 100, 14);
 
         jlbl_Apellido.setText("Apellido:");
         jPanelEmpleado.add(jlbl_Apellido);
-        jlbl_Apellido.setBounds(20, 100, 90, 15);
+        jlbl_Apellido.setBounds(20, 100, 90, 14);
 
-        jlbl_DNI.setText("DNI:");
+        jlbl_DNI.setText("CUIT/CUITL:");
         jPanelEmpleado.add(jlbl_DNI);
-        jlbl_DNI.setBounds(20, 140, 80, 15);
+        jlbl_DNI.setBounds(20, 140, 80, 14);
 
         jlbl_ID.setText("ID:");
         jPanelEmpleado.add(jlbl_ID);
-        jlbl_ID.setBounds(20, 20, 90, 15);
+        jlbl_ID.setBounds(20, 20, 90, 14);
         jPanelEmpleado.add(jtf_ID);
-        jtf_ID.setBounds(120, 20, 250, 19);
+        jtf_ID.setBounds(120, 20, 250, 20);
         jPanelEmpleado.add(jtf_Nombre);
-        jtf_Nombre.setBounds(120, 60, 250, 19);
-        jPanelEmpleado.add(jtf_DNI);
-        jtf_DNI.setBounds(120, 140, 250, 19);
+        jtf_Nombre.setBounds(120, 60, 250, 20);
+        jPanelEmpleado.add(jtf_cuitCuil);
+        jtf_cuitCuil.setBounds(120, 140, 250, 20);
         jPanelEmpleado.add(jtf_Apellido);
-        jtf_Apellido.setBounds(120, 100, 250, 19);
+        jtf_Apellido.setBounds(120, 100, 250, 20);
         jPanelEmpleado.add(jLabel1);
         jLabel1.setBounds(450, 40, 210, 0);
 
         jPanelEmpleado.add(jcb_unidad);
-        jcb_unidad.setBounds(120, 180, 250, 24);
+        jcb_unidad.setBounds(120, 180, 250, 22);
 
         jlbl_unidad.setText("UNIDAD:");
         jPanelEmpleado.add(jlbl_unidad);
-        jlbl_unidad.setBounds(20, 180, 60, 15);
+        jlbl_unidad.setBounds(20, 180, 60, 14);
 
         jlbl_TipoEmpleado.setText("EMPLEADO:");
         jPanelEmpleado.add(jlbl_TipoEmpleado);
-        jlbl_TipoEmpleado.setBounds(20, 230, 70, 15);
+        jlbl_TipoEmpleado.setBounds(20, 230, 70, 14);
 
         jPanelEmpleado.add(jcb_empleado);
-        jcb_empleado.setBounds(120, 230, 250, 24);
+        jcb_empleado.setBounds(120, 230, 250, 22);
 
         fechaIngreso.setEnabled(false);
         jPanelEmpleado.add(fechaIngreso);
@@ -203,22 +203,22 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jlbl_Usuario.setText("Usuario:");
         jPanel1.add(jlbl_Usuario);
-        jlbl_Usuario.setBounds(20, 40, 80, 15);
+        jlbl_Usuario.setBounds(20, 40, 80, 14);
         jPanel1.add(jtf_Usuario);
-        jtf_Usuario.setBounds(130, 40, 180, 19);
+        jtf_Usuario.setBounds(130, 40, 180, 20);
 
         jlbl_Password.setText("Contrseña:");
         jPanel1.add(jlbl_Password);
-        jlbl_Password.setBounds(20, 80, 90, 15);
+        jlbl_Password.setBounds(20, 80, 90, 14);
         jPanel1.add(jtf_Password);
-        jtf_Password.setBounds(130, 80, 180, 19);
+        jtf_Password.setBounds(130, 80, 180, 20);
 
         jPanel1.add(jcb_TipoUsuario);
-        jcb_TipoUsuario.setBounds(130, 120, 180, 24);
+        jcb_TipoUsuario.setBounds(130, 120, 180, 22);
 
         jlbl_TipoUsuario.setText("Tipo Usuario:");
         jPanel1.add(jlbl_TipoUsuario);
-        jlbl_TipoUsuario.setBounds(20, 120, 90, 15);
+        jlbl_TipoUsuario.setBounds(20, 120, 90, 14);
 
         jPanelEmpleado.add(jPanel1);
         jPanel1.setBounds(390, 20, 320, 280);
@@ -229,48 +229,48 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jlbl_zona_direccion.setText("Zona:");
         jPanelDireccion.add(jlbl_zona_direccion);
-        jlbl_zona_direccion.setBounds(40, 30, 60, 15);
+        jlbl_zona_direccion.setBounds(40, 30, 60, 14);
 
         jPanelDireccion.add(jcb_zona_direccion);
-        jcb_zona_direccion.setBounds(150, 30, 180, 24);
+        jcb_zona_direccion.setBounds(150, 30, 180, 22);
 
         jlbl_provincia_direccion.setText("Provincia:");
         jPanelDireccion.add(jlbl_provincia_direccion);
-        jlbl_provincia_direccion.setBounds(40, 70, 60, 15);
+        jlbl_provincia_direccion.setBounds(40, 70, 60, 14);
 
         jPanelDireccion.add(jcb_provincia_direccion);
-        jcb_provincia_direccion.setBounds(150, 70, 180, 24);
+        jcb_provincia_direccion.setBounds(150, 70, 180, 22);
 
         jPanelDireccion.add(jcb_localidad_direccion);
-        jcb_localidad_direccion.setBounds(150, 110, 180, 24);
+        jcb_localidad_direccion.setBounds(150, 110, 180, 22);
 
         jlbl_localidad_direccion.setText("Localidad:");
         jPanelDireccion.add(jlbl_localidad_direccion);
-        jlbl_localidad_direccion.setBounds(40, 110, 60, 15);
+        jlbl_localidad_direccion.setBounds(40, 110, 60, 14);
 
         jlbl_calle_direccion.setText("Calle:");
         jPanelDireccion.add(jlbl_calle_direccion);
-        jlbl_calle_direccion.setBounds(40, 150, 60, 15);
+        jlbl_calle_direccion.setBounds(40, 150, 60, 14);
         jPanelDireccion.add(jtf_calle_direccion);
-        jtf_calle_direccion.setBounds(150, 150, 180, 19);
+        jtf_calle_direccion.setBounds(150, 150, 180, 20);
         jPanelDireccion.add(jtf_numero_direccion);
-        jtf_numero_direccion.setBounds(150, 180, 180, 19);
+        jtf_numero_direccion.setBounds(150, 180, 180, 20);
 
         jlbl_numero_direccion.setText("Número:");
         jPanelDireccion.add(jlbl_numero_direccion);
-        jlbl_numero_direccion.setBounds(40, 180, 60, 15);
+        jlbl_numero_direccion.setBounds(40, 180, 60, 14);
         jPanelDireccion.add(jtf_piso_direccion);
-        jtf_piso_direccion.setBounds(150, 210, 180, 19);
+        jtf_piso_direccion.setBounds(150, 210, 180, 20);
 
         jlbl_piso_direccion.setText("Piso:");
         jPanelDireccion.add(jlbl_piso_direccion);
-        jlbl_piso_direccion.setBounds(40, 210, 60, 15);
+        jlbl_piso_direccion.setBounds(40, 210, 60, 14);
         jPanelDireccion.add(jtf_departamento_direccion);
-        jtf_departamento_direccion.setBounds(150, 240, 180, 19);
+        jtf_departamento_direccion.setBounds(150, 240, 180, 20);
 
         jlbl_departamento_direccion.setText("Departamento:");
         jPanelDireccion.add(jlbl_departamento_direccion);
-        jlbl_departamento_direccion.setBounds(40, 240, 90, 15);
+        jlbl_departamento_direccion.setBounds(40, 240, 90, 14);
 
         jTabbedPaneContenedor.addTab("Dirección", jPanelDireccion);
 
@@ -279,11 +279,11 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
 
         jbtn_Aceptar.setText("ACEPTAR");
         add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(70, 680, 170, 25);
+        jbtn_Aceptar.setBounds(70, 680, 170, 23);
 
         jbtn_Cancelar.setText("CANCELAR");
         add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(270, 680, 170, 25);
+        jbtn_Cancelar.setBounds(270, 680, 170, 23);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -328,12 +328,12 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
     private javax.swing.JLabel jlbl_unidad;
     private javax.swing.JLabel jlbl_zona_direccion;
     private javax.swing.JTextField jtf_Apellido;
-    private javax.swing.JTextField jtf_DNI;
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_Password;
     private javax.swing.JTextField jtf_Usuario;
     private javax.swing.JTextField jtf_calle_direccion;
+    private javax.swing.JTextField jtf_cuitCuil;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
@@ -360,7 +360,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         //Agrega JTextField del Panel Datos del Empleado al escuchador KeyListener para verificar campos ingresados
         jtf_Nombre.addKeyListener(c);
         jtf_Apellido.addKeyListener(c);
-        jtf_DNI.addKeyListener(c);
+        jtf_cuitCuil.addKeyListener(c);
         
         //Agrega JTextField del Panel Direccion al escuchador KeyListener para verificar campos ingresados
         jtf_calle_direccion.addKeyListener(c);
@@ -383,7 +383,7 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         jcb_zona_direccion.addFocusListener(c);
         jcb_provincia_direccion.addFocusListener(c);
         jcb_localidad_direccion.addFocusListener(c);
-        jtf_DNI.addFocusListener(c);
+        jtf_cuitCuil.addFocusListener(c);
         jcb_empleado.addFocusListener(c);
         jcb_unidad.addFocusListener(c);
         jcb_TipoUsuario.addFocusListener(c);
@@ -406,12 +406,12 @@ public final class PanelRegistroEmpleado extends javax.swing.JPanel  implements 
         this.jtf_Apellido = jtfApellido;
     }
 
-    public javax.swing.JTextField getJtfDNI() {
-        return jtf_DNI;
+    public javax.swing.JTextField getJtfCuitCuil() {
+        return jtf_cuitCuil;
     }
 
-    public void setJtfDNI(javax.swing.JTextField jtfDNI) {
-        this.jtf_DNI = jtfDNI;
+    public void setJtfCuitCuil(javax.swing.JTextField jtfDNI) {
+        this.jtf_cuitCuil = jtfDNI;
     }
    
     public javax.swing.JTextField getJtfID() {

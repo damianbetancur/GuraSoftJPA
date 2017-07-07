@@ -13,7 +13,9 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Cliente;
 import model.JPAController.exceptions.NonexistentEntityException;
+import model.TipoCliente;
 import model.Unidad;
 
 /**
@@ -134,5 +136,7 @@ public class UnidadJpaController implements Serializable {
             em.close();
         }
     }
+    
+    
     
 }
