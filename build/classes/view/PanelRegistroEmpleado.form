@@ -225,7 +225,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jlbl_DNI">
               <Properties>
-                <Property name="text" type="java.lang.String" value="DNI:"/>
+                <Property name="text" type="java.lang.String" value="CUIT/CUITL:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -257,7 +257,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtf_DNI">
+            <Component class="javax.swing.JTextField" name="jtf_cuitCuil">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="120" y="140" width="250" height="-1"/>

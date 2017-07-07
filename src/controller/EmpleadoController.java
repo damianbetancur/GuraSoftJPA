@@ -271,7 +271,7 @@ public class EmpleadoController extends Controller {
         vista.getJcb_empleado().setSelectedItem(empModificado.getTipoEmpleado());
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        dniModificado = vista.getJtfCuitCuil().getText();
 
         //desbloquea el boton modificar
         bloquearAceptarModificar = true;
@@ -340,10 +340,10 @@ public class EmpleadoController extends Controller {
         vista.getJcb_empleado().setSelectedItem(empAEliminar.getTipoEmpleado());
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        dniModificado = vista.getJtfCuitCuil().getText();
 
         //dniModificado incializa
-        dniModificado = vista.getJtfDNI().getText();
+        dniModificado = vista.getJtfCuitCuil().getText();
 
         //Habilita boton Aceptar Eliminar Bloqueado
         bloquearAceptarEliminar = true;
@@ -383,7 +383,7 @@ public class EmpleadoController extends Controller {
 
             //Posicionar el cursor de la lista en el primer Elemento
             vista.getJtfID().setText(empleados.get(0).getId().toString());
-            vista.getJtfDNI().setText(empleados.get(0).getDni());
+            vista.getJtfCuitCuil().setText(empleados.get(0).getCuitCuil());
             vista.getJtfNombre().setText(empleados.get(0).getNombre());
             vista.getJtfApellido().setText(empleados.get(0).getApellido());
             if (empleados.get(0).getId().toString().equals(vista.getJtfID().getText())) {
@@ -472,7 +472,7 @@ public class EmpleadoController extends Controller {
             nuevoUsuario.setClave(vista.getJtf_Password().getText());
 
             //setea DNI empleado
-            emp.setDni(vista.getJtfDNI().getText());
+            emp.setCuitCuil(vista.getJtfCuitCuil().getText());
 
             //Crea Instancia de Direccion
             Direccion direccion = new Direccion();
@@ -508,7 +508,7 @@ public class EmpleadoController extends Controller {
             unTipoEmpleado = (TipoEmpleado) vista.getJcb_empleado().getSelectedItem();
 
             //Verificar si el DNI ingresado ya existe en la base de datos
-            if (modelo.buscarEmpleadoDNI(emp) == null) {
+            if (modelo.buscarEmpleadoCuitCuil(emp) == null) {
 
                 if (!empleadoCreado) {
                     //Verificar si el objeto usuario no existe, en funcion del nombre
@@ -522,7 +522,7 @@ public class EmpleadoController extends Controller {
 
                         //Setea Datos de Empleado
                         emp.setNombre(vista.getJtfNombre().getText());
-                        emp.setDni(vista.getJtfDNI().getText());
+                        emp.setCuitCuil(vista.getJtfCuitCuil().getText());
                         emp.setApellido(vista.getJtfApellido().getText());
 
                         //Setea TipoEmpleado
@@ -617,7 +617,7 @@ public class EmpleadoController extends Controller {
             modeloUsuario = new UsuarioJpaController(Conexion.getEmf());
 
             //setea DNI empleado con nuevos valores
-            emp.setDni(vista.getJtfDNI().getText());
+            emp.setCuitCuil(vista.getJtfCuitCuil().getText());
 
             //Instancia de Direccion
             Direccion direccion = new Direccion();
@@ -655,7 +655,7 @@ public class EmpleadoController extends Controller {
 
             if (!empleadoModifocado) {
                 //verificar que el DNI sea igual que el DNI actual        
-                if (emp.getDni().equals(dniModificado)) {
+                if (emp.getCuitCuil().equals(dniModificado)) {
                     //El DNI es igual se mantiene sin cambio            
                     try {
 
@@ -692,9 +692,9 @@ public class EmpleadoController extends Controller {
                     }
                     //Si el DNI no es igual que el DNI actual
                 } else //Verifica si existe el DNI, si no existe se procede
-                if (modelo.buscarEmpleadoDNI(emp) == null) {
+                if (modelo.buscarEmpleadoCuitCuil(emp) == null) {
                     //Se modifica el DNI
-                    emp.setDni(vista.getJtfDNI().getText());
+                    emp.setCuitCuil(vista.getJtfCuitCuil().getText());
                     try {
                         //Setea fecha de ingreso de empleado
                         emp.setFechaIngreso(vista.getFechaIngreso().getDate());
@@ -816,7 +816,7 @@ public class EmpleadoController extends Controller {
                 vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
 
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                dniModificado = vista.getJtfCuitCuil().getText();
 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear = false;
@@ -849,7 +849,7 @@ public class EmpleadoController extends Controller {
                 vista.getTablaEmpleados().changeSelection(buscarPosicionEnTabla(emp.getId()), 1, false, false);
 
                 btn_listar();
-                dniModificado = vista.getJtfDNI().getText();
+                dniModificado = vista.getJtfCuitCuil().getText();
 
                 //Todos los botones de aceptar Bloqueados
                 bloquearAceptarCrear = false;
@@ -945,7 +945,7 @@ public class EmpleadoController extends Controller {
         //Setea las cabeceras de la tabla
         modeloT.addColumn("N°");
         modeloT.addColumn("ID");
-        modeloT.addColumn("DNI");
+        modeloT.addColumn("CUIT-CUIL");
         modeloT.addColumn("Nombre");
         modeloT.addColumn("Apellido");
 
@@ -960,7 +960,7 @@ public class EmpleadoController extends Controller {
             numero = numero + 1;
             columna[0] = String.valueOf(numero);
             columna[1] = emp.getId();
-            columna[2] = emp.getDni();
+            columna[2] = emp.getCuitCuil();
             columna[3] = emp.getNombre();
             columna[4] = emp.getApellido();
 
@@ -979,7 +979,7 @@ public class EmpleadoController extends Controller {
         vista.habilitarCampo(estado, vista.getJtfID());
         vista.habilitarCampo(estado, vista.getJtfNombre());
         vista.habilitarCampo(estado, vista.getJtfApellido());
-        vista.habilitarCampo(estado, vista.getJtfDNI());
+        vista.habilitarCampo(estado, vista.getJtfCuitCuil());
 
         vista.habilitarCampo(estado, vista.getJtf_calle_direccion());
         vista.habilitarCampo(estado, vista.getJtf_numero_direccion());
@@ -1009,7 +1009,7 @@ public class EmpleadoController extends Controller {
         vista.limpiarCampo(vista.getJtfID());
         vista.limpiarCampo(vista.getJtfNombre());
         vista.limpiarCampo(vista.getJtfApellido());
-        vista.limpiarCampo(vista.getJtfDNI());
+        vista.limpiarCampo(vista.getJtfCuitCuil());
 
         vista.limpiarCampo(vista.getJtf_calle_direccion());
         vista.limpiarCampo(vista.getJtf_numero_direccion());
@@ -1064,8 +1064,8 @@ public class EmpleadoController extends Controller {
         vista.getValidador().validarSoloLetras(vista.getJtfNombre());
         vista.getValidador().LimitarCaracteres(vista.getJtfNombre(), 30);
 
-        vista.getValidador().validarSoloNumero(vista.getJtfDNI());
-        vista.getValidador().LimitarCaracteres(vista.getJtfDNI(), 8);
+        vista.getValidador().validarSoloNumero(vista.getJtfCuitCuil());
+        vista.getValidador().LimitarCaracteres(vista.getJtfCuitCuil(), 8);
 
         vista.getValidador().LimitarCaracteres(vista.getJtf_calle_direccion(), 30);
 
@@ -1228,8 +1228,8 @@ public class EmpleadoController extends Controller {
         if (e.getSource().equals(vista.getJcb_localidad_direccion())) {
             this.lSeleccionada = true;
         }
-        if (e.getSource().equals(vista.getJtfDNI())) {
-            dniModificado = vista.getJtfDNI().getText();
+        if (e.getSource().equals(vista.getJtfCuitCuil())) {
+            dniModificado = vista.getJtfCuitCuil().getText();
         }
         if (e.getSource() == vista.getJcb_unidad()) {
             this.uSeleccionada = true;
@@ -1285,7 +1285,7 @@ public class EmpleadoController extends Controller {
         //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
         int seleccion = vista.getTablaEmpleados().rowAtPoint(e.getPoint());
         vista.getJtfID().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 1)));
-        vista.getJtfDNI().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 2)));
+        vista.getJtfCuitCuil().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 2)));
         vista.getJtfNombre().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 3)));
         vista.getJtfApellido().setText(String.valueOf(vista.getTablaEmpleados().getValueAt(seleccion, 4)));
 

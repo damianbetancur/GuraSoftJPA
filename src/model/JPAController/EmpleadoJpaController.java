@@ -135,14 +135,14 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
     //Buscar Empleado por DNI
-    public Empleado buscarEmpleadoDNI(Empleado emp){
+    public Empleado buscarEmpleadoCuitCuil(Empleado emp){
         EntityManager em = getEntityManager();
         Empleado empleado = null;
         String consulta;
         try {
-            consulta ="FROM Empleado emp WHERE emp.dni = ?1 ";
+            consulta ="FROM Empleado emp WHERE emp.cuitCuil = ?1 ";
             Query query = em.createQuery(consulta);
-            query.setParameter(1, emp.getDni());
+            query.setParameter(1, emp.getCuitCuil());
             
             
             List <Empleado> lista = query.getResultList();

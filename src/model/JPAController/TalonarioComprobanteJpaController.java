@@ -13,17 +13,17 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Deposito;
 import model.JPAController.exceptions.NonexistentEntityException;
-import model.Unidad;
+import model.JPAController.exceptions.PreexistingEntityException;
+import model.TalonarioComprobante;
 
 /**
  *
  * @author Ariel
  */
-public class DepositoJpaController implements Serializable {
+public class TalonarioComprobanteJpaController implements Serializable {
 
-    public DepositoJpaController(EntityManagerFactory emf) {
+    public TalonarioComprobanteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -32,13 +32,18 @@ public class DepositoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Deposito deposito) {
+    public void create(TalonarioComprobante talonarioComprobante) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(deposito);
+            em.persist(talonarioComprobante);
             em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findTalonarioComprobante(talonarioComprobante.getId_Unidad()) != null) {
+                throw new PreexistingEntityException("TalonarioComprobante " + talonarioComprobante + " already exists.", ex);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -46,19 +51,19 @@ public class DepositoJpaController implements Serializable {
         }
     }
 
-    public void edit(Deposito deposito) throws NonexistentEntityException, Exception {
+    public void edit(TalonarioComprobante talonarioComprobante) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            deposito = em.merge(deposito);
+            talonarioComprobante = em.merge(talonarioComprobante);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Long id = deposito.getId();
-                if (findDeposito(id) == null) {
-                    throw new NonexistentEntityException("The deposito with id " + id + " no longer exists.");
+                Long id = talonarioComprobante.getId_Unidad();
+                if (findTalonarioComprobante(id) == null) {
+                    throw new NonexistentEntityException("The talonarioComprobante with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -74,14 +79,14 @@ public class DepositoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Deposito deposito;
+            TalonarioComprobante talonarioComprobante;
             try {
-                deposito = em.getReference(Deposito.class, id);
-                deposito.getId();
+                talonarioComprobante = em.getReference(TalonarioComprobante.class, id);
+                talonarioComprobante.getId_Unidad();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The deposito with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The talonarioComprobante with id " + id + " no longer exists.", enfe);
             }
-            em.remove(deposito);
+            em.remove(talonarioComprobante);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -90,19 +95,19 @@ public class DepositoJpaController implements Serializable {
         }
     }
 
-    public List<Deposito> findDepositoEntities() {
-        return findDepositoEntities(true, -1, -1);
+    public List<TalonarioComprobante> findTalonarioComprobanteEntities() {
+        return findTalonarioComprobanteEntities(true, -1, -1);
     }
 
-    public List<Deposito> findDepositoEntities(int maxResults, int firstResult) {
-        return findDepositoEntities(false, maxResults, firstResult);
+    public List<TalonarioComprobante> findTalonarioComprobanteEntities(int maxResults, int firstResult) {
+        return findTalonarioComprobanteEntities(false, maxResults, firstResult);
     }
 
-    private List<Deposito> findDepositoEntities(boolean all, int maxResults, int firstResult) {
+    private List<TalonarioComprobante> findTalonarioComprobanteEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Deposito.class));
+            cq.select(cq.from(TalonarioComprobante.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -114,20 +119,20 @@ public class DepositoJpaController implements Serializable {
         }
     }
 
-    public Deposito findDeposito(Long id) {
+    public TalonarioComprobante findTalonarioComprobante(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Deposito.class, id);
+            return em.find(TalonarioComprobante.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getDepositoCount() {
+    public int getTalonarioComprobanteCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Deposito> rt = cq.from(Deposito.class);
+            Root<TalonarioComprobante> rt = cq.from(TalonarioComprobante.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -136,21 +141,4 @@ public class DepositoJpaController implements Serializable {
         }
     }
     
-    //Consulta JPQL 
-    @SuppressWarnings("unchecked")
-    public List<Deposito> buscarDepositosPorUnidad(Unidad u) {
-        EntityManager em = getEntityManager();
-        
-        try {
-            String queryString = "FROM Deposito d WHERE d.unaUnidad = :unidadParametro";
-            Query query = em.createQuery(queryString);
-            
-            query.setParameter("unidadParametro",u);            
-            
-            return query.getResultList();
-            
-        } finally {
-            em.close();
-        }
-    }
 }
