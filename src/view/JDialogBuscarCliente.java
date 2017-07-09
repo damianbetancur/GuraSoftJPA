@@ -14,13 +14,13 @@ import javax.swing.JTextField;
  *
  * @author Ariel
  */
-public class JDialogBuscarUsuario extends javax.swing.JDialog implements InterfacePanel {
+public class JDialogBuscarCliente extends javax.swing.JDialog implements InterfacePanel {
 
     private ValidadorDeCampos validador;
     /**
      * Creates new form JDialogBuscarUsuario
      */
-    public JDialogBuscarUsuario(java.awt.Frame parent, boolean modal) {
+    public JDialogBuscarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.validador = new ValidadorDeCampos();
         initComponents();

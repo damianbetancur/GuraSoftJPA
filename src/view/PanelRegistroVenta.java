@@ -86,13 +86,13 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jcb_tipoCliente = new javax.swing.JComboBox<>();
         jlbl_ctaCte1 = new javax.swing.JLabel();
         jtf_ctaCte = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
         jbtn_CargarItem = new javax.swing.JButton();
         jbtn_ModificarItem = new javax.swing.JButton();
         jbtn_EliminarItem = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jlbl_Deposito = new javax.swing.JLabel();
         jcb_Deposito = new javax.swing.JComboBox<>();
+        jbtn_BuscarDeposito = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
@@ -119,10 +119,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         }
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 30, 780, 90);
+        jScrollPane1.setBounds(20, 30, 780, 60);
 
         add(jPanel2);
-        jPanel2.setBounds(10, 480, 820, 130);
+        jPanel2.setBounds(10, 500, 820, 110);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel4.setText("Registro de Comprobante");
@@ -261,67 +261,66 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
         jlbl_Nombre1.setText("Nombre:");
         jPanel5.add(jlbl_Nombre1);
-        jlbl_Nombre1.setBounds(20, 90, 60, 14);
+        jlbl_Nombre1.setBounds(20, 60, 60, 14);
         jPanel5.add(jtf_Nombre);
-        jtf_Nombre.setBounds(100, 90, 200, 20);
+        jtf_Nombre.setBounds(100, 60, 200, 20);
 
         jlbl_Apellido1.setText("Apellido:");
         jPanel5.add(jlbl_Apellido1);
-        jlbl_Apellido1.setBounds(20, 190, 60, 14);
+        jlbl_Apellido1.setBounds(20, 160, 60, 14);
         jPanel5.add(jtf_Apellido);
-        jtf_Apellido.setBounds(100, 190, 200, 20);
+        jtf_Apellido.setBounds(100, 160, 200, 20);
 
         jlbl_DNI1.setText("CUIT-CUIL:");
         jPanel5.add(jlbl_DNI1);
-        jlbl_DNI1.setBounds(20, 160, 60, 14);
+        jlbl_DNI1.setBounds(20, 130, 60, 14);
         jPanel5.add(jtf_cuitCuil);
-        jtf_cuitCuil.setBounds(100, 160, 200, 20);
+        jtf_cuitCuil.setBounds(100, 130, 200, 20);
 
         jlbl_tipoCliente1.setText("Tipo Cliente:");
         jPanel5.add(jlbl_tipoCliente1);
-        jlbl_tipoCliente1.setBounds(20, 120, 70, 14);
+        jlbl_tipoCliente1.setBounds(20, 90, 70, 14);
 
         jPanel5.add(jcb_tipoCliente);
-        jcb_tipoCliente.setBounds(100, 120, 200, 22);
+        jcb_tipoCliente.setBounds(100, 90, 200, 22);
 
         jlbl_ctaCte1.setText("CTA / CTE:");
         jPanel5.add(jlbl_ctaCte1);
-        jlbl_ctaCte1.setBounds(20, 220, 60, 14);
+        jlbl_ctaCte1.setBounds(20, 190, 60, 14);
         jPanel5.add(jtf_ctaCte);
-        jtf_ctaCte.setBounds(100, 220, 200, 20);
+        jtf_ctaCte.setBounds(100, 190, 200, 20);
 
         add(jPanel5);
         jPanel5.setBounds(10, 160, 310, 250);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("DEPOSITO")));
-        jPanel6.setLayout(null);
-        add(jPanel6);
-        jPanel6.setBounds(10, 620, 820, 60);
-
         jbtn_CargarItem.setText("CARGAR ITEM");
         add(jbtn_CargarItem);
-        jbtn_CargarItem.setBounds(370, 430, 130, 30);
+        jbtn_CargarItem.setBounds(370, 460, 130, 30);
 
         jbtn_ModificarItem.setText("MODIFICAR ITEM");
         add(jbtn_ModificarItem);
-        jbtn_ModificarItem.setBounds(530, 430, 130, 30);
+        jbtn_ModificarItem.setBounds(530, 460, 130, 30);
 
         jbtn_EliminarItem.setText("ELIMINAR ITEM");
         add(jbtn_EliminarItem);
-        jbtn_EliminarItem.setBounds(680, 430, 130, 30);
+        jbtn_EliminarItem.setBounds(680, 460, 130, 30);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("DEPOSITO")));
         jPanel7.setLayout(null);
 
         jlbl_Deposito.setText("DEPOSITO:");
         jPanel7.add(jlbl_Deposito);
-        jlbl_Deposito.setBounds(10, 20, 70, 20);
+        jlbl_Deposito.setBounds(20, 20, 70, 20);
 
         jPanel7.add(jcb_Deposito);
-        jcb_Deposito.setBounds(90, 20, 200, 22);
+        jcb_Deposito.setBounds(100, 20, 200, 22);
+
+        jbtn_BuscarDeposito.setText("SELECCIONAR DEPOSITO DE UNIDAD");
+        jPanel7.add(jbtn_BuscarDeposito);
+        jbtn_BuscarDeposito.setBounds(20, 50, 280, 30);
 
         add(jPanel7);
-        jPanel7.setBounds(10, 410, 310, 60);
+        jPanel7.setBounds(10, 410, 310, 90);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -335,10 +334,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_Buscar;
+    private javax.swing.JButton jbtn_BuscarDeposito;
     private javax.swing.JButton jbtn_CargarItem;
     private javax.swing.JButton jbtn_EliminarItem;
     private javax.swing.JButton jbtn_GrabarEImprimir;
@@ -395,7 +394,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jbtn_EliminarItem.addActionListener(c); 
         jbtn_SalirSinGrabar.addActionListener(c); 
         jbtn_GrabarEImprimir.addActionListener(c); 
-        
+        jbtn_BuscarDeposito.addActionListener(c); 
        
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaLineaDeVenta.addMouseListener(c);
@@ -639,6 +638,18 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
     public javax.swing.JRadioButton getJrb_Nombre() {
         return jrb_Nombre;
+    }
+
+    public javax.swing.JButton getJbtn_BuscarDeposito() {
+        return jbtn_BuscarDeposito;
+    }
+
+    public void setJbtn_BuscarDeposito(javax.swing.JButton jbtn_BuscarDeposito) {
+        this.jbtn_BuscarDeposito = jbtn_BuscarDeposito;
+    }
+
+    public void setTablaLineaDeVenta(javax.swing.JTable tablaLineaDeVenta) {
+        this.tablaLineaDeVenta = tablaLineaDeVenta;
     }
 
     

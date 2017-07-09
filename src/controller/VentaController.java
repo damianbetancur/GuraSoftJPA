@@ -19,9 +19,13 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import model.Articulo;
 import model.Cliente;
@@ -42,6 +46,7 @@ import model.JPAController.StockArticuloJpaController;
 import model.JPAController.TalonarioComprobanteJpaController;
 import model.JPAController.UnidadJpaController;
 import model.JPAController.VentaJpaController;
+import model.LineaDeVenta;
 import model.ListaDePrecio;
 import model.Pago;
 import model.PrecioArticulo;
@@ -49,7 +54,9 @@ import model.StockArticulo;
 import model.TalonarioComprobante;
 import model.TipoCliente;
 import model.Unidad;
-import view.JDialogBuscarUsuario;
+import view.JDialogBuscarArticulo;
+import view.JDialogBuscarDeposito;
+import view.JDialogBuscarCliente;
 import view.JframePrincipal;
 import view.PanelRegistroVenta;
 
@@ -57,13 +64,15 @@ import view.PanelRegistroVenta;
  *
  * @author Ariel
  */
-public class VentaController extends Controller{
-    
+public class VentaController extends Controller {
+
     private PanelRegistroVenta vista;
     private VentaJpaController modelo;
 
     //Dialog dependientes
-    JDialogBuscarUsuario buscarUsuario = null;
+    JDialogBuscarCliente buscarCliente = null;
+    JDialogBuscarDeposito buscarDeposito = null;
+    JDialogBuscarArticulo buscarArticulo = null;
 
     //modelos necesarios para el controlador.
     private TalonarioComprobanteJpaController modeloTalonarioComprobante;
@@ -75,26 +84,22 @@ public class VentaController extends Controller{
     private EmpleadoJpaController modeloEmpleado;
     private ClienteJpaController modeloCliente;
     private CuentaCorrienteJpaController modeloCuentaCorriente;
-    
+
     private ArticuloJpaController modeloArticuloCatalogo;
     private StockArticuloJpaController modeloStockArticulo;
     private PrecioArticuloJpaController modeloPrecioArticulo;
 
     //Entidades necesarias para el controlador
-    Unidad unidad = null;
-    TalonarioComprobante talonario = null;
-    Deposito deposito = null;
-    Comprobante comprobante = null;
-    Pago pago = null;
-    Empleado empleado = null;
-    Cliente cliente = null;
-    CuentaCorriente cuentaCorrienteCliente= null;
+    //Comprobante comprobante = null;
+    //Pago pago = null;
+    //Empleado empleado = null;
+    //Cliente cliente = null;
+    CuentaCorriente cuentaCorrienteCliente = null;
 
     List<Articulo> articulosCatalogo;
     List<StockArticulo> articulosStocks;
     List<PrecioArticulo> preciosArticulos;
 
-    
     //Articulo Encontrado
     Articulo articuloEncontrado;
     StockArticulo stockArticuloEncontrado;
@@ -102,9 +107,17 @@ public class VentaController extends Controller{
 
     //Variables
     List<Cliente> clientes;
+    List<Deposito> depositos;
+    List<LineaDeVenta> lineasDeVenta;
+    Cliente clienteElegido = null;
     Cliente clienteSeleccionado = null;
+    Deposito depositoSeleccionado = null;
+    Unidad unidadSeleccionada = null;
+    TalonarioComprobante talonarioSeleccionado = null;
+
     int numeroComprobanteActual = 0;
     Date fechaFactura = new Date();
+
     /**
      * Constructor CatalogoCategoriaArticuloController
      *
@@ -112,7 +125,7 @@ public class VentaController extends Controller{
      * @param modelo ArticuloJpaController
      */
     public VentaController(PanelRegistroVenta vista, VentaJpaController modelo) {
-        
+
         //Instancias de modelos necesarios para el controlador.
         modeloTalonarioComprobante = new TalonarioComprobanteJpaController(Conexion.getEmf());
         modeloUnidad = new UnidadJpaController(Conexion.getEmf());
@@ -126,7 +139,6 @@ public class VentaController extends Controller{
         modeloArticuloCatalogo = new ArticuloJpaController(Conexion.getEmf());
         modeloStockArticulo = new StockArticuloJpaController(Conexion.getEmf());
         modeloPrecioArticulo = new PrecioArticuloJpaController(Conexion.getEmf());
-        
 
         this.vista = vista;
         this.modelo = modelo;
@@ -137,19 +149,15 @@ public class VentaController extends Controller{
         vista.getJrb_Nombre().setEnabled(true);
         vista.getJbtn_Buscar().setEnabled(true);
         vista.getJbtn_SalirSinGrabar().setEnabled(true);
-        
+
     }
 
-    
-    
-    
     @Override
-    public void actionPerformed(ActionEvent e){
-        
-        
-         //Boton Buscar
+    public void actionPerformed(ActionEvent e) {
+
+        //Boton Buscar
         if (e.getSource() == vista.getJbtn_Buscar()) {
-            btn_buscar();
+            btn_buscarCliente();
         }
 
         //Boton Cargar Item
@@ -171,36 +179,61 @@ public class VentaController extends Controller{
         if (e.getSource() == vista.getJbtn_SalirSinGrabar()) {
             btn_salirSinGrabar();
         }
-        
+
         //Boton Grabar E Imprimir
         if (e.getSource() == vista.getJbtn_GrabarEImprimir()) {
             btn_grabarEImprimir();
         }
-        
+
         //Boton Grabar E Imprimir
-        if(clienteSeleccionado!=null){
-            if (e.getSource() == buscarUsuario.getJbtn_Agregar()) {
+        if (clienteElegido != null) {
+            if (e.getSource() == buscarCliente.getJbtn_Agregar()) {
                 try {
-                    btn_agregarBuscarUsuario();
+                    btn_agregarBuscarCliente();
                 } catch (IOException ex) {
                     Logger.getLogger(VentaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+
+
+            if (unidadSeleccionada != null) {
+                if (buscarDeposito != null) {
+                    if (e.getSource() == buscarDeposito.getJbtn_AgregarDeposito()) {
+                        btn_agregarBuscarDeposito();
+                    }
+                }
+            }
+        }
+
+        if (clienteSeleccionado != null) {
+
+            if (e.getSource() == vista.getJbtn_BuscarDeposito()) {
+                btn_SeleccionarDepositoUnidad();
             }
         }
         
         
     }
 
-    public void btn_buscar(){
+    //--------------------------------------------------------------------------
+    //Controlador  JPanel Registro de Venta
+    //--------------------------------------------------------------------------
+    public void btn_buscarCliente() {
+        clienteElegido = null;
         clienteSeleccionado = null;
-        buscarUsuario = new JDialogBuscarUsuario(null, true);
-        buscarUsuario.setLocationRelativeTo(JframePrincipal.jPanelContenido);
-        buscarUsuario.setResizable(false);
-        buscarUsuario.setControlador(this);
-        
-        limpiarTodosLosCamposBusquedaUsuario();
-        inhabilitarTodoBusquedaUsuario(false);
-        
+        depositoSeleccionado = null;
+        buscarCliente = null;
+        buscarArticulo = null;
+        buscarDeposito = null;
+
+        buscarCliente = new JDialogBuscarCliente(null, true);
+        buscarCliente.setLocationRelativeTo(JframePrincipal.jPanelContenido);
+        buscarCliente.setResizable(false);
+        buscarCliente.setControlador(this);
+
+        limpiarTodosLosCamposBusquedaCliente();
+        inhabilitarTodoBusquedaCliente(false);
+
         limpiarTodosLosCamposPanelVenta();
         inhabilitarTodoPanelVenta(false);
         vista.getJbtn_Buscar().setEnabled(true);
@@ -208,30 +241,58 @@ public class VentaController extends Controller{
         vista.getJrb_CuitDni().setEnabled(true);
         vista.getJrb_Nombre().setEnabled(true);
         vista.getJbtn_SalirSinGrabar().setEnabled(true);
-        
-        if(vista.getJrb_Nombre().isSelected()){
-            buscarUsuario.getJlbl_TituloBusqueda().setText("Nombre Cliente: ");
+
+        if (vista.getJrb_Nombre().isSelected()) {
+            buscarCliente.getJlbl_TituloBusqueda().setText("Nombre Cliente: ");
         }
-        if(vista.getJrb_Codigo().isSelected()){
-            buscarUsuario.getJlbl_TituloBusqueda().setText("Codigo Cliente: ");
+        if (vista.getJrb_Codigo().isSelected()) {
+            buscarCliente.getJlbl_TituloBusqueda().setText("Codigo Cliente: ");
         }
-        if(vista.getJrb_CuitDni().isSelected()){
-            buscarUsuario.getJlbl_TituloBusqueda().setText("CUIT-DNI Cliente: ");
+        if (vista.getJrb_CuitDni().isSelected()) {
+            buscarCliente.getJlbl_TituloBusqueda().setText("CUIT-DNI Cliente: ");
         }
-        buscarUsuario.setVisible(true);
+        buscarCliente.setVisible(true);
     }
-        
-    public void btn_cargarItem(){        
+
+    public void btn_SeleccionarDepositoUnidad() {
+
+        buscarArticulo = null;
+        buscarDeposito = null;
+        depositoSeleccionado = null;
+        articuloEncontrado = null;
+
+        buscarDeposito = new JDialogBuscarDeposito(null, true);
+        buscarDeposito.setLocationRelativeTo(JframePrincipal.jPanelContenido);
+        buscarDeposito.setResizable(false);
+        buscarDeposito.setControlador(this);
+
+        inhabilitarTodoBusquedaDeposito(false);
+        buscarDeposito.getJtf_BuscarDeposito().setEnabled(true);
+        buscarDeposito.setVisible(true);
     }
-    
-    public void btn_modificarItem(){        
+
+    public void btn_cargarItem() {
+        buscarArticulo = new JDialogBuscarArticulo(null, true);
+        buscarArticulo.setLocationRelativeTo(JframePrincipal.jPanelContenido);
+        buscarArticulo.setResizable(false);
+        buscarArticulo.setControlador(this);
+
+        inhabilitarTodoBusquedaArticulo(false);
+        buscarArticulo.getJtf_BuscarArticulo().setEnabled(true);
+        buscarArticulo.getJcb_Deposito().removeAllItems();
+        buscarArticulo.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
+        buscarArticulo.setVisible(true);
     }
-            
-    public void btn_eliminarItem(){        
+
+    public void btn_modificarItem() {
+
     }
-    
-        
-    public void btn_salirSinGrabar(){
+
+    public void btn_eliminarItem() {
+
+    }
+
+    public void btn_salirSinGrabar() {
         //Limpia campos
         limpiarTodosLosCamposPanelVenta();
 
@@ -241,305 +302,16 @@ public class VentaController extends Controller{
         //Inhabilita Botones
         inhabilitarTodosLosBotonesPanelVenta(false);
 
-        
         //Habilita el Arbol de seleccion
         JframePrincipal.habilitarArbol(true);
 
-                
-    }
-    
-    public void btn_grabarEImprimir(){        
-    }
-    
-    //Controlador del JDialog BuscarCliente
-    
-    public void llenarTabla(JTable tablaD, String datoABuscar, int opcion) {
-        clientes = new ArrayList<Cliente>();
-        //Celdas no editables
-        DefaultTableModel modeloT = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-        //Inmovilizar Columnas
-        tablaD.getTableHeader().setReorderingAllowed(false);
-
-        //Inhabilitar redimension de columnas
-        tablaD.getTableHeader().setResizingAllowed(false);
-
-        //Permite Seleccionar solamente una fila
-        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        tablaD.setModel(modeloT);
-
-        //Setea las cabeceras de la tabla
-        modeloT.addColumn("N°");
-        modeloT.addColumn("ID");
-        modeloT.addColumn("CUIT-CUIL");
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Apellido");
-
-        //Cantidad de columnas 
-        Object[] columna = new Object[6];
-
-        int numero = 0;
-
-        for (Cliente cli : modeloCliente.findClienteEntities()) {
-            
-            if(cli.getApellido().toString().indexOf(datoABuscar) != -1 && opcion == 1){
-                //Guarda en Lista de clientes  
-            clientes.add(cli);
-            numero = numero + 1;
-            columna[0] = String.valueOf(numero);
-            columna[1] = cli.getId();
-            columna[2] = cli.getCuitCuil();
-            columna[3] = cli.getNombre();
-            columna[4] = cli.getApellido();
-            modeloT.addRow(columna);
-            }
-            
-            if(cli.getId().toString().indexOf(datoABuscar) != -1 && opcion == 2){
-                //Guarda en Lista de clientes  
-            clientes.add(cli);
-            numero = numero + 1;
-            columna[0] = String.valueOf(numero);
-            columna[1] = cli.getId();
-            columna[2] = cli.getCuitCuil()
-                    ;
-            columna[3] = cli.getNombre();
-            columna[4] = cli.getApellido();
-            modeloT.addRow(columna);
-            }
-            
-            if(cli.getCuitCuil().toString().indexOf(datoABuscar) != -1 && opcion == 3){
-                //Guarda en Lista de clientes  
-            clientes.add(cli);
-            numero = numero + 1;
-            columna[0] = String.valueOf(numero);
-            columna[1] = cli.getId();
-            columna[2] = cli.getCuitCuil();
-            columna[3] = cli.getNombre();
-            columna[4] = cli.getApellido();
-            modeloT.addRow(columna);
-            }
-            
-        }
-    }
-    
-    public void btn_agregarBuscarUsuario()throws IOException{
-        if(clienteSeleccionado != null){
-            buscarUsuario.dispose();
-            
-            //cargar datos en JPanel
-            
-            limpiarTodosLosCamposPanelVenta();
-            vista.getJtf_ID().setText(clienteSeleccionado.getId().toString());
-            vista.getJtf_cuitCuil().setText(clienteSeleccionado.getCuitCuil());
-            vista.getJtf_Nombre().setText(clienteSeleccionado.getNombre());
-            vista.getJtf_Apellido().setText(clienteSeleccionado.getApellido());
-
-            //Si posee datos de direccion se cargan en la vista
-            if (clienteSeleccionado.getDireccion() != null) {
-                if (clienteSeleccionado.getDireccion().getLocalidad() != null) {
-
-
-                    vista.getJcb_zona_direccion().removeAllItems();
-                    vista.getJcb_zona_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
-
-                    vista.getJcb_provincia_direccion().removeAllItems();
-                    vista.getJcb_provincia_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getProvincia().getNombre());
-
-                    vista.getJcb_localidad_direccion().removeAllItems();
-                    vista.getJcb_localidad_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getNombre());
-
-                    if (clienteSeleccionado.getTipocliente() != null) {
-                        vista.getJcb_tipoCliente().removeAllItems();
-                        vista.getJcb_tipoCliente().addItem(clienteSeleccionado.getTipocliente().getDescripcion());
-                    }
-                    if (clienteSeleccionado.getCuentaCorriente() != null) {
-                        vista.getJtf_ctaCte().setText(Float.toString(clienteSeleccionado.getCuentaCorriente().getSaldo()));
-                    } else {
-                        vista.getJtf_ctaCte().setText("SIN CUENTA CORRIENTE INICIADA");
-                    }
-
-                    vista.getJtf_calle_direccion().setText(clienteSeleccionado.getDireccion().getCalle());
-                    vista.getJtf_numero_direccion().setText(clienteSeleccionado.getDireccion().getNumero());
-                    vista.getJtf_piso_direccion().setText(clienteSeleccionado.getDireccion().getPiso());
-                    vista.getJtf_departamento_direccion().setText(clienteSeleccionado.getDireccion().getDepartamento());
-                    
-                    //carga Tipo de Comprobante
-                    cargarTipoComprobante(clienteSeleccionado.getTipocliente());
-                    
-                    //Carga numeración actual del comprobante
-                    cargarNumeroComprobanteActual(talonario);
-                    
-                    //Carga la unidad a la que pertenece el talonario
-                    cargarUnidad(talonario);
-                    
-                    //Carga la fecha actual para la factura
-                    cargarFechaActual();
-                    
-                    
-                    llenarJcomboboxDeposito(unidad);
-                    System.out.println(unidad.getNombre());
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
-            }
-        
-            //cargarLista de Precio
-            
-            
-        
-        
-        
-        }else{
-            System.out.println("no existe");
-        }
-        
-        
-    }
-    
-    
-    
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-         
-        if (e.getSource() == buscarUsuario.getJtf_BuscarCliente()) {
-                limpiarTodosLosCamposBusquedaUsuario();
-                buscarUsuario.getJbtn_Agregar().setEnabled(false);
-                if(vista.getJrb_Nombre().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 1);
-                }
-                if(vista.getJrb_Codigo().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 2);
-                }
-                if(vista.getJrb_CuitDni().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 3);
-                }
-        }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        limpiarTodosLosCamposBusquedaUsuario();
-        buscarUsuario.getJbtn_Agregar().setEnabled(true);
-        //carga los datos en la vista si cualquiera de las variables es verdadera
-        //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
-        int seleccion = buscarUsuario.getTablaClientes().rowAtPoint(e.getPoint());
-        buscarUsuario.getJtf_ID().setText(String.valueOf(buscarUsuario.getTablaClientes().getValueAt(seleccion, 1)));
-        buscarUsuario.getJtf_cuitCuil().setText(String.valueOf(buscarUsuario.getTablaClientes().getValueAt(seleccion, 2)));
-        buscarUsuario.getJtf_Nombre().setText(String.valueOf(buscarUsuario.getTablaClientes().getValueAt(seleccion, 3)));
-        buscarUsuario.getJtf_Apellido().setText(String.valueOf(buscarUsuario.getTablaClientes().getValueAt(seleccion, 4)));
-
-        //Si posee datos de direccion se cargan en la vista
-        for (Cliente cliente : clientes) {
-            if (cliente.getId().toString().equals(buscarUsuario.getJtf_ID().getText())) {
-                if (cliente.getDireccion() != null) {
-                    if (cliente.getDireccion().getLocalidad() != null) {
-                        
-                        clienteSeleccionado = cliente;
-                        buscarUsuario.getJcb_zona_direccion().removeAllItems();
-                        buscarUsuario.getJcb_zona_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
-
-                        buscarUsuario.getJcb_provincia_direccion().removeAllItems();
-                        buscarUsuario.getJcb_provincia_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getProvincia().getNombre());
-
-                        buscarUsuario.getJcb_localidad_direccion().removeAllItems();
-                        buscarUsuario.getJcb_localidad_direccion().addItem(clienteSeleccionado.getDireccion().getLocalidad().getNombre());
-
-                        if (clienteSeleccionado.getTipocliente() != null) {
-                            buscarUsuario.getJcb_tipoCliente().removeAllItems();
-                            buscarUsuario.getJcb_tipoCliente().addItem(clienteSeleccionado.getTipocliente().getDescripcion());
-                        }
-                        if (clienteSeleccionado.getCuentaCorriente() != null) {
-                            buscarUsuario.getJtf_ctaCte().setText(Float.toString(clienteSeleccionado.getCuentaCorriente().getSaldo()));
-                        } else {
-                            buscarUsuario.getJtf_ctaCte().setText("SIN CUENTA CORRIENTE INICIADA");
-                        }
-
-                        buscarUsuario.getJtf_calle_direccion().setText(clienteSeleccionado.getDireccion().getCalle());
-                        buscarUsuario.getJtf_numero_direccion().setText(clienteSeleccionado.getDireccion().getNumero());
-                        buscarUsuario.getJtf_piso_direccion().setText(clienteSeleccionado.getDireccion().getPiso());
-                        buscarUsuario.getJtf_departamento_direccion().setText(clienteSeleccionado.getDireccion().getDepartamento());
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
-                }
-            }
-        }
-       
+    public void btn_grabarEImprimir() {
 
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        
-    }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        if (e.getSource() == buscarUsuario.getJtf_BuscarCliente()) {
-                limpiarTodosLosCamposBusquedaUsuario();
-                buscarUsuario.getJbtn_Agregar().setEnabled(false);
-                if(vista.getJrb_Nombre().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 1);
-                }
-                if(vista.getJrb_Codigo().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 2);
-                }
-                if(vista.getJrb_CuitDni().isSelected()){
-                    llenarTabla(buscarUsuario.getTablaClientes(), buscarUsuario.getJtf_BuscarCliente().getText(), 3);
-                }
-        }
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        
-    }
-    
+    //Funciones especificas
     /**
      * limpia todos los campos de la vista
      */
@@ -566,6 +338,7 @@ public class VentaController extends Controller{
         vista.limpiarCombobox(vista.getJcb_Deposito());
 
         vista.getJdc_fechaComprobante().setDate(null);
+
     }
 
     /**
@@ -582,16 +355,18 @@ public class VentaController extends Controller{
         vista.habilitarBoton(estado, vista.getJbtn_EliminarItem());
         vista.habilitarBoton(estado, vista.getJbtn_SalirSinGrabar());
         vista.habilitarBoton(estado, vista.getJbtn_GrabarEImprimir());
+        vista.habilitarBoton(estado, vista.getJbtn_BuscarDeposito());
 
         vista.getJdc_fechaComprobante().setEnabled(estado);
     }
-    
+
     /**
      * Inhabilita todos los componentes del panel de Registro de Venta
-     * @param estado 
+     *
+     * @param estado
      */
-    public void inhabilitarTodoPanelVenta(boolean estado){
-    //Limpia todos los JtextField
+    public void inhabilitarTodoPanelVenta(boolean estado) {
+        //Limpia todos los JtextField
         vista.getJtf_NumeroComprobante().setEnabled(estado);
         vista.getJtf_ID().setEnabled(estado);
         vista.getJtf_Nombre().setEnabled(estado);
@@ -611,7 +386,7 @@ public class VentaController extends Controller{
         vista.getJcb_provincia_direccion().setEnabled(estado);
         vista.getJcb_localidad_direccion().setEnabled(estado);
         vista.getJcb_Deposito().setEnabled(estado);
-        
+
         //Inhabilita Botones 
         vista.getJbtn_Buscar().setEnabled(estado);
         vista.getJbtn_CargarItem().setEnabled(estado);
@@ -619,132 +394,832 @@ public class VentaController extends Controller{
         vista.getJbtn_EliminarItem().setEnabled(estado);
         vista.getJbtn_SalirSinGrabar().setEnabled(estado);
         vista.getJbtn_GrabarEImprimir().setEnabled(estado);
-        
+        vista.getJbtn_BuscarDeposito().setEnabled(estado);
+
         vista.getJrb_Codigo().setEnabled(estado);
         vista.getJrb_CuitDni().setEnabled(estado);
         vista.getJrb_Nombre().setEnabled(estado);
-        
+
         vista.getJdc_fechaComprobante().setEnabled(estado);
     }
 
     /**
-     * Establece la politica de datos que contendran los elemmentos de la vista.
+     * Carga el talonarioSeleccionado correspondiente al cliente
+     *
+     * @param unTipoCliente
+     * @param unaUnidad
      */
-    public void politicaValidacionDeCampos() {
-        
+    public void cargarTipoComprobante(TipoCliente unTipoCliente) {
+        for (TalonarioComprobante lp : modeloTalonarioComprobante.findTalonarioComprobanteEntities()) {
+            if (lp.getId_TipoCliente().equals(unTipoCliente.getId())) {
+                talonarioSeleccionado = lp;
+                vista.getJcb_Comprobante().removeAllItems();
+                vista.getJcb_Comprobante().addItem(talonarioSeleccionado.getDescripcion());
+            }
+        }
     }
-    
-    
-    
-    //Buscar Usuario
-     /**
-     * limpia todos los campos de la vista
-     */
-    public void limpiarTodosLosCamposBusquedaUsuario() {
-        //Limpia todos los JtextField
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_ID());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_Nombre());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_cuitCuil());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_Apellido());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_ctaCte());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_calle_direccion());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_numero_direccion());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_piso_direccion());
-        buscarUsuario.limpiarCampo(buscarUsuario.getJtf_departamento_direccion());
 
-        //Limpia todos los JComboBox
-        buscarUsuario.limpiarCombobox(buscarUsuario.getJcb_tipoCliente());
-        buscarUsuario.limpiarCombobox(buscarUsuario.getJcb_zona_direccion());
-        buscarUsuario.limpiarCombobox(buscarUsuario.getJcb_provincia_direccion());
-        buscarUsuario.limpiarCombobox(buscarUsuario.getJcb_localidad_direccion());
+    /**
+     * Carga el numero de comprobante actual
+     *
+     * @param unTalonario
+     */
+    public void cargarNumeroComprobanteActual(TalonarioComprobante unTalonario) {
+        numeroComprobanteActual = unTalonario.getNumeracion_Actual() + 1;
+        vista.getJtf_NumeroComprobante().setText(Integer.toString(unTalonario.getNumeracion_Actual() + 1));
+    }
+
+    /**
+     * Carga Unidad del Comprobante
+     *
+     * @param unTalonario
+     */
+    public void cargarUnidad(TalonarioComprobante unTalonario) {
+        for (Unidad u : modeloUnidad.findUnidadEntities()) {
+            if (u.getId().equals(unTalonario.getId_Unidad())) {
+                unidadSeleccionada = u;
+                vista.getJcb_Unidad().removeAllItems();
+                vista.getJcb_Unidad().addItem(unidadSeleccionada.getNombre());
+            }
+        }
+    }
+
+    /**
+     * Carga Fecha actual del comprobante
+     */
+    public void cargarFechaActual() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
+        vista.getJdc_fechaComprobante().setDate(fechaFactura);
+        formatoFecha.format(fechaFactura);
+    }
+
+    /**
+     * Llena la tabla de linea de Venta
+     *
+     * @param tablaD
+     */
+    public void llenarTablaLineaDeVenta(JTable tablaD) {
+        lineasDeVenta = new ArrayList<LineaDeVenta>();
+        //Celdas no editables
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
+
+        //Setea las cabeceras de la tabla
+        modeloT.addColumn("N°");
+        modeloT.addColumn("ID");
+        modeloT.addColumn("Descripcion");
+        modeloT.addColumn("Deposito");
+        modeloT.addColumn("Otro");
+
+        //Cantidad de columnas 
+        Object[] columna = new Object[6];
+    }
+
+    //--------------------------------------------------------------------------
+    //Fin Controlador  JPanel Registro de Venta
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //Controlador  JDialog Buscar Cliente
+    //--------------------------------------------------------------------------
+    /**
+     * Llena la tabla de Clientes en funcion a la opcion seleccionada
+     *
+     * @param tablaD
+     * @param datoABuscar
+     * @param opcion
+     */
+    public void llenarTablaBuscarCliente(JTable tablaD, String datoABuscar, int opcion) {
+        clientes = new ArrayList<Cliente>();
+        //Celdas no editables
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
+
+        //Setea las cabeceras de la tabla
+        modeloT.addColumn("ID");
+        modeloT.addColumn("CUIT-CUIL");
+        modeloT.addColumn("NOMBRE");
+        modeloT.addColumn("APELLIDO");
+        modeloT.addColumn("TIPO-CLIENTE");
+
+        //Cantidad de columnas 
+        Object[] columna = new Object[6];
+
+        for (Cliente cli : modeloCliente.findClienteEntities()) {
+
+            if (cli.getApellido().toString().indexOf(datoABuscar) != -1 && opcion == 1) {
+                //Guarda en Lista de clientes  
+                clientes.add(cli);
+                columna[0] = cli.getId();
+                columna[1] = cli.getCuitCuil();;
+                columna[2] = cli.getNombre();
+                columna[3] = cli.getApellido();
+                columna[4] = cli.getTipocliente().getDescripcion();
+                modeloT.addRow(columna);
+            }
+
+            if (cli.getId().toString().indexOf(datoABuscar) != -1 && opcion == 2) {
+                //Guarda en Lista de clientes  
+                clientes.add(cli);
+                columna[0] = cli.getId();
+                columna[1] = cli.getCuitCuil();;
+                columna[2] = cli.getNombre();
+                columna[3] = cli.getApellido();
+                columna[4] = cli.getTipocliente().getDescripcion();
+                modeloT.addRow(columna);
+            }
+
+            if (cli.getCuitCuil().toString().indexOf(datoABuscar) != -1 && opcion == 3) {
+                //Guarda en Lista de clientes  
+                clientes.add(cli);
+                columna[0] = cli.getId();
+                columna[1] = cli.getCuitCuil();;
+                columna[2] = cli.getNombre();
+                columna[3] = cli.getApellido();
+                columna[4] = cli.getTipocliente().getDescripcion();
+                modeloT.addRow(columna);
+            }
+
+        }
+    }
+
+    /**
+     * Boton AgregarBuscar JDialog BuscarCliente
+     *
+     * @throws IOException
+     */
+    public void btn_agregarBuscarCliente() throws IOException {
+        if (clienteElegido != null) {
+            buscarCliente.dispose();
+            clienteSeleccionado = clienteElegido;
+            //cargar datos en JPanel
+            limpiarTodosLosCamposPanelVenta();
+            vista.getJtf_ID().setText(clienteElegido.getId().toString());
+            vista.getJtf_cuitCuil().setText(clienteElegido.getCuitCuil());
+            vista.getJtf_Nombre().setText(clienteElegido.getNombre());
+            vista.getJtf_Apellido().setText(clienteElegido.getApellido());
+
+            //Si posee datos de direccion se cargan en la vista
+            if (clienteElegido.getDireccion() != null) {
+                if (clienteElegido.getDireccion().getLocalidad() != null) {
+
+                    vista.getJcb_zona_direccion().removeAllItems();
+                    vista.getJcb_zona_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
+
+                    vista.getJcb_provincia_direccion().removeAllItems();
+                    vista.getJcb_provincia_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getProvincia().getNombre());
+
+                    vista.getJcb_localidad_direccion().removeAllItems();
+                    vista.getJcb_localidad_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getNombre());
+
+                    if (clienteElegido.getTipocliente() != null) {
+                        vista.getJcb_tipoCliente().removeAllItems();
+                        vista.getJcb_tipoCliente().addItem(clienteElegido.getTipocliente().getDescripcion());
+                    }
+                    if (clienteElegido.getCuentaCorriente() != null) {
+                        vista.getJtf_ctaCte().setText(Float.toString(clienteElegido.getCuentaCorriente().getSaldo()));
+                    } else {
+                        vista.getJtf_ctaCte().setText("SIN CUENTA CORRIENTE INICIADA");
+                    }
+
+                    vista.getJtf_calle_direccion().setText(clienteElegido.getDireccion().getCalle());
+                    vista.getJtf_numero_direccion().setText(clienteElegido.getDireccion().getNumero());
+                    vista.getJtf_piso_direccion().setText(clienteElegido.getDireccion().getPiso());
+                    vista.getJtf_departamento_direccion().setText(clienteElegido.getDireccion().getDepartamento());
+
+                    //carga Tipo de Comprobante
+                    cargarTipoComprobante(clienteElegido.getTipocliente());
+
+                    //Carga numeración actual del comprobante
+                    cargarNumeroComprobanteActual(talonarioSeleccionado);
+
+                    //Carga la unidadSeleccionada a la que pertenece el talonarioSeleccionado
+                    cargarUnidad(talonarioSeleccionado);
+
+                    //Carga la fecha actual para la factura
+                    cargarFechaActual();
+
+                    //Habilitar Boton de Buscar Depostito
+                    vista.getJbtn_BuscarDeposito().setEnabled(true);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
+            }
+
+            //cargarLista de Precio
+        } else {
+            System.out.println("no existe");
+        }
 
     }
 
     /**
-     * Modifica la habilitación de los Botones de la vista en funcion al
+     * limpia todos los campos de la vista BuscarCliente
+     */
+    public void limpiarTodosLosCamposBusquedaCliente() {
+        //Limpia todos los JtextField
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_ID());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_Nombre());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_cuitCuil());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_Apellido());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_ctaCte());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_calle_direccion());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_numero_direccion());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_piso_direccion());
+        buscarCliente.limpiarCampo(buscarCliente.getJtf_departamento_direccion());
+
+        //Limpia todos los JComboBox
+        buscarCliente.limpiarCombobox(buscarCliente.getJcb_tipoCliente());
+        buscarCliente.limpiarCombobox(buscarCliente.getJcb_zona_direccion());
+        buscarCliente.limpiarCombobox(buscarCliente.getJcb_provincia_direccion());
+        buscarCliente.limpiarCombobox(buscarCliente.getJcb_localidad_direccion());
+
+    }
+
+    /**
+     * Modifica la habilitación de los Botones de la BuscarCliente en funcion al
      * parametro de estado.
      *
      * @param estado de campos
      */
-    public void inhabilitarTodosLosBotonesBusquedaUsuario(boolean estado) {
+    public void inhabilitarTodosLosBotonesBusquedaCliente(boolean estado) {
         //Inhabilita Botones 
-        buscarUsuario.habilitarBoton(estado, buscarUsuario.getJbtn_Agregar());
+        buscarCliente.habilitarBoton(estado, buscarCliente.getJbtn_Agregar());
 
     }
-    
+
     /**
-     * Inhabilita todos los componentes del panel de Registro de Venta
-     * @param estado 
+     * Inhabilita todos los componentes del JDialog de Buscar Cliente
+     *
+     * @param estado
      */
-    public void inhabilitarTodoBusquedaUsuario(boolean estado){
-    //Limpia todos los JtextField
-        buscarUsuario.getJtf_ID().setEnabled(estado);
-        buscarUsuario.getJtf_Nombre().setEnabled(estado);
-        buscarUsuario.getJtf_cuitCuil().setEnabled(estado);
-        buscarUsuario.getJtf_Apellido().setEnabled(estado);
-        buscarUsuario.getJtf_ctaCte().setEnabled(estado);
-        buscarUsuario.getJtf_calle_direccion().setEnabled(estado);
-        buscarUsuario.getJtf_numero_direccion().setEnabled(estado);
-        buscarUsuario.getJtf_piso_direccion().setEnabled(estado);
-        buscarUsuario.getJtf_departamento_direccion().setEnabled(estado);
+    public void inhabilitarTodoBusquedaCliente(boolean estado) {
+        //Limpia todos los JtextField
+        buscarCliente.getJtf_ID().setEnabled(estado);
+        buscarCliente.getJtf_Nombre().setEnabled(estado);
+        buscarCliente.getJtf_cuitCuil().setEnabled(estado);
+        buscarCliente.getJtf_Apellido().setEnabled(estado);
+        buscarCliente.getJtf_ctaCte().setEnabled(estado);
+        buscarCliente.getJtf_calle_direccion().setEnabled(estado);
+        buscarCliente.getJtf_numero_direccion().setEnabled(estado);
+        buscarCliente.getJtf_piso_direccion().setEnabled(estado);
+        buscarCliente.getJtf_departamento_direccion().setEnabled(estado);
 
         //Limpia todos los JComboBox
-        buscarUsuario.getJcb_tipoCliente().setEnabled(estado);
-        buscarUsuario.getJcb_zona_direccion().setEnabled(estado);
-        buscarUsuario.getJcb_provincia_direccion().setEnabled(estado);
-        buscarUsuario.getJcb_localidad_direccion().setEnabled(estado);
-        
+        buscarCliente.getJcb_tipoCliente().setEnabled(estado);
+        buscarCliente.getJcb_zona_direccion().setEnabled(estado);
+        buscarCliente.getJcb_provincia_direccion().setEnabled(estado);
+        buscarCliente.getJcb_localidad_direccion().setEnabled(estado);
+
         //Inhabilita Botones 
-        buscarUsuario.getJbtn_Agregar().setEnabled(estado);
+        buscarCliente.getJbtn_Agregar().setEnabled(estado);
+    }
+
+    //--------------------------------------------------------------------------
+    //Fin Controlador  JDialog Buscar Cliente
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //Controlador  JDialog Buscar Deposito
+    //--------------------------------------------------------------------------
+    /**
+     * llena la tabla de Deposito
+     *
+     * @param tablaD
+     * @param unaUnidad
+     */
+    public void llenarTablaBuscarDeposito(JTable tablaD, Unidad unaUnidad, String datoABuscar) {
+        depositos = new ArrayList<Deposito>();
+        //Celdas no editables
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
+
+        //Setea las cabeceras de la tabla
+        modeloT.addColumn("N°");
+        modeloT.addColumn("ID");
+        modeloT.addColumn("Descripción");
+        modeloT.addColumn("Unidad");
+        modeloT.addColumn("Empresa");
+
+        //Cantidad de columnas 
+        Object[] columna = new Object[6];
+
+        int numero = 0;
+
+        for (Deposito depo : modeloDeposito.findDepositoEntities()) {
+            if (depo.getDescripcion().toString().indexOf(datoABuscar) != -1 && depo.getUnaUnidad().equals(unaUnidad)) {
+                //Guarda en Lista de Depositos  
+                depositos.add(depo);
+                numero = numero + 1;
+                columna[0] = String.valueOf(numero);
+                columna[1] = depo.getId();
+                columna[2] = depo.getDescripcion();
+                columna[3] = depo.getUnaUnidad().getNombre();
+                columna[4] = depo.getUnaUnidad().getUnaEmpresa().getRazonSocial();
+                modeloT.addRow(columna);
+            }
+
+        }
     }
 
     /**
-     * Carga el talonario correspondiente al cliente
-     * @param unTipoCliente
-     * @param unaUnidad 
+     * Boton AgregarBuscar JDialog BuscarDeposito
+     *
+     * @throws IOException
      */
-    public void cargarTipoComprobante(TipoCliente unTipoCliente){
-        for (TalonarioComprobante lp : modeloTalonarioComprobante.findTalonarioComprobanteEntities()) {
-            if(lp.getId_TipoCliente().equals(unTipoCliente.getId())){
-                talonario = lp;
-                vista.getJcb_Comprobante().removeAllItems();
-                vista.getJcb_Comprobante().addItem(talonario.getDescripcion());
+    public void btn_agregarBuscarDeposito() {
+                
+        if (unidadSeleccionada != null) {
+            if (depositoSeleccionado != null) {
+                buscarDeposito.dispose();
+                vista.getJcb_Deposito().removeAllItems();
+                vista.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
+                vista.getJbtn_CargarItem().setEnabled(true);
+                llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta());
+                vista.getTablaLineaDeVenta().setEnabled(true);
             }
+
         }
     }
-    
+
     /**
-     * Carga el numero de comprobante actual
-     * @param unTalonario 
+     * Limpia todos los campos de JDialog BuscarDeposito
      */
-    public void cargarNumeroComprobanteActual(TalonarioComprobante unTalonario){
-        numeroComprobanteActual = unTalonario.getNumeracion_Actual()+1;
-        vista.getJtf_NumeroComprobante().setText(Integer.toString(unTalonario.getNumeracion_Actual()+1));
+    public void limpiarTodosLosCamposBusquedaDeposito() {
+        //Limpia todos los JtextField
+        buscarDeposito.limpiarCampo(buscarDeposito.getJtf_ID());
+        buscarDeposito.limpiarCampo(buscarDeposito.getJtf_descripcion());
+
+        //Limpia todos los JComboBox
+        buscarDeposito.limpiarCombobox(buscarDeposito.getJcb_Unidad());
     }
-    
-    public void cargarUnidad(TalonarioComprobante unTalonario){
-        for (Unidad u : modeloUnidad.findUnidadEntities()) {
-            if(u.getId().equals(unTalonario.getId_Unidad())){
-                unidad = u;
-                vista.getJcb_Unidad().removeAllItems();
-                vista.getJcb_Unidad().addItem(unidad.getNombre());
+
+    /**
+     *
+     * @param estado
+     */
+    public void inhabilitarTodosLosBotonesBusquedaDeposito(boolean estado) {
+        //Inhabilita Botones 
+        buscarDeposito.habilitarBoton(estado, buscarDeposito.getJbtn_AgregarDeposito());
+    }
+
+    /**
+     *
+     * @param estado
+     */
+    public void inhabilitarTodoBusquedaDeposito(boolean estado) {
+        //Limpia todos los JtextField
+        buscarDeposito.getJtf_ID().setEnabled(estado);
+        buscarDeposito.getJtf_descripcion().setEnabled(estado);
+        buscarDeposito.getJtf_BuscarDeposito().setEnabled(estado);
+
+        //Limpia todos los JComboBox
+        buscarDeposito.getJcb_Unidad().setEnabled(estado);
+
+        //Inhabilita Botones 
+        buscarDeposito.getJbtn_AgregarDeposito().setEnabled(estado);
+    }
+
+    //--------------------------------------------------------------------------
+    //Fin Controlador  JDialog Buscar Deposito
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //Controlador  JDialog Buscar Articulo
+    //--------------------------------------------------------------------------
+    /**
+     * Boton AgregarBuscar JDialog BuscarDeposito
+     *
+     * @throws IOException
+     */
+    public void btn_agregarBuscarArticulo() {
+        if (unidadSeleccionada != null) {
+            if (depositoSeleccionado != null) {
+                buscarDeposito.dispose();
+                vista.getJcb_Deposito().removeAllItems();
+                vista.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
+                vista.getJbtn_CargarItem().setEnabled(true);
+                llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta());
+                vista.getTablaLineaDeVenta().setEnabled(true);
+            }
+
+        }
+    }
+
+    public void llenarTablaBuscarArticulo(JTable tablaD, Deposito unDeposito, String datoABuscar, int opcion) {
+        articulosCatalogo = new ArrayList<Articulo>();
+        //Celdas no editables
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
+
+        //Setea las cabeceras de la tabla
+        modeloT.addColumn("ID°");
+        modeloT.addColumn("Descripcion");
+        modeloT.addColumn("Categoria");
+        modeloT.addColumn("Proveedor");
+        modeloT.addColumn("Stock");
+
+        //Cantidad de columnas 
+        Object[] columna = new Object[6];
+
+        for (Articulo art : modeloArticuloCatalogo.findArticuloEntities()) {
+
+            if (art.getId().toString().indexOf(datoABuscar) != -1 && opcion == 1) {
+                //Guarda en Lista de articulos  
+                articulosCatalogo.add(art);
+                columna[0] = art.getId();
+                columna[1] = art.getDescripcion();
+                columna[2] = art.getUnCategoriaDeCatalogo().getDescripcion();
+                columna[3] = art.getUnProveedor().getRazonSocial();
+                if (modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito) != null) {
+                    columna[4] = modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito).getStockActual();
+                } else {
+                    columna[4] = "Sin Stock";
+                }
+
+                modeloT.addRow(columna);
+            }
+
+            if (art.getDescripcion().toString().indexOf(datoABuscar) != -1 && opcion == 2) {
+                //Guarda en Lista de articulos  
+                articulosCatalogo.add(art);
+                columna[0] = art.getId();
+                columna[1] = art.getDescripcion();
+                columna[2] = art.getUnCategoriaDeCatalogo().getDescripcion();
+                columna[3] = art.getUnProveedor().getRazonSocial();
+                if (modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito) != null) {
+                    columna[4] = modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito).getStockActual();
+                } else {
+                    columna[4] = "Sin Stock";
+                }
+                modeloT.addRow(columna);
+            }
+
+            if (art.getUnProveedor().getRazonSocial().indexOf(datoABuscar) != -1 && opcion == 3) {
+                //Guarda en Lista de articulos  
+                articulosCatalogo.add(art);
+                columna[0] = art.getId();
+                columna[1] = art.getDescripcion();
+                columna[2] = art.getUnCategoriaDeCatalogo().getDescripcion();
+                columna[3] = art.getUnProveedor().getRazonSocial();
+                if (modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito) != null) {
+                    columna[4] = modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, unDeposito).getStockActual();
+                } else {
+                    columna[4] = "Sin Stock";
+                }
+                modeloT.addRow(columna);
+            }
+
+        }
+
+    }
+
+    /**
+     * Limpia todos los campos de JDialog BuscarDeposito
+     */
+    public void limpiarTodosLosCamposBusquedaArticulo() {
+        //Limpia todos los JtextField
+        buscarArticulo.limpiarCampo(buscarArticulo.getJtf_ID());
+        buscarArticulo.limpiarCampo(buscarArticulo.getJtf_descripcion());
+        buscarArticulo.limpiarCampo(buscarArticulo.getJtf_stockActual());
+        buscarArticulo.limpiarCampo(buscarArticulo.getJtf_BuscarArticulo());
+
+        //Limpia todos los JComboBox
+        buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Unidad());
+        buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Deposito());
+        buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Categoria());
+        buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Proveedor());
+
+    }
+
+    /**
+     *
+     * @param estado
+     */
+    public void inhabilitarTodosLosBotonesBusquedaArticulo(boolean estado) {
+        //Inhabilita Botones 
+        buscarArticulo.habilitarBoton(estado, buscarArticulo.getJbtn_Agregar());
+    }
+
+    /**
+     *
+     * @param estado
+     */
+    public void inhabilitarTodoBusquedaArticulo(boolean estado) {
+        //Limpia todos los JtextField
+        buscarArticulo.getJtf_ID().setEnabled(estado);
+        buscarArticulo.getJtf_descripcion().setEnabled(estado);
+        buscarArticulo.getJtf_stockActual().setEnabled(estado);
+
+        //Limpia todos los JComboBox
+        buscarArticulo.getJcb_Unidad().setEnabled(estado);
+        buscarArticulo.getJcb_Deposito().setEnabled(estado);
+        buscarArticulo.getJcb_Categoria().setEnabled(estado);
+        buscarArticulo.getJcb_Proveedor().setEnabled(estado);
+
+        buscarArticulo.getjSpinnerArticulo().setEnabled(estado);
+
+        buscarArticulo.getJbtn_Agregar().setEnabled(estado);
+    }
+
+    //--------------------------------------------------------------------------
+    //Fin Controlador  JDialog Buscar Articulo
+    //--------------------------------------------------------------------------
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+        if (e.getSource() == buscarCliente.getJtf_BuscarCliente()) {
+            limpiarTodosLosCamposBusquedaCliente();
+            buscarCliente.getJbtn_Agregar().setEnabled(false);
+            if (vista.getJrb_Nombre().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 1);
+            }
+            if (vista.getJrb_Codigo().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 2);
+            }
+            if (vista.getJrb_CuitDni().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 3);
+            }
+        }
+
+        if (clienteSeleccionado != null && depositoSeleccionado == null && clienteElegido != null && buscarDeposito != null) {
+            if (e.getSource() == buscarDeposito.getJtf_BuscarDeposito()) {
+                buscarDeposito.getJbtn_AgregarDeposito().setEnabled(false);
+                llenarTablaBuscarDeposito(buscarDeposito.getTablaListaDeDeposito(), unidadSeleccionada, buscarDeposito.getJtf_BuscarDeposito().getText());
+            }
+        }
+
+        if (depositoSeleccionado != null && buscarArticulo != null) {
+            if (e.getSource() == buscarArticulo.getJtf_BuscarArticulo()) {
+                buscarArticulo.getjSpinnerArticulo().setEnabled(false);
+                buscarArticulo.getJbtn_Agregar().setEnabled(false);
+
+                if (buscarArticulo.getJrb_Codigo().isSelected()) {
+                    llenarTablaBuscarArticulo(buscarArticulo.getTablaListaDeArticulo(), depositoSeleccionado, buscarArticulo.getJtf_BuscarArticulo().getText(), 1);
+                }
+                if (buscarArticulo.getJrb_Descripcion().isSelected()) {
+                    llenarTablaBuscarArticulo(buscarArticulo.getTablaListaDeArticulo(), depositoSeleccionado, buscarArticulo.getJtf_BuscarArticulo().getText(), 2);
+                }
+                if (buscarArticulo.getJrb_Proveedor().isSelected()) {
+                    llenarTablaBuscarArticulo(buscarArticulo.getTablaListaDeArticulo(), depositoSeleccionado, buscarArticulo.getJtf_BuscarArticulo().getText(), 3);
+                }
+
             }
         }
     }
-    
-    public void cargarFechaActual(){
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        clienteElegido = null;
+        if (clienteElegido == null && buscarCliente != null && buscarArticulo == null) {
+            limpiarTodosLosCamposBusquedaCliente();
+            buscarCliente.getJbtn_Agregar().setEnabled(true);
+            //carga los datos en la vista si cualquiera de las variables es verdadera
+            //if (bloquearAceptarCrear || bloquearAceptarModificar || bloquearAceptarEliminar) {
+            int seleccion = buscarCliente.getTablaClientes().rowAtPoint(e.getPoint());
+            buscarCliente.getJtf_ID().setText(String.valueOf(buscarCliente.getTablaClientes().getValueAt(seleccion, 0)));
+
+            //Si posee datos de direccion se cargan en la vista
+            for (Cliente cliente : clientes) {
+                if (cliente.getId().toString().equals(buscarCliente.getJtf_ID().getText())) {
+                    if (cliente.getDireccion() != null) {
+                        if (cliente.getDireccion().getLocalidad() != null) {
+                            clienteElegido = cliente;
+
+                            buscarCliente.getJtf_cuitCuil().setText(clienteElegido.getCuitCuil());
+                            buscarCliente.getJtf_Nombre().setText(clienteElegido.getNombre());
+                            buscarCliente.getJtf_Apellido().setText(clienteElegido.getApellido());
+
+                            buscarCliente.getJcb_zona_direccion().removeAllItems();
+                            buscarCliente.getJcb_zona_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getProvincia().getZona().getNombre());
+
+                            buscarCliente.getJcb_provincia_direccion().removeAllItems();
+                            buscarCliente.getJcb_provincia_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getProvincia().getNombre());
+
+                            buscarCliente.getJcb_localidad_direccion().removeAllItems();
+                            buscarCliente.getJcb_localidad_direccion().addItem(clienteElegido.getDireccion().getLocalidad().getNombre());
+
+                            if (clienteElegido.getTipocliente() != null) {
+                                buscarCliente.getJcb_tipoCliente().removeAllItems();
+                                buscarCliente.getJcb_tipoCliente().addItem(clienteElegido.getTipocliente().getDescripcion());
+                            }
+                            if (clienteElegido.getCuentaCorriente() != null) {
+                                buscarCliente.getJtf_ctaCte().setText(Float.toString(clienteElegido.getCuentaCorriente().getSaldo()));
+                            } else {
+                                buscarCliente.getJtf_ctaCte().setText("SIN CUENTA CORRIENTE INICIADA");
+                            }
+
+                            buscarCliente.getJtf_calle_direccion().setText(clienteElegido.getDireccion().getCalle());
+                            buscarCliente.getJtf_numero_direccion().setText(clienteElegido.getDireccion().getNumero());
+                            buscarCliente.getJtf_piso_direccion().setText(clienteElegido.getDireccion().getPiso());
+                            buscarCliente.getJtf_departamento_direccion().setText(clienteElegido.getDireccion().getDepartamento());
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
+                    }
+                }
+            }
+        }
+        if (clienteSeleccionado != null) {//Tiene que existir el cliente
+            if (unidadSeleccionada != null) {//Tiene que existir la unidad 
+                if (buscarDeposito != null && depositoSeleccionado == null) {//JDialogDeposito debe estar activo y el depositoSeleccionado nulo
+                    limpiarTodosLosCamposBusquedaDeposito();
+                    buscarDeposito.getJbtn_AgregarDeposito().setEnabled(true);
+                    int seleccion = buscarDeposito.getTablaListaDeDeposito().rowAtPoint(e.getPoint());
+                    buscarDeposito.getJtf_ID().setText(String.valueOf(buscarDeposito.getTablaListaDeDeposito().getValueAt(seleccion, 1)));
+                    for (Deposito deposito : modeloDeposito.findDepositoEntities()) {
+                        if (deposito.getId().toString().equals(buscarDeposito.getJtf_ID().getText())) {
+                            depositoSeleccionado = deposito;
+                            buscarDeposito.getJtf_descripcion().setText(depositoSeleccionado.getDescripcion());
+                            buscarDeposito.getJcb_Unidad().removeAllItems();
+                            buscarDeposito.getJcb_Unidad().addItem(depositoSeleccionado.getUnaUnidad().getNombre());
+
+                        }
+                    }
+                }
+            }
+        }
+
+        if (clienteSeleccionado != null) {//Tiene que existir el cliente
+            if (unidadSeleccionada != null) {//Tiene que existir la unidad 
+                if (buscarArticulo != null && depositoSeleccionado != null) {//JDialogDeposito debe estar activo y el depositoSeleccionado nulo
+
+                    limpiarTodosLosCamposBusquedaDeposito();
+                    int seleccion = buscarArticulo.getTablaListaDeArticulo().rowAtPoint(e.getPoint());
+                    buscarArticulo.getJtf_ID().setText(String.valueOf(buscarArticulo.getTablaListaDeArticulo().getValueAt(seleccion, 0)));
+                    for (Articulo art : modeloArticuloCatalogo.findArticuloEntities()) {
+                        if (art.getId().toString().equals(buscarArticulo.getJtf_ID().getText())) {
+                            articuloEncontrado = art;
+                            buscarArticulo.getJtf_descripcion().setText(articuloEncontrado.getDescripcion());
+                            buscarArticulo.getJcb_Unidad().removeAllItems();
+                            buscarArticulo.getJcb_Unidad().addItem(unidadSeleccionada.getNombre());
+                            buscarArticulo.getJcb_Categoria().removeAllItems();
+                            buscarArticulo.getJcb_Categoria().addItem(articuloEncontrado.getUnCategoriaDeCatalogo().getDescripcion());
+                            buscarArticulo.getJcb_Proveedor().removeAllItems();
+                            buscarArticulo.getJcb_Proveedor().addItem(articuloEncontrado.getUnProveedor().getRazonSocial());
+
+                            if (modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, depositoSeleccionado) != null) {
+                                stockArticuloEncontrado = modeloStockArticulo.buscarStockDeArticuloEnDeposito(art, depositoSeleccionado);
+                                buscarArticulo.getJtf_stockActual().setText(Integer.toString(stockArticuloEncontrado.getStockActual()));
+                                buscarArticulo.getjSpinnerArticulo().setModel(new SpinnerNumberModel(1, 1, stockArticuloEncontrado.getStockActual(), 1));
+                                buscarArticulo.getjSpinnerArticulo().setEditor(new JSpinner.NumberEditor(buscarArticulo.getjSpinnerArticulo()));
+                                JFormattedTextField tf = ((JSpinner.DefaultEditor) buscarArticulo.getjSpinnerArticulo().getEditor()).getTextField();
+                                tf.setEditable(false);
+                                buscarArticulo.getjSpinnerArticulo().setEnabled(true);
+                                buscarArticulo.getJbtn_Agregar().setEnabled(true);
+                            } else {
+                                buscarArticulo.getjSpinnerArticulo().setEnabled(false);
+                                buscarArticulo.getjSpinnerArticulo().setModel(new SpinnerNumberModel(0, 0, 0, 0));
+                                buscarArticulo.getjSpinnerArticulo().setEditor(new JSpinner.NumberEditor(buscarArticulo.getjSpinnerArticulo()));
+                                buscarArticulo.getJtf_stockActual().setText("Sin Stock Actual Asignado");
+                                buscarArticulo.getJbtn_Agregar().setEnabled(false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        if (e.getSource() == buscarCliente.getJtf_BuscarCliente()) {
+            limpiarTodosLosCamposBusquedaCliente();
+            buscarCliente.getJbtn_Agregar().setEnabled(false);
+            if (vista.getJrb_Nombre().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 1);
+            }
+            if (vista.getJrb_Codigo().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 2);
+            }
+            if (vista.getJrb_CuitDni().isSelected()) {
+                llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 3);
+            }
+        }
+
+        if (clienteSeleccionado != null) {
+            if (unidadSeleccionada != null) {
+                if (buscarDeposito != null) {
+                    
+                    limpiarTodosLosCamposBusquedaDeposito();
+                    buscarDeposito.getJbtn_AgregarDeposito().setEnabled(false);
+                    llenarTablaBuscarDeposito(buscarDeposito.getTablaListaDeDeposito(), unidadSeleccionada, buscarDeposito.getJtf_BuscarDeposito().getText());
+                }
+            }
+        }
+
         
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
-        vista.getJdc_fechaComprobante().setDate(fechaFactura);
-        formatoFecha.format(fechaFactura);
+        
         
     }
-    
-    public void llenarJcomboboxDeposito(Unidad unaUnidad) {
-        vista.getJcb_Deposito().setEnabled(true);
-        vista.getJcb_Deposito().removeAllItems();
-        modeloDeposito = new DepositoJpaController(Conexion.getEmf());
-        DefaultComboBoxModel mdl = new DefaultComboBoxModel((Vector) modeloDeposito.buscarDepositosPorUnidad(unidad));
-        vista.getJcb_Deposito().setModel(mdl);
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
     }
 }

@@ -4,10 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/view/PanelRegistroVenta.java</file>
-            <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/view/PanelRegistroCliente.java</file>
-            <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/view/JDialogBuscarUsuario.java</file>
+            <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/view/JDialogBuscarArticulo.java</file>
             <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/controller/VentaController.java</file>
-            <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/model/TalonarioComprobante.java</file>
+            <file>file:/C:/Users/Ariel/Documents/GitHub/GuraSoftJPA/src/model/JPAController/StockArticuloJpaController.java</file>
         </group>
     </open-files>
 </project-private>
