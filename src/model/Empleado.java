@@ -31,8 +31,7 @@ public class Empleado extends Persona {
     @ManyToOne
     private TipoEmpleado tipoEmpleado;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usuario")
+    @ManyToOne
     private Usuario unUsuario;
 
     @Column(name = "cuitCuil")
