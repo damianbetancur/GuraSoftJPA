@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -33,18 +32,24 @@ import model.Comprobante;
 import model.CuentaCorriente;
 import model.Deposito;
 import model.Empleado;
+import model.FijarPrecioVentaMayorista;
+import model.FijarPrecioVentaMinorista;
+import model.IEstrategiaFijarPreciosVenta;
 import model.JPAController.ArticuloJpaController;
 import model.JPAController.ClienteJpaController;
 import model.JPAController.ComprobanteJpaController;
 import model.JPAController.CuentaCorrienteJpaController;
 import model.JPAController.DepositoJpaController;
 import model.JPAController.EmpleadoJpaController;
+import model.JPAController.LineaDeVentaJpaController;
 import model.JPAController.ListaDePrecioJpaController;
 import model.JPAController.PagoJpaController;
 import model.JPAController.PrecioArticuloJpaController;
 import model.JPAController.StockArticuloJpaController;
 import model.JPAController.TalonarioComprobanteJpaController;
+import model.JPAController.TipoClienteJpaController;
 import model.JPAController.UnidadJpaController;
+import model.JPAController.UsuarioJpaController;
 import model.JPAController.VentaJpaController;
 import model.LineaDeVenta;
 import model.ListaDePrecio;
@@ -53,7 +58,10 @@ import model.PrecioArticulo;
 import model.StockArticulo;
 import model.TalonarioComprobante;
 import model.TipoCliente;
+import model.TipoUsuario;
 import model.Unidad;
+import model.Usuario;
+import model.Venta;
 import view.JDialogBuscarArticulo;
 import view.JDialogBuscarDeposito;
 import view.JDialogBuscarCliente;
@@ -64,7 +72,7 @@ import view.PanelRegistroVenta;
  *
  * @author Ariel
  */
-public class VentaController extends Controller {
+public class VentaController extends Controller{
 
     private PanelRegistroVenta vista;
     private VentaJpaController modelo;
@@ -84,6 +92,9 @@ public class VentaController extends Controller {
     private EmpleadoJpaController modeloEmpleado;
     private ClienteJpaController modeloCliente;
     private CuentaCorrienteJpaController modeloCuentaCorriente;
+    private TipoClienteJpaController modeloTipoCliente;
+    private UsuarioJpaController modeloUsuario;
+    private LineaDeVentaJpaController modeloLineaDeVenta;
 
     private ArticuloJpaController modeloArticuloCatalogo;
     private StockArticuloJpaController modeloStockArticulo;
@@ -101,23 +112,35 @@ public class VentaController extends Controller {
     List<PrecioArticulo> preciosArticulos;
 
     //Articulo Encontrado
-    Articulo articuloEncontrado;
-    StockArticulo stockArticuloEncontrado;
-    PrecioArticulo precioArticuloEncontrado;
+    Articulo articuloEncontrado = null;
+    StockArticulo stockArticuloEncontrado = null;
+    PrecioArticulo precioArticuloEncontrado = null;
 
     //Variables
     List<Cliente> clientes;
     List<Deposito> depositos;
-    List<LineaDeVenta> lineasDeVenta;
+    ArrayList<LineaDeVenta> lineasDeVenta;
+    Venta nuevaVenta = null;
     Cliente clienteElegido = null;
     Cliente clienteSeleccionado = null;
     Deposito depositoSeleccionado = null;
     Unidad unidadSeleccionada = null;
     TalonarioComprobante talonarioSeleccionado = null;
+    StockArticulo stockArticuloSeleccionado = null;
+    LineaDeVenta lineaDeVentaSeleccionada = null;
+    ListaDePrecio listaDePrecioSeleccionada = null;
+    TipoCliente tipoClienteSeleccionado = null;
 
     int numeroComprobanteActual = 0;
     Date fechaFactura = new Date();
-
+    int numeroLineaDeVenta = 0;
+    int seleccionLdv = 0;
+    IEstrategiaFijarPreciosVenta politicaDePrecio = null;
+    Usuario user = null;
+    Empleado empleadoSeleccionado = null;
+    
+    Comprobante comprobante = null;
+    
     /**
      * Constructor CatalogoCategoriaArticuloController
      *
@@ -135,11 +158,15 @@ public class VentaController extends Controller {
         modeloEmpleado = new EmpleadoJpaController(Conexion.getEmf());
         modeloCliente = new ClienteJpaController(Conexion.getEmf());
         modeloCuentaCorriente = new CuentaCorrienteJpaController(Conexion.getEmf());
-
+        modeloTipoCliente = new TipoClienteJpaController(Conexion.getEmf());
+        modeloUsuario = new UsuarioJpaController(Conexion.getEmf());
+        modeloLineaDeVenta = new LineaDeVentaJpaController(Conexion.getEmf());
+                
         modeloArticuloCatalogo = new ArticuloJpaController(Conexion.getEmf());
         modeloStockArticulo = new StockArticuloJpaController(Conexion.getEmf());
         modeloPrecioArticulo = new PrecioArticuloJpaController(Conexion.getEmf());
-
+        modeloListaDePrecio = new ListaDePrecioJpaController(Conexion.getEmf());  
+        
         this.vista = vista;
         this.modelo = modelo;
 
@@ -165,15 +192,6 @@ public class VentaController extends Controller {
             btn_cargarItem();
         }
 
-        //Boton Modificar Item
-        if (e.getSource() == vista.getJbtn_ModificarItem()) {
-            btn_modificarItem();
-        }
-
-        //Boton Eliminar Item
-        if (e.getSource() == vista.getJbtn_EliminarItem()) {
-            btn_eliminarItem();
-        }
 
         //Boton Salir Sin Grabar
         if (e.getSource() == vista.getJbtn_SalirSinGrabar()) {
@@ -181,12 +199,13 @@ public class VentaController extends Controller {
         }
 
         //Boton Grabar E Imprimir
-        if (e.getSource() == vista.getJbtn_GrabarEImprimir()) {
+        if (e.getSource() == vista.getJbtn_GrabarEImprimir()&& nuevaVenta!=null) {
             btn_grabarEImprimir();
         }
 
-        //Boton Grabar E Imprimir
+        //Boton Agregar
         if (clienteElegido != null) {
+            //Boton Agregar Buscar Cliente
             if (e.getSource() == buscarCliente.getJbtn_Agregar()) {
                 try {
                     btn_agregarBuscarCliente();
@@ -195,7 +214,7 @@ public class VentaController extends Controller {
                 }
             }
 
-
+            //Boton Agregar Buscar Deposito
             if (unidadSeleccionada != null) {
                 if (buscarDeposito != null) {
                     if (e.getSource() == buscarDeposito.getJbtn_AgregarDeposito()) {
@@ -205,14 +224,26 @@ public class VentaController extends Controller {
             }
         }
 
+        //Boton agregar Item Buscar Articulo
         if (clienteSeleccionado != null) {
+            if (unidadSeleccionada != null) {
+                if (depositoSeleccionado != null) {
+                    if (articuloEncontrado != null) {
+                        if (e.getSource() == buscarArticulo.getJbtn_Agregar()) {
+                            btn_agregarBuscarArticulo();
+                        }
+                    }
+                }
+            }
+        }
 
+        //Boton vista Buscar Deposito
+        if (clienteSeleccionado != null) {
             if (e.getSource() == vista.getJbtn_BuscarDeposito()) {
                 btn_SeleccionarDepositoUnidad();
             }
         }
-        
-        
+
     }
 
     //--------------------------------------------------------------------------
@@ -255,7 +286,7 @@ public class VentaController extends Controller {
     }
 
     public void btn_SeleccionarDepositoUnidad() {
-
+        vista.getJtf_Total().setText("");
         buscarArticulo = null;
         buscarDeposito = null;
         depositoSeleccionado = null;
@@ -284,14 +315,6 @@ public class VentaController extends Controller {
         buscarArticulo.setVisible(true);
     }
 
-    public void btn_modificarItem() {
-
-    }
-
-    public void btn_eliminarItem() {
-
-    }
-
     public void btn_salirSinGrabar() {
         //Limpia campos
         limpiarTodosLosCamposPanelVenta();
@@ -308,7 +331,18 @@ public class VentaController extends Controller {
     }
 
     public void btn_grabarEImprimir() {
-
+        nuevaVenta.setEsCompleta(true);
+        modelo.create(nuevaVenta);
+        
+        for (LineaDeVenta ldv : lineasDeVenta) {
+            modeloLineaDeVenta.create(ldv);
+        }
+        
+        politicaDePrecio.crearComprobante(nuevaVenta, comprobante);
+        
+        
+        
+        btn_salirSinGrabar();
     }
 
     //Funciones especificas
@@ -327,6 +361,7 @@ public class VentaController extends Controller {
         vista.limpiarCampo(vista.getJtf_numero_direccion());
         vista.limpiarCampo(vista.getJtf_piso_direccion());
         vista.limpiarCampo(vista.getJtf_departamento_direccion());
+        vista.limpiarCampo(vista.getJtf_Total());
 
         //Limpia todos los JComboBox
         vista.limpiarCombobox(vista.getJcb_Unidad());
@@ -339,6 +374,34 @@ public class VentaController extends Controller {
 
         vista.getJdc_fechaComprobante().setDate(null);
 
+        vaciarTabla(vista.getTablaLineaDeVenta());
+
+    }
+
+    /**
+     * Vacia la tabla de venta
+     *
+     * @param tablaD
+     */
+    public void vaciarTabla(JTable tablaD) {
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
     }
 
     /**
@@ -351,8 +414,6 @@ public class VentaController extends Controller {
         //Inhabilita Botones 
         vista.habilitarBoton(estado, vista.getJbtn_Buscar());
         vista.habilitarBoton(estado, vista.getJbtn_CargarItem());
-        vista.habilitarBoton(estado, vista.getJbtn_ModificarItem());
-        vista.habilitarBoton(estado, vista.getJbtn_EliminarItem());
         vista.habilitarBoton(estado, vista.getJbtn_SalirSinGrabar());
         vista.habilitarBoton(estado, vista.getJbtn_GrabarEImprimir());
         vista.habilitarBoton(estado, vista.getJbtn_BuscarDeposito());
@@ -377,6 +438,7 @@ public class VentaController extends Controller {
         vista.getJtf_numero_direccion().setEnabled(estado);
         vista.getJtf_piso_direccion().setEnabled(estado);
         vista.getJtf_departamento_direccion().setEnabled(estado);
+        vista.getJtf_Total().setEnabled(estado);
 
         //Limpia todos los JComboBox
         vista.getJcb_Unidad().setEnabled(estado);
@@ -390,8 +452,6 @@ public class VentaController extends Controller {
         //Inhabilita Botones 
         vista.getJbtn_Buscar().setEnabled(estado);
         vista.getJbtn_CargarItem().setEnabled(estado);
-        vista.getJbtn_ModificarItem().setEnabled(estado);
-        vista.getJbtn_EliminarItem().setEnabled(estado);
         vista.getJbtn_SalirSinGrabar().setEnabled(estado);
         vista.getJbtn_GrabarEImprimir().setEnabled(estado);
         vista.getJbtn_BuscarDeposito().setEnabled(estado);
@@ -459,6 +519,12 @@ public class VentaController extends Controller {
      * @param tablaD
      */
     public void llenarTablaLineaDeVenta(JTable tablaD) {
+        numeroLineaDeVenta = 0;
+        if(numeroLineaDeVenta>=1){
+            vista.getJbtn_GrabarEImprimir().setEnabled(true);
+        }else{
+            vista.getJbtn_GrabarEImprimir().setEnabled(false);
+        }
         lineasDeVenta = new ArrayList<LineaDeVenta>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel() {
@@ -480,17 +546,72 @@ public class VentaController extends Controller {
 
         tablaD.setModel(modeloT);
 
-        //Setea las cabeceras de la tabla
-        modeloT.addColumn("N°");
-        modeloT.addColumn("ID");
-        modeloT.addColumn("Descripcion");
-        modeloT.addColumn("Deposito");
-        modeloT.addColumn("Otro");
-
-        //Cantidad de columnas 
-        Object[] columna = new Object[6];
+        //Crea la nueva venta
+        nuevaVenta = new Venta();
+        nuevaVenta.setCliente(clienteSeleccionado);
+        nuevaVenta.setUnidad(unidadSeleccionada);
+        nuevaVenta.setFecha(vista.getJdc_fechaComprobante().getDate());
+        nuevaVenta.setHora(vista.getJdc_fechaComprobante().getDate());
+        nuevaVenta.setEsCompleta(false);
+        
+        
+        llenarTipoCliente();
+        
+        llenarListaDePrecio();
+        
+        llenarTipoUsuario();
+        
+        agregarEmpleadoAVenta();        
+        
+        nuevaVenta.setEmpleado(empleadoSeleccionado);
+        
+        politicaDePrecio = crearPoliticaDePrecio(tipoClienteSeleccionado.getId().intValue());
+        
+    }
+    
+    public IEstrategiaFijarPreciosVenta crearPoliticaDePrecio (int tipoCliente){
+        IEstrategiaFijarPreciosVenta politicaDePrecio = null;
+        if(tipoCliente==1){
+            politicaDePrecio = new FijarPrecioVentaMayorista();
+        }
+        if(tipoCliente==2){
+            politicaDePrecio = new FijarPrecioVentaMinorista();
+        }
+        return politicaDePrecio;
     }
 
+    public void llenarTipoCliente(){
+        for (TipoCliente tp : modeloTipoCliente.findTipoClienteEntities()) {
+            if (clienteSeleccionado.getTipocliente().getId().equals(tp.getId())) {
+                tipoClienteSeleccionado = tp;
+            }
+        }
+    }
+    
+    public void llenarListaDePrecio(){
+        for (ListaDePrecio lp : modeloListaDePrecio.findListaDePrecioEntities()) {
+            if (lp.getTipoCliente().getId().equals(tipoClienteSeleccionado.getId())) {
+                listaDePrecioSeleccionada = lp;
+            }
+        }
+    }
+    
+    public void llenarTipoUsuario(){
+        for (Usuario u : modeloUsuario.findUsuarioEntities()) {
+            if (u.equals(LoginController.getInstance())) {
+                user = u;
+            }
+        }
+    }
+    
+    public void agregarEmpleadoAVenta(){
+        for (Empleado emp : modeloEmpleado.findEmpleadoEntities()) {
+            if (emp.getUnUsuario().equals(user)) {
+                empleadoSeleccionado = emp;
+            }
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //Fin Controlador  JPanel Registro de Venta
     //--------------------------------------------------------------------------
@@ -508,7 +629,6 @@ public class VentaController extends Controller {
         clientes = new ArrayList<Cliente>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel() {
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 //all cells false
@@ -537,7 +657,6 @@ public class VentaController extends Controller {
         Object[] columna = new Object[6];
 
         for (Cliente cli : modeloCliente.findClienteEntities()) {
-
             if (cli.getApellido().toString().indexOf(datoABuscar) != -1 && opcion == 1) {
                 //Guarda en Lista de clientes  
                 clientes.add(cli);
@@ -570,7 +689,6 @@ public class VentaController extends Controller {
                 columna[4] = cli.getTipocliente().getDescripcion();
                 modeloT.addRow(columna);
             }
-
         }
     }
 
@@ -636,16 +754,13 @@ public class VentaController extends Controller {
                 } else {
                     JOptionPane.showMessageDialog(null, "cliente no tiene Localidad asignada");
                 }
-
             } else {
                 JOptionPane.showMessageDialog(null, "cliente no tiene Direccion asignada");
             }
-
             //cargarLista de Precio
         } else {
             System.out.println("no existe");
         }
-
     }
 
     /**
@@ -668,7 +783,6 @@ public class VentaController extends Controller {
         buscarCliente.limpiarCombobox(buscarCliente.getJcb_zona_direccion());
         buscarCliente.limpiarCombobox(buscarCliente.getJcb_provincia_direccion());
         buscarCliente.limpiarCombobox(buscarCliente.getJcb_localidad_direccion());
-
     }
 
     /**
@@ -680,7 +794,6 @@ public class VentaController extends Controller {
     public void inhabilitarTodosLosBotonesBusquedaCliente(boolean estado) {
         //Inhabilita Botones 
         buscarCliente.habilitarBoton(estado, buscarCliente.getJbtn_Agregar());
-
     }
 
     /**
@@ -726,7 +839,6 @@ public class VentaController extends Controller {
         depositos = new ArrayList<Deposito>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel() {
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 //all cells false
@@ -768,7 +880,6 @@ public class VentaController extends Controller {
                 columna[4] = depo.getUnaUnidad().getUnaEmpresa().getRazonSocial();
                 modeloT.addRow(columna);
             }
-
         }
     }
 
@@ -778,17 +889,28 @@ public class VentaController extends Controller {
      * @throws IOException
      */
     public void btn_agregarBuscarDeposito() {
-                
         if (unidadSeleccionada != null) {
             if (depositoSeleccionado != null) {
-                buscarDeposito.dispose();
                 vista.getJcb_Deposito().removeAllItems();
                 vista.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
                 vista.getJbtn_CargarItem().setEnabled(true);
                 llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta());
                 vista.getTablaLineaDeVenta().setEnabled(true);
+                
+                
+                if (clienteElegido.getTipocliente().getId()==1) {
+                    vista.getjSpinnerDescuento().setModel(new SpinnerNumberModel(1, 1, 100, 1));
+                    vista.getjSpinnerDescuento().setEditor(new JSpinner.NumberEditor(vista.getjSpinnerDescuento()));
+                    JFormattedTextField tf = ((JSpinner.DefaultEditor) vista.getjSpinnerDescuento().getEditor()).getTextField();
+                    tf.setEditable(false);
+                    vista.getjSpinnerDescuento().setEnabled(true);
+                } else {
+                    vista.getjSpinnerDescuento().setEnabled(false);
+                    vista.getjSpinnerDescuento().setModel(new SpinnerNumberModel(0, 0, 0, 0));
+                    vista.getjSpinnerDescuento().setEditor(new JSpinner.NumberEditor(vista.getjSpinnerDescuento()));
+                }
+                buscarDeposito.dispose();
             }
-
         }
     }
 
@@ -836,30 +958,125 @@ public class VentaController extends Controller {
     //--------------------------------------------------------------------------
     //Controlador  JDialog Buscar Articulo
     //--------------------------------------------------------------------------
+    public void llenarTablaLineaDeVenta(JTable tablaD, ArrayList<LineaDeVenta> ldvtas) {
+
+        //Celdas no editables
+        DefaultTableModel modeloT = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        //Inmovilizar Columnas
+        tablaD.getTableHeader().setReorderingAllowed(false);
+
+        //Inhabilitar redimension de columnas
+        tablaD.getTableHeader().setResizingAllowed(false);
+
+        //Permite Seleccionar solamente una fila
+        tablaD.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tablaD.setModel(modeloT);
+
+        //Setea las cabeceras de la tabla
+        modeloT.addColumn("CODIGO");
+        modeloT.addColumn("CANTIDAD");
+        modeloT.addColumn("PRECIO UNITARIO");
+        modeloT.addColumn("DESCRIPCIÓN");
+        modeloT.addColumn("SUB-TOTAL");
+
+        //Cantidad de columnas 
+        Object[] columna = new Object[6];
+
+        if (ldvtas.size()>0) {
+            for (LineaDeVenta ldv : ldvtas) {
+                columna[0] = ldv.getArticulo().getId();
+                columna[1] = ldv.getCantidad();
+                columna[2] = modeloPrecioArticulo.buscarPrecioDeArticuloConListaDePrecio(ldv.getArticulo(), listaDePrecioSeleccionada).getPrecio();
+                columna[3] = ldv.getArticulo().getDescripcion();
+                columna[4] = ldv.getSubTotal();
+                modeloT.addRow(columna);
+            }
+        }
+        
+    }
+
     /**
-     * Boton AgregarBuscar JDialog BuscarDeposito
      *
-     * @throws IOException
      */
     public void btn_agregarBuscarArticulo() {
-        if (unidadSeleccionada != null) {
-            if (depositoSeleccionado != null) {
-                buscarDeposito.dispose();
-                vista.getJcb_Deposito().removeAllItems();
-                vista.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
-                vista.getJbtn_CargarItem().setEnabled(true);
-                llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta());
-                vista.getTablaLineaDeVenta().setEnabled(true);
+        boolean repetido = false;
+        int cantidadRepetido = 0;
+        int contador = -1;
+        lineaDeVentaSeleccionada = new LineaDeVenta();
+        lineaDeVentaSeleccionada.setArticulo(articuloEncontrado);
+        lineaDeVentaSeleccionada.setCantidad(Integer.parseInt(buscarArticulo.getjSpinnerArticulo().getValue().toString()));
+        lineaDeVentaSeleccionada.setVenta(nuevaVenta);
+        
+        if (lineasDeVenta.size()>0) {
+            for (LineaDeVenta ldv : lineasDeVenta) {
+                contador = contador +1;
+                if (ldv.getArticulo().getId().equals(lineaDeVentaSeleccionada.getArticulo().getId())) {
+                    repetido= true;
+                    cantidadRepetido = ldv.getCantidad();
+                }
             }
-
+            
+            if (repetido) {
+                if ((lineaDeVentaSeleccionada.getCantidad()+cantidadRepetido )>modeloStockArticulo.buscarStockDeArticuloEnDeposito(lineaDeVentaSeleccionada.getArticulo(), depositoSeleccionado).getStockActual()) {
+                        JOptionPane.showMessageDialog(null, "ID:"+lineaDeVentaSeleccionada.getArticulo().getId()+" "+lineaDeVentaSeleccionada.getArticulo().getDescripcion()+ " supera la cantidad permitida. Modificar cantidad");  
+                    }else{
+                        
+                        lineasDeVenta.remove(contador);
+                        lineasDeVenta.add(lineaDeVentaSeleccionada);
+                        politicaDePrecio.getSubTotal(lineasDeVenta, modeloPrecioArticulo, listaDePrecioSeleccionada);
+                        politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
+                        
+                        llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
+                        vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+                        buscarArticulo.dispose();
+                    }
+            }else{
+                lineasDeVenta.add(lineaDeVentaSeleccionada);
+                politicaDePrecio.getSubTotal(lineasDeVenta, modeloPrecioArticulo, listaDePrecioSeleccionada);
+                politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
+                llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
+                vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+                numeroLineaDeVenta = numeroLineaDeVenta + 1;
+                buscarArticulo.dispose();
+            }
+            
+        }else{
+            lineasDeVenta.add(lineaDeVentaSeleccionada);
+            politicaDePrecio.getSubTotal(lineasDeVenta, modeloPrecioArticulo, listaDePrecioSeleccionada);
+            politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
+            llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
+            vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+            numeroLineaDeVenta = numeroLineaDeVenta + 1;
+            buscarArticulo.dispose();
+        }
+        
+        if(numeroLineaDeVenta>=1){
+            vista.getJbtn_GrabarEImprimir().setEnabled(true);
+        }else{
+            vista.getJbtn_GrabarEImprimir().setEnabled(false);
         }
     }
 
+    /**
+     * Llena la tabla de Buscar Articulo
+     *
+     * @param tablaD
+     * @param unDeposito
+     * @param datoABuscar
+     * @param opcion
+     */
     public void llenarTablaBuscarArticulo(JTable tablaD, Deposito unDeposito, String datoABuscar, int opcion) {
         articulosCatalogo = new ArrayList<Articulo>();
         //Celdas no editables
         DefaultTableModel modeloT = new DefaultTableModel() {
-
             @Override
             public boolean isCellEditable(int row, int column) {
                 //all cells false
@@ -901,7 +1118,6 @@ public class VentaController extends Controller {
                 } else {
                     columna[4] = "Sin Stock";
                 }
-
                 modeloT.addRow(columna);
             }
 
@@ -934,13 +1150,11 @@ public class VentaController extends Controller {
                 }
                 modeloT.addRow(columna);
             }
-
         }
-
     }
 
     /**
-     * Limpia todos los campos de JDialog BuscarDeposito
+     * Limpia todos los campos de JDialog BuscarArticulo
      */
     public void limpiarTodosLosCamposBusquedaArticulo() {
         //Limpia todos los JtextField
@@ -954,10 +1168,10 @@ public class VentaController extends Controller {
         buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Deposito());
         buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Categoria());
         buscarArticulo.limpiarCombobox(buscarArticulo.getJcb_Proveedor());
-
     }
 
     /**
+     * Inhabilita todos los botones de Buscar Articulo
      *
      * @param estado
      */
@@ -967,6 +1181,7 @@ public class VentaController extends Controller {
     }
 
     /**
+     * Inhabilita todos los elementos de Buscar Articulo
      *
      * @param estado
      */
@@ -981,9 +1196,7 @@ public class VentaController extends Controller {
         buscarArticulo.getJcb_Deposito().setEnabled(estado);
         buscarArticulo.getJcb_Categoria().setEnabled(estado);
         buscarArticulo.getJcb_Proveedor().setEnabled(estado);
-
         buscarArticulo.getjSpinnerArticulo().setEnabled(estado);
-
         buscarArticulo.getJbtn_Agregar().setEnabled(estado);
     }
 
@@ -1002,7 +1215,6 @@ public class VentaController extends Controller {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
         if (e.getSource() == buscarCliente.getJtf_BuscarCliente()) {
             limpiarTodosLosCamposBusquedaCliente();
             buscarCliente.getJbtn_Agregar().setEnabled(false);
@@ -1016,14 +1228,12 @@ public class VentaController extends Controller {
                 llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 3);
             }
         }
-
         if (clienteSeleccionado != null && depositoSeleccionado == null && clienteElegido != null && buscarDeposito != null) {
             if (e.getSource() == buscarDeposito.getJtf_BuscarDeposito()) {
                 buscarDeposito.getJbtn_AgregarDeposito().setEnabled(false);
                 llenarTablaBuscarDeposito(buscarDeposito.getTablaListaDeDeposito(), unidadSeleccionada, buscarDeposito.getJtf_BuscarDeposito().getText());
             }
         }
-
         if (depositoSeleccionado != null && buscarArticulo != null) {
             if (e.getSource() == buscarArticulo.getJtf_BuscarArticulo()) {
                 buscarArticulo.getjSpinnerArticulo().setEnabled(false);
@@ -1038,7 +1248,6 @@ public class VentaController extends Controller {
                 if (buscarArticulo.getJrb_Proveedor().isSelected()) {
                     llenarTablaBuscarArticulo(buscarArticulo.getTablaListaDeArticulo(), depositoSeleccionado, buscarArticulo.getJtf_BuscarArticulo().getText(), 3);
                 }
-
             }
         }
     }
@@ -1046,7 +1255,8 @@ public class VentaController extends Controller {
     @Override
     public void mouseClicked(MouseEvent e) {
         clienteElegido = null;
-        if (clienteElegido == null && buscarCliente != null && buscarArticulo == null) {
+        
+        if (clienteElegido == null && buscarCliente != null && buscarArticulo == null ) {
             limpiarTodosLosCamposBusquedaCliente();
             buscarCliente.getJbtn_Agregar().setEnabled(true);
             //carga los datos en la vista si cualquiera de las variables es verdadera
@@ -1060,7 +1270,6 @@ public class VentaController extends Controller {
                     if (cliente.getDireccion() != null) {
                         if (cliente.getDireccion().getLocalidad() != null) {
                             clienteElegido = cliente;
-
                             buscarCliente.getJtf_cuitCuil().setText(clienteElegido.getCuitCuil());
                             buscarCliente.getJtf_Nombre().setText(clienteElegido.getNombre());
                             buscarCliente.getJtf_Apellido().setText(clienteElegido.getApellido());
@@ -1112,7 +1321,6 @@ public class VentaController extends Controller {
                             buscarDeposito.getJtf_descripcion().setText(depositoSeleccionado.getDescripcion());
                             buscarDeposito.getJcb_Unidad().removeAllItems();
                             buscarDeposito.getJcb_Unidad().addItem(depositoSeleccionado.getUnaUnidad().getNombre());
-
                         }
                     }
                 }
@@ -1122,7 +1330,6 @@ public class VentaController extends Controller {
         if (clienteSeleccionado != null) {//Tiene que existir el cliente
             if (unidadSeleccionada != null) {//Tiene que existir la unidad 
                 if (buscarArticulo != null && depositoSeleccionado != null) {//JDialogDeposito debe estar activo y el depositoSeleccionado nulo
-
                     limpiarTodosLosCamposBusquedaDeposito();
                     int seleccion = buscarArticulo.getTablaListaDeArticulo().rowAtPoint(e.getPoint());
                     buscarArticulo.getJtf_ID().setText(String.valueOf(buscarArticulo.getTablaListaDeArticulo().getValueAt(seleccion, 0)));
@@ -1163,12 +1370,12 @@ public class VentaController extends Controller {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        
+        
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
+    public void mouseReleased(MouseEvent e) {        
     }
 
     @Override
@@ -1183,7 +1390,7 @@ public class VentaController extends Controller {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-
+            
     }
 
     @Override
@@ -1201,11 +1408,10 @@ public class VentaController extends Controller {
                 llenarTablaBuscarCliente(buscarCliente.getTablaClientes(), buscarCliente.getJtf_BuscarCliente().getText(), 3);
             }
         }
-
         if (clienteSeleccionado != null) {
             if (unidadSeleccionada != null) {
                 if (buscarDeposito != null) {
-                    
+
                     limpiarTodosLosCamposBusquedaDeposito();
                     buscarDeposito.getJbtn_AgregarDeposito().setEnabled(false);
                     llenarTablaBuscarDeposito(buscarDeposito.getTablaListaDeDeposito(), unidadSeleccionada, buscarDeposito.getJtf_BuscarDeposito().getText());
@@ -1213,13 +1419,26 @@ public class VentaController extends Controller {
             }
         }
 
-        
+        if (clienteSeleccionado != null) {//Tiene que existir el cliente
+            if (unidadSeleccionada != null) {//Tiene que existir la unidad 
+                if (buscarArticulo != null && depositoSeleccionado != null) {//JDialogDeposito debe estar activo y el depositoSeleccionado nulo
+
+                    limpiarTodosLosCamposBusquedaArticulo();
+                    buscarArticulo.getJbtn_Agregar().setEnabled(false);
+                    buscarArticulo.getJcb_Deposito().removeAll();
+                    buscarArticulo.getJcb_Deposito().addItem(depositoSeleccionado.getDescripcion());
+                    llenarTablaBuscarArticulo(buscarArticulo.getTablaListaDeArticulo(), depositoSeleccionado, buscarArticulo.getJtf_BuscarArticulo().getText(), numeroComprobanteActual);
+                }
+            }
+        }
         
         
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-
+        
     }
+
+    
 }

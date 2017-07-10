@@ -46,6 +46,7 @@
     <class>model.porongaMan</class>
     <class>model.TalonarioComprobantePK</class>
     <class>model.TalonarioComprobante</class>
+    <class>model.Ticket</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gurasoft?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

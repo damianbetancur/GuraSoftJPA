@@ -40,6 +40,8 @@ public abstract class Comprobante implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     
+    private Venta venta;
+    
     public Long getId() {
         return id;
     }
@@ -79,6 +81,14 @@ public abstract class Comprobante implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
     
     

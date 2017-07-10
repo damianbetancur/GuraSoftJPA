@@ -87,12 +87,15 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jlbl_ctaCte1 = new javax.swing.JLabel();
         jtf_ctaCte = new javax.swing.JTextField();
         jbtn_CargarItem = new javax.swing.JButton();
-        jbtn_ModificarItem = new javax.swing.JButton();
-        jbtn_EliminarItem = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jlbl_Deposito = new javax.swing.JLabel();
         jcb_Deposito = new javax.swing.JComboBox<>();
         jbtn_BuscarDeposito = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jtf_Total = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jSpinnerDescuento = new javax.swing.JSpinner();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(950, 800));
@@ -119,10 +122,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         }
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 30, 780, 60);
+        jScrollPane1.setBounds(20, 30, 780, 130);
 
         add(jPanel2);
-        jPanel2.setBounds(10, 500, 820, 110);
+        jPanel2.setBounds(10, 510, 820, 170);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel4.setText("Registro de Comprobante");
@@ -293,17 +296,9 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         add(jPanel5);
         jPanel5.setBounds(10, 160, 310, 250);
 
-        jbtn_CargarItem.setText("CARGAR ITEM");
+        jbtn_CargarItem.setText("Agregar/Modificar  ITEM");
         add(jbtn_CargarItem);
-        jbtn_CargarItem.setBounds(370, 460, 130, 30);
-
-        jbtn_ModificarItem.setText("MODIFICAR ITEM");
-        add(jbtn_ModificarItem);
-        jbtn_ModificarItem.setBounds(530, 460, 130, 30);
-
-        jbtn_EliminarItem.setText("ELIMINAR ITEM");
-        add(jbtn_EliminarItem);
-        jbtn_EliminarItem.setBounds(680, 460, 130, 30);
+        jbtn_CargarItem.setBounds(330, 470, 220, 30);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("DEPOSITO")));
         jPanel7.setLayout(null);
@@ -321,11 +316,38 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
         add(jPanel7);
         jPanel7.setBounds(10, 410, 310, 90);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TOTAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        jPanel6.setLayout(null);
+
+        jtf_Total.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        jtf_Total.setForeground(new java.awt.Color(255, 0, 0));
+        jtf_Total.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_Total.setEnabled(false);
+        jtf_Total.setFocusable(false);
+        jPanel6.add(jtf_Total);
+        jtf_Total.setBounds(30, 30, 200, 50);
+
+        add(jPanel6);
+        jPanel6.setBounds(560, 410, 260, 90);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel8.setLayout(null);
+
+        jLabel1.setText("DESCUENTO: ");
+        jPanel8.add(jLabel1);
+        jLabel1.setBounds(10, 10, 90, 14);
+        jPanel8.add(jSpinnerDescuento);
+        jSpinnerDescuento.setBounds(130, 10, 80, 20);
+
+        add(jPanel8);
+        jPanel8.setBounds(330, 420, 220, 40);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.ButtonGroup busquedaCliente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -334,14 +356,15 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinnerDescuento;
     private javax.swing.JButton jbtn_Buscar;
     private javax.swing.JButton jbtn_BuscarDeposito;
     private javax.swing.JButton jbtn_CargarItem;
-    private javax.swing.JButton jbtn_EliminarItem;
     private javax.swing.JButton jbtn_GrabarEImprimir;
-    private javax.swing.JButton jbtn_ModificarItem;
     private javax.swing.JButton jbtn_SalirSinGrabar;
     private javax.swing.JComboBox<String> jcb_Comprobante;
     private javax.swing.JComboBox<String> jcb_Deposito;
@@ -374,6 +397,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_NumeroComprobante;
+    private javax.swing.JTextField jtf_Total;
     private javax.swing.JTextField jtf_calle_direccion;
     private javax.swing.JTextField jtf_ctaCte;
     private javax.swing.JTextField jtf_cuitCuil;
@@ -390,11 +414,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         //Agrega Botones al Escuchador ActionListener para manejar los eventos realizados         
         jbtn_Buscar.addActionListener(c); 
         jbtn_CargarItem.addActionListener(c); 
-        jbtn_ModificarItem.addActionListener(c); 
-        jbtn_EliminarItem.addActionListener(c); 
         jbtn_SalirSinGrabar.addActionListener(c); 
         jbtn_GrabarEImprimir.addActionListener(c); 
         jbtn_BuscarDeposito.addActionListener(c); 
+        jtf_Total.addActionListener(c); 
        
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         tablaLineaDeVenta.addMouseListener(c);
@@ -459,17 +482,11 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         return jbtn_CargarItem;
     }
 
-    public javax.swing.JButton getJbtn_EliminarItem() {
-        return jbtn_EliminarItem;
-    }
 
     public javax.swing.JButton getJbtn_GrabarEImprimir() {
         return jbtn_GrabarEImprimir;
     }
 
-    public javax.swing.JButton getJbtn_ModificarItem() {
-        return jbtn_ModificarItem;
-    }
 
     public javax.swing.JButton getJbtn_SalirSinGrabar() {
         return jbtn_SalirSinGrabar;
@@ -650,6 +667,22 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
     public void setTablaLineaDeVenta(javax.swing.JTable tablaLineaDeVenta) {
         this.tablaLineaDeVenta = tablaLineaDeVenta;
+    }
+
+    public javax.swing.JTextField getJtf_Total() {
+        return jtf_Total;
+    }
+
+    public void setJtf_Total(javax.swing.JTextField jtf_Total) {
+        this.jtf_Total = jtf_Total;
+    }
+
+    public javax.swing.JSpinner getjSpinnerDescuento() {
+        return jSpinnerDescuento;
+    }
+
+    public void setjSpinnerDescuento(javax.swing.JSpinner jSpinnerDescuento) {
+        this.jSpinnerDescuento = jSpinnerDescuento;
     }
 
     

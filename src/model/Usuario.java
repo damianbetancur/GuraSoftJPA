@@ -40,8 +40,7 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_tipoUsuario")
     private TipoUsuario tipoUsuario;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "unUsuario")
-    private Empleado unEmpleado;
+    
 
     public Long getId() {
         return id;
@@ -100,12 +99,6 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Empleado getUnEmpleado() {
-        return unEmpleado;
-    }
-
-    public void setUnEmpleado(Empleado unEmpleado) {
-        this.unEmpleado = unEmpleado;
-    }
+    
 
 }
