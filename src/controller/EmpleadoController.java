@@ -1,5 +1,6 @@
 package controller;
 
+import model.JPAController.Conexion;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;

@@ -1,5 +1,6 @@
 package controller;
 
+import model.JPAController.Conexion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -699,9 +700,8 @@ public class StockArticuloController extends Controller {
 
     /**
      * Carga los articulos en array para poder ser usados en la vista
-     *
-     * @param columna
-     * @param modeloT
+     * @param columna columnas de la tabla
+     * @param modeloT nombre de columnas
      */
     public void cargarArticulosEnArray(Object[] columna, DefaultTableModel modeloT) {
         int numero = 0;

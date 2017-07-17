@@ -146,9 +146,9 @@ public class StockArticuloJpaController implements Serializable {
     
     /**
      * Busca el precio de un articulo
-     * @param unArticulo
-     * @param unDeposito
-     * @return 
+     * @param unArticulo que se busca
+     * @param unDeposito donde se busca
+     * @return articulo encontrado
      */
     public StockArticulo buscarStockDeArticuloEnDeposito(Articulo unArticulo, Deposito unDeposito){
         EntityManager em = getEntityManager();

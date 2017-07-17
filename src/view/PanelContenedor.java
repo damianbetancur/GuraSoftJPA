@@ -31,8 +31,9 @@ public class PanelContenedor extends javax.swing.JPanel{
     private void initComponents() {
 
         setBackground(new java.awt.Color(255, 204, 102));
-        setMaximumSize(new java.awt.Dimension(950, 800));
-        setMinimumSize(new java.awt.Dimension(950, 800));
+        setMaximumSize(new java.awt.Dimension(950, 750));
+        setMinimumSize(new java.awt.Dimension(950, 750));
+        setPreferredSize(new java.awt.Dimension(950, 750));
         addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 formPropertyChange(evt);

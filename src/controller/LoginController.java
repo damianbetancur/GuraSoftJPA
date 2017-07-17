@@ -5,6 +5,7 @@
  */
 package controller;
 
+import view.Bienvenida;
 import model.JPAController.UsuarioJpaController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

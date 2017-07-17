@@ -420,7 +420,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jtf_Total.addActionListener(c); 
        
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
-        tablaLineaDeVenta.addMouseListener(c);
+        //tablaLineaDeVenta.addMouseListener(c);
         
         //Botones de Radio        
         jrb_Codigo.addItemListener(c);

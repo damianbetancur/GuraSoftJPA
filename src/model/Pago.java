@@ -51,6 +51,9 @@ public class Pago implements Serializable {
     @Column(name = "saldo")
     private float saldo;
     
+    @Column(name = "tipoPago")
+    private TipoPago tipoPago;
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -139,6 +142,14 @@ public class Pago implements Serializable {
             this.setEsCompleta(false);
         }
     
+    }
+
+    public TipoPago getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(TipoPago tipoPago) {
+        this.tipoPago = tipoPago;
     }
     
 }

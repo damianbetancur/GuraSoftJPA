@@ -6,7 +6,7 @@
 package view;
 
 
-import controller.Conexion;
+import model.JPAController.Conexion;
 import controller.EmpleadoController;
 import model.JPAController.EmpleadoJpaController;
 import java.awt.BorderLayout;
@@ -48,10 +48,10 @@ public class PanelArbol extends javax.swing.JPanel{
         setAlignmentX(0.0F);
         setAlignmentY(0.0F);
         setAutoscrolls(true);
-        setMaximumSize(new java.awt.Dimension(350, 1200));
-        setMinimumSize(new java.awt.Dimension(350, 800));
+        setMaximumSize(new java.awt.Dimension(350, 750));
+        setMinimumSize(new java.awt.Dimension(350, 750));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(350, 800));
+        setPreferredSize(new java.awt.Dimension(350, 750));
         setLayout(null);
 
         jScrollPaneArbol.setAlignmentX(0.0F);
@@ -189,7 +189,7 @@ public class PanelArbol extends javax.swing.JPanel{
         jScrollPaneArbol.setViewportView(panelContenedorArbol);
 
         add(jScrollPaneArbol);
-        jScrollPaneArbol.setBounds(0, 0, 350, 800);
+        jScrollPaneArbol.setBounds(0, 0, 350, 750);
     }// </editor-fold>//GEN-END:initComponents
 
 

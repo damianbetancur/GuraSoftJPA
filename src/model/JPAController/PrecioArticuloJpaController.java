@@ -145,10 +145,10 @@ public class PrecioArticuloJpaController implements Serializable {
     
     
     /**
-     * Busca el precio de un articulo
-     * @param unArticulo
-     * @param unaListaDePrecio
-     * @return 
+     * Busca el precio de articulos en la lista de precio
+     * @param unArticulo articulo a buscar
+     * @param unaListaDePrecio lista de precio en la que se busca
+     * @return articulo encontrado
      */
     public PrecioArticulo buscarPrecioDeArticuloConListaDePrecio(Articulo unArticulo, ListaDePrecio unaListaDePrecio){
         EntityManager em = getEntityManager();

@@ -63,28 +63,30 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GuraSoft");
-        setMaximumSize(new java.awt.Dimension(1200, 821));
-        setMinimumSize(new java.awt.Dimension(1200, 821));
+        setMaximumSize(new java.awt.Dimension(1200, 800));
+        setMinimumSize(new java.awt.Dimension(1200, 800));
+        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
 
-        JpanelContenedor.setMaximumSize(new java.awt.Dimension(1200, 821));
-        JpanelContenedor.setPreferredSize(new java.awt.Dimension(1200, 821));
+        JpanelContenedor.setBackground(new java.awt.Color(0, 153, 153));
+        JpanelContenedor.setMaximumSize(new java.awt.Dimension(1200, 791));
+        JpanelContenedor.setPreferredSize(new java.awt.Dimension(1200, 791));
         JpanelContenedor.setLayout(null);
 
         jPanelContenido.setBackground(new java.awt.Color(0, 0, 0));
         jPanelContenido.setMaximumSize(null);
-        jPanelContenido.setMinimumSize(new java.awt.Dimension(950, 800));
-        jPanelContenido.setPreferredSize(new java.awt.Dimension(950, 800));
+        jPanelContenido.setMinimumSize(new java.awt.Dimension(950, 750));
+        jPanelContenido.setPreferredSize(new java.awt.Dimension(950, 750));
         jPanelContenido.setRequestFocusEnabled(false);
         jPanelContenido.setLayout(null);
         JpanelContenedor.add(jPanelContenido);
-        jPanelContenido.setBounds(350, 0, 850, 800);
+        jPanelContenido.setBounds(350, 0, 850, 750);
 
         jPanelArbol.setBackground(new java.awt.Color(255, 153, 204));
         jPanelArbol.setAutoscrolls(true);
         jPanelArbol.setMaximumSize(new java.awt.Dimension(350, 1200));
-        jPanelArbol.setMinimumSize(new java.awt.Dimension(350, 800));
-        jPanelArbol.setPreferredSize(new java.awt.Dimension(350, 800));
+        jPanelArbol.setMinimumSize(new java.awt.Dimension(350, 750));
+        jPanelArbol.setPreferredSize(new java.awt.Dimension(350, 750));
         jPanelArbol.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -96,7 +98,7 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         });
         jPanelArbol.setLayout(null);
         JpanelContenedor.add(jPanelArbol);
-        jPanelArbol.setBounds(0, 0, 350, 800);
+        jPanelArbol.setBounds(0, 0, 350, 750);
 
         jpanel_Usuario.setLayout(null);
 
@@ -113,19 +115,19 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         jLabel4.setBounds(350, 0, 90, 20);
 
         JpanelContenedor.add(jpanel_Usuario);
-        jpanel_Usuario.setBounds(0, 800, 1200, 20);
+        jpanel_Usuario.setBounds(0, 750, 1200, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JpanelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JpanelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(JpanelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(JpanelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -157,11 +159,11 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
         
         if (this.tipoUsuario.equals("1")) {
             unPanelArbolAdministrador = new PanelArbolAdministrador();
-            unPanelArbolAdministrador.setSize(350, 800);
+            unPanelArbolAdministrador.setSize(350, 750);
             unPanelArbolAdministrador.setLocation(0, 0);
 
             unPanelContenedor = new PanelContenedor();
-            unPanelContenedor.setSize(950, 800);
+            unPanelContenedor.setSize(950, 750);
             unPanelContenedor.setLocation(0, 0);
 
            jPanelArbol.removeAll();
@@ -169,11 +171,11 @@ public class JframePrincipal extends javax.swing.JFrame implements InterfaceView
            jPanelArbol.repaint();
         }else{
             unPanelArbolUsuario = new PanelArbolUsuario();
-            unPanelArbolUsuario.setSize(350, 800);
+            unPanelArbolUsuario.setSize(350, 750);
             unPanelArbolUsuario.setLocation(0, 0);
 
             unPanelContenedor = new PanelContenedor();
-            unPanelContenedor.setSize(950, 800);
+            unPanelContenedor.setSize(950, 750);
             unPanelContenedor.setLocation(0, 0);
 
            jPanelArbol.removeAll();

@@ -115,45 +115,45 @@ public final class PanelRegistroStock extends javax.swing.JPanel  implements Int
 
         jlbl_ID.setText("ID:");
         jPanelArticulo.add(jlbl_ID);
-        jlbl_ID.setBounds(60, 40, 90, 15);
+        jlbl_ID.setBounds(60, 20, 90, 14);
 
         jtf_ID.setEnabled(false);
         jPanelArticulo.add(jtf_ID);
-        jtf_ID.setBounds(160, 40, 230, 19);
+        jtf_ID.setBounds(160, 20, 230, 20);
 
         jlbl_descripcion.setText("Descripción:");
         jPanelArticulo.add(jlbl_descripcion);
-        jlbl_descripcion.setBounds(60, 80, 100, 15);
+        jlbl_descripcion.setBounds(60, 60, 100, 14);
 
         jtf_Descripcion.setEnabled(false);
         jPanelArticulo.add(jtf_Descripcion);
-        jtf_Descripcion.setBounds(160, 80, 540, 19);
+        jtf_Descripcion.setBounds(160, 60, 540, 20);
 
         jlbl_Categoria.setText("CATEGORIA:");
         jPanelArticulo.add(jlbl_Categoria);
-        jlbl_Categoria.setBounds(60, 130, 80, 15);
+        jlbl_Categoria.setBounds(60, 110, 80, 14);
 
         jcb_Categoria.setEnabled(false);
         jPanelArticulo.add(jcb_Categoria);
-        jcb_Categoria.setBounds(160, 130, 230, 24);
+        jcb_Categoria.setBounds(160, 110, 230, 22);
 
         jlbl_Proveedor.setText("PROVEEDOR: ");
         jPanelArticulo.add(jlbl_Proveedor);
-        jlbl_Proveedor.setBounds(60, 180, 80, 15);
+        jlbl_Proveedor.setBounds(60, 160, 80, 14);
 
         jcb_Proveedor.setEnabled(false);
         jPanelArticulo.add(jcb_Proveedor);
-        jcb_Proveedor.setBounds(160, 180, 230, 24);
+        jcb_Proveedor.setBounds(160, 160, 230, 22);
 
         add(jPanelArticulo);
-        jPanelArticulo.setBounds(60, 340, 730, 220);
+        jPanelArticulo.setBounds(60, 340, 730, 200);
 
         jbtn_Volver.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jbtn_Volver.setText("VOLVER");
         jbtn_Volver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtn_Volver.setBorderPainted(false);
         add(jbtn_Volver);
-        jbtn_Volver.setBounds(580, 700, 210, 50);
+        jbtn_Volver.setBounds(580, 690, 210, 50);
 
         jlbl_TituloPanel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jlbl_TituloPanel.setText("GESTIÓN DE STOCK DE ARTICULOS");
@@ -165,24 +165,24 @@ public final class PanelRegistroStock extends javax.swing.JPanel  implements Int
         jbtn_Cancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtn_Cancelar.setBorderPainted(false);
         add(jbtn_Cancelar);
-        jbtn_Cancelar.setBounds(280, 700, 210, 50);
+        jbtn_Cancelar.setBounds(280, 690, 210, 50);
 
         jbtn_Aceptar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jbtn_Aceptar.setText("ACEPTAR");
         jbtn_Aceptar.setBorderPainted(false);
         add(jbtn_Aceptar);
-        jbtn_Aceptar.setBounds(60, 700, 210, 50);
+        jbtn_Aceptar.setBounds(60, 690, 210, 50);
 
         jPanelStock.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelStock.setLayout(null);
 
         jbtn_Agregar.setText("Agregar");
         jPanelStock.add(jbtn_Agregar);
-        jbtn_Agregar.setBounds(500, 90, 100, 25);
+        jbtn_Agregar.setBounds(500, 90, 100, 23);
 
         jbtn_Modificar.setText("Modificar");
         jPanelStock.add(jbtn_Modificar);
-        jbtn_Modificar.setBounds(613, 90, 100, 25);
+        jbtn_Modificar.setBounds(613, 90, 100, 23);
 
         jlbl_StockMinimo.setText("Stock Minimo:");
         jPanelStock.add(jlbl_StockMinimo);
@@ -203,7 +203,7 @@ public final class PanelRegistroStock extends javax.swing.JPanel  implements Int
         jlbl_StockActual.setBounds(60, 80, 90, 20);
 
         add(jPanelStock);
-        jPanelStock.setBounds(60, 570, 730, 130);
+        jPanelStock.setBounds(60, 550, 730, 130);
     }// </editor-fold>//GEN-END:initComponents
 
 
