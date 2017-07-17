@@ -1,5 +1,6 @@
 package controller;
 
+import model.JPAController.Conexion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -366,8 +367,8 @@ public class ListaDePreciosController extends Controller {
     /**
      * Llena Jtable de cliente crea una lista de PreciosDeArticulos existentes
      * en la base de datos.
-     *
-     * @param tablaD Tabla Empleado
+     * @param tablaD tabla a modificar
+     * @param lpBuscada lista de precio
      */
     public void llenarTabla(JTable tablaD, ListaDePrecio lpBuscada) {
 
@@ -614,9 +615,8 @@ public class ListaDePreciosController extends Controller {
 
     /**
      * Carga los articulos en array para poder ser usados en la vista
-     *
-     * @param columna
-     * @param modeloT
+     * @param columna columnas de la tabla
+     * @param modeloT nombre de columnas
      */
     public void cargarArticulosEnArray(Object[] columna, DefaultTableModel modeloT) {
         int numero = 0;

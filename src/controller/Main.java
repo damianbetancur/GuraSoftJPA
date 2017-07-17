@@ -5,6 +5,7 @@
  */
 package controller;
 
+import model.JPAController.Conexion;
 import model.JPAController.UsuarioJpaController;
 import view.*;
 

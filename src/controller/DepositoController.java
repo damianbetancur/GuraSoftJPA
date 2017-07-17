@@ -1,5 +1,6 @@
 package controller;
 
+import model.JPAController.Conexion;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -565,9 +566,8 @@ public class DepositoController extends Controller {
 
     /**
      * Carga los articulos en array para poder ser usados en la vista
-     *
-     * @param columna
-     * @param modeloT
+     * @param columna definicion de columna de la tabla
+     * @param modeloT definicion de nombre de cada columna
      */
     public void cargarArticulosEnArray(Object[] columna, DefaultTableModel modeloT) {
         int numero = 0;

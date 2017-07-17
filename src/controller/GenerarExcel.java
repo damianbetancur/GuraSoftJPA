@@ -25,9 +25,8 @@ public class GenerarExcel {
 
     /**
      * Genera un archivo excel
-     *
-     * @param entrada
-     * @param ruta
+     * @param entrada filas a cargar
+     * @param ruta direccion del archivo
      */
     public void generarExcel(String[][] entrada, String ruta) {
 

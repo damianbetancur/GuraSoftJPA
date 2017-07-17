@@ -9,7 +9,7 @@ package view;
 import controller.CatalogoController;
 import controller.CategoriaDeCatalogoController;
 import controller.ClienteController;
-import controller.Conexion;
+import model.JPAController.Conexion;
 import controller.DefinicionListaPrecioController;
 import controller.DepositoController;
 import controller.EmpleadoController;
@@ -17,7 +17,6 @@ import controller.EmpresaController;
 import controller.ListaDePreciosController;
 import controller.ProveedorController;
 import controller.StockArticuloController;
-import controller.SueldoController;
 import controller.UnidadController;
 import controller.VentaController;
 import model.JPAController.EmpleadoJpaController;
@@ -69,14 +68,15 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         setAlignmentX(0.0F);
         setAlignmentY(0.0F);
         setAutoscrolls(true);
-        setMaximumSize(new java.awt.Dimension(350, 1200));
-        setMinimumSize(new java.awt.Dimension(350, 800));
+        setMaximumSize(new java.awt.Dimension(350, 750));
+        setMinimumSize(new java.awt.Dimension(350, 750));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(350, 800));
+        setPreferredSize(new java.awt.Dimension(350, 750));
         setLayout(null);
 
         jScrollPaneArbol.setAlignmentX(0.0F);
         jScrollPaneArbol.setAlignmentY(0.0F);
+        jScrollPaneArbol.setPreferredSize(new java.awt.Dimension(350, 750));
 
         panelContenedorArbol.setAlignmentX(0.0F);
         panelContenedorArbol.setAlignmentY(0.0F);
@@ -88,22 +88,12 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Unidad");
         treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Seguridad");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Tipos de Usuarios");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Permisos");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Usuarios");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Empleados");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Liquidación de Sueldos");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad Comercial");
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Catalogo");
+        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Catalogo");
         javax.swing.tree.DefaultMutableTreeNode treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Categoria");
         treeNode4.add(treeNode5);
         treeNode5 = new javax.swing.tree.DefaultMutableTreeNode("Articulos");
@@ -121,15 +111,9 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Articulos en Stock");
         treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
-        treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Compras");
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Proveedores");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Ingreso de Comprobantes");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
         treeNode2.add(treeNode3);
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ventas");
@@ -139,10 +123,6 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         treeNode3.add(treeNode4);
         treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("Informes");
         treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Unidad de Sistemas");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ordenes de Trabajo");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         arbolModulos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -176,7 +156,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
         jScrollPaneArbol.setViewportView(panelContenedorArbol);
 
         add(jScrollPaneArbol);
-        jScrollPaneArbol.setBounds(0, 0, 350, 800);
+        jScrollPaneArbol.setBounds(0, 0, 350, 750);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -195,7 +175,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Emplesa    
                 PanelEmpresa unPanelEmpresa = new PanelEmpresa();            
-                unPanelEmpresa.setSize(950, 800);
+                unPanelEmpresa.setSize(950, 750);
                 unPanelEmpresa.setLocation(0,0);
                 unPanelEmpresa.setVisible(true);
 
@@ -220,7 +200,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Emplesa    
                 PanelRegistroDeUnidad unPanelUnidad = new PanelRegistroDeUnidad();            
-                unPanelUnidad.setSize(950, 800);
+                unPanelUnidad.setSize(950, 750);
                 unPanelUnidad.setLocation(0,0);
                 unPanelUnidad.setVisible(true);
 
@@ -245,7 +225,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroEmpleado unPanelPersona = new PanelRegistroEmpleado();            
-                unPanelPersona.setSize(950, 800);
+                unPanelPersona.setSize(950, 750);
                 unPanelPersona.setLocation(0,0);
                 unPanelPersona.setVisible(true);
 
@@ -265,39 +245,13 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
 
                 habilitarArbol(false);
             }
-
-            if(captura.equals("[GuraSoft, Administración General, Liquidación de Sueldos]")){  
-            
-                //Se crea el Panel Empleado    
-                PanelRegistroSueldoEmpleado unPanelSueldoEmpleado = new PanelRegistroSueldoEmpleado();            
-                unPanelSueldoEmpleado.setSize(950, 800);
-                unPanelSueldoEmpleado.setLocation(0,0);
-                unPanelSueldoEmpleado.setVisible(true);
-
-                //Se Crea controlador JPA
-                EmpleadoJpaController modelo = new EmpleadoJpaController(Conexion.getEmf());
-
-                //Se crea el controlador de Empleado
-                SueldoController controlador = new SueldoController(unPanelSueldoEmpleado, modelo);
-
-                //setea el panel para que sea escuchado por el controlador
-                unPanelSueldoEmpleado.setControlador(controlador);
-
-
-                jPanelContenido.removeAll();
-                jPanelContenido.add(unPanelSueldoEmpleado, BorderLayout.NORTH);
-                jPanelContenido.repaint();
-
-                habilitarArbol(false);
-            }
-            
             
             
             if(captura.equals("[GuraSoft, Unidad Comercial, Articulos, Catalogo, Categoria]")){  
             
                 //Se crea el Panel Empleado    
                 PanelRegistroCatalogoCategoria unPanelCategoria = new PanelRegistroCatalogoCategoria();            
-                unPanelCategoria.setSize(950, 800);
+                unPanelCategoria.setSize(950, 750);
                 unPanelCategoria.setLocation(0,0);
                 unPanelCategoria.setVisible(true);
 
@@ -323,7 +277,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroDeDeposito unPanelDeposito = new PanelRegistroDeDeposito();            
-                unPanelDeposito.setSize(950, 800);
+                unPanelDeposito.setSize(950, 750);
                 unPanelDeposito.setLocation(0,0);
                 unPanelDeposito.setVisible(true);
 
@@ -350,7 +304,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroStock unPanelStock = new PanelRegistroStock();            
-                unPanelStock.setSize(950, 800);
+                unPanelStock.setSize(950, 750);
                 unPanelStock.setLocation(0,0);
                 unPanelStock.setVisible(true);
 
@@ -376,7 +330,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroCatalogoArticulo unPanelCatalogoArticulo = new PanelRegistroCatalogoArticulo();            
-                unPanelCatalogoArticulo.setSize(950, 800);
+                unPanelCatalogoArticulo.setSize(950, 750);
                 unPanelCatalogoArticulo.setLocation(0,0);
                 unPanelCatalogoArticulo.setVisible(true);
 
@@ -401,7 +355,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroDefinicioListaPrecio unPanelRegistroDefinicionListaPrecio = new PanelRegistroDefinicioListaPrecio();            
-                unPanelRegistroDefinicionListaPrecio.setSize(950, 800);
+                unPanelRegistroDefinicionListaPrecio.setSize(950, 750);
                 unPanelRegistroDefinicionListaPrecio.setLocation(0,0);
                 unPanelRegistroDefinicionListaPrecio.setVisible(true);
 
@@ -426,7 +380,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Empleado    
                 PanelRegistroListaDePrecioArticulo unPanelRegistroListaDePrecioArticulo = new PanelRegistroListaDePrecioArticulo();            
-                unPanelRegistroListaDePrecioArticulo.setSize(950, 800);
+                unPanelRegistroListaDePrecioArticulo.setSize(950, 750);
                 unPanelRegistroListaDePrecioArticulo.setLocation(0,0);
                 unPanelRegistroListaDePrecioArticulo.setVisible(true);
 
@@ -452,7 +406,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Proveedor    
                 PanelRegistroProveedor unPanelProveedor = new PanelRegistroProveedor();            
-                unPanelProveedor.setSize(950, 800);
+                unPanelProveedor.setSize(950, 750);
                 unPanelProveedor.setLocation(0,0);
                 unPanelProveedor.setVisible(true);
 
@@ -477,7 +431,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Cliente    
                 PanelRegistroCliente unPanelCliente = new PanelRegistroCliente();            
-                unPanelCliente.setSize(950, 800);
+                unPanelCliente.setSize(950, 750);
                 unPanelCliente.setLocation(0,0);
                 unPanelCliente.setVisible(true);
 
@@ -502,7 +456,7 @@ public class PanelArbolAdministrador extends javax.swing.JPanel{
             
                 //Se crea el Panel Cliente    
                 PanelRegistroVenta unPanelVenta = new PanelRegistroVenta();            
-                unPanelVenta.setSize(950, 800);
+                unPanelVenta.setSize(950, 750);
                 unPanelVenta.setLocation(0,0);
                 unPanelVenta.setVisible(true);
 

@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.Conexion;
+import model.JPAController.Conexion;
 import controller.LoginController;
 
 

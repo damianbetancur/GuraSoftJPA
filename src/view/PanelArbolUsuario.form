@@ -75,7 +75,7 @@
             <Component class="javax.swing.JTree" name="arbolModulos">
               <Properties>
                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
-                  <TreeModel code="GuraSoft   &#xa; Articulos&#xa;  Tablas Relativas a Articulos&#xa;  Articulos&#xa;  Lista de Precios&#xa; Stock&#xa;  Depositos&#xa;  Sectores&#xa;  Ingreso de Movimientos&#xa;  Consulta y Baja de Movimientos&#xa;  Informes&#xa; Compras&#xa;  Proveedores&#xa;  Ingreso de Comprobantes&#xa;  Consulta y Baja de Comprobantes&#xa;  Informes&#xa; Trensferencias&#xa;  Deposito&#xa;  Ingreso de Comprobantes&#xa;  Consulta y Baja de Comprobantes&#xa;  Informes&#xa; Ventas&#xa;  Vendedores&#xa;  Clientes&#xa;  Descuentos y Rangos Varios&#xa;  Fecha de Facturaci&#xf3;n&#xa;  Definici&#xf3;n para el ingreso de comprobantes&#xa;  Ingreso de Comprobantes&#xa;  Consulta y Baja de Comprobantes&#xa;  Anulaci&#xf3;n de Comprobantes&#xa;  Informes&#xa; Cuentas a Cobrar&#xa;  Cobranzas&#xa;  Ingreso de Saldos Iniciales&#xa;  Consulta y Baja de Comprobantes&#xa;  Informes&#xa; Cuentas a Pagar&#xa;  Pagos&#xa;  Consulta y Baja de Comprobantes&#xa;  Informes"/>
+                  <TreeModel code="GuraSoft   &#xa; Articulos&#xa;  Articulos&#xa; Ventas&#xa;  Ingreso de Comprobantes&#xa;  Informes"/>
                 </Property>
                 <Property name="alignmentX" type="float" value="0.0"/>
                 <Property name="alignmentY" type="float" value="0.0"/>

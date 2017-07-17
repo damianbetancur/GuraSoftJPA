@@ -1,5 +1,6 @@
 package controller;
 
+import model.JPAController.Conexion;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -781,10 +782,7 @@ public class CatalogoController extends Controller {
     }
 
     /**
-     * llena el JcomboBox de Provincia con objetos Provincia de la base de datos
-     * en funcion a un objeto Zona
-     *
-     * @param z Zona
+     * Llena el JComboBox Zona
      */
     public void llenarJcomboboxProveedor() {
         modeloProveedor = new ProveedorJpaController(Conexion.getEmf());

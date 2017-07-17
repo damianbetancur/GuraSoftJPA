@@ -6,14 +6,14 @@
     <Property name="alignmentY" type="float" value="0.0"/>
     <Property name="autoscrolls" type="boolean" value="true"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[350, 1200]"/>
+      <Dimension value="[350, 750]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[350, 800]"/>
+      <Dimension value="[350, 750]"/>
     </Property>
     <Property name="name" type="java.lang.String" value="" noResource="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[350, 800]"/>
+      <Dimension value="[350, 750]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -37,10 +37,13 @@
       <Properties>
         <Property name="alignmentX" type="float" value="0.0"/>
         <Property name="alignmentY" type="float" value="0.0"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[350, 750]"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="350" height="800"/>
+          <AbsoluteConstraints x="0" y="0" width="350" height="750"/>
         </Constraint>
       </Constraints>
 
@@ -75,7 +78,7 @@
             <Component class="javax.swing.JTree" name="arbolModulos">
               <Properties>
                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
-                  <TreeModel code="GuraSoft&#xa; Administraci&#xf3;n General&#xa;  Empresa&#xa;  Unidad&#xa;  Seguridad&#xa;   Tipos de Usuarios&#xa;   Permisos&#xa;   Usuarios   &#xa;  Empleados  &#xa;  Liquidaci&#xf3;n de Sueldos&#xa; Unidad Comercial    &#xa;  Articulos&#xa;   Catalogo&#xa;    Categoria&#xa;    Articulos   &#xa;   Lista de Precios&#xa;    Definici&#xf3;n&#xa;    Lista de Precios&#xa;  Stock&#xa;   Depositos&#xa;   Articulos en Stock      &#xa;   Informes&#xa;  Compras&#xa;   Proveedores&#xa;   Ingreso de Comprobantes&#xa;   Informes &#xa;  Ventas&#xa;   Clientes&#xa;   Ingreso de Comprobantes&#xa;   Informes  &#xa; Unidad de Sistemas&#xa;  Ordenes de Trabajo"/>
+                  <TreeModel code="GuraSoft&#xa; Administraci&#xf3;n General&#xa;  Empresa&#xa;  Unidad&#xa;  Empleados  &#xa; Unidad Comercial    &#xa;  Articulos&#xa;   Catalogo&#xa;    Categoria&#xa;    Articulos   &#xa;   Lista de Precios&#xa;    Definici&#xf3;n&#xa;    Lista de Precios&#xa;  Stock&#xa;   Depositos&#xa;   Articulos en Stock  &#xa;  Compras&#xa;   Proveedores  &#xa;  Ventas&#xa;   Clientes&#xa;   Ingreso de Comprobantes&#xa;   Informes   "/>
                 </Property>
                 <Property name="alignmentX" type="float" value="0.0"/>
                 <Property name="alignmentY" type="float" value="0.0"/>

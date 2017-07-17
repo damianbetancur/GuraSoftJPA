@@ -18,7 +18,9 @@ public class JDialogBuscarCliente extends javax.swing.JDialog implements Interfa
 
     private ValidadorDeCampos validador;
     /**
-     * Creates new form JDialogBuscarUsuario
+     * Constructor JDialog Buscar Cliente
+     * @param parent padre al que pertenece
+     * @param modal mientras este activo el JDialog todos los demas elementos quedan inactivos
      */
     public JDialogBuscarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

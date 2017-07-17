@@ -79,4 +79,15 @@ public class ValidadorDeCampos {
             }
         });
     }
+    public int verificarTamanioCampo(JTextField campo){
+        int posicion=0;
+        char caracter = (char) 0;
+        for (int i = 0; i <= campo.getText().length()-1; i++) {
+            caracter = campo.getText().charAt(i);
+            if (caracter =='.') {
+                posicion = i;
+            }
+        }
+        return posicion;
+    }
 }
