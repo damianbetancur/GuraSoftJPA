@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +93,7 @@ public class VentaController extends Controller{
     private ListaDePrecioJpaController modeloListaDePrecio;
     private UnidadJpaController modeloUnidad;
     private DepositoJpaController modeloDeposito;
-    private ComprobanteJpaController modeloComprobante;
+    
     private PagoJpaController modeloPago;
     private EmpleadoJpaController modeloEmpleado;
     private ClienteJpaController modeloCliente;
@@ -145,11 +146,13 @@ public class VentaController extends Controller{
     Empleado empleadoSeleccionado = null;
     
     Comprobante comprobante = null;
-    Float totalVenta = 0F;
-    Float totalPago = 0F;
-    Float totalCambio = 0F;
+    Float subTotalVenta = 0F;
+    Float descuentoVenta = 0F;
+    Float totalventa = 0F;
     Pago pago = null;
     TipoPago tipoPago = null;
+    Float ivaVenta = 0F;
+    DecimalFormat decimalFormat;
     /**
      * Constructor CatalogoCategoriaArticuloController
      *
@@ -162,7 +165,6 @@ public class VentaController extends Controller{
         modeloTalonarioComprobante = new TalonarioComprobanteJpaController(Conexion.getEmf());
         modeloUnidad = new UnidadJpaController(Conexion.getEmf());
         modeloDeposito = new DepositoJpaController(Conexion.getEmf());
-        modeloComprobante = new ComprobanteJpaController(Conexion.getEmf());
         modeloPago = new PagoJpaController(Conexion.getEmf());
         modeloEmpleado = new EmpleadoJpaController(Conexion.getEmf());
         modeloCliente = new ClienteJpaController(Conexion.getEmf());
@@ -186,6 +188,7 @@ public class VentaController extends Controller{
         vista.getJbtn_Buscar().setEnabled(true);
         vista.getJbtn_SalirSinGrabar().setEnabled(true);
 
+        decimalFormat = new DecimalFormat("#.##");
     }
 
     @Override
@@ -306,7 +309,7 @@ public class VentaController extends Controller{
     }
 
     public void btn_SeleccionarDepositoUnidad() {
-        vista.getJtf_Total().setText("");
+        vista.getJtf_subTotal().setText("");
         buscarArticulo = null;
         buscarDeposito = null;
         depositoSeleccionado = null;
@@ -358,14 +361,19 @@ public class VentaController extends Controller{
         pagarVenta.setControlador(this);
 
         //inhabilitarTodoPagar(false);
-        pagarVenta.getJtf_Pago().setEnabled(true);
-        totalVenta = politicaDePrecio.getTotal(lineasDeVenta);
-        pagarVenta.getJtf_Total().setText(Float.toString(totalVenta));
-        cargarTipoPago();
+        subTotalVenta = politicaDePrecio.getTotal(lineasDeVenta);
+        ivaVenta = politicaDePrecio.aplicarIVA(subTotalVenta);
+        descuentoVenta = ((Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()))*subTotalVenta)/100;
+        totalventa = subTotalVenta + ivaVenta;
         
-        //Setea el JtextFiel para recibir solamente Float y limitando caracteres a 8 digitos
-        pagarVenta.getValidador().LimitarCaracteres(pagarVenta.getJtf_Pago(), 8);
-        pagarVenta.getValidador().validarNumeroDecimales(pagarVenta.getJtf_Pago());
+        pagarVenta.getJlbl_IVA().setText("IVA (" + politicaDePrecio.getIVA()+"%):");
+        
+        pagarVenta.getJtf_subTotal().setText(decimalFormat.format(subTotalVenta));        
+        pagarVenta.getJtf_IVA().setText(decimalFormat.format(ivaVenta));
+        pagarVenta.getJtf_Descuento().setText(decimalFormat.format(descuentoVenta));
+        pagarVenta.getJtf_Total().setText(decimalFormat.format(totalventa));
+        
+        cargarTipoPago();
         
         pagarVenta.setVisible(true);
     }
@@ -386,7 +394,7 @@ public class VentaController extends Controller{
         vista.limpiarCampo(vista.getJtf_numero_direccion());
         vista.limpiarCampo(vista.getJtf_piso_direccion());
         vista.limpiarCampo(vista.getJtf_departamento_direccion());
-        vista.limpiarCampo(vista.getJtf_Total());
+        vista.limpiarCampo(vista.getJtf_subTotal());
 
         //Limpia todos los JComboBox
         vista.limpiarCombobox(vista.getJcb_Unidad());
@@ -463,7 +471,7 @@ public class VentaController extends Controller{
         vista.getJtf_numero_direccion().setEnabled(estado);
         vista.getJtf_piso_direccion().setEnabled(estado);
         vista.getJtf_departamento_direccion().setEnabled(estado);
-        vista.getJtf_Total().setEnabled(estado);
+        vista.getJtf_subTotal().setEnabled(estado);
 
         //Limpia todos los JComboBox
         vista.getJcb_Unidad().setEnabled(estado);
@@ -486,6 +494,10 @@ public class VentaController extends Controller{
         vista.getJrb_Nombre().setEnabled(estado);
 
         vista.getJdc_fechaComprobante().setEnabled(estado);
+        
+        vista.getjSpinnerDescuento().setEnabled(false);
+        vista.getjSpinnerDescuento().setModel(new SpinnerNumberModel(0, 0, 0, 0));
+        vista.getjSpinnerDescuento().setEditor(new JSpinner.NumberEditor(vista.getjSpinnerDescuento()));
     }
 
     /**
@@ -916,7 +928,7 @@ public class VentaController extends Controller{
                 vista.getTablaLineaDeVenta().setEnabled(true);
                 
                 if (clienteSeleccionado.getTipocliente().getId()==1 && clienteSeleccionado !=null) {
-                    vista.getjSpinnerDescuento().setModel(new SpinnerNumberModel(1, 1, 100, 1));
+                    vista.getjSpinnerDescuento().setModel(new SpinnerNumberModel(0, 0, 100, 1));
                     vista.getjSpinnerDescuento().setEditor(new JSpinner.NumberEditor(vista.getjSpinnerDescuento()));
                     JFormattedTextField tf = ((JSpinner.DefaultEditor) vista.getjSpinnerDescuento().getEditor()).getTextField();
                     tf.setEditable(false);
@@ -1052,7 +1064,8 @@ public class VentaController extends Controller{
                         politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
                         
                         llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
-                        vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+                        
+                        vista.getJtf_subTotal().setText(decimalFormat.format(politicaDePrecio.getTotal(lineasDeVenta)));                         
                         buscarArticulo.dispose();
                     }
             }else{
@@ -1060,7 +1073,7 @@ public class VentaController extends Controller{
                 politicaDePrecio.getSubTotal(lineasDeVenta, modeloPrecioArticulo, listaDePrecioSeleccionada);
                 politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
                 llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
-                vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+                vista.getJtf_subTotal().setText(decimalFormat.format(politicaDePrecio.getTotal(lineasDeVenta)));
                 numeroLineaDeVenta = numeroLineaDeVenta + 1;
                 buscarArticulo.dispose();
             }
@@ -1070,7 +1083,7 @@ public class VentaController extends Controller{
             politicaDePrecio.getSubTotal(lineasDeVenta, modeloPrecioArticulo, listaDePrecioSeleccionada);
             politicaDePrecio.aplicarDescuento(lineasDeVenta, Integer.parseInt(vista.getjSpinnerDescuento().getValue().toString()));
             llenarTablaLineaDeVenta(vista.getTablaLineaDeVenta(), lineasDeVenta);
-            vista.getJtf_Total().setText(Float.toString(politicaDePrecio.getTotal(lineasDeVenta)));
+            vista.getJtf_subTotal().setText(decimalFormat.format(politicaDePrecio.getTotal(lineasDeVenta)));
             numeroLineaDeVenta = numeroLineaDeVenta + 1;
             buscarArticulo.dispose();
         }
@@ -1229,31 +1242,55 @@ public class VentaController extends Controller{
         pago = new Pago();     
         if (pagarVenta.getJcb_TipoPago().getSelectedItem().equals(TipoPago.CONTADO.getTipo())) {
             tipoPago= TipoPago.CONTADO;
+            pago.setEsCompleta(true);
         }else{
             tipoPago= TipoPago.CTACTE;
+            pago.setEsCompleta(false);
         }
-        
-        
+                
+        pago.setFecha(fechaFactura);
+        pago.setHora(fechaFactura);
+        pago.setSubTotal(subTotalVenta);
+        pago.setIva(ivaVenta);
+        pago.setDescuento(descuentoVenta);
+        pago.setTotal(totalventa);        
         pago.setTipoPago(tipoPago);
-        if (pago.getTipoPago().equals(TipoPago.CONTADO)) {
-            
-        }else{
-            clienteSeleccionado.getCuentaCorriente().setSaldo(clienteSeleccionado.getCuentaCorriente().getSaldo()+totalVenta);
+        //Pago completo
+        //Persiste Pago
+        modeloPago.create(pago);
+        
+        if (pago.getTipoPago().equals(TipoPago.CTACTE)) {
+            //Persisste la cuenta Corriente del Cliente si se eligio CTA CTE
+            clienteSeleccionado.getCuentaCorriente().setSaldo(clienteSeleccionado.getCuentaCorriente().getSaldo()+subTotalVenta);
             modeloCuentaCorriente.edit(clienteSeleccionado.getCuentaCorriente());
-            System.out.println(clienteSeleccionado.getCuentaCorriente().getSaldo());
         }
         
+        nuevaVenta.setPago(pago);
         
         nuevaVenta.setEsCompleta(true);
-        politicaDePrecio.crearComprobante(nuevaVenta, comprobante);
+        
+        
+        nuevaVenta.setLineaDeVenta(lineasDeVenta);
+        
+        //Persiste linea de venta y venta
         modelo.create(nuevaVenta);
         
-        //Tiene que estar creada la venta
-        for (LineaDeVenta ldv : lineasDeVenta) {
-            modeloLineaDeVenta.create(ldv);
+                
+        //crear y Persistir factura luego de persistir la venta y el pago        
+        talonarioSeleccionado.setNumeracion_Actual(numeroComprobanteActual);
+        politicaDePrecio.crearComprobante(nuevaVenta, talonarioSeleccionado);
+        modeloTalonarioComprobante.edit(talonarioSeleccionado);
+        
+        
+        for (LineaDeVenta ldv : nuevaVenta.getLineaDeVenta()) {
+            for (StockArticulo stkart : modeloStockArticulo.findStockArticuloEntities()) {
+                if (ldv.getArticulo().getId().equals(stkart.getId_articulo())&&stkart.getId_Deposito().equals(depositoSeleccionado.getId())) {
+                    stkart.setStockActual(stkart.getStockActual()-ldv.getCantidad());
+                    modeloStockArticulo.edit(stkart);
+                    System.out.println(""+stkart.getStockActual());
+                }
+            }
         }
-        
-        
         
         pagarVenta.dispose();
         
@@ -1322,22 +1359,7 @@ public class VentaController extends Controller{
             }
         }
         
-        if (lineasDeVenta != null && pagarVenta!=null) {
-            if (e.getSource() == pagarVenta.getJtf_Pago()&& pagarVenta.getJtf_Pago().getText()!=null && !pagarVenta.getJtf_Pago().getText().equals("")) {
-                
-                if (Float.parseFloat(pagarVenta.getJtf_Pago().getText())<=totalVenta) {
-                    pagarVenta.getJtf_Cambio().setText("");
-                    this.totalPago = Float.parseFloat(pagarVenta.getJtf_Pago().getText());                
-                    pagarVenta.getJtf_Cambio().setText(Float.toString(this.totalPago-this.totalVenta));
-                    pagarVenta.getJbtn_Pagar().setEnabled(true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Introduzca un valor menor");
-                    pagarVenta.getJbtn_Pagar().setEnabled(false);
-                }
-                
-                
-            }
-        }
+        
     }
 
     @Override
@@ -1484,23 +1506,7 @@ public class VentaController extends Controller{
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-            //Si se detecta cambio  estado en un componente JCOMBOBOX
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-                if(pagarVenta!=null){
-                    if (pagarVenta.getJcb_TipoPago().getSelectedIndex()==0) {
-                        pagarVenta.getJbtn_Pagar().setEnabled(true);
-                        pagarVenta.getJtf_Pago().setEnabled(false);
-                        pagarVenta.getJtf_Pago().setText(pagarVenta.getJtf_Total().getText());
-                        pagarVenta.getJtf_Cambio().setText("0");
-                    }else{
-                        pagarVenta.getValidador().LimitarCaracteres(pagarVenta.getJtf_Pago(), pagarVenta.getValidador().verificarTamanioCampo(pagarVenta.getJtf_Total()));
-                        pagarVenta.getJtf_Pago().setText("");
-                        pagarVenta.getJtf_Pago().setEnabled(true);                        
-                    }                    
-            }
             
-
-        }
     }
 
     @Override

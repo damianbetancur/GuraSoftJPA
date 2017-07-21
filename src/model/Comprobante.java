@@ -37,8 +37,18 @@ public abstract class Comprobante implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private int numeroComprobante;
+    
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    
+    private Float subTotal;
+    
+    private Float iva;
+    
+    private Float total;
+    
+    private Float descuento;
     
     private Venta venta;
     
@@ -89,6 +99,46 @@ public abstract class Comprobante implements Serializable {
 
     public void setVenta(Venta venta) {
         this.venta = venta;
+    }
+
+    public Float getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Float subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public Float getIva() {
+        return iva;
+    }
+
+    public void setIva(Float iva) {
+        this.iva = iva;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
+
+    public Float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Float descuento) {
+        this.descuento = descuento;
+    }
+
+    public int getNumeroComprobante() {
+        return numeroComprobante;
+    }
+
+    public void setNumeroComprobante(int numeroComprobante) {
+        this.numeroComprobante = numeroComprobante;
     }
     
     

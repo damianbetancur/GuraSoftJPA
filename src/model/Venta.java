@@ -59,7 +59,7 @@ public class Venta implements Serializable {
    
     private Pago pago;
     
-    private Comprobante comprobante;
+    
     
     //LineaDe Venta que posee la Venta
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "venta")
@@ -150,23 +150,16 @@ public class Venta implements Serializable {
         this.pago = pago;
     }
     
-    public StockArticulo actualizarStock(StockArticulo stkArticulo){
-        StockArticulo stkActualizado = null;
-        for (LineaDeVenta lineaDeVenta1 : lineaDeVenta) {
-            if(lineaDeVenta1.getArticulo().getId().equals(stkArticulo.getId_articulo())){
-                stkArticulo.setStockActual(stkArticulo.getStockActual()-lineaDeVenta1.getCantidad());
-                stkActualizado = stkArticulo;
-            }
-        }
-        return stkActualizado;
+    
+
+    public List<LineaDeVenta> getLineaDeVenta() {
+        return lineaDeVenta;
     }
 
-    public Comprobante getComprobante() {
-        return comprobante;
+    public void setLineaDeVenta(List<LineaDeVenta> lineaDeVenta) {
+        this.lineaDeVenta = lineaDeVenta;
     }
 
-    public void setComprobante(Comprobante comprobante) {
-        this.comprobante = comprobante;
-    }
+   
     
 }

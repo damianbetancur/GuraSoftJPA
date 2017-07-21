@@ -31,8 +31,8 @@ public class Pago implements Serializable {
         return id;
     }
 
-    @Column(name = "PRECIO", length = 50)
-    private float precio;
+    @Column(name = "TOTAL", length = 50)
+    private float total;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA")
@@ -45,11 +45,14 @@ public class Pago implements Serializable {
     @Column(name = "ES_COMPLETA")
     private boolean esCompleta;
     
-    @Column(name = "cantidad")
-    private float cantidad;
+    @Column(name = "IVA")
+    private float iva;
     
-    @Column(name = "saldo")
-    private float saldo;
+    @Column(name = "descuento")
+    private float descuento;
+    
+    @Column(name = "subTotal")
+    private float subTotal;
     
     @Column(name = "tipoPago")
     private TipoPago tipoPago;
@@ -83,12 +86,12 @@ public class Pago implements Serializable {
         return "model.Pago[ id=" + id + " ]";
     }
 
-    public float getPrecio() {
-        return precio;
+    public float getTotal() {
+        return total;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public Date getFecha() {
@@ -115,34 +118,22 @@ public class Pago implements Serializable {
         this.esCompleta = esCompleta;
     }
 
-    public float getCantidad() {
-        return cantidad;
+    public float getIva() {
+        return iva;
     }
 
-    public void setCantidad(float cantidad) {
-        this.cantidad = cantidad;
+    public void setIva(float iva) {
+        this.iva = iva;
     }
 
-    public float getSaldo() {
-        return saldo;
+    public float getDescuento() {
+        return descuento;
     }
 
-    public void setSaldo(float saldo) {
-        this.saldo = saldo;
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
     }
     
-    public void actualizarCuentaCorriente(Cliente unCliente, boolean enCuentaCorriente){
-        if(enCuentaCorriente){
-            //Lo que debe el Cliente + el pago actual
-            unCliente.getCuentaCorriente().setSaldo(unCliente.getCuentaCorriente().getSaldo()+this.getPrecio());
-            this.setSaldo(this.getPrecio());
-            this.setEsCompleta(false);
-        }else{
-            this.setSaldo(0);
-            this.setEsCompleta(false);
-        }
-    
-    }
 
     public TipoPago getTipoPago() {
         return tipoPago;
@@ -150,6 +141,14 @@ public class Pago implements Serializable {
 
     public void setTipoPago(TipoPago tipoPago) {
         this.tipoPago = tipoPago;
+    }
+
+    public float getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(float subTotal) {
+        this.subTotal = subTotal;
     }
     
 }
