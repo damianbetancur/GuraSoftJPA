@@ -92,7 +92,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jcb_Deposito = new javax.swing.JComboBox<>();
         jbtn_BuscarDeposito = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jtf_Total = new javax.swing.JTextField();
+        jtf_subTotal = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSpinnerDescuento = new javax.swing.JSpinner();
@@ -122,10 +122,10 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         }
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 30, 780, 130);
+        jScrollPane1.setBounds(20, 20, 780, 130);
 
         add(jPanel2);
-        jPanel2.setBounds(10, 510, 820, 170);
+        jPanel2.setBounds(10, 520, 820, 160);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel4.setText("Registro de Comprobante");
@@ -312,24 +312,24 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
 
         jbtn_BuscarDeposito.setText("SELECCIONAR DEPOSITO DE UNIDAD");
         jPanel7.add(jbtn_BuscarDeposito);
-        jbtn_BuscarDeposito.setBounds(20, 50, 280, 30);
+        jbtn_BuscarDeposito.setBounds(20, 60, 280, 30);
 
         add(jPanel7);
-        jPanel7.setBounds(10, 410, 310, 90);
+        jPanel7.setBounds(10, 410, 310, 100);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TOTAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
         jPanel6.setLayout(null);
 
-        jtf_Total.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
-        jtf_Total.setForeground(new java.awt.Color(255, 0, 0));
-        jtf_Total.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtf_Total.setEnabled(false);
-        jtf_Total.setFocusable(false);
-        jPanel6.add(jtf_Total);
-        jtf_Total.setBounds(30, 30, 200, 50);
+        jtf_subTotal.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        jtf_subTotal.setForeground(new java.awt.Color(255, 0, 0));
+        jtf_subTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_subTotal.setEnabled(false);
+        jtf_subTotal.setFocusable(false);
+        jPanel6.add(jtf_subTotal);
+        jtf_subTotal.setBounds(30, 30, 220, 50);
 
         add(jPanel6);
-        jPanel6.setBounds(560, 410, 260, 90);
+        jPanel6.setBounds(560, 410, 270, 90);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel8.setLayout(null);
@@ -397,13 +397,13 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
     private javax.swing.JTextField jtf_ID;
     private javax.swing.JTextField jtf_Nombre;
     private javax.swing.JTextField jtf_NumeroComprobante;
-    private javax.swing.JTextField jtf_Total;
     private javax.swing.JTextField jtf_calle_direccion;
     private javax.swing.JTextField jtf_ctaCte;
     private javax.swing.JTextField jtf_cuitCuil;
     private javax.swing.JTextField jtf_departamento_direccion;
     private javax.swing.JTextField jtf_numero_direccion;
     private javax.swing.JTextField jtf_piso_direccion;
+    private javax.swing.JTextField jtf_subTotal;
     private javax.swing.JTable tablaLineaDeVenta;
     // End of variables declaration//GEN-END:variables
 
@@ -417,7 +417,7 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         jbtn_SalirSinGrabar.addActionListener(c); 
         jbtn_GrabarEImprimir.addActionListener(c); 
         jbtn_BuscarDeposito.addActionListener(c); 
-        jtf_Total.addActionListener(c); 
+        jtf_subTotal.addActionListener(c); 
        
         //Agrego la tabla al escuchador Mouse Listener para verificar elementos seleccionados
         //tablaLineaDeVenta.addMouseListener(c);
@@ -669,12 +669,12 @@ public final class PanelRegistroVenta extends javax.swing.JPanel  implements Int
         this.tablaLineaDeVenta = tablaLineaDeVenta;
     }
 
-    public javax.swing.JTextField getJtf_Total() {
-        return jtf_Total;
+    public javax.swing.JTextField getJtf_subTotal() {
+        return jtf_subTotal;
     }
 
-    public void setJtf_Total(javax.swing.JTextField jtf_Total) {
-        this.jtf_Total = jtf_Total;
+    public void setJtf_subTotal(javax.swing.JTextField jtf_Total) {
+        this.jtf_subTotal = jtf_Total;
     }
 
     public javax.swing.JSpinner getjSpinnerDescuento() {

@@ -39,15 +39,17 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jtf_Total = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jtf_Pago = new javax.swing.JTextField();
+        jtf_subTotal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtf_Cambio = new javax.swing.JTextField();
+        jtf_Total = new javax.swing.JTextField();
         jcb_TipoPago = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jbtn_Pagar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jtf_IVA = new javax.swing.JTextField();
+        jlbl_IVA = new javax.swing.JLabel();
+        jtf_Descuento = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -55,31 +57,23 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
 
         jLabel1.setText("Tipo Pago");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(190, 220, 70, 20);
+        jLabel1.setBounds(190, 300, 70, 20);
+
+        jtf_subTotal.setEnabled(false);
+        jPanel1.add(jtf_subTotal);
+        jtf_subTotal.setBounds(270, 140, 140, 20);
+
+        jLabel3.setText("Total");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(190, 350, 70, 20);
 
         jtf_Total.setEnabled(false);
         jPanel1.add(jtf_Total);
-        jtf_Total.setBounds(270, 170, 140, 20);
-
-        jLabel2.setText("Pago");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(190, 280, 70, 20);
-
-        jtf_Pago.setEnabled(false);
-        jPanel1.add(jtf_Pago);
-        jtf_Pago.setBounds(270, 280, 140, 20);
-
-        jLabel3.setText("Cambio");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(190, 320, 70, 20);
-
-        jtf_Cambio.setEnabled(false);
-        jPanel1.add(jtf_Cambio);
-        jtf_Cambio.setBounds(270, 320, 140, 20);
+        jtf_Total.setBounds(270, 350, 140, 20);
 
         jcb_TipoPago.setEnabled(false);
         jPanel1.add(jcb_TipoPago);
-        jcb_TipoPago.setBounds(270, 220, 140, 22);
+        jcb_TipoPago.setBounds(270, 300, 140, 22);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setText("Registrar Pago");
@@ -90,9 +84,25 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
         jPanel1.add(jbtn_Pagar);
         jbtn_Pagar.setBounds(190, 410, 220, 40);
 
-        jLabel5.setText("Total");
+        jLabel5.setText("Sub-Total");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(190, 170, 70, 20);
+        jLabel5.setBounds(190, 140, 70, 20);
+
+        jtf_IVA.setEnabled(false);
+        jPanel1.add(jtf_IVA);
+        jtf_IVA.setBounds(270, 190, 140, 20);
+
+        jlbl_IVA.setText("IVA");
+        jPanel1.add(jlbl_IVA);
+        jlbl_IVA.setBounds(190, 190, 70, 20);
+
+        jtf_Descuento.setEnabled(false);
+        jPanel1.add(jtf_Descuento);
+        jtf_Descuento.setBounds(270, 250, 140, 20);
+
+        jLabel7.setText("Descuento");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(190, 250, 70, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,34 +124,40 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbtn_Pagar;
     private javax.swing.JComboBox<String> jcb_TipoPago;
-    private javax.swing.JTextField jtf_Cambio;
-    private javax.swing.JTextField jtf_Pago;
+    private javax.swing.JLabel jlbl_IVA;
+    private javax.swing.JTextField jtf_Descuento;
+    private javax.swing.JTextField jtf_IVA;
     private javax.swing.JTextField jtf_Total;
+    private javax.swing.JTextField jtf_subTotal;
     // End of variables declaration//GEN-END:variables
 
 
     @Override
     public void setControlador(Controller c) {
     try {
-        jtf_Cambio.addActionListener(c);
         jtf_Total.addActionListener(c);
-        jtf_Pago.addActionListener(c);
+        jtf_subTotal.addActionListener(c);
+        jtf_IVA.addActionListener(c);
+        jtf_Descuento.addActionListener(c);
         
-        jtf_Cambio.addKeyListener(c);
         jtf_Total.addKeyListener(c);
-        jtf_Pago.addKeyListener(c);
+        jtf_subTotal.addKeyListener(c);
+        jtf_IVA.addKeyListener(c);
+        jtf_Descuento.addKeyListener(c);
         
         jcb_TipoPago.addItemListener(c);
         jcb_TipoPago.addFocusListener(c);
         
         jbtn_Pagar.addActionListener(c);
+        
+        
         
     } catch (Exception e) {
     }
@@ -196,20 +212,29 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
         this.jcb_TipoPago = jcb_TipoPago;
     }
 
-    public javax.swing.JTextField getJtf_Cambio() {
-        return jtf_Cambio;
+
+    public javax.swing.JTextField getJtf_subTotal() {
+        return jtf_subTotal;
     }
 
-    public void setJtf_Cambio(javax.swing.JTextField jtf_Cambio) {
-        this.jtf_Cambio = jtf_Cambio;
+    public void setJtf_subTotal(javax.swing.JTextField jtf_Total) {
+        this.jtf_subTotal = jtf_Total;
     }
 
-    public javax.swing.JTextField getJtf_Pago() {
-        return jtf_Pago;
+    public javax.swing.JTextField getJtf_Descuento() {
+        return jtf_Descuento;
     }
 
-    public void setJtf_Pago(javax.swing.JTextField jtf_Pago) {
-        this.jtf_Pago = jtf_Pago;
+    public void setJtf_Descuento(javax.swing.JTextField jtf_Descuento) {
+        this.jtf_Descuento = jtf_Descuento;
+    }
+
+    public javax.swing.JTextField getJtf_IVA() {
+        return jtf_IVA;
+    }
+
+    public void setJtf_IVA(javax.swing.JTextField jtf_IVA) {
+        this.jtf_IVA = jtf_IVA;
     }
 
     public javax.swing.JTextField getJtf_Total() {
@@ -218,6 +243,14 @@ public class JDialogPagar extends javax.swing.JDialog implements InterfacePanel 
 
     public void setJtf_Total(javax.swing.JTextField jtf_Total) {
         this.jtf_Total = jtf_Total;
+    }
+
+    public javax.swing.JLabel getJlbl_IVA() {
+        return jlbl_IVA;
+    }
+
+    public void setJlbl_IVA(javax.swing.JLabel jlbl_IVA) {
+        this.jlbl_IVA = jlbl_IVA;
     }
     
     

@@ -813,6 +813,7 @@ public class ClienteController extends Controller {
                 bloquearAceptarModificar = false;
             }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Cliente con comprobantes relacionados, imposible eliminar");
             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

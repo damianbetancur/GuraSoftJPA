@@ -6,6 +6,8 @@
 package model;
 
 import java.util.ArrayList;
+import model.JPAController.ComprobanteJpaController;
+import model.JPAController.Conexion;
 import model.JPAController.PrecioArticuloJpaController;
 
 /**
@@ -13,8 +15,10 @@ import model.JPAController.PrecioArticuloJpaController;
  * @author Ariel
  */
 public class FijarPrecioVentaMinorista extends IEstrategiaFijarPreciosVenta{
-
+    private ComprobanteJpaController modeloComprobante;
     public FijarPrecioVentaMinorista() {
+        modeloComprobante = new ComprobanteJpaController(Conexion.getEmf());
+        iva = 21f;
     }
 
     @Override
@@ -48,16 +52,29 @@ public class FijarPrecioVentaMinorista extends IEstrategiaFijarPreciosVenta{
     }
 
     @Override
-    public void crearComprobante(Venta venta, Comprobante comp) {
-        Pago nuevoPago = new Pago();
-        nuevoPago.actualizarCuentaCorriente(venta.getCliente(), true);
-        
+    public void crearComprobante(Venta venta, TalonarioComprobante talonario) {
         Ticket nuevoTicket = new Ticket();
-        venta.getPago();
-        nuevoTicket.setVenta(venta);
+        nuevoTicket.setNumeroComprobante(talonario.getNumeracion_Actual());        
         nuevoTicket.setFecha(venta.getFecha());
-        comp = nuevoTicket;
+        nuevoTicket.setSubTotal(venta.getPago().getSubTotal());
+        nuevoTicket.setIva(venta.getPago().getIva());
+        nuevoTicket.setTotal(venta.getPago().getTotal());
+        nuevoTicket.setDescuento(venta.getPago().getDescuento());        
+        nuevoTicket.setVenta(venta);
+        modeloComprobante.create(nuevoTicket);
                
+    }
+
+    @Override
+    public float aplicarIVA(float total) {
+        float totalIVA = 0f;
+        totalIVA = (total * iva )/100f;
+        return totalIVA;
+    }
+
+    @Override
+    public float getIVA() {
+        return iva;
     }
 
     
