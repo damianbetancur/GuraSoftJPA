@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Se Crea Login Vista
+        //Se Crea Login Vista .
         Login vista = new Login();
 
         //Se Crea Modelo UsuarioJPAController            
