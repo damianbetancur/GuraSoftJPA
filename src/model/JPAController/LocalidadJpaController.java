@@ -5,7 +5,7 @@
  */
 package model.JPAController;
 
-import controller.exceptions.NonexistentEntityException;
+import model.JPAController.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
