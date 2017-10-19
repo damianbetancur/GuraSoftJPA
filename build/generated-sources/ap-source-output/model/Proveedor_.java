@@ -8,7 +8,7 @@ import model.Articulo;
 import model.CuentaCorriente;
 import model.Empresa;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-10-19T04:17:03")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-07-20T23:36:07")
 @StaticMetamodel(Proveedor.class)
 public class Proveedor_ extends Persona_ {
 
